@@ -1,0 +1,36 @@
+### [41. First Missing Positive](https://leetcode.com/problems/first-missing-positive/description/)
+
+[Description](https://leetcode.com/problems/first-missing-positive/description/)[Hints](https://leetcode.com/problems/first-missing-positive/hints/)[Submissions](https://leetcode.com/problems/first-missing-positive/submissions/)[Discuss](https://leetcode.com/problems/first-missing-positive/discuss/)[Solution](https://leetcode.com/problems/first-missing-positive/solution/)
+
+[Pick One](https://leetcode.com/problems/random-one-question/)
+
+------
+
+Given an unsorted integer array, find the smallest missing positive integer.
+
+**Example 1:**
+
+```
+Input: [1,2,0]
+Output: 3
+```
+
+**Example 2:**
+
+```
+Input: [3,4,-1,1]
+Output: 2
+```
+
+**Example 3:**
+
+```
+Input: [7,8,9,11,12]
+Output: 1
+```
+
+**Note:**
+
+Your algorithm should run in *O*(*n*) time and uses constant extra space.
+
+ 

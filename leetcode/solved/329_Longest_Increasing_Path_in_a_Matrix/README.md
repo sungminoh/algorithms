@@ -1,0 +1,33 @@
+### [329. Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/)
+
+Hard
+
+Given an integer matrix, find the length of the longest increasing path.
+
+From each cell, you can either move to four directions: left, right, up or down. You may NOT move diagonally or move outside of the boundary (i.e. wrap-around is not allowed).
+
+__Example 1:__
+
+<strong>Input: </strong>nums = 
+    [
+      [<font color="red">9</font>,9,4],
+      [<font color="red">6</font>,6,8],
+      [<font color="red">2</font>,<font color="red">1</font>,1]
+    ] 
+    <strong>Output:</strong> 4 
+    <strong>Explanation:</strong> The longest increasing path is [1, 2, 6, 9].
+
+__Example 2:__
+
+<strong>Input:</strong> nums = 
+    [
+      [<font color="red">3</font>,<font color="red">4</font>,<font color="red">5</font>],
+      [3,2,<font color="red">6</font>],
+      [2,2,1]
+    ] 
+    <strong>Output: </strong>4 
+    <strong>Explanation: </strong>The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 377,921 | 165,407 | 43.8% |

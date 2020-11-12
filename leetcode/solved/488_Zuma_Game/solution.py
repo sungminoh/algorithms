@@ -44,6 +44,7 @@ Constraints:
 	1 <= hand.length <= 5
 	Both input strings will be non-empty and only contain characters 'R','Y','B','G','W'.
 """
+from functools import lru_cache
 import sys
 from collections import Counter
 import pytest
@@ -79,8 +80,19 @@ class Solution:
                 i = j
             return ret
 
-        h = Counter(hand)
-        m = dfs(board, h)
+        @lru_cache(None)
+        def dfs(b, h):
+            if not b:
+                return 0
+            h = ''.join(x for x in h if x in set(b))
+            ret = float('inf')
+            for i, c in enumerate(b):
+                for j, d in enumerate(h):
+                    ret = min(ret, 1 + dfs(compress(b[:i] + d + b[i:]), h[:j] + h[j+1:]))
+            return ret
+
+        # h = Counter(hand)
+        m = dfs(board, hand)
         return m if m < float('inf') else -1
 
     def _findMinStep(self, board, hand):
@@ -107,7 +119,7 @@ class Solution:
     ("WWRRBBWW", "WRBRW", 2),
     ("G", "GGGGG", 2),
     ("RBYYBBRRB", "YRBGB", 3),
-    ("RRWWRRBBRR", "WB", -1),
+    ("RRWWRRBBRR", "WB", 2),
     ("WWBBWBBWW", "BB", -1),
 ])
 def test(board, hand, expected):

@@ -11,13 +11,13 @@
 """
 from pathlib import Path
 import html
-import html2markdown
 import json
 import os
+import re
 import sys
 
-import re
 import requests
+import html2markdown
 
 
 DATA = {

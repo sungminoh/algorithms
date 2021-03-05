@@ -11,6 +11,7 @@
 """
 
 import pytest
+from typing import Callable
 from typing import Any
 from typing import List
 from dataclasses import dataclass
@@ -82,7 +83,7 @@ class SegmentTree(object):
                 self.arr[root].v = self.func(self.arr[self.left(root)].v, self.arr[self.right(root)].v)
         _rec(0, 0, pow(2, self.depth) - 1, i, val)
 
-    def getRange(self, i: int, j: int) -> int:
+    def query(self, i: int, j: int) -> int:
         def _rec(root, l, r, i, j):
             if l >= i and r <= j:
                 return self.arr[root].v
@@ -97,11 +98,53 @@ class SegmentTree(object):
         return _rec(0, 0, pow(2, self.depth) - 1, i, j)
 
 
+class SimpleSegmentTree:
+    def __init__(self, vals: List[Any], merge: Callable[[Any, Any], Any]):
+        def build(l, r):
+            if l == r:
+                return [vals[l], None, None]
+            m = l + ((r-l)//2)
+            left = build(l, m)
+            right = build(m+1, r)
+            return [merge(left[0], right[0]), left, right]
+        self.tree = build(0, len(vals)-1)
+        self.size = len(vals)
+        self.merge = merge
+
+    def update(self, i: int, val: int) -> None:
+        def change_value(l, r, tree):
+            if l == r == i:
+                tree[0] = val
+                return
+            m = l + ((r-l)//2)
+            if i <= m:
+                change_value(l, m, tree[1])
+            if i > m:
+                change_value(m+1, r, tree[2])
+            tree[0] = self.merge(tree[1][0], tree[2][0])
+
+        change_value(0, self.size-1, self.tree)
+
+    def query(self, i, j):
+        def find(i, j, l, r, tree):
+            if i <= l and r <= j:
+                return tree[0]
+            m = l + ((r-l)//2)
+            if j <= m:
+                return find(i, j, l, m, tree[1])
+            if i > m:
+                return find(i, j, m+1, r, tree[2])
+            return self.merge(
+                find(i, m, l, m, tree[1]),
+                find(m+1, j, m+1, r, tree[2]),
+            )
+
+        return find(i, j, 0, self.size-1, self.tree)
+
 
 def test_init():
     nums = [1,2,3,4,5,6,7,8,9]
     tree = SegmentTree(nums, lambda x, y: x + y)
-    print(tree.arr)
 
     def get_node(i):
         return tree.arr[i].v
@@ -119,7 +162,6 @@ def test_update():
     nums = [1,2,3,4,5,6,7,8,9]
     tree = SegmentTree(nums, lambda x, y: x + y)
     tree.update(0, 10)
-    print(tree.arr)
 
     def get_node(i):
         return tree.arr[i].v
@@ -130,7 +172,6 @@ def test_update():
     assert get_node(3) == sum(range(1, 5)) + 9
 
     tree.update(8, 1)
-    print(tree.arr)
     assert get_node(0) == sum(range(1, 10)) + 9 - 8
     assert get_node(2) == 1
 
@@ -141,4 +182,42 @@ def test_range():
 
     for i in range(len(nums)):
         for j in range(i, len(nums)):
-            assert tree.getRange(i, j) == sum(nums[i:j + 1])
+            assert tree.query(i, j) == sum(nums[i:j + 1])
+
+
+def test_simple_init():
+    nums = [1,2,3,4,5,6,7,8,9]
+    tree = SimpleSegmentTree(nums, lambda x, y: x + y)
+
+    assert tree.query(0, 8) == sum(range(1, 10))
+    assert tree.query(0, 7) == sum(range(1, 9))
+    assert tree.query(8, 8) == 9
+    assert tree.query(0, 3) == sum(range(1, 5))
+
+    # nums = []
+    # tree = SimpleSegmentTree(nums, lambda x, y: x + y)
+
+
+def test_simple_update():
+    nums = [1,2,3,4,5,6,7,8,9]
+    tree = SimpleSegmentTree(nums, lambda x, y: x + y)
+    tree.update(0, 10)
+
+    assert tree.query(0, 8) == sum(range(1, 10)) + 9
+    assert tree.query(0, 7) == sum(range(1, 9)) + 9
+    assert tree.query(8, 8) == 9
+    assert tree.query(0, 3) == sum(range(1, 5)) + 9
+
+    tree.update(8, 1)
+    assert tree.query(0, 8) == sum(range(1, 10)) + 9 - 8
+    assert tree.query(8, 8) == 1
+
+
+def test_simple_range():
+    nums = [1,2,3,4,5,6,7,8,9]
+    tree = SimpleSegmentTree(nums, lambda x, y: x + y)
+
+    for i in range(len(nums)):
+        for j in range(i, len(nums)):
+            assert tree.query(i, j) == sum(nums[i:j + 1])
+

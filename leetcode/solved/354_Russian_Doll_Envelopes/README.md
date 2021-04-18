@@ -2,23 +2,37 @@
 
 Hard
 
-You have a number of envelopes with widths and heights given as a pair of integers `` (w, h) ``. One envelope can fit into another if and only if both the width and height of one envelope is greater than the width and height of the other envelope.
+You are given a 2D array of integers `` envelopes `` where <code>envelopes[i] = [w<sub>i</sub>, h<sub>i</sub>]</code> represents the width and the height of an envelope.
 
-What is the maximum number of envelopes can you Russian doll? (put one inside other)
+One envelope can fit into another if and only if both the width and height of one envelope are greater than the other envelope's width and height.
 
-__Note:__  
-Rotation is not allowed.
+Return _the maximum number of envelopes you can Russian doll (i.e., put one inside the other)_.
 
-__Example:__
+__Note:__ You cannot rotate an envelope.
 
-<div>
+ 
+
+__Example 1:__
+
+<strong>Input:</strong> envelopes = [[5,4],[6,4],[6,7],[2,3]]
+    <strong>Output:</strong> 3
+    <strong>Explanation:</strong> The maximum number of envelopes you can Russian doll is 3 ([2,3] => [5,4] => [6,7]).
+
+__Example 2:__
+
 ```
-Input: <span id="example-input-1-1">[[5,4],[6,4],[6,7],[2,3]]</span>
-Output: <span id="example-output-1">3 
-Explanation: T</span>he maximum number of envelopes you can Russian doll is <code>3</code> ([2,3] => [5,4] => [6,7]).
+Input: envelopes = [[1,1],[1,1],[1,1]]
+Output: 1
 ```
-</div>
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= envelopes.length <= 5000 ``
+*   `` envelopes[i].length == 2 ``
+*   <code>1 <= w<sub>i</sub>, h<sub>i</sub> <= 10<sup>4</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 206,982 | 73,935 | 35.7% |
+| 268,960 | 101,507 | 37.7% |

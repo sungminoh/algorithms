@@ -5,40 +5,110 @@
 # Copyright © 2019 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
-
 """
-According to the Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
+According to Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
 
-Given a board with m by n cells, each cell has an initial state live (1) or dead (0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):
+The board is made up of an m x n grid of cells, where each cell has an initial state: live (represented by a 1) or dead (represented by a 0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):
 
-Any live cell with fewer than two live neighbors dies, as if caused by under-population.
-Any live cell with two or three live neighbors lives on to the next generation.
-Any live cell with more than three live neighbors dies, as if by over-population..
-Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
-Write a function to compute the next state (after one update) of the board given its current state. The next state is created by applying the above rules simultaneously to every cell in the current state, where births and deaths occur simultaneously.
+    Any live cell with fewer than two live neighbors dies as if caused by under-population.
+    Any live cell with two or three live neighbors lives on to the next generation.
+    Any live cell with more than three live neighbors dies, as if by over-population.
+    Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
 
-Example:
+The next state is created by applying the above rules simultaneously to every cell in the current state, where births and deaths occur simultaneously. Given the current state of the m x n grid board, return the next state.
 
-Input:
-[
-  [0,1,0],
-  [0,0,1],
-  [1,1,1],
-  [0,0,0]
-]
-Output:
-[
-  [0,0,0],
-  [1,0,1],
-  [0,1,1],
-  [0,1,0]
-]
+Example 1:
+
+Input: board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+
+Example 2:
+
+Input: board = [[1,1],[1,0]]
+Output: [[1,1],[1,1]]
+
+Constraints:
+
+    m == board.length
+    n == board[i].length
+    1 <= m, n <= 25
+    board[i][j] is 0 or 1.
+
 Follow up:
 
-Could you solve it in-place? Remember that the board needs to be updated at the same time: You cannot update some cells first and then use their updated values to update other cells.
-In this question, we represent the board using a 2D array. In principle, the board is infinite, which would cause problems when the active area encroaches the border of the array. How would you address these problems?
+    Could you solve it in-place? Remember that the board needs to be updated simultaneously: You cannot update some cells first and then use their updated values to update other cells.
+    In this question, we represent the board using a 2D array. In principle, the board is infinite, which would cause problems when the active area encroaches upon the border of the array (i.e., live cells reach the border). How would you address these problems?
 """
-from typing import List, Union
+from pprint import pprint
+import sys
+from typing import Union
+from typing import List
+import pytest
+
+
+def neighbors(board, pos):
+    """Generate all neighbors"""
+    def surroundings(board, pos):
+        if not pos:
+            yield tuple()
+        else:
+            for subpos in surroundings(board[pos[0]], pos[1:]):
+                yield pos[0], *subpos
+                if pos[0] > 0:
+                    yield pos[0]-1, *subpos
+                if pos[0] < len(board)-1:
+                    yield pos[0]+1, *subpos
+    gen = surroundings(board, pos)
+    next(gen)
+    yield from gen
+
+
+def get(board, pos):
+    for x in pos:
+        board = board[x]
+    return board
+
+
+def set(board, pos, val):
+    for x in pos[:-1]:
+        board = board[x]
+    board[pos[-1]] = val
+
+
+def traverse(board):
+    """Get all possible indexes of the board"""
+    if board and not isinstance(board[0], list):
+        yield from ((i, ) for i in range(len(board)))
+    else:
+        for i, subboard in enumerate(board):
+            for subpos in traverse(subboard):
+                yield i, *subpos
+
+
+class Solution:
+    def gameOfLife(self, board: List[List[int]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+
+        Set -1 if a cell was alive but dies.
+        Set 2 if a cell was die but revives.
+        This supports arbitrary n dimension.
+        """
+        for pos in traverse(board):
+            cnt = sum(1 for neighbor in neighbors(board, pos) if abs(get(board, neighbor)) == 1)
+            subboard = get(board, pos[:-1])
+            if (cnt < 2 or cnt > 3) and subboard[pos[-1]] == 1:
+                subboard[pos[-1]] *= -1
+            elif cnt == 3 and subboard[pos[-1]] == 0:
+                subboard[pos[-1]] = 2
+
+        for pos in traverse(board):
+            subboard = get(board, pos[:-1])
+            status = subboard[pos[-1]]
+            if status == 2:
+                subboard[pos[-1]] = 1
+            elif status == -1:
+                subboard[pos[-1]] = 0
 
 
 class Solution:
@@ -114,25 +184,33 @@ class Solution:
             self.set(board, index, 1 if self.get(board, index) > 0 else 0)
 
 
+@pytest.mark.parametrize('board, expected', [
+    ([[0,1,0],
+      [0,0,1],
+      [1,1,1],
+      [0,0,0]],
+     [[0,0,0],
+      [1,0,1],
+      [0,1,1],
+      [0,1,0]]),
+    ([[1,1],[1,0]],
+     [[1,1],[1,1]]),
+    ([[[0],[1],[0]],
+      [[0],[0],[1]],
+      [[1],[1],[1]],
+      [[0],[0],[0]]],
+     [[[0],[0],[0]],
+      [[1],[0],[1]],
+      [[0],[1],[1]],
+      [[0],[1],[0]]])
+])
+def test(board, expected):
+    print()
+    Solution().gameOfLife(board)
+    for row in board:
+        print(row)
+    assert expected == board
+
+
 if __name__ == '__main__':
-    cases = [
-        ([[0,1,0],
-          [0,0,1],
-          [1,1,1],
-          [0,0,0]],
-         [[0,0,0],
-          [1,0,1],
-          [0,1,1],
-          [0,1,0]]),
-        ([[[0],[1],[0]],
-          [[0],[0],[1]],
-          [[1],[1],[1]],
-          [[0],[0],[0]]],
-         [[[0],[0],[0]],
-          [[1],[0],[1]],
-          [[0],[1],[1]],
-          [[0],[1],[0]]]),
-    ]
-    for case, expected in cases:
-        Solution().gameOfLife(case)
-        print(f'{expected == case}\texpected: {expected}\tcase: {case}')
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

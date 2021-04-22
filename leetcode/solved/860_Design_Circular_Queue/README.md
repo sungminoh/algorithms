@@ -6,43 +6,51 @@ Design your implementation of the circular queue. The circular queue is a linear
 
 One of the benefits of the circular queue is that we can make use of the spaces in front of the queue. In a normal queue, once the queue becomes full, we cannot insert the next element even if there is a space in front of the queue. But using the circular queue, we can use the space to store new values.
 
-Your implementation should support following operations:
+Implementation the `` MyCircularQueue `` class:
 
-*   `` MyCircularQueue(k) ``: Constructor, set the size of the queue to be k.
-*   `` Front ``: Get the front item from the queue. If the queue is empty, return -1.
-*   `` Rear ``: Get the last item from the queue. If the queue is empty, return -1.
-*   `` enQueue(value) ``: Insert an element into the circular queue. Return true if the operation is successful.
-*   `` deQueue() ``: Delete an element from the circular queue. Return true if the operation is successful.
-*   `` isEmpty() ``: Checks whether the circular queue is empty or not.
-*   `` isFull() ``: Checks whether the circular queue is full or not.
-
- 
-
-__Example:__
-
-```
-MyCircularQueue circularQueue = new MyCircularQueue(3); // set the size to be 3
-circularQueue.enQueue(1);  // return true
-circularQueue.enQueue(2);  // return true
-circularQueue.enQueue(3);  // return true
-circularQueue.enQueue(4);  // return false, the queue is full
-circularQueue.Rear();  // return 3
-circularQueue.isFull();  // return true
-circularQueue.deQueue();  // return true
-circularQueue.enQueue(4);  // return true
-circularQueue.Rear();  // return 4
-```
-
+*   `` MyCircularQueue(k) `` Initializes the object with the size of the queue to be `` k ``.
+*   `` int Front() `` Gets the front item from the queue. If the queue is empty, return `` -1 ``.
+*   `` int Rear() `` Gets the last item from the queue. If the queue is empty, return `` -1 ``.
+*   `` boolean enQueue(int value) `` Inserts an element into the circular queue. Return `` true `` if the operation is successful.
+*   `` boolean deQueue() `` Deletes an element from the circular queue. Return `` true `` if the operation is successful.
+*   `` boolean isEmpty() `` Checks whether the circular queue is empty or not.
+*   `` boolean isFull() `` Checks whether the circular queue is full or not.
 
  
 
+__Example 1:__
 
-__Note:__
+```
+Input
+["MyCircularQueue", "enQueue", "enQueue", "enQueue", "enQueue", "Rear", "isFull", "deQueue", "enQueue", "Rear"]
+[[3], [1], [2], [3], [4], [], [], [], [4], []]
+Output
+[null, true, true, true, false, 3, true, true, true, 4]
 
-*   All values will be in the range of \[0, 1000\].
-*   The number of operations will be in the range of \[1, 1000\].
-*   Please do not use the built-in Queue library.
+Explanation
+MyCircularQueue myCircularQueue = new MyCircularQueue(3);
+myCircularQueue.enQueue(1); // return True
+myCircularQueue.enQueue(2); // return True
+myCircularQueue.enQueue(3); // return True
+myCircularQueue.enQueue(4); // return False
+myCircularQueue.Rear();     // return 3
+myCircularQueue.isFull();   // return True
+myCircularQueue.deQueue();  // return True
+myCircularQueue.enQueue(4); // return True
+myCircularQueue.Rear();     // return 4
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= k <= 1000 ``
+*   `` 0 <= value <= 1000 ``
+*   At most `` 3000 `` calls will be made to `` enQueue ``, `` deQueue ``, `` Front ``, `` Rear ``, `` isEmpty ``, and `` isFull ``.
+
+ 
+__Follow up:__ Could you solve the problem without using the built-in queue? 
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 141,240 | 61,156 | 43.3% |
+| 245,212 | 116,954 | 47.7% |

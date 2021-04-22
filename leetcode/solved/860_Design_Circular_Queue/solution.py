@@ -23,6 +23,13 @@ Your implementation should support following operations:
 
 Example:
 
+Input
+["MyCircularQueue", "enQueue", "enQueue", "enQueue", "enQueue", "Rear", "isFull", "deQueue", "enQueue", "Rear"]
+[[3], [1], [2], [3], [4], [], [], [], [4], []]
+Output
+[null, true, true, true, false, 3, true, true, true, 4]
+
+Explanation
 MyCircularQueue circularQueue = new MyCircularQueue(3); // set the size to be 3
 circularQueue.enQueue(1);  // return true
 circularQueue.enQueue(2);  // return true
@@ -34,17 +41,20 @@ circularQueue.deQueue();  // return true
 circularQueue.enQueue(4);  // return true
 circularQueue.Rear();  // return 4
 
-Note:
+Constraints:
 
-	All values will be in the range of [0, 1000].
-	The number of operations will be in the range of [1, 1000].
-	Please do not use the built-in Queue library.
+	1 <= k <= 1000
+	0 <= value <= 1000
+	At most 3000 calls will be made to enQueue, deQueue, Front, Rear, isEmpty, and isFull.
+
+Follow up: Could you solve the problem without using the built-in queue?
 """
 import sys
 import pytest
 
 
 class MyCircularQueue:
+    """Using an Array"""
 
     def __init__(self, k: int):
         """
@@ -102,6 +112,54 @@ class MyCircularQueue:
         Checks whether the circular queue is full or not.
         """
         return (self.tail+1) % (self.size+1) == self.head
+
+
+class MyCircularQueue:
+    """Using a CircularLikedList"""
+    class Node:
+        def __init__(self, val, nxt=None):
+            self.val = val
+            self.nxt = nxt
+
+    def __init__(self, k: int):
+        self.k = k
+        self.n = 0
+        self.h = self.t = self.Node(None)
+        for i in range(k):
+            nn = self.Node(None)
+            self.t.nxt = nn
+            self.t = self.t.nxt
+        self.t.nxt = self.h
+        self.t = self.h
+
+    def enQueue(self, value: int) -> bool:
+        if self.isFull():
+            return False
+        self.t.nxt.val = value
+        self.t = self.t.nxt
+        return True
+
+    def deQueue(self) -> bool:
+        if self.isEmpty():
+            return False
+        self.h = self.h.nxt
+        return True
+
+    def Front(self) -> int:
+        if self.isEmpty():
+            return -1
+        return self.h.nxt.val
+
+    def Rear(self) -> int:
+        if self.isEmpty():
+            return -1
+        return self.t.val
+
+    def isEmpty(self) -> bool:
+        return self.h == self.t
+
+    def isFull(self) -> bool:
+        return self.t.nxt == self.h
 
 
 @pytest.mark.parametrize('commands, args, expected', [

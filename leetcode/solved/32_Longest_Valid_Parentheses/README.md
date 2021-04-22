@@ -1,27 +1,41 @@
-### [32. Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/description/)
+### [32. Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/)
 
-[Description](https://leetcode.com/problems/longest-valid-parentheses/description/)[Hints](https://leetcode.com/problems/longest-valid-parentheses/hints/)[Submissions](https://leetcode.com/problems/longest-valid-parentheses/submissions/)[Discuss](https://leetcode.com/problems/longest-valid-parentheses/discuss/)[Solution](https://leetcode.com/problems/longest-valid-parentheses/solution/)
+Hard
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given a string containing just the characters `` '(' `` and `` ')' ``, find the length of the longest valid (well-formed) parentheses substring.
 
-------
+ 
 
-Given a string containing just the characters `'('` and `')'`, find the length of the longest valid (well-formed) parentheses substring.
-
-**Example 1:**
+__Example 1:__
 
 ```
-Input: "(()"
+Input: s = "(()"
 Output: 2
-Explanation: The longest valid parentheses substring is "()"
+Explanation: The longest valid parentheses substring is "()".
 ```
 
-**Example 2:**
+__Example 2:__
 
 ```
-Input: ")()())"
+Input: s = ")()())"
 Output: 4
-Explanation: The longest valid parentheses substring is "()()"
+Explanation: The longest valid parentheses substring is "()()".
 ```
 
- 
+__Example 3:__
+
+```
+Input: s = ""
+Output: 0
+```
+
+ 
+
+__Constraints:__
+
+*   <code>0 <= s.length <= 3 * 10<sup>4</sup></code>
+*   `` s[i] `` is `` '(' ``, or `` ')' ``.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,239,613 | 370,739 | 29.9% |

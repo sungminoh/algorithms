@@ -38,6 +38,10 @@ import pytest
 
 class Solution:
     def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
+        """
+        Time complexity: O(k*m'*n')
+        Space complexity: O(k*m'*n')
+        """
         def count(s):
             ret = [0, 0]
             for c in s:
@@ -58,14 +62,59 @@ class Solution:
 
         return _rec(0, m, n)
 
+    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
+        """
+        Time complexity: O(k*m'*n' + klogk)
+        Space complexity: O(k*m'*n')
+        """
+        def count(s):
+            cnts = [0, 0]
+            for c in s:
+                cnts[0 if c == '0' else 1] += 1
+            return tuple(cnts)
+
+        pairs = [count(s) for s in strs]
+        pairs.sort()
+
+        @lru_cache(None)
+        def dfs(i, m, n):
+            if i >= len(pairs):
+                return 0
+            c0, c1 = pairs[i]
+            if c0 > m:
+                return 0
+            ret = dfs(i+1, m, n)
+            if m >= c0 and n >= c1:
+                ret = max(ret, 1+dfs(i+1, m-c0, n-c1))
+            return ret
+
+        return dfs(0, m, n)
+
+    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
+        """
+        Time complexity: O(k*m*n)
+        Space complexity: O(m*n)
+        """
+        def count(s):
+            cnts = [0, 0]
+            for c in s:
+                cnts[0 if c == '0' else 1] += 1
+            return tuple(cnts)
+
+        dp = [[0] * (n+1) for _ in range(m+1)]
+        for s in strs:
+            c0, c1 = count(s)
+            for i in range(m, c0-1, -1):
+                for j in range(n, c1-1, -1):
+                    dp[i][j] = max(dp[i][j], 1 + dp[i-c0][j-c1])
+
+        return dp[-1][-1]
+
 
 @pytest.mark.parametrize('strs, m, n, expected', [
     (["10","0001","111001","1","0"], 5, 3, 4),
     (["10","0","1"], 1, 1, 2),
+    (["0","11","1000","01","0","101","1","1","1","0","0","0","0","1","0","0110101","0","11","01","00","01111","0011","1","1000","0","11101","1","0","10","0111"], 9, 80, 17)
 ])
 def test(strs, m, n, expected):
     assert expected == Solution().findMaxForm(strs, m, n)
-
-
-if __name__ == '__main__':
-    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

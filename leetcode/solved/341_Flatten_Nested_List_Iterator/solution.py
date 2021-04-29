@@ -7,67 +7,143 @@
 # Distributed under terms of the MIT license.
 
 """
-341. Flatten Nested List Iterator
-Medium
+You are given a nested list of integers nestedList. Each element is either an integer or a list whose elements may also be integers or other lists. Implement an iterator to flatten it.
 
-1462
+Implement the NestedIterator class:
 
-598
-
-Add to List
-
-Share
-Given a nested list of integers, implement an iterator to flatten it.
-
-Each element is either an integer, or a list -- whose elements may also be integers or other lists.
+	NestedIterator(List nestedList) Initializes the iterator with the nested list nestedList.
+	int next() Returns the next integer in the nested list.
+	boolean hasNext() Returns true if there are still some integers in the nested list and false otherwise.
 
 Example 1:
 
-Input: [[1,1],2,[1,1]]
+Input: nestedList = [[1,1],2,[1,1]]
 Output: [1,1,2,1,1]
-Explanation: By calling next repeatedly until hasNext returns false,
-the order of elements returned by next should be: [1,1,2,1,1].
+Explanation: By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,1,2,1,1].
+
 Example 2:
 
-Input: [1,[4,[6]]]
+Input: nestedList = [1,[4,[6]]]
 Output: [1,4,6]
-Explanation: By calling next repeatedly until hasNext returns false,
-the order of elements returned by next should be: [1,4,6].
+Explanation: By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6].
+
+Constraints:
+
+	1 <= nestedList.length <= 500
+	The values of the integers in the nested list is in the range [-106, 106].
 """
+import sys
+from typing import List
+import pytest
+
 
 # """
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
 # """
-import pytest
-
 class NestedInteger:
-    def __init__(self, v):
-        self.v = v
+    def __init__(self, val):
+        self.val = val
 
     def isInteger(self) -> bool:
         """
         @return True if this NestedInteger holds a single integer, rather than a nested list.
         """
-        return isinstance(self.v, int)
+        return isinstance(self.val, int)
 
     def getInteger(self) -> int:
         """
         @return the single integer that this NestedInteger holds, if it holds a single integer
         Return None if this NestedInteger holds a nested list
         """
-        return self.v
+        return self.val if self.isInteger() else None
 
-    def getList(self) -> ['NestedInteger']:
+    def getList(self) -> List['NestedInteger']:
         """
         @return the nested list that this NestedInteger holds, if it holds a nested list
         Return None if this NestedInteger holds a single integer
         """
-        return self.v
+        return self.val if not self.isInteger() else None
+
+    def __repr__(self) -> str:
+        if self.isInteger():
+            return str(self.getInteger())
+        return f"[{', '.join(repr(x) for x in self.val)}]"
+
+
+def build(v):
+    if isinstance(v, int):
+        return NestedInteger(v)
+    return NestedInteger([build(x) for x in v])
 
 
 class NestedIterator:
-    def __init__(self, nestedList: [NestedInteger]):
+    """Recusive
+    assuming the input is NestedInteger not a list of NestedInteger"""
+    def __init__(self, nestedList: NestedInteger):
+        self.x = nestedList if nestedList.isInteger() else [NestedIterator(x) for x in nestedList.getList()]
+        self.i = 0
+
+    def next(self) -> int:
+        if not self.hasNext():
+            raise StopIteration
+        if isinstance(self.x, NestedInteger):
+            ret = self.x.getInteger()
+            self.x = None
+            return ret
+        return self.x[self.i].next()
+
+    def hasNext(self) -> bool:
+        if self.x is None:
+            return False
+        if isinstance(self.x, NestedInteger):
+            return True
+        while self.i < len(self.x) and not self.x[self.i].hasNext():
+            self.i += 1
+        if self.i < len(self.x):
+            return True
+        self.x = None
+        self.i = 0
+        return False
+
+
+class NestedIterator:
+    """Recusive"""
+    def __init__(self, nestedList: List[NestedInteger]):
+        self.l = nestedList
+        self.i = 0
+        self.sub = None
+        self.nxt = None
+
+    def next(self) -> int:
+        if not self.hasNext():
+            raise StopIteration
+        ret = self.nxt
+        self.nxt = None
+        return ret
+
+    def hasNext(self) -> bool:
+        if self.nxt is not None:
+            return True
+        if self.sub:
+            if self.sub.hasNext():
+                self.nxt = self.sub.next()
+                return True
+            self.sub = None
+        if self.i == len(self.l):
+            return False
+        n = self.l[self.i]
+        self.i += 1
+        if n.isInteger():
+            self.nxt = n.getInteger()
+            return True
+        self.sub = NestedIterator(n.getList())
+        return self.hasNext()
+
+
+class NestedIterator:
+    """Recusive"""
+    def __init__(self, nestedList: List[NestedInteger]):
         self.lst = nestedList
         self.nxt = None
         self.update()
@@ -101,28 +177,35 @@ class NestedIterator:
         return self.nxt and (isinstance(self.nxt, NestedInteger) or self.nxt.hasNext())
 
 
+class NestedIterator:
+    """Use stack"""
+    def __init__(self, nestedList: List[NestedInteger]):
+        self.stack = list(reversed(nestedList))
+
+    def next(self) -> int:
+        if not self.hasNext():
+            raise StopIteration()
+        return  self.stack.pop().getInteger()
+
+    def hasNext(self) -> bool:
+        while self.stack and not self.stack[-1].isInteger():
+            self.stack.extend(reversed(self.stack.pop().getList()))
+        return len(self.stack) > 0
+
+
 @pytest.mark.parametrize('nestedList, expected', [
-    ([NestedInteger(i) for i in range(10)],
-     [0,1,2,3,4,5,6,7,8,9]),
-    ([NestedInteger([NestedInteger(i*j) for j in range(3)]) for i in range(3)],
-     [0, 0, 0, 0, 1, 2, 0, 2, 4]),
-    ([NestedInteger([NestedInteger(i*j) for j in range(3)]
-                    if i % 2 != 0
-                    else i)
-      for i in range(8)],
-     [0,0,1,2,2,0,3,6,4,0,5,10,6,0,7,14]),
-    ([NestedInteger([])], []),
-    ([NestedInteger([]),NestedInteger([NestedInteger(3)])], [3])
+    ([[1,1],2,[1,1]], [1,1,2,1,1]),
+    ([1,[4,[6]]], [1,4,6]),
+    ([0,1,2,3,4,5,6,7,8,9], [0,1,2,3,4,5,6,7,8,9]),
+    ([[0,0,0], [0,1,2,], [0,2,4]], [0, 0, 0, 0, 1, 2, 0, 2, 4]),
+    ([], []),
+    ([[],[],[]], []),
 ])
 def test(nestedList, expected):
-    actual = []
-    it = NestedIterator(nestedList)
-    while it.hasNext():
-        actual.append(it.next())
-    print(actual)
+    i, actual = NestedIterator([build(x) for x in nestedList]), []
+    while i.hasNext(): actual.append(i.next())
     assert expected == actual
 
 
-# Your NestedIterator object will be instantiated and called as such:
-# i, v = NestedIterator(nestedList), []
-# while i.hasNext(): v.append(i.next())
+if __name__ == '__main__':
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

@@ -2,43 +2,42 @@
 
 Medium
 
-Suppose you have __N__ integers from 1 to N. We define a beautiful arrangement as an array that is constructed by these __N__ numbers successfully if one of the following is true for the i<sub>th</sub> position (1 <= i <= N) in this array:
+Suppose you have `` n `` integers labeled `` 1 `` through `` n ``. A permutation of those `` n `` integers `` perm `` (__1-indexed__) is considered a __beautiful arrangement__ if for every `` i `` (`` 1 <= i <= n ``), __either__ of the following is true:
 
-1.   The number at the i<sub>th</sub> position is divisible by __i__.
-2.   __i__ is divisible by the number at the i<sub>th</sub> position.
+*   `` perm[i] `` is divisible by `` i ``.
+*   `` i `` is divisible by `` perm[i] ``.
+
+Given an integer `` n ``, return _the __number__ of the __beautiful arrangements__ that you can construct_.
 
  
-
-Now given N, how many beautiful arrangements can you construct?
 
 __Example 1:__
 
 ```
-<b>Input:</b> 2
-<b>Output:</b> 2
+Input: n = 2
+Output: 2
 <b>Explanation:</b> 
+The first beautiful arrangement is [1,2]:
+    - perm[1] = 1 is divisible by i = 1
+    - perm[2] = 2 is divisible by i = 2
+The second beautiful arrangement is [2,1]:
+    - perm[1] = 2 is divisible by i = 1
+    - i = 2 is divisible by perm[2] = 1
+```
 
-The first beautiful arrangement is [1, 2]:
+__Example 2:__
 
-Number at the 1st position (i=1) is 1, and 1 is divisible by i (i=1).
-
-Number at the 2nd position (i=2) is 2, and 2 is divisible by i (i=2).
-
-The second beautiful arrangement is [2, 1]:
-
-Number at the 1st position (i=1) is 2, and 2 is divisible by i (i=1).
-
-Number at the 2nd position (i=2) is 1, and i (i=2) is divisible by 1.
+```
+Input: n = 1
+Output: 1
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-1.   __N__ is a positive integer and will not exceed 15.
-
- 
+*   `` 1 <= n <= 15 ``
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 85,085 | 48,833 | 57.4% |
+| 146,148 | 90,889 | 62.2% |

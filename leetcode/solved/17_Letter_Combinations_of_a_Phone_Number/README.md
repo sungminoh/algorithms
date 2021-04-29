@@ -1,22 +1,43 @@
-### [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/)
+### [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)
 
-[**Description](https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/)[**Hints](https://leetcode.com/problems/letter-combinations-of-a-phone-number/hints/)[**Submissions](https://leetcode.com/problems/letter-combinations-of-a-phone-number/submissions/)[**Discuss](https://leetcode.com/problems/letter-combinations-of-a-phone-number/discuss/)[**Solution](https://leetcode.com/problems/letter-combinations-of-a-phone-number/solution/)
+Medium
 
-[**Pick One](https://leetcode.com/problems/random-one-question/)
+Given a string containing digits from `` 2-9 `` inclusive, return all possible letter combinations that the number could represent. Return the answer in __any order__.
 
-------
+A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
 
-Given a digit string, return all possible letter combinations that the number could represent.
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Telephone-keypad2.svg/200px-Telephone-keypad2.svg.png" style="width: 200px; height: 162px;"/>
 
-A mapping of digit to letters (just like on the telephone buttons) is given below.
+ 
 
-![img](http://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Telephone-keypad2.svg/200px-Telephone-keypad2.svg.png)
-
-```
-Input:Digit string "23"
-Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+__Example 1:__
 
 ```
+Input: digits = "23"
+Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+```
 
-**Note:**
-Although the above answer is in lexicographical order, your answer could be in any order you want.
+__Example 2:__
+
+```
+Input: digits = ""
+Output: []
+```
+
+__Example 3:__
+
+```
+Input: digits = "2"
+Output: ["a","b","c"]
+```
+
+ 
+
+__Constraints:__
+
+*   `` 0 <= digits.length <= 4 ``
+*   `` digits[i] `` is a digit in the range `` ['2', '9'] ``.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,654,486 | 827,810 | 50.0% |

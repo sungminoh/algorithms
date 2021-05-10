@@ -37,6 +37,7 @@ Constraints:
 	-1000 <= matrix[i] <= 1000
 	-10^8 <= target <= 10^8
 """
+from itertools import accumulate
 from functools import lru_cache
 from collections import defaultdict
 from pathlib import Path
@@ -79,8 +80,8 @@ class Solution:
 
     def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
         """When all elements are >= 0"""
-        def area(x, y, i, j):
-            return integral[i][j] - integral[x-1][j] - integral[i][y-1] + integral[x-1][y-1]
+        def area(mat, x, y, i, j):
+            return mat[i][j] - mat[x-1][j] - mat[i][y-1] + mat[x-1][y-1]
 
         def build_integral(matrix):
             integral = [[0]*(len(matrix[0])+1) for _ in range(len(matrix)+1)]
@@ -108,16 +109,58 @@ class Solution:
         cnt = 0
         for i in range(n):
             for j in range(m):
-                row_idx = bisearch(i, n-1, target, key=lambda x: area(i, j, x, m-1))
+                row_idx = bisearch(i, n-1, target, key=lambda x: area(integral, i, j, x, m-1))
                 e = m-1
                 for x in range(row_idx, n):
                     if e < 0:
                         break;
-                    e = bisearch(j, e, target, key=lambda y: area(i, j, x, y))
-                    if area(i, j, x, e) == target:
+                    e = bisearch(j, e, target, key=lambda y: area(integral, i, j, x, y))
+                    if area(integral, i, j, x, e) == target:
                         cnt += 1
                     e -= 1
         return cnt
+
+    def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
+        """
+        For a given two row indexes of integral sum, apply below algrithm which is O(n)
+        560_Subarray_Sum_Equals_K
+        https://github.com/sungminoh/algorithms/tree/master/leetcode/solved/560_Subarray_Sum_Equals_K
+
+        Time complexity: O(n^3)
+        Space complexity: O(n^2) + O(n)
+        """
+        def area(mat, x, y, i, j):
+            return mat[i][j] - mat[x-1][j] - mat[i][y-1] + mat[x-1][y-1]
+
+        def build_integral(matrix):
+            integral = [[0]*(len(matrix[0])+1) for _ in range(len(matrix)+1)]
+            n, m = len(matrix), len(matrix[0])
+            for i in range(n):
+                for j in range(m):
+                    integral[i][j] = integral[i-1][j] + integral[i][j-1] - integral[i-1][j-1] + matrix[i][j]
+            return integral
+
+        def find(arr, k):
+            cnt = 0
+            cumsum = defaultdict(int)
+            cumsum[0] = 1
+            for i, n in enumerate(accumulate(arr)):
+                cnt += cumsum.get(n-k, 0)
+                cumsum[n] += 1
+            return cnt
+
+        if not matrix or not matrix[0]:
+            return 0
+
+        n, m = len(matrix), len(matrix[0])
+        integral = build_integral(matrix)
+        cnt = 0
+        for i1 in range(n):
+            for i2 in range(i1, n):
+                arr = [area(integral, i1, j, i2, j) for j in range(m)]
+                cnt += find(arr, target)
+        return cnt
+
 
 @pytest.mark.parametrize('matrix, target, expected', [
 ([[0,1,0],[1,1,1],[0,1,0]], 0, 4),

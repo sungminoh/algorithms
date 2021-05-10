@@ -1,22 +1,45 @@
-### [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/)
+### [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
 
-[**Description](https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/)[**Hints](https://leetcode.com/problems/remove-nth-node-from-end-of-list/hints/)[**Submissions](https://leetcode.com/problems/remove-nth-node-from-end-of-list/submissions/)[**Discuss](https://leetcode.com/problems/remove-nth-node-from-end-of-list/discuss/)[**Solution](https://leetcode.com/problems/remove-nth-node-from-end-of-list/solution/)
+Medium
 
-[**Pick One](https://leetcode.com/problems/random-one-question/)
+Given the `` head `` of a linked list, remove the <code>n<sup>th</sup></code> node from the end of the list and return its head.
 
-------
+__Follow up:__ Could you do this in one pass?
 
-Given a linked list, remove the *n*th node from the end of list and return its head.
+ 
 
-For example,
+__Example 1:__
 
-```
-   Given linked list: 1->2->3->4->5, and n = 2.
-
-   After removing the second node from the end, the linked list becomes 1->2->3->5.
+<img alt="" src="https://assets.leetcode.com/uploads/2020/10/03/remove_ex1.jpg" style="width: 542px; height: 222px;"/>
 
 ```
+Input: head = [1,2,3,4,5], n = 2
+Output: [1,2,3,5]
+```
 
-**Note:**
-Given *n* will always be valid.
-Try to do this in one pass.
+__Example 2:__
+
+```
+Input: head = [1], n = 1
+Output: []
+```
+
+__Example 3:__
+
+```
+Input: head = [1,2], n = 1
+Output: [1]
+```
+
+ 
+
+__Constraints:__
+
+*   The number of nodes in the list is `` sz ``.
+*   `` 1 <= sz <= 30 ``
+*   `` 0 <= Node.val <= 100 ``
+*   `` 1 <= n <= sz ``
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 2,393,809 | 866,878 | 36.2% |

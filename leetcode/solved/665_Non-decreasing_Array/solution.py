@@ -36,7 +36,13 @@ import pytest
 
 class Solution:
     def checkPossibility(self, nums: List[int]) -> bool:
+        """02/03/2021 18:41
+        Two passes from left and from right
+        Time complexity: O(n)
+        Space complexity: O(1)
+        """
         def from_left(nums):
+            """increase the smaller number to the previous highest"""
             found = False
             p = nums[0]
             for i in range(1, len(nums)):
@@ -49,6 +55,7 @@ class Solution:
             return True
 
         def from_right(nums):
+            """decrease the larger number to the previous highest"""
             found = False
             p = nums[-1]
             for i in range(len(nums)-1, -1, -1):
@@ -62,10 +69,32 @@ class Solution:
 
         return from_left(nums) or from_right(nums)
 
+    def checkPossibility(self, nums: List[int]) -> bool:
+        """
+        One pass, inplace
+        Time complexity: O(n)
+        Space complexity: O(1)
+        """
+        flag = False
+        for i in range(1, len(nums)):
+            if nums[i-1] <= nums[i]:
+                continue
+            if flag:
+                return False
+            if i-2 < 0:
+                nums[i-1] = nums[i]
+            elif nums[i-2] <= nums[i]:
+                nums[i-1] = nums[i-2]
+            else:
+                nums[i] = nums[i-1]
+            flag = True
+        return True
+
 
 @pytest.mark.parametrize('nums, expected', [
     ([4,2,3], True),
     ([4,2,1], False),
+    ([-1,4,2,3], True)
 ])
 def test(nums, expected):
     assert expected == Solution().checkPossibility(nums)

@@ -2,21 +2,34 @@
 
 Medium
 
-Given two words _word1_ and _word2_, find the minimum number of steps required to make _word1_ and _word2_ the same, where in each step you can delete one character in either string.
+Given two strings `` word1 `` and `` word2 ``, return _the minimum number of __steps__ required to make_ `` word1 `` _and_ `` word2 `` _the same_.
 
-__Example 1:__  
+In one __step__, you can delete exactly one character in either string.
+
+ 
+
+__Example 1:__
 
 ```
-<b>Input:</b> "sea", "eat"
-<b>Output:</b> 2
-<b>Explanation:</b> You need one step to make "sea" to "ea" and another step to make "eat" to "ea".
+Input: word1 = "sea", word2 = "eat"
+Output: 2
+Explanation: You need one step to make "sea" to "ea" and another step to make "eat" to "ea".
 ```
 
-__Note:__  
+__Example 2:__
 
-1.   The length of given words won't exceed 500.
-2.   Characters in given words can only be lower-case letters.
+```
+Input: word1 = "leetcode", word2 = "etco"
+Output: 4
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= word1.length, word2.length <= 500 ``
+*   `` word1 `` and `` word2 `` consist of only lowercase English letters.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 99,351 | 47,717 | 48.0% |
+| 157,491 | 81,709 | 51.9% |

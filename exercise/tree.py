@@ -166,6 +166,8 @@ class TreeNode(object):
 
 
 def build_tree(lst):
+    if not lst:
+        return None
     root = TreeNode(lst[0])
     queue = [root]
     att = ['left', 'right']

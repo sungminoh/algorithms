@@ -1,30 +1,41 @@
-### [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description/)
+### [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 
-[Description](https://leetcode.com/problems/binary-tree-level-order-traversal/description/)[Hints](https://leetcode.com/problems/binary-tree-level-order-traversal/hints/)[Submissions](https://leetcode.com/problems/binary-tree-level-order-traversal/submissions/)[Discuss](https://leetcode.com/problems/binary-tree-level-order-traversal/discuss/)[Solution](https://leetcode.com/problems/binary-tree-level-order-traversal/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given the `` root `` of a binary tree, return _the level order traversal of its nodes' values_. (i.e., from left to right, level by level).
 
-------
+ 
 
-Given a binary tree, return the *level order* traversal of its nodes' values. (ie, from left to right, level by level).
+__Example 1:__
 
-For example:
-Given binary tree `[3,9,20,null,null,15,7]`,
-
-```
-    3
-   / \
-  9  20
-    /  \
-   15   7
-```
-
-return its level order traversal as:
+<img alt="" src="https://assets.leetcode.com/uploads/2021/02/19/tree1.jpg" style="width: 277px; height: 302px;"/>
 
 ```
-[
-  [3],
-  [9,20],
-  [15,7]
-]
+Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[9,20],[15,7]]
 ```
+
+__Example 2:__
+
+```
+Input: root = [1]
+Output: [[1]]
+```
+
+__Example 3:__
+
+```
+Input: root = []
+Output: []
+```
+
+ 
+
+__Constraints:__
+
+*   The number of nodes in the tree is in the range `` [0, 2000] ``.
+*   `` -1000 <= Node.val <= 1000 ``
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,502,405 | 866,866 | 57.7% |

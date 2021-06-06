@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -8,22 +7,30 @@
 # Distributed under terms of the MIT license.
 
 """
-Given a non-empty integer array, find the minimum number of moves required to make all array elements equal, where a move is incrementing a selected element by 1 or decrementing a selected element by 1.
+Given an integer array nums of size n, return the minimum number of moves required to make all array elements equal.
 
-You may assume the array's length is at most 10,000.
+In one move, you can increment or decrement an element of the array by 1.
 
-Example:
+Test cases are designed so that the answer will fit in a 32-bit integer.
 
-Input:
-[1,2,3]
+Example 1:
 
-Output:
-2
-
+Input: nums = [1,2,3]
+Output: 2
 Explanation:
 Only two moves are needed (remember each move increments or decrements one element):
-
 [1,2,3]  =>  [2,2,3]  =>  [2,2,2]
+
+Example 2:
+
+Input: nums = [1,10,2,9]
+Output: 16
+
+Constraints:
+
+	n == nums.length
+	1 <= nums.length <= 105
+	-109 <= nums[i] <= 109
 """
 import sys
 from typing import List
@@ -32,13 +39,53 @@ import pytest
 
 class Solution:
     def minMoves2(self, nums: List[int]) -> int:
+        """
+        Find median by sorting
+        Time complexity: O(nlogn)
+        Space complexity: O(1)
+        """
         nums = sorted(nums)
         m = nums[len(nums) // 2]
         return sum(abs(n - m) for n in nums)
 
+    def minMoves2(self, nums: List[int]) -> int:
+        """
+        Find median by quick select
+        Time complexity: O(n) ~ O(n^2)
+        Space complexity: O(1)
+        """
+        def quick_select(l, k):
+            def rec(l, s, e, k):
+                if s == e:
+                    return l[s]
+                # select pivot
+                p = l[e]
+                # partition, l[index] >= p for all index >= j
+                i, j = s, e
+                while i < j:
+                    if l[i] < p:
+                        i += 1
+                    elif l[j] >= p:
+                        j -= 1
+                    else:
+                        l[i], l[j] = l[j], l[i]
+                l[i], l[e] = l[e], l[i]
+                # recurse
+                n_le = len(l)-i
+                if n_le < k:
+                    return rec(l, s, i-1, k)
+                if n_le > k:
+                    return rec(l, i+1, e, k)
+                return l[i]
+            return rec(l, 0, len(l)-1, k)
+
+        mid = quick_select(nums, len(nums)//2+1)
+        return sum(abs(n-mid) for n in nums)
+
 
 @pytest.mark.parametrize('nums, expected', [
     ([1,2,3], 2),
+    ([1,10,2,9], 16),
     ([1,0,0,8,6], 14)
 ])
 def test(nums, expected):

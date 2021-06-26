@@ -2,29 +2,44 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
 
-Your algorithm should run in O(n) complexity.
+You must write an algorithm that runs in O(n) time.
 
-Example:
+Example 1:
 
-Input: [100, 4, 200, 1, 3, 2]
+Input: nums = [100,4,200,1,3,2]
 Output: 4
 Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
 
+Example 2:
+
+Input: nums = [0,3,7,2,5,8,4,6,0,1]
+Output: 9
+
+Constraints:
+
+	0 <= nums.length <= 105
+	-109 <= nums[i] <= 109
 """
+import sys
+from collections import defaultdict
+from typing import List
+import pytest
 
 
 class Solution:
     def longestConsecutive(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
+        """08/18/2018 18:52
+        Keep the group number of start and end point of each interval
+        and each group's start and end
+        Time complexity: O(n)
+        Space complexity: O(n)
         """
         if not nums:
             return 0
@@ -41,24 +56,55 @@ class Solution:
                 group_min = group_max = n
                 gs = []
                 if n-1 in group:
-                    gs.append(group[n-1])
+                    gs.append(group.pop(n-1))
                 if n+1 in group:
-                    gs.append(group[n+1])
-                group_min = min(group_min, *[group_min_max[g][0] for g in gs])
-                group_max = max(group_max, *[group_min_max[g][1] for g in gs])
+                    gs.append(group.pop(n+1))
+                group_min = min(n, *[group_min_max[g][0] for g in gs])
+                group_max = max(n, *[group_min_max[g][1] for g in gs])
                 group[group_min] = gs[0]
                 group[group_max] = gs[0]
                 group_min_max[gs[0]] = (group_min, group_max)
                 m = max(m, group_max - group_min + 1)
         return m
 
+    def longestConsecutive(self, nums: List[int]) -> int:
+        """Union-find
+        Keep the representative of each num
+        Time complexity: O(nlogn)
+        Space complexity: O(n)
+        """
+        if not nums:
+            return 0
+        m = {}
+        for n in nums:
+            rep = n
+            if n-1 in m:
+                rep = m[n-1]
+                while rep != m[rep]:
+                    rep = m[rep]
+            m[n] = rep
+            if n+1 in m:
+                rep = m[n+1]
+                m[n+1] = m[n]
+                while rep != m[rep]:
+                    rep = m[rep]
+                    m[rep] = m[n]
+        cnt = defaultdict(int)
+        for k, v in m.items():
+            rep = m[k]
+            while rep != m[rep]:
+                rep = m[rep]
+            cnt[rep] += 1
+        return max(cnt.values())
 
-def main():
-    # nums = [int(x) for x in input().split()]
-    nums = [-1,9,-3,-6,7,-8,-6,2,9,2,3,-2,4,-1,0,6,1,-9,6,8,6,5,2]
-    nums = [2147483646,-2147483647,0,2,2147483644,-2147483645,2147483645]
-    print(Solution().longestConsecutive(nums))
+
+@pytest.mark.parametrize('nums, expected', [
+([100,4,200,1,3,2], 4),
+([0,3,7,2,5,8,4,6,0,1], 9),
+])
+def test(nums, expected):
+    assert expected == Solution().longestConsecutive(nums)
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

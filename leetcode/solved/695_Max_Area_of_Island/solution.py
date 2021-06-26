@@ -7,29 +7,29 @@
 # Distributed under terms of the MIT license.
 
 """
-Given a non-empty 2D array grid of 0's and 1's, an island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.
+You are given an m x n binary matrix grid. An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.
 
-Find the maximum area of an island in the given 2D array. (If there is no island, the maximum area is 0.)
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
 
 Example 1:
 
-[[0,0,1,0,0,0,0,1,0,0,0,0,0],
- [0,0,0,0,0,0,0,1,1,1,0,0,0],
- [0,1,1,0,1,0,0,0,0,0,0,0,0],
- [0,1,0,0,1,1,0,0,1,0,1,0,0],
- [0,1,0,0,1,1,0,0,1,1,1,0,0],
- [0,0,0,0,0,0,0,0,0,0,1,0,0],
- [0,0,0,0,0,0,0,1,1,1,0,0,0],
- [0,0,0,0,0,0,0,1,1,0,0,0,0]]
-
-Given the above grid, return 6. Note the answer is not 11, because the island must be connected 4-directionally.
+Input: grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
+Output: 6
+Explanation: The answer is not 11, because the island must be connected 4-directionally.
 
 Example 2:
 
-[[0,0,0,0,0,0,0,0]]
-Given the above grid, return 0.
+Input: grid = [[0,0,0,0,0,0,0,0]]
+Output: 0
 
-Note: The length of each dimension in the given grid does not exceed 50.
+Constraints:
+
+	m == grid.length
+	n == grid[i].length
+	1 <= m, n <= 50
+	grid[i][j] is either 0 or 1.
 """
 import sys
 from typing import List
@@ -38,6 +38,7 @@ import pytest
 
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        """08/29/2020 16:41	"""
         if not grid or not grid[0]:
             return 0
 
@@ -58,17 +59,43 @@ class Solution:
 
         return max(dfs(x, y) for x in range(X) for y in range(Y))
 
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        """DFS
+        Time complexity: O(n*m)
+        Space complexity: O(n*m)
+        """
+        n, m = len(grid), len(grid[0])
+
+        def neighbor(i, j):
+            if i > 0:
+                yield i-1, j
+            if i < n-1:
+                yield i+1, j
+            if j > 0:
+                yield i, j-1
+            if j < m-1:
+                yield i, j+1
+
+        def dfs(i, j):
+            if grid[i][j] == 0:
+                return 0
+            grid[i][j] = 0
+            cnt = 1
+            for x, y in neighbor(i, j):
+                cnt += dfs(x, y)
+            return cnt
+
+        ret = 0
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j]:
+                    ret = max(ret, dfs(i, j))
+        return ret
+
 
 @pytest.mark.parametrize('grid, expected', [
-    ([[0,0,1,0,0,0,0,1,0,0,0,0,0],
-      [0,0,0,0,0,0,0,1,1,1,0,0,0],
-      [0,1,1,0,1,0,0,0,0,0,0,0,0],
-      [0,1,0,0,1,1,0,0,1,0,1,0,0],
-      [0,1,0,0,1,1,0,0,1,1,1,0,0],
-      [0,0,0,0,0,0,0,0,0,0,1,0,0],
-      [0,0,0,0,0,0,0,1,1,1,0,0,0],
-      [0,0,0,0,0,0,0,1,1,0,0,0,0]], 6),
-    ([[0,0,0,0,0,0,0,0]], 0),
+([[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]], 6),
+([[0,0,0,0,0,0,0,0]], 0),
 ])
 def test(grid, expected):
     assert expected == Solution().maxAreaOfIsland(grid)

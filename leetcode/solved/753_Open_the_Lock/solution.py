@@ -51,23 +51,25 @@ Constraints:
 	target will not be in the list deadends.
 	target and deadends[i] consist of digits only.
 """
-import sys
 from collections import deque
+import sys
+from functools import lru_cache
 from typing import List
 import pytest
 
 
 class Solution:
-    digits = list(range(10))
-    def neighbor(self, t):
-        for i in range(len(t)):
-            r = list(t)
-            r[i] = self.digits[(r[i]+1)%len(self.digits)]
-            yield tuple(r)
-            r[i] = self.digits[(r[i]-2)%len(self.digits)]
-            yield tuple(r)
-
     def openLock(self, deadends: List[str], target: str) -> int:
+        """09/06/2020 06:25	"""
+        digits = list(range(10))
+        def neighbor(t):
+            for i in range(len(t)):
+                r = list(t)
+                r[i] = digits[(r[i]+1)%len(digits)]
+                yield tuple(r)
+                r[i] = digits[(r[i]-2)%len(digits)]
+                yield tuple(r)
+
         q = deque()
         deadends = set(tuple(map(int, deadend)) for deadend in deadends)
         target = tuple(map(int, target))
@@ -88,12 +90,42 @@ class Solution:
                 visited.add(n)
         return -1
 
+    def openLock(self, deadends: List[str], target: str) -> int:
+        """
+        Time complexity: O(10^4)
+        Space complexity: O(10^4)
+        """
+        deadends = set(deadends)
+        visited = set([(0,0,0,0)])
+        queue = deque([(0,0,0,0, 0)])
+        while queue:
+            a,b,c,d, cnt = queue.popleft()
+            val = f'{a}{b}{c}{d}'
+            if val in deadends:
+                continue
+            if val == target:
+                return cnt
+            for x in [
+                ((a-1)%10, b, c, d),
+                (a, (b-1)%10, c, d),
+                (a, b, (c-1)%10, d),
+                (a, b, c, (d-1)%10),
+                ((a+1)%10, b, c, d),
+                (a, (b+1)%10, c, d),
+                (a, b, (c+1)%10, d),
+                (a, b, c, (d+1)%10),
+            ]:
+                if x not in visited:
+                    visited.add(x)
+                    queue.append((*x, cnt+1))
+        return -1
+
 
 @pytest.mark.parametrize('deadends, target, expected', [
-    (["0201","0101","0102","1212","2002"], "0202", 6),
-    (["8888"], "0009", 1),
-    (["8887","8889","8878","8898","8788","8988","7888","9888"], "8888", -1),
-    (["0000"], "8888", -1),
+(["0201","0101","0102","1212","2002"], "0202", 6),
+(["8888"], "0009", 1),
+(["8887","8889","8878","8898","8788","8988","7888","9888"], "8888", -1),
+(["0000"], "8888", -1),
 ])
 def test(deadends, target, expected):
     assert expected == Solution().openLock(deadends, target)

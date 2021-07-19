@@ -2,32 +2,37 @@
 
 Medium
 
-Remember the story of Little Match Girl? By now, you know exactly what matchsticks the little match girl has, please find out a way you can make one square by using up all those matchsticks. You should not break any stick, but you can link them up, and each matchstick must be used __exactly__ one time.
+You are given an integer array `` matchsticks `` where `` matchsticks[i] `` is the length of the <code>i<sup>th</sup></code> matchstick. You want to use __all the matchsticks__ to make one square. You __should not break__ any stick, but you can link them up, and each matchstick must be used __exactly one time__.
 
- Your input will be several matchsticks the girl has, represented with their stick length. Your output will either be true or false, to represent whether you could make one square using all the matchsticks the little match girl has.
+Return `` true `` if you can make this square and `` false `` otherwise.
 
-__Example 1:__  
+ 
 
-```
-<b>Input:</b> [1,1,2,2,2]
-<b>Output:</b> true
+__Example 1:__
 
-<b>Explanation:</b> You can form a square with length 2, one side of the square came two sticks with length 1.
-```
-
-__Example 2:__  
+<img alt="" src="https://assets.leetcode.com/uploads/2021/04/09/matchsticks1-grid.jpg" style="width: 253px; height: 253px;"/>
 
 ```
-<b>Input:</b> [3,3,3,3,4]
-<b>Output:</b> false
-
-<b>Explanation:</b> You cannot find a way to form a square with all the matchsticks.
+Input: matchsticks = [1,1,2,2,2]
+Output: true
+Explanation: You can form a square with length 2, one side of the square came two sticks with length 1.
 ```
 
-__Note:__  
+__Example 2:__
 
-1.   The length sum of the given matchsticks is in the range of `` 0 `` to `` 10^9 ``.<li>The length of the given matchstick array will not exceed <code>15</code>.</li>
+```
+Input: matchsticks = [3,3,3,3,4]
+Output: false
+Explanation: You cannot find a way to form a square with all the matchsticks.
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= matchsticks.length <= 15 ``
+*   <code>1 <= matchsticks[i] <= 10<sup>8</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 89,720 | 33,328 | 37.1% |
+| 161,052 | 64,369 | 40.0% |

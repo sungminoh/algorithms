@@ -2,25 +2,35 @@
 
 Medium
 
-We are given an array `` A `` of positive integers, and two positive integers `` L `` and `` R `` (`` L <= R ``).
+Given an integer array `` nums `` and two integers `` left `` and `` right ``, return _the number of contiguous non-empty __subarrays__ such that the value of the maximum array element in that subarray is in the range _`` [left, right] ``.
 
-Return the number of (contiguous, non-empty) subarrays such that the value of the maximum array element in that subarray is at least `` L `` and at most `` R ``.
+The test cases are generated so that the answer will fit in a __32-bit__ integer.
+
+ 
+
+__Example 1:__
 
 ```
-Example :
-Input: 
-A = [2, 1, 4, 3]
-L = 2
-R = 3
+Input: nums = [2,1,4,3], left = 2, right = 3
 Output: 3
 Explanation: There are three subarrays that meet the requirements: [2], [2, 1], [3].
 ```
 
-__Note:__
+__Example 2:__
 
-*   L, R  and `` A[i] `` will be an integer in the range `` [0, 10^9] ``.
-*   The length of `` A `` will be in the range of `` [1, 50000] ``.
+```
+Input: nums = [2,9,2,5,6], left = 2, right = 8
+Output: 7
+```
+
+ 
+
+__Constraints:__
+
+*   <code>1 <= nums.length <= 10<sup>5</sup></code>
+*   <code>0 <= nums[i] <= 10<sup>9</sup></code>
+*   <code>0 <= left <= right <= 10<sup>9</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 42,360 | 19,771 | 46.7% |
+| 83,401 | 43,172 | 51.8% |

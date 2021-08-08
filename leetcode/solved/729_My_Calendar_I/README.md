@@ -2,38 +2,42 @@
 
 Medium
 
-Implement a `` MyCalendar `` class to store your events. A new event can be added if adding the event will not cause a double booking.
+You are implementing a program to use as your calendar. We can add a new event if adding the event will not cause a __double booking__.
 
-Your class will have the method, `` book(int start, int end) ``. Formally, this represents a booking on the half open interval `` [start, end) ``, the range of real numbers `` x `` such that `` start <= x < end ``.
+A __double booking__ happens when two events have some non-empty intersection (i.e., some moment is common to both events.).
 
-A _double booking_ happens when two events have some non-empty intersection (ie., there is some time that is common to both events.)
+The event can be represented as a pair of integers `` start `` and `` end `` that represents a booking on the half-open interval `` [start, end) ``, the range of real numbers `` x `` such that `` start <= x < end ``.
 
-For each call to the method `` MyCalendar.book ``, return `` true `` if the event can be added to the calendar successfully without causing a double booking. Otherwise, return `` false `` and do not add the event to the calendar.
+Implement the `` MyCalendar `` class:
 
+*   `` MyCalendar() `` Initializes the calendar object.
+*   `` boolean book(int start, int end) `` Returns `` true `` if the event can be added to the calendar successfully without causing a __double booking__. Otherwise, return `` false `` and do not add the event to the calendar.
 
-Your class will be called like this: `` MyCalendar cal = new MyCalendar(); `` `` MyCalendar.book(start, end) ``
+ 
 
 __Example 1:__
 
 ```
-MyCalendar();
-MyCalendar.book(10, 20); // returns true
-MyCalendar.book(15, 25); // returns false
-MyCalendar.book(20, 30); // returns true
-<b>Explanation:</b> 
-The first event can be booked.  The second can't because time 15 is already booked by another event.
-The third event can be booked, as the first event takes every time less than 20, but not including 20.
+Input
+["MyCalendar", "book", "book", "book"]
+[[], [10, 20], [15, 25], [20, 30]]
+Output
+[null, true, false, true]
+
+Explanation
+MyCalendar myCalendar = new MyCalendar();
+myCalendar.book(10, 20); // return True
+myCalendar.book(15, 25); // return False, It can not be booked because time 15 is already booked by another event.
+myCalendar.book(20, 30); // return True, The event can be booked, as the first event takes every time less than 20, but not including 20.
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-*   The number of calls to `` MyCalendar.book `` per test case will be at most `` 1000 ``.
-*   In calls to `` MyCalendar.book(start, end) ``, `` start `` and `` end `` are integers in the range `` [0, 10^9] ``.
-
- 
+*   <code>0 <= start < end <= 10<sup>9</sup></code>
+*   At most `` 1000 `` calls will be made to `` book ``.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 119,998 | 62,391 | 52.0% |
+| 219,411 | 118,884 | 54.2% |

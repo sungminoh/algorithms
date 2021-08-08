@@ -7,35 +7,42 @@
 # Distributed under terms of the MIT license.
 
 """
-Implement a MyCalendar class to store your events. A new event can be added if adding the event will not cause a double booking.
+You are implementing a program to use as your calendar. We can add a new event if adding the event will not cause a double booking.
 
-Your class will have the method, book(int start, int end). Formally, this represents a booking on the half open interval [start, end), the range of real numbers x such that start <= x < end.
+A double booking happens when two events have some non-empty intersection (i.e., some moment is common to both events.).
 
-A double booking happens when two events have some non-empty intersection (ie., there is some time that is common to both events.)
+The event can be represented as a pair of integers start and end that represents a booking on the half-open interval [start, end), the range of real numbers x such that start <= x < end.
 
-For each call to the method MyCalendar.book, return true if the event can be added to the calendar successfully without causing a double booking. Otherwise, return false and do not add the event to the calendar.
-Your class will be called like this: MyCalendar cal = new MyCalendar(); MyCalendar.book(start, end)
+Implement the MyCalendar class:
+
+	MyCalendar() Initializes the calendar object.
+	boolean book(int start, int end) Returns true if the event can be added to the calendar successfully without causing a double booking. Otherwise, return false and do not add the event to the calendar.
 
 Example 1:
 
-MyCalendar();
-MyCalendar.book(10, 20); // returns true
-MyCalendar.book(15, 25); // returns false
-MyCalendar.book(20, 30); // returns true
-Explanation:
-The first event can be booked.  The second can't because time 15 is already booked by another event.
-The third event can be booked, as the first event takes every time less than 20, but not including 20.
+Input
+["MyCalendar", "book", "book", "book"]
+[[], [10, 20], [15, 25], [20, 30]]
+Output
+[null, true, false, true]
 
-Note:
+Explanation
+MyCalendar myCalendar = new MyCalendar();
+myCalendar.book(10, 20); // return True
+myCalendar.book(15, 25); // return False, It can not be booked because time 15 is already booked by another event.
+myCalendar.book(20, 30); // return True, The event can be booked, as the first event takes every time less than 20, but not including 20.
 
-	The number of calls to MyCalendar.book per test case will be at most 1000.
-	In calls to MyCalendar.book(start, end), start and end are integers in the range [0, 10^9].
+Constraints:
+
+	0 <= start < end <= 109
+	At most 1000 calls will be made to book.
 """
 import sys
 import pytest
 
 
 class MyCalendar:
+    """09/05/2020 01:20"""
     def __init__(self):
         self.tree = None
 
@@ -62,19 +69,56 @@ class MyCalendar:
                 return False
 
 
-# Your MyCalendar object will be instantiated and called as such:
-# obj = MyCalendar()
-# param_1 = obj.book(start,end)
+class Node:
+    def __init__(self, s, e):
+        self.s = s
+        self.e = e
+        self.left = None
+        self.right = None
 
 
-@pytest.mark.parametrize('commands, args, expecteds', [
-    (['book', 'book', 'book'], [(10, 20), (15, 25), (20, 30)], [True, False, True])
+class MyCalendar:
+    def __init__(self):
+        self.root = None
+
+
+    def book(self, start: int, end: int) -> bool:
+        node = Node(start, end)
+        if not self.root:
+            self.root = node
+            return True
+
+        def insert(root, node):
+            ret = False
+            if node.e <= root.s :
+                if root.left is None:
+                    root.left = node
+                    ret = True
+                else:
+                    ret = insert(root.left, node)
+            elif root.e <= node.s:
+                if root.right is None:
+                    root.right = node
+                    ret = True
+                else:
+                    ret = insert(root.right, node)
+            return ret
+
+        return insert(self.root, node)
+
+
+@pytest.mark.parametrize('commands, arguments, expecteds', [
+    (["MyCalendar", "book", "book", "book"],
+     [[], [10, 20], [15, 25], [20, 30]],
+     [None, True, False, True]),
 ])
-def test(commands, args, expecteds):
-    o = MyCalendar()
-    for c, a, e in zip(commands, args, expecteds):
-        assert e == getattr(o, c)(*a)
+def test(commands, arguments, expecteds):
+    obj = globals()[commands.pop(0)](*arguments.pop(0))
+    expecteds.pop(0)
+    for cmd, args, exp in zip(commands, arguments, expecteds):
+        assert exp == getattr(obj, cmd)(*args)
 
 
 if __name__ == '__main__':
     sys.exit(pytest.main(["-s", "-v"] + sys.argv))
+

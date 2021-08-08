@@ -29,12 +29,12 @@ Output: [[0,1],[1,0]]
 Constraints:
 
 	1 <= words.length <= 5000
-	0 <= words[i] <= 300
+	0 <= words[i].length <= 300
 	words[i] consists of lower-case English letters.
 """
+from collections import defaultdict
 from functools import lru_cache
 import sys
-from collections import defaultdict
 from typing import List
 import pytest
 
@@ -48,7 +48,8 @@ def to_dict(d):
 
 
 class Solution:
-    def _palindromePairs(self, words: List[str]) -> List[List[int]]:
+    def palindromePairs(self, words: List[str]) -> List[List[int]]:
+        """10/08/2020 09:59"""
         @lru_cache(None)
         def is_palindrome(s):
             return s == s[::-1]
@@ -88,20 +89,64 @@ class Solution:
 
         return ret
 
+    def palindromePairs(self, words: List[str]) -> List[List[int]]:
+        @lru_cache(None)
+        def is_palindrome(w):
+            return w == w[::-1]
+
+        word_index = {word: i for i, word in enumerate(words)}
+        postfix = {}
+        for i, word in enumerate(words):
+            for p in range(1, len(word)+1):
+                head, tail = word[:p], word[p:]
+                if is_palindrome(head):
+                    postfix.setdefault(tail, [])
+                    postfix[tail].append(i)
+
+        ret = []
+        for i, word in enumerate(words):
+            for p in range(len(word)):
+                reversed_head, tail = word[:p][::-1], word[p:]
+                if reversed_head in word_index and is_palindrome(tail):
+                    ret.append([i, word_index[reversed_head]])
+            if word[::-1] in word_index:
+                j = word_index[word[::-1]]
+                if i != j:
+                    ret.append([i, j])
+            for j in postfix.get(word[::-1], []):
+                ret.append([i, j])
+
+        return ret
+
+    def palindromePairs(self, words: List[str]) -> List[List[int]]:
+        @lru_cache(None)
+        def is_palindrome(w):
+            return w == w[::-1]
+
+        word_index = {word: i for i, word in enumerate(words)}
+
+        ret = []
+        for i, word in enumerate(words):
+            for p in range(len(word)+1):
+                head, tail = word[:p], word[p:]
+                if tail and is_palindrome(tail) and head[::-1] in word_index:
+                    ret.append([i, word_index[head[::-1]]])
+                if is_palindrome(head) and tail[::-1] in word_index:
+                    j = word_index[tail[::-1]]
+                    if i != j:
+                        ret.append([j, i])
+
+        return ret
+
 
 @pytest.mark.parametrize('words, expected', [
     (["abcd","dcba","lls","s","sssll"], [[0,1],[1,0],[3,2],[2,4]]),
     (["bat","tab","cat"], [[0,1],[1,0]]),
-    (["bat","tab","cat", "aaa", ""], [[0,1],[1,0],[3,4],[4,3]]),
     (["a",""], [[0,1],[1,0]]),
-    (["a","b","c","ab","ac","aa"], [[3,0],[1,3],[4,0],[2,4],[5,0],[0,5]])
+    (["ab","ba","abc","cba"], [[0,1],[1,0],[2,1],[2,3],[0,3],[3,2]])
 ])
 def test(words, expected):
-    print()
-    actual = Solution().palindromePairs(words)
-    print(sorted(expected))
-    print(sorted(actual))
-    assert sorted(expected) == sorted(actual)
+    assert sorted(expected) == sorted(Solution().palindromePairs(words))
 
 
 if __name__ == '__main__':

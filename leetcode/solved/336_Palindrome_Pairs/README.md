@@ -34,9 +34,9 @@ Output: [[0,1],[1,0]]
 __Constraints:__
 
 *   `` 1 <= words.length <= 5000 ``
-*   `` 0 <= words[i] <= 300 ``
+*   `` 0 <= words[i].length <= 300 ``
 *   `` words[i] `` consists of lower-case English letters.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 307,254 | 104,470 | 34.0% |
+| 372,278 | 134,382 | 36.1% |

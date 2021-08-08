@@ -1,29 +1,39 @@
-### [105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/)
+### [105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 
-[Description](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/)[Hints](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/hints/)[Submissions](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/submissions/)[Discuss](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/discuss/)[Solution](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given two integer arrays `` preorder `` and `` inorder `` where `` preorder `` is the preorder traversal of a binary tree and `` inorder `` is the inorder traversal of the same tree, construct and return _the binary tree_.
 
-------
+ 
 
-Given preorder and inorder traversal of a tree, construct the binary tree.
+__Example 1:__
 
-**Note:**
-You may assume that duplicates do not exist in the tree.
-
-For example, given
+<img alt="" src="https://assets.leetcode.com/uploads/2021/02/19/tree.jpg" style="width: 277px; height: 302px;"/>
 
 ```
-preorder = [3,9,20,15,7]
-inorder = [9,3,15,20,7]
+Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+Output: [3,9,20,null,null,15,7]
 ```
 
-Return the following binary tree:
+__Example 2:__
 
 ```
-    3
-   / \
-  9  20
-    /  \
-   15   7
+Input: preorder = [-1], inorder = [-1]
+Output: [-1]
 ```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= preorder.length <= 3000 ``
+*   `` inorder.length == preorder.length ``
+*   `` -3000 <= preorder[i], inorder[i] <= 3000 ``
+*   `` preorder `` and `` inorder `` consist of __unique__ values.
+*   Each value of `` inorder `` also appears in `` preorder ``.
+*   `` preorder `` is __guaranteed__ to be the preorder traversal of the tree.
+*   `` inorder `` is __guaranteed__ to be the inorder traversal of the tree.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,006,054 | 545,338 | 54.2% |

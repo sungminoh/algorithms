@@ -2,60 +2,46 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given preorder and inorder traversal of a tree, construct the binary tree.
+Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
 
-Note:
-You may assume that duplicates do not exist in the tree.
+Example 1:
 
-For example, given
+Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+Output: [3,9,20,None,None,15,7]
 
-preorder = [3,9,20,15,7]
-inorder = [9,3,15,20,7]
-Return the following binary tree:
+Example 2:
 
-    3
-   / \
-  9  20
-    /  \
-   15   7
+Input: preorder = [-1], inorder = [-1]
+Output: [-1]
+
+Constraints:
+
+	1 <= preorder.length <= 3000
+	inorder.length == preorder.length
+	-3000 <= preorder[i], inorder[i] <= 3000
+	preorder and inorder consist of unique values.
+	Each value of inorder also appears in preorder.
+	preorder is guaranteed to be the preorder traversal of the tree.
+	inorder is guaranteed to be the inorder traversal of the tree.
 """
-
-
-# Definition for a binary tree node.
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+from pathlib import Path
+from typing import List
+import pytest
+import sys
+sys.path.append(str(Path('__file__').absolute().parent.parent))
+from exercise.tree import TreeNode, build_tree
 
 
 class Solution:
-    def buildTree_(self, preorder, inorder):
-        """
-        :type preorder: List[int]
-        :type inorder: List[int]
-        :rtype: TreeNode
-        """
-        if not preorder and not inorder:
-            return None
-        if len(preorder) == 1 and len(inorder) == 1:
-            return TreeNode(preorder[0])
-        root = TreeNode(preorder[0])
-        left_size = inorder.index(preorder[0])
-        root.left = self.buildTree(preorder[1:left_size+1], inorder[:left_size])
-        root.right= self.buildTree(preorder[1+left_size:], inorder[1+left_size:])
-        return root
-
     def buildTree(self, preorder, inorder):
         """
-        :type preorder: List[int]
-        :type inorder: List[int]
-        :rtype: TreeNode
+        05/07/2018 10:44
+        Time complexity: O(n)
         """
         def build(v):
             if not preorder or inorder[0] == v:
@@ -67,35 +53,43 @@ class Solution:
             return root
         return build(None)
 
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        """
+        Time complexity; O(n^2)
+        """
+        if not preorder:
+            return None
+        root = TreeNode(preorder[0])
+        if len(preorder) == 1 or len(inorder) == 1:
+            return root
+        i = inorder.index(preorder[0])
+        root.left = self.buildTree(preorder[1:i+1], inorder[:i])
+        root.right = self.buildTree(preorder[i+1:], inorder[i+1:])
+        return root
 
-from collections import defaultdict
-for_print = defaultdict(list)
-def tree2list(root, depth=0):
-    if depth == 0:
-        for_print.clear()
-    if not root:
-        return for_print[depth].append(None)
-    for_print[depth].append(root.val)
-    tree2list(root.left, depth+1)
-    tree2list(root.right, depth+1)
-    ret = []
-    for d in sorted(for_print.keys()):
-        l = for_print[d]
-        for i, v in enumerate(l):
-            if v is not None:
-                ret.extend(l[max(0, i-1):])
-                break
-    while ret and not ret[-1]:
-        ret.pop()
-    return ret
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        def build(i, j, v):
+            if i == len(preorder) or inorder[j] == v:
+                return None, i, j+1
+            root = TreeNode(preorder[i])
+            root.left, i, j = build(i+1, j, root.val)
+            root.right, i, j = build(i, j, v)
+            return root, i, j
+        return build(0, 0, None)[0]
 
 
 
-def main():
-    preorder = [int(x) for x in input().split()]
-    inorder = [int(x) for x in input().split()]
-    print(tree2list(Solution().buildTree(preorder, inorder)))
+@pytest.mark.parametrize('preorder, inorder, expected', [
+([3,9,20,15,7], [9,3,15,20,7], [3,9,20,None,None,15,7]),
+([20,15,7], [15,20,7], [20,15,7]),
+([-1], [-1], [-1]),
+])
+def test(preorder, inorder, expected):
+    actual = Solution().buildTree(preorder, inorder)
+    print()
+    print(actual)
+    assert build_tree(expected) == actual
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

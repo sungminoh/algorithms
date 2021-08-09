@@ -2,22 +2,38 @@
 
 Medium
 
-Given string `` S `` and a dictionary of words `` words ``, find the number of `` words[i] `` that is a subsequence of `` S ``.
+Given a string `` s `` and an array of strings `` words ``, return _the number of_ `` words[i] `` _that is a subsequence of_ `` s ``.
 
-<strong>Example :</strong>
-<strong>Input:</strong> 
-    S = "abcde"
-    words = ["a", "bb", "acd", "ace"]
-    <strong>Output:</strong> 3
-    <strong>Explanation:</strong> There are three words in words that are a subsequence of <code>S</code>: "a", "acd", "ace".
+A __subsequence__ of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
 
-__Note:__
+*   For example, `` "ace" `` is a subsequence of `` "abcde" ``.
 
-*   All words in `` words `` and `` S `` will only consists of lowercase letters.
-*   The length of `` S `` will be in the range of `` [1, 50000] ``.
-*   The length of `` words `` will be in the range of `` [1, 5000] ``.
-*   The length of `` words[i] `` will be in the range of `` [1, 50] ``.
+ 
+
+__Example 1:__
+
+```
+Input: s = "abcde", words = ["a","bb","acd","ace"]
+Output: 3
+Explanation: There are three strings in words that are a subsequence of s: "a", "acd", "ace".
+```
+
+__Example 2:__
+
+```
+Input: s = "dsahjpjauf", words = ["ahjpjau","ja","ahbwzgqnuk","tnmlanowax"]
+Output: 2
+```
+
+ 
+
+__Constraints:__
+
+*   <code>1 <= s.length <= 5 * 10<sup>4</sup></code>
+*   `` 1 <= words.length <= 5000 ``
+*   `` 1 <= words[i].length <= 50 ``
+*   `` s `` and `` words[i] `` consist of only lowercase English letters.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 92,829 | 44,207 | 47.6% |
+| 185,256 | 90,935 | 49.1% |

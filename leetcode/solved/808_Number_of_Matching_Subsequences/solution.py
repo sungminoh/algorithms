@@ -7,27 +7,37 @@
 # Distributed under terms of the MIT license.
 
 """
-Given string S and a dictionary of words words, find the number of words[i] that is a subsequence of S.
+Given a string s and an array of strings words, return the number of words[i] that is a subsequence of s.
 
-Example :
-Input:
-S = "abcde"
-words = ["a", "bb", "acd", "ace"]
+A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+
+	For example, "ace" is a subsequence of "abcde".
+
+Example 1:
+
+Input: s = "abcde", words = ["a","bb","acd","ace"]
 Output: 3
-Explanation: There are three words in words that are a subsequence of S: "a", "acd", "ace".
+Explanation: There are three strings in words that are a subsequence of s: "a", "acd", "ace".
 
-Note:
+Example 2:
 
-	All words in words and S will only consists of lowercase letters.
-	The length of S will be in the range of [1, 50000].
-	The length of words will be in the range of [1, 5000].
-	The length of words[i] will be in the range of [1, 50].
+Input: s = "dsahjpjauf", words = ["ahjpjau","ja","ahbwzgqnuk","tnmlanowax"]
+Output: 2
+
+Constraints:
+
+	1 <= s.length <= 5 * 104
+	1 <= words.length <= 5000
+	1 <= words[i].length <= 50
+	s and words[i] consist of only lowercase English letters.
 """
-from pprint import pprint
-import sys
-from collections import Counter
 from collections import deque
-import queue
+from collections import Counter
+from collections import defaultdict
+from pathlib import Path
+import json
+import sys
+from functools import lru_cache
 from typing import List
 import pytest
 
@@ -77,6 +87,7 @@ def merge(d1, d2):
 
 class Solution:
     def numMatchingSubseq(self, S: str, words: List[str]) -> int:
+        """09/14/2020 01:50	"""
         qs = [[] for _ in range(26)]
         for word in words:
             qs[ord(word[0])-97].append(word)
@@ -92,7 +103,8 @@ class Solution:
         return cnt
 
 
-    def __numMatchingSubseq(self, S: str, words: List[str]) -> int:
+    def numMatchingSubseq(self, S: str, words: List[str]) -> int:
+        """09/14/2020 01:38"""
         # build trie
         trie = dict()
         for word in words:
@@ -115,7 +127,8 @@ class Solution:
         cnt += cur.get('__END__', 0)
         return cnt
 
-    def _numMatchingSubseq(self, S: str, words: List[str]) -> int:
+    def numMatchingSubseq(self, S: str, words: List[str]) -> int:
+        """09/12/2020 17:05"""
         counter = Counter(words)
         keys = list(counter.keys())
         idx = set(range(len(counter)))
@@ -132,14 +145,47 @@ class Solution:
 
         return cnt
 
+    def numMatchingSubseq(self, s: str, words: List[str]) -> int:
+        """TLE"""
+        @lru_cache(None)
+        def is_sub(a, b):
+            if not b or a == b: return True
+            if len(a) < len(b): return False
+            i = a.find(b[0])
+            if i < 0:
+                return False
+            return is_sub(a[i+1:], b[1:])
+
+        return sum(1 for w in words if is_sub(s, w))
+
+    def numMatchingSubseq(self, s: str, words: List[str]) -> int:
+        """
+        Greedily find all mathcing word
+        Time complexity: O(len(s) * len(words))
+        Space complexity: O(len(words))
+        """
+        d = defaultdict(list)
+        for w in words:
+            d[w[0]].append((0, w))
+        cnt = 0
+        for c in s:
+            if c in d:
+                for i, w in d.pop(c):
+                    if i == len(w)-1:
+                        cnt += 1
+                    else:
+                        d[w[i+1]].append((i+1, w))
+        return cnt
 
 
-
-@pytest.mark.parametrize('S, words, expected', [
-    ("abcde", ["a", "bb", "acd", "ace"], 3)
+@pytest.mark.parametrize('s, words, expected', [
+    ("abcde", ["a","bb","acd","ace"], 3),
+    ("dsahjpjauf", ["ahjpjau","ja","ahbwzgqnuk","tnmlanowax"], 2),
+    ("qlhxagxdqh", ["qlhxagxdq","qlhxagxdq","lhyiftwtut","yfzwraahab"], 2),
+    # (*json.load(open(Path(__file__).parent/'testcase.json')), 1000)
 ])
-def test(S, words, expected):
-    assert expected == Solution().numMatchingSubseq(S, words)
+def test(s, words, expected):
+    assert expected == Solution().numMatchingSubseq(s, words)
 
 
 if __name__ == '__main__':

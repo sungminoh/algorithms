@@ -2,36 +2,39 @@
 
 Medium
 
-There is an __m__ by __n__ grid with a ball. Given the start coordinate __(i,j)__ of the ball, you can move the ball to __adjacent__ cell or cross the grid boundary in four directions (up, down, left, right). However, you can __at most__ move __N__ times. Find out the number of paths to move the ball out of grid boundary. The answer may be very large, return it after mod 10<sup>9</sup> + 7.
+There is an `` m x n `` grid with a ball. The ball is initially at the position `` [startRow, startColumn] ``. You are allowed to move the ball to one of the four adjacent cells in the grid (possibly out of the grid crossing the grid boundary). You can apply __at most__ `` maxMove `` moves to the ball.
+
+Given the five integers `` m ``, `` n ``, `` maxMove ``, `` startRow ``, `` startColumn ``, return the number of paths to move the ball out of the grid boundary. Since the answer can be very large, return it __modulo__ <code>10<sup>9</sup> + 7</code>.
 
  
 
 __Example 1:__
 
+<img alt="" src="https://assets.leetcode.com/uploads/2021/04/28/out_of_boundary_paths_1.png" style="width: 500px; height: 296px;"/>
+
 ```
-<b>Input: </b>m = 2, n = 2, N = 2, i = 0, j = 0
-<b>Output:</b> 6
-<b>Explanation:</b>
-<img src="https://assets.leetcode.com/uploads/2018/10/13/out_of_boundary_paths_1.png" style="width: 100%; max-width: 400px"/>
+Input: m = 2, n = 2, maxMove = 2, startRow = 0, startColumn = 0
+Output: 6
 ```
 
 __Example 2:__
 
+<img alt="" src="https://assets.leetcode.com/uploads/2021/04/28/out_of_boundary_paths_2.png" style="width: 500px; height: 293px;"/>
+
 ```
-<b>Input: </b>m = 1, n = 3, N = 3, i = 0, j = 1
-<b>Output:</b> 12
-<b>Explanation:</b>
-<img src="https://assets.leetcode.com/uploads/2018/10/12/out_of_boundary_paths_2.png" style="width: 100%; max-width: 400px"/>
+Input: m = 1, n = 3, maxMove = 3, startRow = 0, startColumn = 1
+Output: 12
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-1.   Once you move the ball out of boundary, you cannot move it back.
-2.   The length and height of the grid is in range \[1,50\].
-3.   N is in range \[0,50\].
+*   `` 1 <= m, n <= 50 ``
+*   `` 0 <= maxMove <= 50 ``
+*   `` 0 <= startRow < m ``
+*   `` 0 <= startColumn < n ``
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 77,358 | 26,747 | 34.6% |
+| 142,230 | 56,295 | 39.6% |

@@ -9,65 +9,53 @@
 """
 In this problem, a tree is an undirected graph that is connected and has no cycles.
 
-The given input is a graph that started as a tree with N nodes (with distinct values 1, 2, ..., N), with one additional edge added.  The added edge has two different vertices chosen from 1 to N, and was not an edge that already existed.
+You are given a graph that started as a tree with n nodes labeled from 1 to n, with one additional edge added. The added edge has two different vertices chosen from 1 to n, and was not an edge that already existed. The graph is represented as an array edges of length n where edges[i] = [ai, bi] indicates that there is an edge between nodes ai and bi in the graph.
 
-The resulting graph is given as a 2D-array of edges.  Each element of edges is a pair [u, v] with u < v, that represents an undirected edge connecting nodes u and v.
+Return an edge that can be removed so that the resulting graph is a tree of n nodes. If there are multiple answers, return the answer that occurs last in the input.
 
-Return an edge that can be removed so that the resulting graph is a tree of N nodes.  If there are multiple answers, return the answer that occurs last in the given 2D-array.  The answer edge [u, v] should be in the same format, with u < v.
 Example 1:
 
-Input: [[1,2], [1,3], [2,3]]
+Input: edges = [[1,2],[1,3],[2,3]]
 Output: [2,3]
-Explanation: The given undirected graph will be like this:
-  1
- / \
-2 - 3
 
 Example 2:
 
-Input: [[1,2], [2,3], [3,4], [1,4], [1,5]]
+Input: edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]
 Output: [1,4]
-Explanation: The given undirected graph will be like this:
-5 - 1 - 2
-    |   |
-    4 - 3
 
-Note:
-The size of the input 2D-array will be between 3 and 1000.
-Every integer represented in the 2D-array will be between 1 and N, where N is the size of the input array.
+Constraints:
 
-Update (2017-09-26):
-We have overhauled the problem description + test cases and specified clearly the graph is an undirected graph. For the directed graph follow up please see Redundant Connection II). We apologize for any inconvenience caused.
+	n == edges.length
+	3 <= n <= 1000
+	edges[i].length == 2
+	1 <= ai < bi <= edges.length
+	ai != bi
+	There are no repeated edges.
+	The given graph is connected.
 """
-from collections import defaultdict
 import sys
+from collections import deque
+from collections import defaultdict
 from typing import List
 import pytest
 
 
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        def find_root(x):
-            if x != parents[x]:
-                parents[x] = find_root(parents[x])
-            return parents[x]
-
-        parents = [None]*(len(edges)+1)
+        num_edges = [0] * (len(edges) + 1)
+        num_nodes_having_n_edges = defaultdict(int)
+        num_nodes_having_n_edges[0] = len(edges)
         for u, v in edges:
-            if not parents[u] and not parents[v]:
-                parents[u] = parents[v] = min(u, v)
-            elif not parents[u] and parents[v]:
-                parents[u] = parents[v]
-            elif parents[u] and not parents[v]:
-                parents[v] = parents[u]
-            else:
-                up, vp = find_root(u), find_root(v)
-                if up == vp:
-                    return [u, v]
-                else:
-                    parents[up] = vp
+            num_nodes_having_n_edges[num_edges[u]] -= 1
+            num_nodes_having_n_edges[num_edges[v]] -= 1
+            num_edges[u] += 1
+            num_edges[v] += 1
+            num_nodes_having_n_edges[min(3, num_edges[u])] += 1
+            num_nodes_having_n_edges[min(3, num_edges[v])] += 1
+            if num_nodes_having_n_edges[1] < 2 + num_nodes_having_n_edges[3]:
+                return [u, v]
 
-    def _findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
         group_cohort = dict()
         node_group = dict()
 
@@ -94,30 +82,58 @@ class Solution:
             if not add_edge(u, v, node_group, group_cohort):
                 return [u, v]
 
-    def _findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        num_edges = [0] * (len(edges) + 1)
-        num_nodes_having_n_edges = defaultdict(int)
-        num_nodes_having_n_edges[0] = len(edges)
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        """08/28/2020 00:42"""
+        def find_root(x):
+            if x != parents[x]:
+                parents[x] = find_root(parents[x])
+            return parents[x]
+
+        parents = [None]*(len(edges)+1)
         for u, v in edges:
-            num_nodes_having_n_edges[num_edges[u]] -= 1
-            num_nodes_having_n_edges[num_edges[v]] -= 1
-            num_edges[u] += 1
-            num_edges[v] += 1
-            num_nodes_having_n_edges[min(3, num_edges[u])] += 1
-            num_nodes_having_n_edges[min(3, num_edges[v])] += 1
-            if num_nodes_having_n_edges[1] < 2 + num_nodes_having_n_edges[3]:
-                return [u, v]
+            if not parents[u] and not parents[v]:
+                parents[u] = parents[v] = min(u, v)
+            elif not parents[u] and parents[v]:
+                parents[u] = parents[v]
+            elif parents[u] and not parents[v]:
+                parents[v] = parents[u]
+            else:
+                up, vp = find_root(u), find_root(v)
+                if up == vp:
+                    return [u, v]
+                else:
+                    parents[up] = vp
+
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        rep = {}
+
+        def find_root(v):
+            if v in rep and rep[v] is None:
+                return v
+            root = find_root(rep[v])
+            rep[v] = root
+            return root
+
+        for u, v in edges:
+            if u in rep and v in rep:
+                ur = find_root(u)
+                vr = find_root(v)
+                if ur == vr:
+                    return [u, v]
+                rep[min(ur, vr)] = max(ur, vr)
+            elif u in rep:
+                rep[v] = u
+            elif v in rep:
+                rep[u] = v
+            else:
+                rep[min(u, v)] = max(u, v)
+                rep[max(u, v)] = None
+        return None
 
 
 @pytest.mark.parametrize('edges, expected', [
     ([[1,2],[1,3],[2,3]], [2,3]),
     ([[1,2],[2,3],[3,4],[1,4],[1,5]], [1,4]),
-    ([[1,2],[2,3],[2,4],[4,5],[1,5]], [1,5]),
-    ([[2,4],[3,4],[1,4],[2,5],[4,5]], [4,5]),
-    ([[9,10],[5,8],[2,6],[1,5],[3,8],[4,9],[8,10],[4,10],[6,8],[7,9]], [4,10]),
-    ([[21,22],[4,7],[12,13],[13,25],[12,15],[17,23],[15,16],[8,21],[23,24],
-      [3,9],[19,21],[13,21],[4,10],[5,6],[1,20],[10,16],[1,4],[10,14],[5,20],
-      [1,2],[3,24],[2,11],[11,24],[24,25],[17,18]], [24,25])
 ])
 def test(edges, expected):
     assert expected == Solution().findRedundantConnection(edges)

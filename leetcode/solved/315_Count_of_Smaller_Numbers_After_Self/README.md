@@ -2,20 +2,43 @@
 
 Hard
 
-You are given an integer array _nums_ and you have to return a new _counts_ array. The _counts_ array has the property where `` counts[i] `` is the number of smaller elements to the right of `` nums[i] ``.
+You are given an integer array `` nums `` and you have to return a new `` counts `` array. The `` counts `` array has the property where `` counts[i] `` is the number of smaller elements to the right of `` nums[i] ``.
 
-__Example:__
+ 
+
+__Example 1:__
 
 ```
-Input: [5,2,6,1]
-Output: <code>[2,1,1,0] 
-Explanation:</code>
+Input: nums = [5,2,6,1]
+Output: [2,1,1,0]
+Explanation:
 To the right of 5 there are <b>2</b> smaller elements (2 and 1).
 To the right of 2 there is only <b>1</b> smaller element (1).
 To the right of 6 there is <b>1</b> smaller element (1).
 To the right of 1 there is <b>0</b> smaller element.
 ```
 
+__Example 2:__
+
+```
+Input: nums = [-1]
+Output: [0]
+```
+
+__Example 3:__
+
+```
+Input: nums = [-1,-1]
+Output: [0,0]
+```
+
+ 
+
+__Constraints:__
+
+*   <code>1 <= nums.length <= 10<sup>5</sup></code>
+*   <code>-10<sup>4</sup> <= nums[i] <= 10<sup>4</sup></code>
+
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 302,960 | 124,703 | 41.2% |
+| 463,344 | 194,729 | 42.0% |

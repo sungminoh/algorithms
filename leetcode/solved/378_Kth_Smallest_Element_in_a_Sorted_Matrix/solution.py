@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -8,30 +7,61 @@
 # Distributed under terms of the MIT license.
 
 """
-Given a n x n matrix where each of the rows and columns are sorted in ascending order, find the kth smallest element in the matrix.
+Given an n x n matrix where each of the rows and columns are sorted in ascending order, return the kth smallest element in the matrix.
 
 Note that it is the kth smallest element in the sorted order, not the kth distinct element.
 
-Example:
+Example 1:
 
-matrix = [
-   [ 1,  5,  9],
-   [10, 11, 13],
-   [12, 13, 15]
-],
-k = 8,
+Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8
+Output: 13
+Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
 
-return 13.
+Example 2:
 
-Note:
-You may assume k is always valid, 1 &le; k &le; n2.
+Input: matrix = [[-5]], k = 1
+Output: -5
+
+Constraints:
+
+	n == matrix.length
+	n == matrix[i].length
+	1 <= n <= 300
+	-109 <= matrix[i][j] <= 109
+	All the rows and columns of matrix are guaranteed to be sorted in non-decreasing order.
+	1 <= k <= n2
 """
+import bisect
+import sys
+import itertools
 from typing import List
 import pytest
 
 
+def quick_select(arr, k):
+    def rec(s, e, k):
+        p = arr[e]
+        i = s
+        j = e-1
+        while i <= j:
+            if arr[i] <= p:
+                i += 1
+            elif arr[j] > p:
+                j -= 1
+            else:
+                arr[i], arr[j] = arr[j], arr[i]
+        arr[i], arr[e] = arr[e], arr[i]
+        if i > k-1:
+            return rec(s, i-1, k)
+        elif i < k-1:
+            return rec(i+1, e, k)
+        return arr[i]
+    return rec(0, len(arr)-1, k)
+
+
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        """04/13/2020 20:00"""
         if not matrix:
             # not found
             return
@@ -65,12 +95,40 @@ class Solution:
         # not found
         return None
 
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        """
+        Quick select
+        Time complexity: O(n*n) (average)
+        Space complexity: O(n*n) (to make a list)
+        """
+        return quick_select(list(itertools.chain(*matrix)), k)
 
-@pytest.mark.parametrize('matrix, k,expected', [
-    ([[ 1,  5,  9],
-      [10, 11, 13],
-      [12, 13, 15]],
-     8, 13),
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        """
+        Binary search on the value
+        Time complexity: O(max-min)
+        Space complexity: O(1)
+        """
+        l = matrix[0][0]
+        h = matrix[-1][-1]
+        while l < h:
+            m = l + (h-l)//2
+            smaller_cnt = sum(bisect.bisect_right(row, m) for row in matrix)
+            if smaller_cnt < k:
+                l = m+1
+            else:
+                h = m
+        return l
+
+
+@pytest.mark.parametrize('arr, k, expected', [
+    ([[1,5,9],[10,11,13],[12,13,15]], 8, 13),
+    ([[-5]], 1, -5),
+    ([[1,1,1],[1,1,1],[10,10,10]], 7, 10)
 ])
-def test(matrix, k, expected):
-    assert expected == Solution().kthSmallest(matrix, k)
+def test(arr, k, expected):
+    assert expected == Solution().kthSmallest(arr, k)
+
+
+if __name__ == '__main__':
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

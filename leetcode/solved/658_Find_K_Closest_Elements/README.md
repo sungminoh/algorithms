@@ -2,7 +2,12 @@
 
 Medium
 
-Given a sorted array `` arr ``, two integers `` k `` and `` x ``, find the `` k `` closest elements to `` x `` in the array. The result should also be sorted in ascending order. If there is a tie, the smaller elements are always preferred.
+Given a __sorted__ integer array `` arr ``, two integers `` k `` and `` x ``, return the `` k `` closest integers to `` x `` in the array. The result should also be sorted in ascending order.
+
+An integer `` a `` is closer to `` x `` than an integer `` b `` if:
+
+*   `` |a - x| < |b - x| ``, or
+*   `` |a - x| == |b - x| `` and `` a < b ``
 
  
 
@@ -23,9 +28,10 @@ Output: [1,2,3,4]
 __Constraints:__
 
 *   `` 1 <= k <= arr.length ``
-*   `` 1 <= arr.length <= 10^4 ``
-*   Absolute value of elements in the array and `` x `` will not exceed 10<sup>4</sup>
+*   <code>1 <= arr.length <= 10<sup>4</sup></code>
+*   `` arr `` is sorted in __ascending__ order.
+*   <code>-10<sup>4</sup> <= arr[i], x <= 10<sup>4</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 255,452 | 103,862 | 40.7% |
+| 476,067 | 206,198 | 43.3% |

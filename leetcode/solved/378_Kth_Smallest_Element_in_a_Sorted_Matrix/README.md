@@ -2,26 +2,38 @@
 
 Medium
 
-Given a _n_ x _n_ matrix where each of the rows and columns are sorted in ascending order, find the kth smallest element in the matrix.
+Given an `` n x n `` `` matrix `` where each of the rows and columns are sorted in ascending order, return _the_ <code>k<sup>th</sup></code> _smallest element in the matrix_.
 
-Note that it is the kth smallest element in the sorted order, not the kth distinct element.
+Note that it is the <code>k<sup>th</sup></code> smallest element __in the sorted order__, not the <code>k<sup>th</sup></code> __distinct__ element.
 
-__Example:__
+ 
+
+__Example 1:__
 
 ```
-matrix = [
-   [ 1,  5,  9],
-   [10, 11, 13],
-   [12, 13, 15]
-],
-k = 8,
-
-return 13.
+Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8
+Output: 13
+Explanation: The elements in the matrix are [1,5,9,10,11,12,13,<u>13</u>,15], and the 8<sup>th</sup> smallest number is 13
 ```
 
-__Note: __  
-You may assume k is always valid, 1 ≤ k ≤ n<sup>2</sup>.
+__Example 2:__
+
+```
+Input: matrix = [[-5]], k = 1
+Output: -5
+```
+
+ 
+
+__Constraints:__
+
+*   `` n == matrix.length ``
+*   `` n == matrix[i].length ``
+*   `` 1 <= n <= 300 ``
+*   <code>-10<sup>9</sup> <= matrix[i][j] <= 10<sup>9</sup></code>
+*   All the rows and columns of `` matrix `` are __guaranteed__ to be sorted in __non-decreasing order__.
+*   <code>1 <= k <= n<sup>2</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 311,285 | 164,094 | 52.7% |
+| 533,762 | 309,801 | 58.0% |

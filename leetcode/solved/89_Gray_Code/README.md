@@ -1,29 +1,50 @@
-### [89. Gray Code](https://leetcode.com/problems/gray-code/description/)
+### [89. Gray Code](https://leetcode.com/problems/gray-code/)
 
-[Description](https://leetcode.com/problems/gray-code/description/)[Hints](https://leetcode.com/problems/gray-code/hints/)[Submissions](https://leetcode.com/problems/gray-code/submissions/)[Discuss](https://leetcode.com/problems/gray-code/discuss/)[Solution](https://leetcode.com/problems/gray-code/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+An __n-bit gray code sequence__ is a sequence of <code>2<sup>n</sup></code> integers where:
 
-------
+*   Every integer is in the __inclusive__ range <code>[0, 2<sup>n</sup> - 1]</code>,
+*   The first integer is `` 0 ``,
+*   An integer appears __no more than once__ in the sequence,
+*   The binary representation of every pair of __adjacent__ integers differs by __exactly one bit__, and
+*   The binary representation of the __first__ and __last__ integers differs by __exactly one bit__.
 
-The gray code is a binary numeral system where two successive values differ in only one bit.
+Given an integer `` n ``, return _any valid __n-bit gray code sequence___.
 
-Given a non-negative integer *n* representing the total number of bits in the code, print the sequence of gray code. A gray code sequence must begin with 0.
+ 
 
-For example, given *n* = 2, return `[0,1,3,2]`. Its gray code sequence is:
+__Example 1:__
 
 ```
-00 - 0
-01 - 1
-11 - 3
-10 - 2
+Input: n = 2
+Output: [0,1,3,2]
+Explanation:
+The binary representation of [0,1,3,2] is [00,01,11,10].
+- 0<u>0</u> and 0<u>1</u> differ by one bit
+- <u>0</u>1 and <u>1</u>1 differ by one bit
+- 1<u>1</u> and 1<u>0</u> differ by one bit
+- <u>1</u>0 and <u>0</u>0 differ by one bit
+[0,2,3,1] is also a valid gray code sequence, whose binary representation is [00,10,11,01].
+- <u>0</u>0 and <u>1</u>0 differ by one bit
+- 1<u>0</u> and 1<u>1</u> differ by one bit
+- <u>1</u>1 and <u>0</u>1 differ by one bit
+- 0<u>1</u> and 0<u>0</u> differ by one bit
 ```
 
-**Note:**
-For a given *n*, a gray code sequence is not uniquely defined.
+__Example 2:__
 
-For example, `[0,2,3,1]` is also a valid gray code sequence according to the above definition.
+```
+Input: n = 1
+Output: [0,1]
+```
 
-For now, the judge is able to judge based on one instance of gray code sequence. Sorry about that.
+ 
 
- 
+__Constraints:__
+
+*   `` 1 <= n <= 16 ``
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 396,474 | 212,835 | 53.7% |

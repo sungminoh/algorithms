@@ -1,20 +1,18 @@
-### [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/description/)
+### [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/)
 
-[Description](https://leetcode.com/problems/find-peak-element/description/)[Hints](https://leetcode.com/problems/find-peak-element/hints/)[Submissions](https://leetcode.com/problems/find-peak-element/submissions/)[Discuss](https://leetcode.com/problems/find-peak-element/discuss/)[Solution](https://leetcode.com/problems/find-peak-element/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+A peak element is an element that is strictly greater than its neighbors.
 
-------
+Given an integer array `` nums ``, find a peak element, and return its index. If the array contains multiple peaks, return the index to __any of the peaks__.
 
-A peak element is an element that is greater than its neighbors.
+You may imagine that `` nums[-1] = nums[n] = -∞ ``.
 
-Given an input array `nums`, where `nums[i] ≠ nums[i+1]`, find a peak element and return its index.
+You must write an algorithm that runs in `` O(log n) `` time.
 
-The array may contain multiple peaks, in that case return the index to any one of the peaks is fine.
+ 
 
-You may imagine that `nums[-1] = nums[n] = -∞`.
-
-**Example 1:**
+__Example 1:__
 
 ```
 Input: nums = [1,2,3,1]
@@ -22,15 +20,22 @@ Output: 2
 Explanation: 3 is a peak element and your function should return the index number 2.
 ```
 
-**Example 2:**
+__Example 2:__
 
 ```
 Input: nums = [1,2,1,3,5,6,4]
-Output: 1 or 5 
-Explanation: Your function can return either index number 1 where the peak element is 2, 
-             or index number 5 where the peak element is 6.
+Output: 5
+Explanation: Your function can return either index number 1 where the peak element is 2, or index number 5 where the peak element is 6.
 ```
 
-**Note:**
+ 
 
-Your solution should be in logarithmic complexity.
+__Constraints:__
+
+*   `` 1 <= nums.length <= 1000 ``
+*   <code>-2<sup>31</sup> <= nums[i] <= 2<sup>31</sup> - 1</code>
+*   `` nums[i] != nums[i + 1] `` for all valid `` i ``.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,272,337 | 567,452 | 44.6% |

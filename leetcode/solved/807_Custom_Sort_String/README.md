@@ -2,31 +2,40 @@
 
 Medium
 
-`` S `` and `` T `` are strings composed of lowercase letters. In `` S ``, no letter occurs more than once.
+You are given two strings order and s. All the words of `` order `` are __unique__ and were sorted in some custom order previously.
 
-`` S `` was sorted in some custom order previously. We want to permute the characters of `` T `` so that they match the order that `` S `` was sorted. More specifically, if `` x `` occurs before `` y `` in `` S ``, then `` x `` should occur before `` y `` in the returned string.
+Permute the characters of `` s `` so that they match the order that `` order `` was sorted. More specifically, if a character `` x `` occurs before a character `` y `` in `` order ``, then `` x `` should occur before `` y `` in the permuted string.
 
-Return any permutation of `` T `` (as a string) that satisfies this property.
+Return _any permutation of _`` s ``_ that satisfies this property_.
+
+ 
+
+__Example 1:__
 
 ```
-Example :
-Input: 
-S = "cba"
-T = "abcd"
+Input: order = "cba", s = "abcd"
 Output: "cbad"
 Explanation: 
-"a", "b", "c" appear in S, so the order of "a", "b", "c" should be "c", "b", and "a". 
-Since "d" does not appear in S, it can be at any position in T. "dcba", "cdba", "cbda" are also valid outputs.
+"a", "b", "c" appear in order, so the order of "a", "b", "c" should be "c", "b", and "a". 
+Since "d" does not appear in order, it can be at any position in the returned string. "dcba", "cdba", "cbda" are also valid outputs.
+```
+
+__Example 2:__
+
+```
+Input: order = "cbafg", s = "abcd"
+Output: "cbad"
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-*   `` S `` has length at most `` 26 ``, and no character is repeated in `` S ``.
-*   `` T `` has length at most `` 200 ``.
-*   `` S `` and `` T `` consist of lowercase letters only.
+*   `` 1 <= order.length <= 26 ``
+*   `` 1 <= s.length <= 200 ``
+*   `` order `` and `` s `` consist of lowercase English letters.
+*   All the characters of `` order `` are __unique__.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 106,719 | 69,946 | 65.5% |
+| 186,673 | 125,198 | 67.1% |

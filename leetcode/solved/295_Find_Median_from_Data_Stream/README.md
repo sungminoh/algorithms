@@ -2,40 +2,52 @@
 
 Hard
 
-Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value. So the median is the mean of the two middle value.
+The __median__ is the middle value in an ordered integer list. If the size of the list is even, there is no middle value and the median is the mean of the two middle values.
 
+*   For example, for `` arr = [2,3,4] ``, the median is `` 3 ``.
+*   For example, for `` arr = [2,3] ``, the median is `` (2 + 3) / 2 = 2.5 ``.
 
-For example,
+Implement the MedianFinder class:
 
-
-`` [2,3,4] ``, the median is `` 3 ``
-
-`` [2,3] ``, the median is `` (2 + 3) / 2 = 2.5 ``
-
-Design a data structure that supports the following two operations:
-
-*   void addNum(int num) - Add a integer number from the data stream to the data structure.
-*   double findMedian() - Return the median of all elements so far.
+*   `` MedianFinder() `` initializes the `` MedianFinder `` object.
+*   `` void addNum(int num) `` adds the integer `` num `` from the data stream to the data structure.
+*   `` double findMedian() `` returns the median of all elements so far. Answers within <code>10<sup>-5</sup></code> of the actual answer will be accepted.
 
  
 
-__Example:__
+__Example 1:__
 
 ```
-addNum(1)
-addNum(2)
-findMedian() -> 1.5
-addNum(3) 
-findMedian() -> 2
+Input
+["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
+[[], [1], [2], [], [3], []]
+Output
+[null, null, null, 1.5, null, 2.0]
+
+Explanation
+MedianFinder medianFinder = new MedianFinder();
+medianFinder.addNum(1);    // arr = [1]
+medianFinder.addNum(2);    // arr = [1, 2]
+medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
+medianFinder.addNum(3);    // arr[1, 2, 3]
+medianFinder.findMedian(); // return 2.0
 ```
+
+ 
+
+__Constraints:__
+
+*   <code>-10<sup>5</sup> <= num <= 10<sup>5</sup></code>
+*   There will be at least one element in the data structure before calling `` findMedian ``.
+*   At most <code>5 * 10<sup>4</sup></code> calls will be made to `` addNum `` and `` findMedian ``.
 
  
 
 __Follow up:__
 
-1.   If all integer numbers from the stream are between 0 and 100, how would you optimize it?
-2.   If 99% of all integer numbers from the stream are between 0 and 100, how would you optimize it?
+*   If all integer numbers from the stream are in the range `` [0, 100] ``, how would you optimize your solution?
+*   If `` 99% `` of all integer numbers from the stream are in the range `` [0, 100] ``, how would you optimize your solution?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 455,307 | 197,154 | 43.3% |
+| 720,666 | 353,220 | 49.0% |

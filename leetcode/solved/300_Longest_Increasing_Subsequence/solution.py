@@ -2,51 +2,47 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2019 sungminoh <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given an unsorted array of integers, find the length of longest increasing subsequence.
+Given an integer array nums, return the length of the longest strictly increasing subsequence.
 
-Example:
+A subsequence is a sequence that can be derived from an array by deleting some or no elements without changing the order of the remaining elements. For example, [3,6,2,7] is a subsequence of the array [0,3,1,6,2,2,7].
 
-Input: [10,9,2,5,3,7,101,18]
+Example 1:
+
+Input: nums = [10,9,2,5,3,7,101,18]
 Output: 4
 Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
-Note:
 
-There may be more than one LIS combination, it is only necessary for you to return the length.
-Your algorithm should run in O(n2) complexity.
-Follow up: Could you improve it to O(n log n) time complexity?
+Example 2:
+
+Input: nums = [0,1,0,3,2,3]
+Output: 4
+
+Example 3:
+
+Input: nums = [7,7,7,7,7,7,7]
+Output: 1
+
+Constraints:
+
+	1 <= nums.length <= 2500
+	-104 <= nums[i] <= 104
+
+Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?
 """
+import bisect
+import sys
 from typing import List
+import pytest
 
 
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        if not nums:
-            return 0
-        lis = [nums[0]]
-        for n in nums[1:]:
-            smaller_idx = self.bisearch(lis, n)
-            if smaller_idx + 1 == len(lis):
-                lis.append(n)
-            elif lis[smaller_idx + 1] > n:
-                lis[smaller_idx + 1] = n
-        return len(lis)
-
-    def bisearch(self, arr, n):
-        left, right = 0, len(arr) - 1
-        while right - left >= 0:
-            mid = left + (right - left) // 2
-            if arr[mid] >= n:
-                right = mid - 1
-            else:
-                left = mid + 1
-        return right
-
-    def lengthOfLISnn(self, nums: List[int]) -> int:
+        """11/05/2019 01:36"""
         if not nums:
             return 0
         lis = [1] * len(nums)
@@ -57,12 +53,73 @@ class Solution:
         print(lis)
         return max(lis)
 
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        """11/05/2019 02:28"""
+        if not nums:
+            return 0
+
+        def bisearch(arr, n):
+            left, right = 0, len(arr) - 1
+            while right - left >= 0:
+                mid = left + (right - left) // 2
+                if arr[mid] >= n:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            return right
+
+        lis = [nums[0]]
+        for n in nums[1:]:
+            smaller_idx = self.bisearch(lis, n)
+            if smaller_idx + 1 == len(lis):
+                lis.append(n)
+            elif lis[smaller_idx + 1] > n:
+                lis[smaller_idx + 1] = n
+        return len(lis)
+
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        """
+        DP
+        Time complexity: O(n^2)
+        Space complexity: O(n)
+        """
+        lis_ends_at = [1] * len(nums)
+        for i, n in enumerate(nums):
+            m = 1
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    m = max(m, lis_ends_at[j] + 1)
+            lis_ends_at[i] = m
+        return max(lis_ends_at)
+
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        """
+        Construct LIS greedly
+        Time complexity: O(n*logn)
+        Space complexity: O(n)
+        """
+        if not nums:
+            return 0
+        lis = [nums[0]]
+        for i in range(1, len(nums)):
+            j = bisect.bisect_left(lis, nums[i])
+            if j == len(lis):
+                lis.append(nums[i])
+            else:
+                if lis[j] > nums[i]:
+                    lis[j] = nums[i]
+        return len(lis)
+
+
+@pytest.mark.parametrize('nums, expected', [
+([10,9,2,5,3,7,101,18], 4),
+([0,1,0,3,2,3], 4),
+([7,7,7,7,7,7,7], 1),
+
+])
+def test(nums, expected):
+    assert expected == Solution().lengthOfLIS(nums)
+
 
 if __name__ == '__main__':
-    cases = [
-        ([10,9,2,5,3,7,101,18], 4),
-        ([10,9,2,5,3,4], 3)
-    ]
-    for case, expected in cases:
-        actual = Solution().lengthOfLIS(case)
-        print(f'{expected == actual}\texpected: {expected}\tactual: {actual}')
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

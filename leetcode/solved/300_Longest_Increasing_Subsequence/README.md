@@ -2,22 +2,45 @@
 
 Medium
 
-318973Share
+Given an integer array `` nums ``, return the length of the longest strictly increasing subsequence.
 
-Given an unsorted array of integers, find the length of longest increasing subsequence.
+A __subsequence__ is a sequence that can be derived from an array by deleting some or no elements without changing the order of the remaining elements. For example, `` [3,6,2,7] `` is a subsequence of the array `` [0,3,1,6,2,2,7] ``.
 
-**Example:**
+ 
+
+__Example 1:__
 
 ```
-Input: [10,9,2,5,3,7,101,18]
-Output: 4 
-Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4. 
+Input: nums = [10,9,2,5,3,7,101,18]
+Output: 4
+Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
 ```
 
-**Note:**
+__Example 2:__
 
-- There may be more than one LIS combination, it is only necessary for you to return the length.
-- Your algorithm should run in O(*n2*) complexity.
+```
+Input: nums = [0,1,0,3,2,3]
+Output: 4
+```
 
-**Follow up:** Could you improve it to O(*n* log *n*) time complexity?
+__Example 3:__
 
+```
+Input: nums = [7,7,7,7,7,7,7]
+Output: 1
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= nums.length <= 2500 ``
+*   <code>-10<sup>4</sup> <= nums[i] <= 10<sup>4</sup></code>
+
+ 
+
+__Follow up:__ Can you come up with an algorithm that runs in `` O(n log(n)) `` time complexity?
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,350,777 | 627,198 | 46.4% |

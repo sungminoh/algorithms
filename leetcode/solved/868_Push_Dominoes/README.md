@@ -1,49 +1,50 @@
-### [868. Push Dominoes](https://leetcode.com/problems/push-dominoes/)
+### [868. Push Dominoes](https://leetcode.com/problems/push-dominoes)
 
 Medium
 
-There are
+There are `` n `` dominoes in a line, and we place each domino vertically upright. In the beginning, we simultaneously push some of the dominoes either to the left or to the right.
 
-<font face="monospace"> <code>N</code></font>
-
- dominoes in a line, and we place each domino vertically upright.
-
-In the beginning, we simultaneously push some of the dominoes either to the left or to the right.
-
-<img alt="" src="https://s3-lc-upload.s3.amazonaws.com/uploads/2018/05/18/domino.png" style="height: 160px;"/>
-
-After each second, each domino that is falling to the left pushes the adjacent domino on the left.
-
-Similarly, the dominoes falling to the right push their adjacent dominoes standing on the right.
+After each second, each domino that is falling to the left pushes the adjacent domino on the left. Similarly, the dominoes falling to the right push their adjacent dominoes standing on the right.
 
 When a vertical domino has dominoes falling on it from both sides, it stays still due to the balance of the forces.
 
-For the purposes of this question, we will consider that a falling domino expends no additional force to a falling or already fallen domino.
+For the purposes of this question, we will consider that a falling domino expends no additional force to a falling or already fallen domino.
 
-Given a string "S" representing the initial state. `` S[i] = 'L' ``, if the i-th domino has been pushed to the left; `` S[i] = 'R' ``, if the i-th domino has been pushed to the right; `` S[i] = '.' ``, if the `` i ``-th domino has not been pushed.
+You are given a string `` dominoes `` representing the initial state where:
 
-Return a string representing the final state. 
+*   `` dominoes[i] = 'L' ``, if the <code>i<sup>th</sup></code> domino has been pushed to the left,
+*   `` dominoes[i] = 'R' ``, if the <code>i<sup>th</sup></code> domino has been pushed to the right, and
+*   `` dominoes[i] = '.' ``, if the <code>i<sup>th</sup></code> domino has not been pushed.
+
+Return _a string representing the final state_.
+
+ 
 
 __Example 1:__
 
 ```
-Input: ".L.R...LR..L.."
-Output: "LL.RR.LLRRLL.."
-```
-
-__Example 2:__
-
-```
-Input: "RR.L"
+Input: dominoes = "RR.L"
 Output: "RR.L"
 Explanation: The first domino expends no additional force on the second domino.
 ```
 
-__Note:__
+__Example 2:__
 
-1.   `` 0 <= N <= 10^5 ``
-2.   String `` dominoes `` contains only `` 'L ``', `` 'R' `` and `` '.' ``
+<img alt="" src="https://s3-lc-upload.s3.amazonaws.com/uploads/2018/05/18/domino.png" style="height: 196px; width: 512px;"/>
+
+```
+Input: dominoes = ".L.R...LR..L.."
+Output: "LL.RR.LLRRLL.."
+```
+
+ 
+
+__Constraints:__
+
+*   `` n == dominoes.length ``
+*   <code>1 <= n <= 10<sup>5</sup></code>
+*   `` dominoes[i] `` is either `` 'L' ``, `` 'R' ``, or `` '.' ``.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 47,065 | 22,985 | 48.8% |
+| 99,127 | 51,384 | 51.8% |

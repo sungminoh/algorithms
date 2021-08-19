@@ -2,26 +2,35 @@
 
 Medium
 
-Given an array consists of non-negative integers,  your task is to count the number of triplets chosen from the array that can make triangles if we take them as side lengths of a triangle.
+Given an integer array `` nums ``, return _the number of triplets chosen from the array that can make triangles if we take them as side lengths of a triangle_.
 
+ 
 
-__Example 1:__  
+__Example 1:__
 
 ```
-<b>Input:</b> [2,2,3,4]
-<b>Output:</b> 3
-<b>Explanation:</b>
-Valid combinations are: 
+Input: nums = [2,2,3,4]
+Output: 3
+Explanation: Valid combinations are: 
 2,3,4 (using the first 2)
 2,3,4 (using the second 2)
 2,2,3
 ```
 
-__Note:__  
+__Example 2:__
 
-1.   The length of the given array won't exceed 1000.
-2.   The integers in the given array are in the range of \[0, 1000\].
+```
+Input: nums = [4,2,3,4]
+Output: 4
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= nums.length <= 1000 ``
+*   `` 0 <= nums[i] <= 1000 ``
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 126,077 | 60,681 | 48.1% |
+| 237,941 | 116,669 | 49.0% |

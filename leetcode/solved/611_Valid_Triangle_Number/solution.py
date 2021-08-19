@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -8,31 +7,36 @@
 # Distributed under terms of the MIT license.
 
 """
-Given an array consists of non-negative integers,  your task is to count the number of triplets chosen from the array that can make triangles if we take them as side lengths of a triangle.
+Given an integer array nums, return the number of triplets chosen from the array that can make triangles if we take them as side lengths of a triangle.
 
 Example 1:
 
-Input: [2,2,3,4]
+Input: nums = [2,2,3,4]
 Output: 3
-Explanation:
-Valid combinations are:
+Explanation: Valid combinations are:
 2,3,4 (using the first 2)
 2,3,4 (using the second 2)
 2,2,3
 
-Note:
+Example 2:
 
-The length of the given array won't exceed 1000.
-The integers in the given array are in the range of [0, 1000].
+Input: nums = [4,2,3,4]
+Output: 4
+
+Constraints:
+
+	1 <= nums.length <= 1000
+	0 <= nums[i] <= 1000
 """
-from collections import Counter
 import sys
+import bisect
 from typing import List
 import pytest
 
 
 class Solution:
-    def _triangleNumber(self, nums: List[int]) -> int:
+    def triangleNumber(self, nums: List[int]) -> int:
+        """06/15/2020 23:17"""
         nums.sort()
 
         def binsearch(i, j, s):
@@ -51,6 +55,7 @@ class Solution:
         return cnt
 
     def triangleNumber(self, nums: List[int]) -> int:
+        """06/15/2020 23:21"""
         nums.sort()
         cnt = 0
         for k in range(len(nums)-1, 1, -1):
@@ -64,8 +69,43 @@ class Solution:
         return cnt
 
 
+    def triangleNumber(self, nums: List[int]) -> int:
+        """
+        Time complexity: O(n^2 * logn)
+        Space complexity: O(1)
+        """
+        nums = [x for x in nums if x > 0]
+        nums.sort()
+        ret = 0
+        for i in range(len(nums)-2):
+            for j in range(i+1, len(nums)-1):
+                k = bisect.bisect_left(nums, nums[i]+nums[j], lo=j)
+                ret += k-j-1
+        return ret
+
+    def triangleNumber(self, nums: List[int]) -> int:
+        """
+        Time complexity: O(n^2)
+        Space complexity: O(1)
+        """
+        nums = [x for x in nums if x > 0]
+        nums.sort()
+        ret = 0
+        for k in range(len(nums)-1, 1, -1):
+            i, j = 0, k-1
+            while i < j:
+                a, b, c = nums[i], nums[j], nums[k]
+                if a+b <= c:
+                    i += 1
+                else:
+                    ret += j-i
+                    j -= 1
+        return ret
+
+
 @pytest.mark.parametrize('nums, expected', [
     ([2,2,3,4], 3),
+    ([4,2,3,4], 4),
     ([0,1,0], 0),
     ([24,3,82,22,35,84,19], 10),
     ([16,70,16,36,17,39,44,72,25,88,18,22,20,84,18,66,71,74,87,59,48,91,52,15,92,29,85,21,10,34,86,68,10,27,3,42,49,48,18,15,6,39,61,28,19,52,60,8,37,32,71,82,54,38,47,33,10,64,52,71,39,63,64,79,86,47,16,72,55,17,35,88,74,93,10,59,3,64,95,91,61,28,63,23,49,6,24,47,41,88,96,23,90,53,84,3,35,23,3,17], 75781),

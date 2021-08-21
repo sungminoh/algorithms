@@ -1,15 +1,38 @@
-### [16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/description/)
+### [16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/)
 
-[**Description](https://leetcode.com/problems/3sum-closest/description/)[**Hints](https://leetcode.com/problems/3sum-closest/hints/)[**Submissions](https://leetcode.com/problems/3sum-closest/submissions/)[**Discuss](https://leetcode.com/problems/3sum-closest/discuss/)[**Solution](https://leetcode.com/problems/3sum-closest/solution/)
+Medium
 
-[**Pick One](https://leetcode.com/problems/random-one-question/)
+Given an integer array `` nums `` of length `` n `` and an integer `` target ``, find three integers in `` nums `` such that the sum is closest to `` target ``.
 
-------
+Return _the sum of the three integers_.
 
-Given an array *S* of *n* integers, find three integers in *S* such that the sum is closest to a given number, target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
+You may assume that each input would have exactly one solution.
+
+ 
+
+__Example 1:__
 
 ```
-    For example, given array S = {-1 2 1 -4}, and target = 1.
-
-    The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
+Input: nums = [-1,2,1,-4], target = 1
+Output: 2
+Explanation: The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 ```
+
+__Example 2:__
+
+```
+Input: nums = [0,0,0], target = 1
+Output: 0
+```
+
+ 
+
+__Constraints:__
+
+*   `` 3 <= nums.length <= 1000 ``
+*   `` -1000 <= nums[i] <= 1000 ``
+*   <code>-10<sup>4</sup> <= target <= 10<sup>4</sup></code>
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,397,409 | 653,201 | 46.7% |

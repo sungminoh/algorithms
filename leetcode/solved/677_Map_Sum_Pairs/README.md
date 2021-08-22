@@ -2,21 +2,45 @@
 
 Medium
 
-Implement a MapSum class with `` insert ``, and `` sum `` methods.
+Design a map that allows you to do the following:
 
-For the method `` insert ``, you'll be given a pair of (string, integer). The string represents the key and the integer represents the value. If the key already existed, then the original key-value pair will be overridden to the new one.
+*   Maps a string key to a given value.
+*   Returns the sum of the values that have a key with a prefix equal to a given string.
 
-For the method `` sum ``, you'll be given a string representing the prefix, and you need to return the sum of all the pairs' value whose key starts with the prefix.
+Implement the `` MapSum `` class:
 
-__Example 1:__  
+*   `` MapSum() `` Initializes the `` MapSum `` object.
+*   `` void insert(String key, int val) `` Inserts the `` key-val `` pair into the map. If the `` key `` already existed, the original `` key-value `` pair will be overridden to the new one.
+*   `` int sum(string prefix) `` Returns the sum of all the pairs' value whose `` key `` starts with the `` prefix ``.
+
+ 
+
+__Example 1:__
 
 ```
-Input: insert("apple", 3), Output: Null
-Input: sum("ap"), Output: 3
-Input: insert("app", 2), Output: Null
-Input: sum("ap"), Output: 5
+Input
+["MapSum", "insert", "sum", "insert", "sum"]
+[[], ["apple", 3], ["ap"], ["app", 2], ["ap"]]
+Output
+[null, null, 3, null, 5]
+
+Explanation
+MapSum mapSum = new MapSum();
+mapSum.insert("apple", 3);  
+mapSum.sum("ap");           // return 3 (<u>ap</u>ple = 3)
+mapSum.insert("app", 2);    
+mapSum.sum("ap");           // return 5 (<u>ap</u>ple + <u>ap</u>p = 3 + 2 = 5)
 ```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= key.length, prefix.length <= 50 ``
+*   `` key `` and `` prefix `` consist of only lowercase English letters.
+*   `` 1 <= val <= 1000 ``
+*   At most `` 50 `` calls will be made to `` insert `` and `` sum ``.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 78,080 | 41,780 | 53.5% |
+| 131,197 | 74,706 | 56.9% |

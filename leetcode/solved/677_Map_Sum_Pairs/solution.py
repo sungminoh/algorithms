@@ -7,18 +7,38 @@
 # Distributed under terms of the MIT license.
 
 """
-Implement a MapSum class with insert, and sum methods.
+Design a map that allows you to do the following:
 
-For the method insert, you'll be given a pair of (string, integer). The string represents the key and the integer represents the value. If the key already existed, then the original key-value pair will be overridden to the new one.
+	Maps a string key to a given value.
+	Returns the sum of the values that have a key with a prefix equal to a given string.
 
-For the method sum, you'll be given a string representing the prefix, and you need to return the sum of all the pairs' value whose key starts with the prefix.
+Implement the MapSum class:
+
+	MapSum() Initializes the MapSum object.
+	void insert(String key, int val) Inserts the key-val pair into the map. If the key already existed, the original key-value pair will be overridden to the new one.
+	int sum(string prefix) Returns the sum of all the pairs' value whose key starts with the prefix.
 
 Example 1:
 
-Input: insert("apple", 3), Output: Null
-Input: sum("ap"), Output: 3
-Input: insert("app", 2), Output: Null
-Input: sum("ap"), Output: 5
+Input
+["MapSum", "insert", "sum", "insert", "sum"]
+[[], ["apple", 3], ["ap"], ["app", 2], ["ap"]]
+Output
+[null, null, 3, null, 5]
+
+Explanation
+MapSum mapSum = new MapSum();
+mapSum.insert("apple", 3);
+mapSum.sum("ap");           // return 3 (apple = 3)
+mapSum.insert("app", 2);
+mapSum.sum("ap");           // return 5 (apple + app = 3 + 2 = 5)
+
+Constraints:
+
+	1 <= key.length, prefix.length <= 50
+	key and prefix consist of only lowercase English letters.
+	1 <= val <= 1000
+	At most 50 calls will be made to insert and sum.
 """
 import sys
 from collections import defaultdict
@@ -30,11 +50,10 @@ def infdict():
 
 
 class MapSum:
-
+    """08/17/2020 09:44
+    Using trie
+    """
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
         self.d = infdict()
 
     def insert(self, key: str, val: int) -> None:
@@ -58,16 +77,44 @@ class MapSum:
         return d.get('_', 0)
 
 
-@pytest.mark.parametrize('commands, args, expecteds', [
-    (['insert', 'sum', 'insert', 'sum'],
-     [['apple', 3], ['ap'], ['app', 2], ['ap']],
-     [None, 3, None, 5]),
+class MapSum:
+    """
+    Precalculate for possible prefixes
+    """
+    def __init__(self):
+        self.prefix = defaultdict(set)
+        self.values = []
+        self.keyindex = dict()
+
+    def insert(self, key: str, val: int) -> None:
+        # update key value
+        if key in self.keyindex:
+            self.values[self.keyindex[key]] = val
+        else:
+            self.keyindex[key] = len(self.values)
+            self.values.append(val)
+            # update prefix map
+            for i in range(len(key)+1):
+                self.prefix[key[:i]].add(self.keyindex[key])
+
+    def sum(self, prefix: str) -> int:
+        return sum(self.values[i] for i in self.prefix.get(prefix, []))
+
+
+@pytest.mark.parametrize('commands, arguments, expecteds', [
+    (["MapSum", "insert", "sum", "insert", "sum"],
+     [[], ["apple", 3], ["ap"], ["app", 2], ["ap"]],
+     [None, None, 3, None, 5]),
+    (["MapSum","insert","sum","insert","sum"],
+     [[],["apple",3],["apple"],["app",2],["ap"]],
+     [None,None,3,None,5])
 ])
-def test(commands, args, expecteds):
-    o = MapSum()
-    for c, a, e in zip(commands, args, expecteds):
-        assert e == getattr(o, c)(*a)
+def test(commands, arguments, expecteds):
+    obj = globals()[commands[0]](*arguments[0])
+    for cmd, args, exp in zip(commands[1:], arguments[1:], expecteds[1:]):
+        assert exp == getattr(obj, cmd)(*args)
 
 
 if __name__ == '__main__':
     sys.exit(pytest.main(["-s", "-v"] + sys.argv))
+

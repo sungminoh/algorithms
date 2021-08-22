@@ -2,48 +2,41 @@
 
 Medium
 
-Given a matrix consists of 0 and 1, find the distance of the nearest 0 for each cell.
+Given an `` m x n `` binary matrix `` mat ``, return _the distance of the nearest _`` 0 ``_ for each cell_.
 
-The distance between two adjacent cells is 1.
+The distance between two adjacent cells is `` 1 ``.
 
  
 
-__Example 1: __
+__Example 1:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/04/24/01-1-grid.jpg" style="width: 253px; height: 253px;"/>
 
 ```
-Input:
-[[0,0,0],
- [0,1,0],
- [0,0,0]]
-
-Output:
-[[0,0,0],
- [0,1,0],
- [0,0,0]]
+Input: mat = [[0,0,0],[0,1,0],[0,0,0]]
+Output: [[0,0,0],[0,1,0],[0,0,0]]
 ```
 
-__Example 2: __
+__Example 2:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/04/24/01-2-grid.jpg" style="width: 253px; height: 253px;"/>
 
 ```
-<b>Input:</b>
-[[0,0,0],
- [0,1,0],
- [1,1,1]]
-
-Output:
-[[0,0,0],
- [0,1,0],
- [1,2,1]]
+Input: mat = [[0,0,0],[0,1,0],[1,1,1]]
+Output: [[0,0,0],[0,1,0],[1,2,1]]
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-1.   The number of elements of the given matrix will not exceed 10,000.
-2.   There are at least one 0 in the given matrix.
-3.   The cells are adjacent in only four directions: up, down, left and right.
+*   `` m == mat.length ``
+*   `` n == mat[i].length ``
+*   <code>1 <= m, n <= 10<sup>4</sup></code>
+*   <code>1 <= m * n <= 10<sup>4</sup></code>
+*   `` mat[i][j] `` is either `` 0 `` or `` 1 ``.
+*   There is at least one `` 0 `` in `` mat ``.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 205,406 | 80,444 | 39.2% |
+| 375,529 | 160,837 | 42.8% |

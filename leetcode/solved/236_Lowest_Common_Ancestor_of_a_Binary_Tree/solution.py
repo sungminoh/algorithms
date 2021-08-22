@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2019 sungminoh <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
@@ -11,31 +11,38 @@ Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in
 
 According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
 
-Given the following binary tree:  root = [3,5,1,6,2,0,8,null,null,7,4]
-
-
-
-
 Example 1:
 
 Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
 Output: 3
 Explanation: The LCA of nodes 5 and 1 is 3.
+
 Example 2:
 
 Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
 Output: 5
 Explanation: The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.
 
+Example 3:
 
-Note:
+Input: root = [1,2], p = 1, q = 2
+Output: 1
 
-All of the nodes' values will be unique.
-p and q are different and both values will exist in the binary tree.
+Constraints:
+
+	The number of nodes in the tree is in the range [2, 105].
+	-109 <= Node.val <= 109
+	All Node.val are unique.
+	p != q
+	p and q will exist in the tree.
 """
+from typing import Tuple
+from pathlib import Path
 import sys
-sys.path.append('../../')
-from exercise.tree import TreeNode, build_tree, print_tree
+import pytest
+sys.path.append(str(Path('__file__').absolute().parent.parent))
+from exercise.tree import TreeNode
+
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -46,8 +53,9 @@ from exercise.tree import TreeNode, build_tree, print_tree
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        """08/25/2019 19:40"""
         ancestor = None
-        def find_nodes(node) -> bool:
+        def find_nodes(node) -> int:
             nonlocal ancestor
             if not node:
                 return 0
@@ -72,14 +80,63 @@ class Solution:
         find_nodes(root)
         return ancestor
 
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        def find(node) -> Tuple[TreeNode, bool, bool]:
+            """
+            Returns [Common Ancestor, Found p, Found q]
+            """
+            if not node:
+                return None, False, False
+            la, lp, lq= find(node.left)
+            if la:
+                return la, True, True
+            ra, rp, rq = find(node.right)
+            if ra:
+                return ra, True, True
+            if (lp or node == p) and (rq or node == q):
+                return node, True, True
+            if (lq or node == q) and (rp or node == p):
+                return node, True, True
+            return None, lp or rp or node == p, lq or rq or node == q
+
+        return find(root)[0]
+
+
+def build_tree(lst, values=None):
+    if not lst:
+        return None
+    values = values or []
+    nodes = [TreeNode(x) if x is not None else None for x in lst]
+    value_nodes = {node.val: node for node in nodes if node and node.val in values}
+    root = nodes[0]
+    queue = [root]
+    att = ['left', 'right']
+    cur = 0
+    for node in nodes[1:]:
+        setattr(queue[0], att[cur], node)
+        if cur:
+            queue.pop(0)
+        if node:
+            queue.append(node)
+        cur += 1
+        cur %= 2
+    return root, value_nodes
+
+
+@pytest.mark.parametrize('nodes, p, q, expected', [
+    ([3,5,1,6,2,0,8,None,None,7,4], 5, 1, 3),
+    ([3,5,1,6,2,0,8,None,None,7,4], 5, 4, 5),
+    ([1,2], 1, 2, 1),
+])
+def test(nodes, p, q, expected):
+    root, value_nodes = build_tree(nodes, [p, q])
+    p = value_nodes[p]
+    q = value_nodes[q]
+    actual = Solution().lowestCommonAncestor(root, p, q)
+    print()
+    print(actual)
+    assert expected == actual.val
+
 
 if __name__ == '__main__':
-    cases = [
-        ((build_tree([3,5,1,6,2,0,8,None,None,7,4]), TreeNode(5), TreeNode(1)), TreeNode(3)),
-        ((build_tree([3,5,1,6,2,0,8,None,None,7,4]), TreeNode(5), TreeNode(4)), TreeNode(5)),
-        ((build_tree([3,5,1,6,2,0,8,None,None,7,4]), TreeNode(0), TreeNode(8)), TreeNode(1))
-    ]
-    for case, expected in cases:
-        actual = Solution().lowestCommonAncestor(*case)
-        print_tree(case[0])
-        print(f'{expected == actual}\texpected: {expected}\tactual: {actual}')
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

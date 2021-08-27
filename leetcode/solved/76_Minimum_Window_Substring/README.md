@@ -1,21 +1,52 @@
-### [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/description/)
+### [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
 
-[Description](https://leetcode.com/problems/minimum-window-substring/description/)[Hints](https://leetcode.com/problems/minimum-window-substring/hints/)[Submissions](https://leetcode.com/problems/minimum-window-substring/submissions/)[Discuss](https://leetcode.com/problems/minimum-window-substring/discuss/)[Solution](https://leetcode.com/problems/minimum-window-substring/solution/)
+Hard
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given two strings `` s `` and `` t `` of lengths `` m `` and `` n `` respectively, return _the __minimum window substring__ of _`` s ``_ such that every character in _`` t ``_ (__including duplicates__) is included in the window. If there is no such substring__, return the empty string _`` "" ``_._
 
-------
+The testcases will be generated such that the answer is __unique__.
 
-Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+A __substring__ is a contiguous sequence of characters within the string.
 
-**Example:**
+ 
+
+__Example 1:__
 
 ```
-Input: S = "ADOBECODEBANC", T = "ABC"
+Input: s = "ADOBECODEBANC", t = "ABC"
 Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
 ```
 
-**Note:**
+__Example 2:__
 
-- If there is no such window in S that covers all characters in T, return the empty string `""`.
-- If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
+```
+Input: s = "a", t = "a"
+Output: "a"
+Explanation: The entire string s is the minimum window.
+```
+
+__Example 3:__
+
+```
+Input: s = "a", t = "aa"
+Output: ""
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
+```
+
+ 
+
+__Constraints:__
+
+*   `` m == s.length ``
+*   `` n == t.length ``
+*   <code>1 <= m, n <= 10<sup>5</sup></code>
+*   `` s `` and `` t `` consist of uppercase and lowercase English letters.
+
+ 
+__Follow up:__ Could you find an algorithm that runs in `` O(m + n) `` time?
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,612,218 | 603,766 | 37.4% |

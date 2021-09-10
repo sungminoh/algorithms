@@ -45,13 +45,20 @@ import pytest
 
 class Solution:
     def judgeSquareSum(self, c: int) -> bool:
-        squares = set()
+        """12/15/2020 19:05"""
         i = 0
         while i <= c**0.5:
             r = (c - i**2) ** 0.5
             if int(r) == r:
                 return True
             i += 1
+        return False
+
+    def judgeSquareSum(self, c: int) -> bool:
+        for i in range(int(c**0.5)+1):
+            r = (c-i**2)**0.5
+            if r == int(r):
+                return True
         return False
 
 

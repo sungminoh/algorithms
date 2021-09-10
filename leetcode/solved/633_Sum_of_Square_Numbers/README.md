@@ -1,4 +1,4 @@
-### [633. Sum of Square Numbers](https://leetcode.com/problems/sum-of-square-numbers/)
+### [633. Sum of Square Numbers](https://leetcode.com/problems/sum-of-square-numbers)
 
 Medium
 
@@ -50,4 +50,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 237,732 | 76,865 | 32.3% |
+| 337,504 | 116,824 | 34.6% |

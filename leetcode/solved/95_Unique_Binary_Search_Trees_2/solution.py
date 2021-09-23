@@ -41,34 +41,28 @@ class TreeNode:
 from collections import defaultdict
 
 class Solution:
-    memo = defaultdict(dict)
-
-    def generateTreesDP(self, n, add):
-        if n == 0:
-            return [None]
-        if n == 1:
-            return [TreeNode(1 + add)]
-        if n in self.memo and add in self.memo[n]:
-            return self.memo[n][add]
-        ret = []
-        for i in range(1, n+1):
-            left_trees = self.generateTreesDP(i-1, add)
-            right_trees = self.generateTreesDP(n-i, add+i)
-            for left in left_trees:
-                for right in right_trees:
-                    root = TreeNode(add+i)
-                    root.left = left
-                    root.right = right
-                    ret.append(root)
-        self.memo[n][add] = ret
-        return ret
-
-
     def generateTrees(self, n):
-        """
-        :type n: int
-        :rtype: List[TreeNode]
-        """
+        memo = defaultdict(dict)
+        def generateTreesDP(n, add):
+            if n == 0:
+                return [None]
+            if n == 1:
+                return [TreeNode(1 + add)]
+            if n in memo and add in memo[n]:
+                return memo[n][add]
+            ret = []
+            for i in range(1, n+1):
+                left_trees = generateTreesDP(i-1, add)
+                right_trees = generateTreesDP(n-i, add+i)
+                for left in left_trees:
+                    for right in right_trees:
+                        root = TreeNode(add+i)
+                        root.left = left
+                        root.right = right
+                        ret.append(root)
+            memo[n][add] = ret
+            return ret
+
         if n == 0:
             return []
         return self.generateTreesDP(n, 0)

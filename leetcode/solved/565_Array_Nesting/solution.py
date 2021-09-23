@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -8,24 +7,35 @@
 # Distributed under terms of the MIT license.
 
 """
-A zero-indexed array A of length N contains all integers from 0 to N-1. Find and return the longest length of set S, where S[i] = {A[i], A[A[i]], A[A[A[i]]], ... } subjected to the rule below.
+You are given an integer array nums of length n where nums is a permutation of the numbers in the range [0, n - 1].
 
-Suppose the first element in S starts with the selection of element A[i] of index = i, the next element in S should be A[A[i]], and then A[A[A[i]]]… By that analogy, we stop adding right before a duplicate element occurs in S.
+You should build a set s[k] = {nums[k], nums[nums[k]], nums[nums[nums[k]]], ... } subjected to the following rule:
+
+	The first element in s[k] starts with the selection of the element nums[k] of index = k.
+	The next element in s[k] should be nums[nums[k]], and then nums[nums[nums[k]]], and so on.
+	We stop adding right before a duplicate element occurs in s[k].
+
+Return the longest length of a set s[k].
 
 Example 1:
 
-Input: A = [5,4,0,3,1,6,2]
+Input: nums = [5,4,0,3,1,6,2]
 Output: 4
 Explanation:
-A[0] = 5, A[1] = 4, A[2] = 0, A[3] = 3, A[4] = 1, A[5] = 6, A[6] = 2.
+nums[0] = 5, nums[1] = 4, nums[2] = 0, nums[3] = 3, nums[4] = 1, nums[5] = 6, nums[6] = 2.
+One of the longest sets s[k]:
+s[0] = {nums[0], nums[5], nums[6], nums[2]} = {5, 6, 2, 0}
 
-One of the longest S[K]:
-S[0] = {A[0], A[5], A[6], A[2]} = {5, 6, 2, 0}
+Example 2:
 
-Note:
-	1. N is an integer within the range [1, 20,000].
-	2. The elements of A are all distinct.
-	3. Each element of A is an integer within the range [0, N-1].
+Input: nums = [0,1,2]
+Output: 1
+
+Constraints:
+
+	1 <= nums.length <= 105
+	0 <= nums[i] < nums.length
+	All the values of nums are unique.
 """
 import sys
 from typing import List
@@ -34,6 +44,7 @@ import pytest
 
 class Solution:
     def arrayNesting(self, nums: List[int]) -> int:
+        """06/12/2020 00:17"""
         pool = set(nums)
 
         def iterate(n):
@@ -49,9 +60,25 @@ class Solution:
             m = max(m, iterate(n))
         return m
 
+    def arrayNesting(self, nums: List[int]) -> int:
+        used = set()
+
+        def loop(n):
+            used.add(n)
+            if nums[n] not in used:
+                return 1 + loop(nums[n])
+            return 1
+
+        ret = 0
+        for i in range(len(nums)):
+            if i not in used:
+                ret = max(ret, loop(i))
+        return ret
+
 
 @pytest.mark.parametrize('nums, expected', [
     ([5,4,0,3,1,6,2], 4),
+    ([0,1,2], 1),
 ])
 def test(nums, expected):
     assert expected == Solution().arrayNesting(nums)

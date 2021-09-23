@@ -2,40 +2,41 @@
 
 Hard
 
-There are some trees, where each tree is represented by (x,y) coordinate in a two-dimensional garden. Your job is to fence the entire garden using the __minimum length__ of rope as it is expensive. The garden is well fenced only if all the trees are enclosed. Your task is to help find the coordinates of trees which are exactly located on the fence perimeter.
+You are given an array `` trees `` where <code>trees[i] = [x<sub>i</sub>, y<sub>i</sub>]</code> represents the location of a tree in the garden.
+
+You are asked to fence the entire garden using the minimum length of rope as it is expensive. The garden is well fenced only if __all the trees are enclosed__.
+
+Return _the coordinates of trees that are exactly located on the fence perimeter_.
 
  
 
 __Example 1:__
 
+<img alt="" src="https://assets.leetcode.com/uploads/2021/04/24/erect2-plane.jpg" style="width: 509px; height: 500px;"/>
+
 ```
-<b>Input:</b> [[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]]
-<b>Output:</b> [[1,1],[2,0],[4,2],[3,3],[2,4]]
-<b>Explanation:</b>
-<img src="https://assets.leetcode.com/uploads/2018/10/12/erect_the_fence_1.png" style="width: 100%; max-width: 320px"/>
+Input: points = [[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]]
+Output: [[1,1],[2,0],[3,3],[2,4],[4,2]]
 ```
 
 __Example 2:__
 
+<img alt="" src="https://assets.leetcode.com/uploads/2021/04/24/erect1-plane.jpg" style="width: 509px; height: 500px;"/>
+
 ```
-<b>Input:</b> [[1,2],[2,2],[4,2]]
-<b>Output:</b> [[1,2],[2,2],[4,2]]
-<b>Explanation:</b>
-<img src="https://assets.leetcode.com/uploads/2018/10/12/erect_the_fence_2.png" style="width: 100%; max-width: 320px"/>
-Even you only have trees in a line, you need to use rope to enclose them. 
+Input: points = [[1,2],[2,2],[4,2]]
+Output: [[4,2],[2,2],[1,2]]
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-1.   All trees should be enclosed together. You cannot cut the rope to enclose trees that will separate them in more than one group.
-2.   All input integers will range from 0 to 100.
-3.   The garden has at least one tree.
-4.   All coordinates are distinct.
-5.   Input points have __NO__ order. No order required for output.
-6.   input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
+*   `` 1 <= points.length <= 3000 ``
+*   `` points[i].length == 2 ``
+*   <code>0 <= x<sub>i</sub>, y<sub>i</sub> <= 100</code>
+*   All the given points are __unique__.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 28,193 | 10,197 | 36.2% |
+| 52,441 | 22,686 | 43.3% |

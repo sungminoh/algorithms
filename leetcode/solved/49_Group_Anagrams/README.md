@@ -1,26 +1,39 @@
-### [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/description/)
+### [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/)
 
-[Description](https://leetcode.com/problems/group-anagrams/description/)[Hints](https://leetcode.com/problems/group-anagrams/hints/)[Submissions](https://leetcode.com/problems/group-anagrams/submissions/)[Discuss](https://leetcode.com/problems/group-anagrams/discuss/)[Solution](https://leetcode.com/problems/group-anagrams/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given an array of strings `` strs ``, group __the anagrams__ together. You can return the answer in __any order__.
 
-------
+An __Anagram__ is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
 
-Given an array of strings, group anagrams together.
+ 
 
-**Example:**
+__Example 1:__
 
-```
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
-Output:
-[
-  ["ate","eat","tea"],
-  ["nat","tan"],
-  ["bat"]
-]
+```Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
 ```
 
-**Note:**
+__Example 2:__
 
-- All inputs will be in lowercase.
-- The order of your output does not matter.
+```Input: strs = [""]
+Output: [[""]]
+```
+
+__Example 3:__
+
+```Input: strs = ["a"]
+Output: [["a"]]
+```
+
+ 
+
+__Constraints:__
+
+*   <code>1 <= strs.length <= 10<sup>4</sup></code>
+*   `` 0 <= strs[i].length <= 100 ``
+*   `` strs[i] `` consists of lowercase English letters.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,733,714 | 1,072,991 | 61.9% |

@@ -2,56 +2,47 @@
 
 Medium
 
-Given an array of integers `` A `` with even length, return `` true `` if and only if it is possible to reorder it such that `` A[2 * i + 1] = 2 * A[2 * i] `` for every `` 0 <= i < len(A) / 2 ``.
+Given an integer array of even length `` arr ``, return `` true ``_ if it is possible to reorder _`` arr ``_ such that _`` arr[2 * i + 1] = 2 * arr[2 * i] ``_ for every _`` 0 <= i < len(arr) / 2 ``_, or _`` false ``_ otherwise_.
 
  
 
-<div>
-<div>
-<div>
-<ol>
-</ol>
-</div>
-</div>
-</div>
+__Example 1:__
 
-<div>
-<p><strong>Example 1:</strong></p>
 ```
-Input: <span id="example-input-1-1">[3,1,3,6]</span>
-Output: <span id="example-output-1">false</span>
+Input: arr = [3,1,3,6]
+Output: false
 ```
-<div>
-<p><strong>Example 2:</strong></p>
+
+__Example 2:__
+
 ```
-Input: <span id="example-input-2-1">[2,1,2,6]</span>
-Output: <span id="example-output-2">false</span>
+Input: arr = [2,1,2,6]
+Output: false
 ```
-<div>
-<p><strong>Example 3:</strong></p>
+
+__Example 3:__
+
 ```
-Input: <span id="example-input-3-1">[4,-2,2,-4]</span>
-Output: <span id="example-output-3">true</span>
-Explanation: <span id="example-output-3">We can take two groups, [-2,-4] and [2,4] to form [-2,-4,2,4] or [2,4,-2,-4].</span>
+Input: arr = [4,-2,2,-4]
+Output: true
+Explanation: We can take two groups, [-2,-4] and [2,4] to form [-2,-4,2,4] or [2,4,-2,-4].
 ```
-<div>
-<p><strong>Example 4:</strong></p>
+
+__Example 4:__
+
 ```
-Input: <span id="example-input-4-1">[1,2,4,16,8,4]</span>
-Output: <span id="example-output-4">false</span>
+Input: arr = [1,2,4,16,8,4]
+Output: false
 ```
-<p> </p>
-<p><strong>Note:</strong></p>
-<ol>
-<li><code>0 <= A.length <= 30000</code></li>
-<li><code>A.length</code> is even</li>
-<li><code>-100000 <= A[i] <= 100000</code></li>
-</ol>
-</div>
-</div>
-</div>
-</div>
+
+ 
+
+__Constraints:__
+
+*   <code>2 <= arr.length <= 3 * 10<sup>4</sup></code>
+*   `` arr.length `` is even.
+*   <code>-10<sup>5</sup> <= arr[i] <= 10<sup>5</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 48,069 | 17,005 | 35.4% |
+| 141,910 | 51,776 | 36.5% |

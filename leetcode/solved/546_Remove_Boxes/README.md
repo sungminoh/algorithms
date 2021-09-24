@@ -2,9 +2,11 @@
 
 Hard
 
-Given several boxes with different colors represented by different positive numbers.  
-You may experience several rounds to remove boxes until there is no box left. Each time you can choose some continuous boxes with the same color (composed of k boxes, k >= 1), remove them and get `` k*k `` points.  
-Find the maximum points you can get.
+You are given several `` boxes `` with different colors represented by different positive numbers.
+
+You may experience several rounds to remove boxes until there is no box left. Each time you can choose some continuous boxes with the same color (i.e., composed of `` k `` boxes, `` k >= 1 ``), remove them and get `` k * k `` points.
+
+Return _the maximum points you can get_.
 
  
 
@@ -21,6 +23,20 @@ Explanation:
 ----> [] (2*2=4 points)
 ```
 
+__Example 2:__
+
+```
+Input: boxes = [1,1,1]
+Output: 9
+```
+
+__Example 3:__
+
+```
+Input: boxes = [1]
+Output: 1
+```
+
  
 
 __Constraints:__
@@ -30,4 +46,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 38,586 | 16,861 | 43.7% |
+| 66,597 | 31,441 | 47.2% |

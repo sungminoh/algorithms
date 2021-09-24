@@ -1,49 +1,48 @@
-### [73. Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/description/)
+### [73. Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/)
 
-[Description](https://leetcode.com/problems/set-matrix-zeroes/description/)[Hints](https://leetcode.com/problems/set-matrix-zeroes/hints/)[Submissions](https://leetcode.com/problems/set-matrix-zeroes/submissions/)[Discuss](https://leetcode.com/problems/set-matrix-zeroes/discuss/)[Solution](https://leetcode.com/problems/set-matrix-zeroes/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given an `` m x n `` integer matrix `` matrix ``, if an element is `` 0 ``, set its entire row and column to `` 0 ``'s, and return _the matrix_.
 
-------
+You must do it <a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank">in place</a>.
 
-Given a *m* x *n* matrix, if an element is 0, set its entire row and column to 0. Do it [**in-place**](https://en.wikipedia.org/wiki/In-place_algorithm).
+ 
 
-**Example 1:**
+__Example 1:__
 
-```
-Input: 
-[
-  [1,1,1],
-  [1,0,1],
-  [1,1,1]
-]
-Output: 
-[
-  [1,0,1],
-  [0,0,0],
-  [1,0,1]
-]
-```
-
-**Example 2:**
+<img alt="" src="https://assets.leetcode.com/uploads/2020/08/17/mat1.jpg" style="width: 450px; height: 169px;"/>
 
 ```
-Input: 
-[
-  [0,1,2,0],
-  [3,4,5,2],
-  [1,3,1,5]
-]
-Output: 
-[
-  [0,0,0,0],
-  [0,4,5,0],
-  [0,3,1,0]
-]
+Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
+Output: [[1,0,1],[0,0,0],[1,0,1]]
 ```
 
-**Follow up:**
+__Example 2:__
 
-- A straight forward solution using O(*m**n*) space is probably a bad idea.
-- A simple improvement uses O(*m* + *n*) space, but still not the best solution.
-- Could you devise a constant space solution?
+<img alt="" src="https://assets.leetcode.com/uploads/2020/08/17/mat2.jpg" style="width: 450px; height: 137px;"/>
+
+```
+Input: matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
+```
+
+ 
+
+__Constraints:__
+
+*   `` m == matrix.length ``
+*   `` n == matrix[0].length ``
+*   `` 1 <= m, n <= 200 ``
+*   <code>-2<sup>31</sup> <= matrix[i][j] <= 2<sup>31</sup> - 1</code>
+
+ 
+
+__Follow up:__
+
+*   A straightforward solution using `` O(mn) `` space is probably a bad idea.
+*   A simple improvement uses `` O(m + n) `` space, but still not the best solution.
+*   Could you devise a constant space solution?
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,126,031 | 523,058 | 46.5% |

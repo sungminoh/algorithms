@@ -1,48 +1,28 @@
-### [446. Arithmetic Slices II - Subsequence](https://leetcode.com/problems/arithmetic-slices-ii-subsequence/ls)
+### [446. Arithmetic Slices II - Subsequence](https://leetcode.com/problems/arithmetic-slices-ii-subsequence/)
 
 Hard
 
-A sequence of numbers is called arithmetic if it consists of at least three elements and if the difference between any two consecutive elements is the same.
+Given an integer array `` nums ``, return _the number of all the __arithmetic subsequences__ of_ `` nums ``.
 
-For example, these are arithmetic sequences:
+A sequence of numbers is called arithmetic if it consists of __at least three elements__ and if the difference between any two consecutive elements is the same.
 
-```
-1, 3, 5, 7, 9
-7, 7, 7, 7
-3, -1, -5, -9
-```
+*   For example, `` [1, 3, 5, 7, 9] ``, `` [7, 7, 7, 7] ``, and `` [3, -1, -5, -9] `` are arithmetic sequences.
+*   For example, `` [1, 1, 2, 5, 7] `` is not an arithmetic sequence.
 
-The following sequence is not arithmetic.
+A __subsequence__ of an array is a sequence that can be formed by removing some elements (possibly none) of the array.
 
-```
-1, 1, 2, 5, 7
-```
+*   For example, `` [2,5,10] `` is a subsequence of <code>[1,2,1,<strong><u>2</u></strong>,4,1,<u><strong>5</strong></u>,<u><strong>10</strong></u>]</code>.
 
+The test cases are generated so that the answer fits in __32-bit__ integer.
 
  
 
-
-A zero-indexed array A consisting of N numbers is given. A __subsequence__ slice of that array is any sequence of integers (P<sub>0</sub>, P<sub>1</sub>, ..., P<sub>k</sub>) such that 0 ≤ P<sub>0</sub> < P<sub>1</sub> < ... < P<sub>k</sub> < N.
-
-A __subsequence__ slice (P<sub>0</sub>, P<sub>1</sub>, ..., P<sub>k</sub>) of array A is called arithmetic if the sequence A\[P<sub>0</sub>\], A\[P<sub>1</sub>\], ..., A\[P<sub>k-1</sub>\], A\[P<sub>k</sub>\] is arithmetic. In particular, this means that k ≥ 2.
-
-The function should return the number of arithmetic subsequence slices in the array A.
-
-The input contains N integers. Every integer is in the range of -2<sup>31</sup> and 2<sup>31</sup>-1 and 0 ≤ N ≤ 1000. The output is guaranteed to be less than 2<sup>31</sup>-1.
-
-
- 
-
-
-__Example:__
+__Example 1:__
 
 ```
-<b>Input:</b> [2, 4, 6, 8, 10]
-
-<b>Output:</b> 7
-
-<b>Explanation:</b>
-All arithmetic subsequence slices are:
+Input: nums = [2,4,6,8,10]
+Output: 7
+Explanation: All arithmetic subsequence slices are:
 [2,4,6]
 [4,6,8]
 [6,8,10]
@@ -52,6 +32,21 @@ All arithmetic subsequence slices are:
 [2,6,10]
 ```
 
+__Example 2:__
+
+```
+Input: nums = [7,7,7,7,7]
+Output: 16
+Explanation: Any subsequence of this array is arithmetic.
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1  <= nums.length <= 1000 ``
+*   <code>-2<sup>31</sup> <= nums[i] <= 2<sup>31</sup> - 1</code>
+
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 68,862 | 22,689 | 32.9% |
+| 103,026 | 39,888 | 38.7% |

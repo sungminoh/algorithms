@@ -2,36 +2,45 @@
 
 Hard
 
-Implement a basic calculator to evaluate a simple expression string.
+Given a string `` s `` representing a valid expression, implement a basic calculator to evaluate it, and return _the result of the evaluation_.
 
-The expression string may contain open `` ( `` and closing parentheses `` ) ``, the plus `` + `` or minus sign `` - ``, __non-negative__ integers and empty spaces ``   ``.
+__Note:__ You are __not__ allowed to use any built-in function which evaluates strings as mathematical expressions, such as `` eval() ``.
+
+ 
 
 __Example 1:__
 
 ```
-Input: "1 + 1"
+Input: s = "1 + 1"
 Output: 2
 ```
 
 __Example 2:__
 
 ```
-Input: " 2-1 + 2 "
+Input: s = " 2-1 + 2 "
 Output: 3
 ```
 
 __Example 3:__
 
 ```
-Input: "(1+(4+5+2)-3)+(6+8)"
+Input: s = "(1+(4+5+2)-3)+(6+8)"
 Output: 23
 ```
 
-__Note:__
+ 
 
-*   You may assume that the given expression is always valid.
-*   __Do not__ use the `` eval `` built-in library function.
+__Constraints:__
+
+*   <code>1 <= s.length <= 3 * 10<sup>5</sup></code>
+*   `` s `` consists of digits, `` '+' ``, `` '-' ``, `` '(' ``, `` ')' ``, and `` ' ' ``.
+*   `` s `` represents a valid expression.
+*   `` '+' `` is not used as a unary operation.
+*   `` '-' `` could be used as a unary operation and in this case, it will not be used directly after a +ve or -ve signs (will be inside parentheses).
+*   There will be no two consecutive operators in the input.
+*   Every number and running calculation will fit in a signed 32-bit integer.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 430,330 | 156,317 | 36.3% |
+| 630,692 | 248,399 | 39.4% |

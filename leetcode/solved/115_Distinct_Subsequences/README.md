@@ -1,51 +1,48 @@
-### [115. Distinct Subsequences](https://leetcode.com/problems/distinct-subsequences/description/)
+### [115. Distinct Subsequences](https://leetcode.com/problems/distinct-subsequences/)
 
-[Description](https://leetcode.com/problems/distinct-subsequences/description/)[Hints](https://leetcode.com/problems/distinct-subsequences/hints/)[Submissions](https://leetcode.com/problems/distinct-subsequences/submissions/)[Discuss](https://leetcode.com/problems/distinct-subsequences/discuss/)[Solution](https://leetcode.com/problems/distinct-subsequences/solution/)
+Hard
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given two strings `` s `` and `` t ``, return _the number of distinct subsequences of `` s `` which equals `` t ``_.
 
-------
+A string's __subsequence__ is a new string formed from the original string by deleting some (can be none) of the characters without disturbing the remaining characters' relative positions. (i.e., `` "ACE" `` is a subsequence of `` "ABCDE" `` while `` "AEC" `` is not).
 
-Given a string **S** and a string **T**, count the number of distinct subsequences of **S** which equals **T**.
+It is guaranteed the answer fits on a 32-bit signed integer.
 
-A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, `"ACE"` is a subsequence of `"ABCDE"` while `"AEC"` is not).
+ 
 
-**Example 1:**
+__Example 1:__
 
 ```
-Input: S = "rabbbit", T = "rabbit"
+Input: s = "rabbbit", t = "rabbit"
 Output: 3
 Explanation:
-
 As shown below, there are 3 ways you can generate "rabbit" from S.
-(The caret symbol ^ means the chosen letters)
-
-rabbbit
-^^^^ ^^
-rabbbit
-^^ ^^^^
-rabbbit
-^^^ ^^^
+<code><u>rabb</u>b<u>it</u></code>
+<code><u>ra</u>b<u>bbit</u></code>
+<code><u>rab</u>b<u>bit</u></code>
 ```
 
-**Example 2:**
+__Example 2:__
 
 ```
-Input: S = "babgbag", T = "bag"
+Input: s = "babgbag", t = "bag"
 Output: 5
 Explanation:
-
 As shown below, there are 5 ways you can generate "bag" from S.
-(The caret symbol ^ means the chosen letters)
-
-babgbag
-^^ ^
-babgbag
-^^    ^
-babgbag
-^    ^^
-babgbag
-  ^  ^^
-babgbag
-    ^^^
+<code><u>ba</u>b<u>g</u>bag</code>
+<code><u>ba</u>bgba<u>g</u></code>
+<code><u>b</u>abgb<u>ag</u></code>
+<code>ba<u>b</u>gb<u>ag</u></code>
+<code>babg<u>bag</u></code>
 ```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= s.length, t.length <= 1000 ``
+*   `` s `` and `` t `` consist of English letters.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 471,433 | 195,756 | 41.5% |

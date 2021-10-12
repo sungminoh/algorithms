@@ -7,48 +7,38 @@
 # Distributed under terms of the MIT license.
 
 """
-Given a (singly) linked list with head node root, write a function to split the linked list into k consecutive linked list "parts".
+Given the head of a singly linked list and an integer k, split the linked list into k consecutive linked list parts.
 
-The length of each part should be as equal as possible: no two parts should have a size differing by more than 1.  This may lead to some parts being null.
+The length of each part should be as equal as possible: no two parts should have a size differing by more than one. This may lead to some parts being null.
 
-The parts should be in order of occurrence in the input list, and parts occurring earlier should always have a size greater than or equal parts occurring later.
+The parts should be in the order of occurrence in the input list, and parts occurring earlier should always have a size greater than or equal to parts occurring later.
 
-Return a List of ListNode's representing the linked list parts that are formed.
-
-Examples
-1->2->3->4, k = 5 // 5 equal parts
-[ [1],
-[2],
-[3],
-[4],
-null ]
+Return an array of the k parts.
 
 Example 1:
 
-Input:
-root = [1, 2, 3], k = 5
+Input: head = [1,2,3], k = 5
 Output: [[1],[2],[3],[],[]]
 Explanation:
-The input and each element of the output are ListNodes, not arrays.
-For example, the input root has root.val = 1, root.next.val = 2, \root.next.next.val = 3, and root.next.next.next = null.
 The first element output[0] has output[0].val = 1, output[0].next = null.
-The last element output[4] is null, but it's string representation as a ListNode is [].
+The last element output[4] is null, but its string representation as a ListNode is [].
 
 Example 2:
 
-Input:
-root = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], k = 3
-Output: [[1, 2, 3, 4], [5, 6, 7], [8, 9, 10]]
+Input: head = [1,2,3,4,5,6,7,8,9,10], k = 3
+Output: [[1,2,3,4],[5,6,7],[8,9,10]]
 Explanation:
 The input has been split into consecutive parts with size difference at most 1, and earlier parts are a larger size than the later parts.
 
-Note:
-The length of root will be in the range [0, 1000].
-Each value of a node in the input will be an integer in the range [0, 999].
-k will be an integer in the range [1, 50].
+Constraints:
+
+	The number of nodes in the list is in the range [0, 1000].
+	0 <= Node.val <= 1000
+	1 <= k <= 50
 """
 import sys
 from typing import List
+from typing import Optional
 import pytest
 
 
@@ -59,19 +49,34 @@ class ListNode:
         self.next = next
 
     def __repr__(self):
-        return f'({self.val}) -> {self.next!r}'
+        return f'({self.val}) -> {self.next}'
+
+    def __eq__(self, other):
+        return False if self.val != other.val else self.next == other.next
+
+
+def build(vals):
+    if not vals:
+        return None
+    head = ListNode(vals[0])
+    node = head
+    for v in vals[1:]:
+        node.next = ListNode(v)
+        node = node.next
+    return head
 
 
 class Solution:
-    def get_size(self, root: ListNode):
-        cnt = 0
-        while root:
-            cnt += 1
-            root = root.next
-        return cnt
-
     def splitListToParts(self, root: ListNode, k: int) -> List[ListNode]:
-        size = self.get_size(root)
+        """09/03/2020 23:27"""
+        def get_size(root: ListNode):
+            cnt = 0
+            while root:
+                cnt += 1
+                root = root.next
+            return cnt
+
+        size = get_size(root)
         q, r = divmod(size, k)
         ret = []
         node = root
@@ -89,41 +94,43 @@ class Solution:
             ret.append(None)
         return ret
 
-def build_node(vals):
-    root = None
-    tail = None
-    for v in vals:
-        n = ListNode(v)
-        if not root:
-            root = tail = n
-        else:
-            tail.next = n
-            tail = n
-    return root
+    def splitListToParts(self, head: Optional[ListNode], k: int) -> List[Optional[ListNode]]:
+        n = 0
+        node = head
+        while node:
+            n += 1
+            node = node.next
 
+        ret = []
 
-def node_to_list(root):
-    ret = []
-    while root:
-        ret.append(root.val)
-        root = root.next
-    return ret
+        q, r = divmod(n, k)
+        node = head
+        start = node
+        l = 1
+        while node:
+            next_node = node.next
+            if l == q + min(1, r):
+                ret.append(start)
+                start = node.next
+                node.next = None
+                r = max(0, r-1)
+                l = 0
+            l += 1
+            node = next_node
+
+        while len(ret) < k:
+            ret.append(None)
+
+        return ret
 
 
 @pytest.mark.parametrize('nodes, k, expected', [
     ([1,2,3], 5, [[1],[2],[3],[],[]]),
-    ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3, [[1, 2, 3, 4], [5, 6, 7], [8, 9, 10]]),
+    ([1,2,3,4,5,6,7,8,9,10], 3, [[1,2,3,4],[5,6,7],[8,9,10]]),
     ([], 3, [[],[],[]]),
 ])
 def test(nodes, k, expected):
-    print()
-    root = build_node(nodes)
-    print(root)
-    actual = Solution().splitListToParts(root, k)
-    print(actual)
-    actual = [node_to_list(x) for x in actual]
-    print(actual)
-    assert expected == actual
+    assert [build(x) for x in expected] == Solution().splitListToParts(build(nodes), k)
 
 
 if __name__ == '__main__':

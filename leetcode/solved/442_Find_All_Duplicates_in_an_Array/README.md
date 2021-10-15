@@ -2,22 +2,39 @@
 
 Medium
 
-Given an array of integers, 1 ≤ a\[i\] ≤ _n_ (_n_ = size of array), some elements appear __twice__ and others appear __once__.
+Given an integer array `` nums `` of length `` n `` where all the integers of `` nums `` are in the range `` [1, n] `` and each integer appears __once__ or __twice__, return _an array of all the integers that appears __twice___.
 
-Find all the elements that appear __twice__ in this array.
+You must write an algorithm that runs in `` O(n)  ``time and uses only constant extra space.
 
-Could you do it without extra space and in O(_n_) runtime?
+ 
 
-__Example:__  
+__Example 1:__
 
+```Input: nums = [4,3,2,7,8,2,3,1]
+Output: [2,3]
 ```
-<b>Input:</b>
-[4,3,2,7,8,2,3,1]
 
-<b>Output:</b>
-[2,3]
+__Example 2:__
+
+```Input: nums = [1,1,2]
+Output: [1]
 ```
+
+__Example 3:__
+
+```Input: nums = [1]
+Output: []
+```
+
+ 
+
+__Constraints:__
+
+*   `` n == nums.length ``
+*   <code>1 <= n <= 10<sup>5</sup></code>
+*   `` 1 <= nums[i] <= n ``
+*   Each element in `` nums `` appears __once__ or __twice__.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 228,060 | 147,658 | 64.7% |
+| 474,612 | 338,349 | 71.3% |

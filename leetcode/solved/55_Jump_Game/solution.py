@@ -2,34 +2,40 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2017 Sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-55. Jump Game(https://leetcode.com/problems/jump-game/description/)
-DescriptionHintsSubmissionsDiscussSolution
-DiscussPick One
-Given an array of non-negative integers, you are initially positioned at the first index of the array.
+You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
 
-Each element in the array represents your maximum jump length at that position.
+Return true if you can reach the last index, or false otherwise.
 
-Determine if you are able to reach the last index.
+Example 1:
 
-For example:
-A = [2,3,1,1,4], return true.
+Input: nums = [2,3,1,1,4]
+Output: true
+Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
 
-A = [3,2,1,0,4], return false.
+Example 2:
 
+Input: nums = [3,2,1,0,4]
+Output: false
+Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
+
+Constraints:
+
+	1 <= nums.length <= 104
+	0 <= nums[i] <= 105
 """
+import sys
+from typing import List
+import pytest
 
 
 class Solution:
     def canJump(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: bool
-        """
+        """12/30/2017 20:17"""
         m = 0
         for i, n in enumerate(nums):
             if m == len(nums)-1:
@@ -39,10 +45,26 @@ class Solution:
             m = max(m, i+n)
         return True
 
+    def canJump(self, nums: List[int]) -> bool:
+        reachable = 0
+        i = 0
+        while i < len(nums):
+            if i > reachable:
+                break
+            reachable = max(reachable, i + nums[i])
+            if reachable >= len(nums)-1:
+                return True
+            i += 1
+        return False
 
-def main():
-    print(Solution().canJump(list(map(int, input().split()))))
+
+@pytest.mark.parametrize('nums, expected', [
+    ([2,3,1,1,4], True),
+    ([3,2,1,0,4], False),
+])
+def test(nums, expected):
+    assert expected == Solution().canJump(nums)
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

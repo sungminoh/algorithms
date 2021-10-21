@@ -2,66 +2,54 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2019 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
+Given an integer n, return the least number of perfect square numbers that sum to n.
+
+A perfect square is an integer that is the square of an integer; in other words, it is the product of some integer with itself. For example, 1, 4, 9, and 16 are perfect squares while 3 and 11 are not.
 
 Example 1:
 
 Input: n = 12
 Output: 3
 Explanation: 12 = 4 + 4 + 4.
+
 Example 2:
 
 Input: n = 13
 Output: 2
 Explanation: 13 = 4 + 9.
+
+Constraints:
+
+	1 <= n <= 104
 """
-# class Solution:
-    # def numSquares(self, n: int) -> int:
-        # def nsq(n, memo):
-            # if n == 0:
-                # return 0, 0
-            # if n in memo:
-                # return memo[n]
-            # ret = float('inf')
-            # min_used = float('inf')
-            # for i in range(int(n**(1/2)), max(0, int((n//2)**(1/2))-1), -1):
-                # n -= (i ** 2)
-                # cnt, used = nsq(n, memo)
-                # min_used = min(i, min_used, used)
-                # ret = min(ret, 1 + cnt)
-                # n += (i ** 2)
-                # if i - 1 <= min_used:
-                    # break
-            # memo[n] = (ret, min_used)
-            # return ret, min_used
-        # return nsq(n, {})[0]
-
-
-# class Solution:
-    # def numSquares(self, n: int) -> int:
-        # def nsq(n, cnt, ret, memo):
-            # if n in memo:
-                # return memo[n]
-            # if cnt >= min(4, ret):
-                # return cnt
-            # if int(n ** (1/2)) ** 2 == n:
-                # return 1 if n != 0 else 0
-            # for i in range(int(n**(1/2)), 0, -1):
-                # n -= (i ** 2)
-                # ret = min(ret, 1 + nsq(n, cnt + 1, ret, memo))
-                # n += (i ** 2)
-            # memo[n] = ret
-            # return ret
-        # return nsq(n, 0, float('inf'), {})
+import sys
+from functools import lru_cache
+import pytest
 
 
 class Solution:
     def numSquares(self, n: int) -> int:
+        """09/10/2019 21:32"""
+        def nsq(n, cnt, ret, memo):
+            if n in memo:
+                return memo[n]
+            if cnt >= min(4, ret):
+                return cnt
+            if int(n ** (1/2)) ** 2 == n:
+                return 1 if n != 0 else 0
+            for i in range(int(n**(1/2)), 0, -1):
+                ret = min(ret, 1 + nsq(n - (i**2), cnt + 1, ret, memo))
+            memo[n] = ret
+            return ret
+        return nsq(n, 0, float('inf'), {})
+
+    def numSquares(self, n: int) -> int:
+        """09/10/2019 21:50"""
         squares = [i*i for i in range(int(n ** (1/2)), 0, -1)]
         ret = float('inf')
         memo = {}
@@ -81,31 +69,57 @@ class Solution:
             return ret
         return nsq(n, 0, 0)
 
+    @lru_cache(None)
+    def numSquares(self, n: int) -> int:
+        """TLE"""
+        rt = int(n**0.5)
+        if rt**2 == n:
+            return 1
+        return 1+min(self.numSquares(n-(i**2)) for i in range(rt, 0, -1))
 
-def main():
-    cases = [
-        (12, 3),
-        (13, 2),
-        (25, 1),
-        (144, 1),
-        (31, 4),
-        (0, 0),
-        (1, 1),
-        (16, 1),
-        (88, 3),  # 36 36 16
-        (7168, 4),
-        (5156, 2),
-        (192, 3),
-        (240, 4),  # 100 100 36 4
-        (6616, 3),  # 60^2, 54^2, 10^2
-        (956, 4),
-        (6024, 3),
-        (2820, 3),
-    ]
-    for case, expected in cases:
-        actual = Solution().numSquares(case)
-        print(f'{expected == actual}\texpected: {expected}\tactual: {actual}')
+    def numSquares(self, n: int) -> int:
+        m = float('inf')
+
+        visited = {}
+        def dfs(n, cnt):
+            nonlocal m
+            if cnt > m or cnt >= visited.get(n, m) :
+                return
+            visited[n] = cnt
+            if n == 0:
+                m = min(m, cnt)
+            rt = int(n**0.5)
+            for i in range(rt, 0, -1):
+                dfs(n-(i**2), cnt+1)
+
+        dfs(n, 0)
+        return m
+
+
+@pytest.mark.parametrize('n, expected', [
+    (12, 3),
+    (13, 2),
+    (8935, 4),
+    (25, 1),
+    (144, 1),
+    (31, 4),
+    (0, 0),
+    (1, 1),
+    (16, 1),
+    (88, 3),  # 36 36 16
+    (7168, 4),
+    (5156, 2),
+    (192, 3),
+    (240, 4),  # 100 100 36 4
+    (6616, 3),  # 60^2, 54^2, 10^2
+    (956, 4),
+    (6024, 3),
+    (2820, 3),
+
+])
+def test(n, expected):
+    assert expected == Solution().numSquares(n)
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

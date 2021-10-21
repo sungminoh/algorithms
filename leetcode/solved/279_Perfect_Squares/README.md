@@ -2,19 +2,21 @@
 
 Medium
 
-1690141Share
+Given an integer `` n ``, return _the least number of perfect square numbers that sum to_ `` n ``.
 
-Given a positive integer *n*, find the least number of perfect square numbers (for example, `1, 4, 9, 16, ...`) which sum to *n*.
+A __perfect square__ is an integer that is the square of an integer; in other words, it is the product of some integer with itself. For example, `` 1 ``, `` 4 ``, `` 9 ``, and `` 16 `` are perfect squares while `` 3 `` and `` 11 `` are not.
 
-**Example 1:**
+ 
+
+__Example 1:__
 
 ```
 Input: n = 12
-Output: 3 
+Output: 3
 Explanation: 12 = 4 + 4 + 4.
 ```
 
-**Example 2:**
+__Example 2:__
 
 ```
 Input: n = 13
@@ -22,3 +24,12 @@ Output: 2
 Explanation: 13 = 4 + 9.
 ```
 
+ 
+
+__Constraints:__
+
+*   <code>1 <= n <= 10<sup>4</sup></code>
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 913,195 | 465,716 | 51.0% |

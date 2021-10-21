@@ -1,25 +1,38 @@
-### [201. Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/description/)
+### [201. Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/)
 
-[Description](https://leetcode.com/problems/bitwise-and-of-numbers-range/description/)[Hints](https://leetcode.com/problems/bitwise-and-of-numbers-range/hints/)[Submissions](https://leetcode.com/problems/bitwise-and-of-numbers-range/submissions/)[Discuss](https://leetcode.com/problems/bitwise-and-of-numbers-range/discuss/)[Solution](https://leetcode.com/problems/bitwise-and-of-numbers-range/solution/)
+Medium
 
+Given two integers `` left `` and `` right `` that represent the range `` [left, right] ``, return _the bitwise AND of all numbers in this range, inclusive_.
 
+ 
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
-
-------
-
-Given a range [m, n] where 0 <= m <= n <= 2147483647, return the bitwise AND of all numbers in this range, inclusive.
-
-**Example 1:**
+__Example 1:__
 
 ```
-Input: [5,7]
+Input: left = 5, right = 7
 Output: 4
 ```
 
-**Example 2:**
+__Example 2:__
 
 ```
-Input: [0,1]
+Input: left = 0, right = 0
 Output: 0
 ```
+
+__Example 3:__
+
+```
+Input: left = 1, right = 2147483647
+Output: 0
+```
+
+ 
+
+__Constraints:__
+
+*   <code>0 <= left <= right <= 2<sup>31</sup> - 1</code>
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 484,227 | 198,928 | 41.1% |

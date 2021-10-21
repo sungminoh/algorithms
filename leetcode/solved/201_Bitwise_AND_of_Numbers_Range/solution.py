@@ -2,31 +2,41 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 Sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given a range [m, n] where 0 <= m <= n <= 2147483647, return the bitwise AND of all numbers in this range, inclusive.
+Given two integers left and right that represent the range [left, right], return the bitwise AND of all numbers in this range, inclusive.
 
 Example 1:
 
-Input: [5,7]
+Input: left = 5, right = 7
 Output: 4
+
 Example 2:
 
-Input: [0,1]
+Input: left = 0, right = 0
 Output: 0
+
+Example 3:
+
+Input: left = 1, right = 2147483647
+Output: 0
+
+Constraints:
+
+	0 <= left <= right <= 231 - 1
 """
+import sys
+import itertools
+import pytest
+from traitlets.config.sphinxdoc import reverse_aliases
 
 
 class Solution:
     def rangeBitwiseAnd(self, m, n):
-        """
-        :type m: int
-        :type n: int
-        :rtype: int
-        """
+        """12/21/2018 20:44"""
         def find_last_diff_idx(m, n):
             idx = -1
             for i in range(32):
@@ -40,15 +50,26 @@ class Solution:
         m -= m % pow(2, last_diff_idx + 1)
         return m
 
+    def rangeBitwiseAnd(self, left: int, right: int) -> int:
+        p = 1
+        ret = 0
+        for a, b in zip(reversed(bin(left)[2:]), reversed(bin(right)[2:])):
+            a = int(a)
+            b = int(b)
+            if right-left <= p:
+                ret += p*(a&b)
+            p *= 2
+        return ret
 
-def main():
-    inputs = []
-    inputs.append(([5,7], 4))
-    inputs.append(([0,1], 0))
-    for (m, n), expected in inputs:
-        actual = Solution().rangeBitwiseAnd(m, n)
-        print(f'{expected == actual}\texpected: {expected}\tactual: {actual}')
+
+@pytest.mark.parametrize('left, right, expected', [
+    (5, 7, 4),
+    (0, 0, 0),
+    (1, 2147483647, 0),
+])
+def test(left, right, expected):
+    assert expected == Solution().rangeBitwiseAnd(left, right)
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

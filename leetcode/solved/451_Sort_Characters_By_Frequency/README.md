@@ -2,50 +2,46 @@
 
 Medium
 
-Given a string, sort it in decreasing order based on the frequency of characters.
+Given a string `` s ``, sort it in __decreasing order__ based on the __frequency__ of the characters. The __frequency__ of a character is the number of times it appears in the string.
+
+Return _the sorted string_. If there are multiple answers, return _any of them_.
+
+ 
 
 __Example 1:__
 
 ```
-<b>Input:</b>
-"tree"
-
-<b>Output:</b>
-"eert"
-
-<b>Explanation:</b>
-'e' appears twice while 'r' and 't' both appear once.
+Input: s = "tree"
+Output: "eert"
+Explanation: 'e' appears twice while 'r' and 't' both appear once.
 So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid answer.
 ```
 
 __Example 2:__
 
 ```
-<b>Input:</b>
-"cccaaa"
-
-<b>Output:</b>
-"cccaaa"
-
-<b>Explanation:</b>
-Both 'c' and 'a' appear three times, so "aaaccc" is also a valid answer.
+Input: s = "cccaaa"
+Output: "aaaccc"
+Explanation: Both 'c' and 'a' appear three times, so both "cccaaa" and "aaaccc" are valid answers.
 Note that "cacaca" is incorrect, as the same characters must be together.
 ```
 
 __Example 3:__
 
 ```
-<b>Input:</b>
-"Aabb"
-
-<b>Output:</b>
-"bbAa"
-
-<b>Explanation:</b>
-"bbaA" is also a valid answer, but "Aabb" is incorrect.
+Input: s = "Aabb"
+Output: "bbAa"
+Explanation: "bbaA" is also a valid answer, but "Aabb" is incorrect.
 Note that 'A' and 'a' are treated as two different characters.
 ```
 
+ 
+
+__Constraints:__
+
+*   <code>1 <= s.length <= 5 * 10<sup>5</sup></code>
+*   `` s `` consists of uppercase and lowercase English letters and digits.
+
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 233,891 | 139,642 | 59.7% |
+| 473,581 | 316,325 | 66.8% |

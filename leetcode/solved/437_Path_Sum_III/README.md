@@ -2,34 +2,37 @@
 
 Medium
 
-You are given a binary tree in which each node contains an integer value.
+Given the `` root `` of a binary tree and an integer `` targetSum ``, return _the number of paths where the sum of the values along the path equals_ `` targetSum ``.
 
-Find the number of paths that sum to a given value.
+The path does not need to start or end at the root or a leaf, but it must go downwards (i.e., traveling only from parent nodes to child nodes).
 
-The path does not need to start or end at the root or a leaf, but it must go downwards(traveling only from parent nodes to child nodes).
+ 
 
-The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.
+__Example 1:__
 
-__Example:__
+<img alt="" src="https://assets.leetcode.com/uploads/2021/04/09/pathsum3-1-tree.jpg" style="width: 450px; height: 386px;"/>
 
 ```
-root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
-
-      10
-     /  \
-    <b>5</b>   <b>-3</b>
-   <b>/</b> <b>\</b>    <b>\</b>
-  <b>3</b>   <b>2</b>   <b>11</b>
- / \   <b>\</b>
-3  -2   <b>1</b>
-
-Return 3. The paths that sum to 8 are:
-
-1.  5 -> 3
-2.  5 -> 2 -> 1
-3. -3 -> 11
+Input: root = [10,5,-3,3,2,null,11,3,-2,null,1], targetSum = 8
+Output: 3
+Explanation: The paths that sum to 8 are shown.
 ```
+
+__Example 2:__
+
+```
+Input: root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22
+Output: 3
+```
+
+ 
+
+__Constraints:__
+
+*   The number of nodes in the tree is in the range `` [0, 1000] ``.
+*   <code>-10<sup>9</sup> <= Node.val <= 10<sup>9</sup></code>
+*   `` -1000 <= targetSum <= 1000 ``
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 405,179 | 186,644 | 46.1% |
+| 646,858 | 320,914 | 49.6% |

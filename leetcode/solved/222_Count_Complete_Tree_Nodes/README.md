@@ -2,22 +2,45 @@
 
 Medium
 
-Given a **complete** binary tree, count the number of nodes.
+Given the `` root `` of a __complete__ binary tree, return the number of the nodes in the tree.
 
-**Note:**
+According to __<a href="http://en.wikipedia.org/wiki/Binary_tree#Types_of_binary_trees" target="_blank">Wikipedia</a>__, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between `` 1 `` and <code>2<sup>h</sup></code> nodes inclusive at the last level `` h ``.
 
-**Definition of a complete binary tree from Wikipedia:**
-In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.
+Design an algorithm that runs in less than <code data-stringify-type="code">O(n)</code> time complexity.
 
-**Example:**
+ 
+
+__Example 1:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/01/14/complete.jpg" style="width: 372px; height: 302px;"/>
 
 ```
-Input: 
-    1
-   / \
-  2   3
- / \  /
-4  5 6
-
+Input: root = [1,2,3,4,5,6]
 Output: 6
 ```
+
+__Example 2:__
+
+```
+Input: root = []
+Output: 0
+```
+
+__Example 3:__
+
+```
+Input: root = [1]
+Output: 1
+```
+
+ 
+
+__Constraints:__
+
+*   The number of nodes in the tree is in the range <code>[0, 5 * 10<sup>4</sup>]</code>.
+*   <code>0 <= Node.val <= 5 * 10<sup>4</sup></code>
+*   The tree is guaranteed to be __complete__.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 667,623 | 356,344 | 53.4% |

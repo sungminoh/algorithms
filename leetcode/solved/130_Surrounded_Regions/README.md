@@ -1,35 +1,39 @@
-### [130. Surrounded Regions](https://leetcode.com/problems/surrounded-regions/description/)
+### [130. Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
 
-[Description](https://leetcode.com/problems/surrounded-regions/description/)[Hints](https://leetcode.com/problems/surrounded-regions/hints/)[Submissions](https://leetcode.com/problems/surrounded-regions/submissions/)[Discuss](https://leetcode.com/problems/surrounded-regions/discuss/)[Solution](https://leetcode.com/problems/surrounded-regions/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given an `` m x n `` matrix `` board `` containing `` 'X' `` and `` 'O' ``, _capture all regions that are 4-directionally surrounded by_ `` 'X' ``.
 
-------
+A region is __captured__ by flipping all `` 'O' ``s into `` 'X' ``s in that surrounded region.
 
-Given a 2D board containing `'X'` and `'O'` (**the letter O**), capture all regions surrounded by `'X'`.
+ 
 
-A region is captured by flipping all `'O'`s into `'X'`s in that surrounded region.
+__Example 1:__
 
-**Example:**
-
-```
-X X X X
-X O O X
-X X O X
-X O X X
-```
-
-After running your function, the board should be:
+<img alt="" src="https://assets.leetcode.com/uploads/2021/02/19/xogrid.jpg" style="width: 550px; height: 237px;"/>
 
 ```
-X X X X
-X X X X
-X X X X
-X O X X
+Input: board = [["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]
+Output: [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]
+Explanation: Surrounded regions should not be on the border, which means that any 'O' on the border of the board are not flipped to 'X'. Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'. Two cells are connected if they are adjacent cells connected horizontally or vertically.
 ```
 
-**Explanation:**
+__Example 2:__
 
-Surrounded regions shouldn’t be on the border, which means that any `'O'` on the border of the board are not flipped to `'X'`. Any `'O'` that is not on the border and it is not connected to an `'O'` on the border will be flipped to `'X'`. Two cells are connected if they are adjacent cells connected horizontally or vertically.
+```
+Input: board = [["X"]]
+Output: [["X"]]
+```
 
-------
+ 
+
+__Constraints:__
+
+*   `` m == board.length ``
+*   `` n == board[i].length ``
+*   `` 1 <= m, n <= 200 ``
+*   `` board[i][j] `` is `` 'X' `` or `` 'O' ``.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,120,538 | 365,328 | 32.6% |

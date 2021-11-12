@@ -2,106 +2,115 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number.
+You are given the root of a binary tree containing digits from 0 to 9 only.
 
-An example is the root-to-leaf path 1->2->3 which represents the number 123.
+Each root-to-leaf path in the tree represents a number.
 
-Find the total sum of all root-to-leaf numbers.
+	For example, the root-to-leaf path 1 -> 2 -> 3 represents the number 123.
 
-Note: A leaf is a node with no children.
+Return the total sum of all root-to-leaf numbers. Test cases are generated so that the answer will fit in a 32-bit integer.
 
-Example:
+A leaf node is a node with no children.
 
-Input: [1,2,3]
-    1
-   / \
-  2   3
+Example 1:
+
+Input: root = [1,2,3]
 Output: 25
 Explanation:
 The root-to-leaf path 1->2 represents the number 12.
 The root-to-leaf path 1->3 represents the number 13.
 Therefore, sum = 12 + 13 = 25.
+
 Example 2:
 
-Input: [4,9,0,5,1]
-    4
-   / \
-  9   0
- / \
-5   1
+Input: root = [4,9,0,5,1]
 Output: 1026
 Explanation:
 The root-to-leaf path 4->9->5 represents the number 495.
 The root-to-leaf path 4->9->1 represents the number 491.
 The root-to-leaf path 4->0 represents the number 40.
 Therefore, sum = 495 + 491 + 40 = 1026.
+
+Constraints:
+
+	The number of nodes in the tree is in the range [1, 1000].
+	0 <= Node.val <= 9
+	The depth of the tree will not exceed 10.
 """
+import sys
+from typing import Optional
+import pytest
+sys.path.append('../')
+from exercise.tree import TreeNode, build_tree
 
 
 # Definition for a binary tree node.
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 
 
 class Solution:
-    def sum_numbers(self, root):
-        if not root.left and not root.right:
-            return [(root.val, 1)]
-        ret = []
-        if root.left:
-            left = self.sum_numbers(root.left)
-            ret.extend([(root.val * (10 ** ll) + ls, ll + 1) for ls, ll in left])
-        if root.right:
-            right = self.sum_numbers(root.right)
-            ret.extend([(root.val * (10 ** rl) + rs, rl + 1) for rs, rl in right])
-        return ret
+    def sumNumbers(self, root):
+        """05/12/2018 04:56"""
+        def sum_numbers(root):
+            if not root.left and not root.right:
+                return [(root.val, 1)]
+            ret = []
+            if root.left:
+                left = sum_numbers(root.left)
+                ret.extend([(root.val * (10 ** ll) + ls, ll + 1) for ls, ll in left])
+            if root.right:
+                right = sum_numbers(root.right)
+                ret.extend([(root.val * (10 ** rl) + rs, rl + 1) for rs, rl in right])
+            return ret
 
-    def dfs(self, root, val):
         if not root:
             return 0
-        val = val*10 + root.val
-        if not root.left and not root.right:
-            return val
-        return self.dfs(root.left, val) + self.dfs(root.right, val)
+        return sum(x[0] for x in sum_numbers(root))
 
     def sumNumbers(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
+        """05/12/2018 05:02"""
+        def dfs(root, val):
+            if not root:
+                return 0
+            val = val*10 + root.val
+            if not root.left and not root.right:
+                return val
+            return dfs(root.left, val) + dfs(root.right, val)
+
         return self.dfs(root, 0)
 
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        def dfs(node, acc):
+            if not node:
+                return acc
+            if not node.left and not node.right:
+                return 10*acc + node.val
+            ret = 0
+            if node.left:
+                ret += dfs(node.left, 10*acc + node.val)
+            if node.right:
+                ret += dfs(node.right, 10*acc + node.val)
+            return ret
 
-def list2tree(arr):
-    root = TreeNode(arr[0])
-    level = [root]
-    i = 1
-    while level:
-        t = level.pop(0)
-        if not t:
-            continue
-        if i >= len(arr):
-            break
-        if i < len(arr):
-            t.left = TreeNode(arr[i]) if arr[i] is not None else None; i += 1
-        if i < len(arr):
-            t.right = TreeNode(arr[i]) if arr[i] is not None else None; i += 1
-        level.extend([t.left, t.right])
-    return root
+        return dfs(root, 0)
 
 
-def main():
-    tree = list2tree([eval(x) for x in input().split()])
-    print(Solution().sumNumbers(tree))
+@pytest.mark.parametrize('nodes, expected', [
+    ([1,2,3], 25),
+    ([4,9,0,5,1], 1026),
+])
+def test(nodes, expected):
+    assert expected == Solution().sumNumbers(build_tree(nodes))
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

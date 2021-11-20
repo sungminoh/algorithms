@@ -1,16 +1,33 @@
-### [43. Multiply Strings](https://leetcode.com/problems/multiply-strings/description/)
+### [43. Multiply Strings](https://leetcode.com/problems/multiply-strings/)
 
-[Description](https://leetcode.com/problems/multiply-strings/description/)[Hints](https://leetcode.com/problems/multiply-strings/hints/)[Submissions](https://leetcode.com/problems/multiply-strings/submissions/)[Discuss](https://leetcode.com/problems/multiply-strings/discuss/)[Solution](https://leetcode.com/problems/multiply-strings/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given two non-negative integers `` num1 `` and `` num2 `` represented as strings, return the product of `` num1 `` and `` num2 ``, also represented as a string.
 
-------
+__Note:__ You must not use any built-in BigInteger library or convert the inputs to integer directly.
 
-Given two non-negative integers `num1` and `num2` represented as strings, return the product of `num1` and `num2`.
+ 
 
-**Note:**
+__Example 1:__
 
-1. The length of both `num1` and `num2` is < 110.
-2. Both `num1` and `num2` contains only digits `0-9`.
-3. Both `num1` and `num2` does not contain any leading zero.
-4. You **must not use any built-in BigInteger library** or **convert the inputs to integer** directly.
+```Input: num1 = "2", num2 = "3"
+Output: "6"
+```
+
+__Example 2:__
+
+```Input: num1 = "123", num2 = "456"
+Output: "56088"
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= num1.length, num2.length <= 200 ``
+*   `` num1 `` and `` num2 `` consist of digits only.
+*   Both `` num1 `` and `` num2 `` do not contain any leading zero, except the number `` 0 `` itself.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,219,682 | 449,565 | 36.9% |

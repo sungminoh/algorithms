@@ -1,26 +1,33 @@
-### [96. Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/description/)
+### [96. Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/)
 
-[Description](https://leetcode.com/problems/unique-binary-search-trees/description/)[Hints](https://leetcode.com/problems/unique-binary-search-trees/hints/)[Submissions](https://leetcode.com/problems/unique-binary-search-trees/submissions/)[Discuss](https://leetcode.com/problems/unique-binary-search-trees/discuss/)[Solution](https://leetcode.com/problems/unique-binary-search-trees/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given an integer `` n ``, return _the number of structurally unique __BST'__s (binary search trees) which has exactly _`` n ``_ nodes of unique values from_ `` 1 `` _to_ `` n ``.
 
-------
+ 
 
-Given *n*, how many structurally unique **BST's** (binary search trees) that store values 1 ... *n*?
+__Example 1:__
 
-**Example:**
+<img alt="" src="https://assets.leetcode.com/uploads/2021/01/18/uniquebstn3.jpg" style="width: 600px; height: 148px;"/>
 
 ```
-Input: 3
+Input: n = 3
 Output: 5
-Explanation:
-Given n = 3, there are a total of 5 unique BST's:
-
-   1         3     3      2      1
-    \       /     /      / \      \
-     3     2     1      1   3      2
-    /     /       \                 \
-   2     1         2                 3
 ```
 
- 
+__Example 2:__
+
+```
+Input: n = 1
+Output: 1
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= n <= 19 ``
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 757,170 | 433,429 | 57.2% |

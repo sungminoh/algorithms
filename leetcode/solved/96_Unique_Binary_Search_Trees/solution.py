@@ -2,56 +2,80 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n?
+Given an integer n, return the number of structurally unique BST's (binary search trees) which has exactly n nodes of unique values from 1 to n.
 
-Example:
+Example 1:
 
-Input: 3
+Input: n = 3
 Output: 5
-Explanation:
-Given n = 3, there are a total of 5 unique BST's:
 
-   1         3     3      2      1
-    \       /     /      / \      \
-     3     2     1      1   3      2
-    /     /       \                 \
-   2     1         2                 3
+Example 2:
+
+Input: n = 1
+Output: 1
+
+Constraints:
+
+	1 <= n <= 19
 """
-
-
-# Definition for a binary tree node.
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+import sys
+from functools import lru_cache
+import pytest
 
 
 class Solution:
-    memo = {}
-
     def numTrees(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
+        """05/06/2018 06:03"""
+        memo = {}
         if n == 0:
             return 0
-        if n in self.memo:
-            return self.memo[n]
+        if n in memo:
+            return memo[n]
         s = sum(max(self.numTrees(i-1), 1) * max(self.numTrees(n-i), 1) for i in range(1, n+1))
-        self.memo[n] = s
+        memo[n] = s
         return s
 
+    @lru_cache(None)
+    def numTrees(self, n: int) -> int:
+        """
+        Top-down Recursion
+        Time complexity: O(n^2)
+        Space complexity: O(n)
+        """
+        if n <= 1:
+            return 1
+        ret = 0
+        for k in range(n):
+            ret += self.numTrees(k)*self.numTrees(n-k-1)
+        return ret
 
-def main():
-    print(Solution().numTrees(int(input())))
+    def numTrees(self, n: int) -> int:
+        """
+        Bottom-up dp
+        Recursion
+        Time complexity: O(n^2)
+        Space complexity: O(n)
+        """
+        memo = [0]*(n+1)
+        memo[0] = memo[1] = 1
+        for i in range(2, n+1):
+            for j in range(i):
+                memo[i] += memo[j] * memo[i-j-1]
+        return memo[-1]
+
+
+@pytest.mark.parametrize('n, expected', [
+    (3, 5),
+    (1, 1),
+])
+def test(n, expected):
+    assert expected == Solution().numTrees(n)
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

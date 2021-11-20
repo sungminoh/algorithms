@@ -7,13 +7,22 @@
 # Distributed under terms of the MIT license.
 
 """
-Given a list of daily temperatures T, return a list such that, for each day in the input, tells you how many days you would have to wait until a warmer temperature.  If there is no future day for which this is possible, put 0 instead.
+Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
 
-For example, given the list of temperatures T = [73, 74, 75, 71, 69, 72, 76, 73], your output should be [1, 1, 4, 2, 1, 1, 0, 0].
+Example 1:
+Input: temperatures = [73,74,75,71,69,72,76,73]
+Output: [1,1,4,2,1,1,0,0]
+Example 2:
+Input: temperatures = [30,40,50,60]
+Output: [1,1,1,0]
+Example 3:
+Input: temperatures = [30,60,90]
+Output: [1,1,0]
 
-Note:
-The length of temperatures will be in the range [1, 30000].
-Each temperature will be an integer in the range [30, 100].
+Constraints:
+
+	1 <= temperatures.length <= 105
+	30 <= temperatures[i] <= 100
 """
 import sys
 from typing import List
@@ -22,6 +31,7 @@ import pytest
 
 class Solution:
     def dailyTemperatures(self, T: List[int]) -> List[int]:
+        """09/05/2020 12:23"""
         ret = [0]*len(T)
         stack = []
         for j, t in enumerate(T):
@@ -31,12 +41,28 @@ class Solution:
             stack.append(j)
         return ret
 
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        """
+        Time complexity: O(n)
+        Space complexity: O(n)
+        """
+        ret = [0]*len(temperatures)
+        stack = []
+        for i, temp in enumerate(temperatures):
+            while stack and temperatures[stack[-1]] < temp:
+                _, j = stack.pop()
+                ret[j] = i-j
+            stack.append(i)
+        return ret
 
-@pytest.mark.parametrize('T, expected', [
-    ([73, 74, 75, 71, 69, 72, 76, 73], [1, 1, 4, 2, 1, 1, 0, 0]),
+
+@pytest.mark.parametrize('temperatures, expected', [
+    ([73,74,75,71,69,72,76,73], [1,1,4,2,1,1,0,0]),
+    ([30,40,50,60], [1,1,1,0]),
+    ([30,60,90], [1,1,0]),
 ])
-def test(T, expected):
-    assert expected == Solution().dailyTemperatures(T)
+def test(temperatures, expected):
+    assert expected == Solution().dailyTemperatures(temperatures)
 
 
 if __name__ == '__main__':

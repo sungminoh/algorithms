@@ -2,12 +2,35 @@
 
 Medium
 
-Given a list of daily temperatures `` T ``, return a list such that, for each day in the input, tells you how many days you would have to wait until a warmer temperature. If there is no future day for which this is possible, put `` 0 `` instead.
+Given an array of integers `` temperatures `` represents the daily temperatures, return _an array_ `` answer `` _such that_ `` answer[i] `` _is the number of days you have to wait after the_ <code>i<sup>th</sup></code> _day to get a warmer temperature_. If there is no future day for which this is possible, keep `` answer[i] == 0 `` instead.
 
-For example, given the list of temperatures `` T = [73, 74, 75, 71, 69, 72, 76, 73] ``, your output should be `` [1, 1, 4, 2, 1, 1, 0, 0] ``.
+ 
 
-__Note:__The length of `` temperatures `` will be in the range `` [1, 30000] ``.Each temperature will be an integer in the range `` [30, 100] ``.
+__Example 1:__
+
+```Input: temperatures = [73,74,75,71,69,72,76,73]
+Output: [1,1,4,2,1,1,0,0]
+```
+
+__Example 2:__
+
+```Input: temperatures = [30,40,50,60]
+Output: [1,1,1,0]
+```
+
+__Example 3:__
+
+```Input: temperatures = [30,60,90]
+Output: [1,1,0]
+```
+
+ 
+
+__Constraints:__
+
+*   <code>1 <= temperatures.length <= 10<sup>5</sup></code>
+*   `` 30 <= temperatures[i] <= 100 ``
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 278,716 | 177,484 | 63.7% |
+| 489,128 | 324,629 | 66.4% |

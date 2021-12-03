@@ -2,9 +2,11 @@
 
 Medium
 
-You are given a sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once. Find this single element that appears only once.
+You are given a sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once.
 
-__Follow up:__ Your solution should run in O(log n) time and O(1) space.
+Return _the single element that appears only once_.
+
+Your solution must run in `` O(log n) `` time and `` O(1) `` space.
 
  
 
@@ -24,9 +26,9 @@ Output: 10
 
 __Constraints:__
 
-*   `` 1 <= nums.length <= 10^5 ``
-*   `` 0 <= nums[i] <= 10^5 ``
+*   <code>1 <= nums.length <= 10<sup>5</sup></code>
+*   <code>0 <= nums[i] <= 10<sup>5</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 247,115 | 143,145 | 57.9% |
+| 430,564 | 252,716 | 58.7% |

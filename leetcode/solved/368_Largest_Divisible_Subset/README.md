@@ -2,32 +2,38 @@
 
 Medium
 
-78439Add to ListShare
+Given a set of __distinct__ positive integers `` nums ``, return the largest subset `` answer `` such that every pair `` (answer[i], answer[j]) `` of elements in this subset satisfies:
 
-Given a set of **distinct** positive integers, find the largest subset such that every pair (Si, Sj) of elements in this subset satisfies:
+*   `` answer[i] % answer[j] == 0 ``, or
+*   `` answer[j] % answer[i] == 0 ``
 
-Si % Sj = 0 or Sj % Si = 0.
+If there are multiple solutions, return any of them.
 
-If there are multiple solutions, return any subset is fine.
+ 
 
-**Example 1:**
-
-```
-Input: [1,2,3]
-Output: [1,2] (of course, [1,3] will also be ok)
-```
-
-**Example 2:**
+__Example 1:__
 
 ```
-Input: [1,2,4,8]
+Input: nums = [1,2,3]
+Output: [1,2]
+Explanation: [1,3] is also accepted.
+```
+
+__Example 2:__
+
+```
+Input: nums = [1,2,4,8]
 Output: [1,2,4,8]
 ```
 
-Accepted
+ 
 
-57,742
+__Constraints:__
 
-Submissions
+*   `` 1 <= nums.length <= 1000 ``
+*   <code>1 <= nums[i] <= 2 * 10<sup>9</sup></code>
+*   All the integers in `` nums `` are __unique__.
 
-159,905
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 349,928 | 140,425 | 40.1% |

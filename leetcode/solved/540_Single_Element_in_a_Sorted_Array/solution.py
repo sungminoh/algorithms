@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -8,34 +7,33 @@
 # Distributed under terms of the MIT license.
 
 """
-You are given a sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once. Find this single element that appears only once.
+You are given a sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once.
 
-Follow up: Your solution should run in O(log n) time and O(1) space.
+Return the single element that appears only once.
+
+Your solution must run in O(log n) time and O(1) space.
 
 Example 1:
 Input: nums = [1,1,2,3,3,4,4,8,8]
 Output: 2
-
 Example 2:
 Input: nums = [3,3,7,7,10,11,11]
 Output: 10
 
-Example 3:
-Input: nums = [3,3,7,7,10,10,11]
-Output: 11
-
 Constraints:
-    1. 1 <= nums.length <= 10^5
-    2. 0 <= nums[i] <= 10^5
+
+	1 <= nums.length <= 105
+	0 <= nums[i] <= 105
 """
+import random
 import sys
 from typing import List
 import pytest
 
 
-
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
+        """06/03/2020 21:59"""
         i, j = 0, len(nums) - 1
         while i < j:
             m = i + (j-i)//2  # 2k or 2k+1
@@ -47,13 +45,59 @@ class Solution:
                 j = e - 1
         return nums[i]
 
+    def singleNonDuplicate(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        s, e = 0, (len(nums)+1)//2 - 1
+        while s <= e:
+            m = s + (e-s)//2
+            if 2*m == len(nums)-1:
+                return nums[2*m]
+            elif nums[2*m] == nums[2*m+1]:
+                s = m+1
+            elif nums[2*m] != nums[2*m-1]:
+                return nums[2*m]
+            else:
+                e = m-1
+        return nums[s]
+
+    def singleNonDuplicate(self, nums: List[int]) -> int:
+        s, e = 0, (len(nums)+1)//2 - 1
+        while s < e:
+            m = s + (e-s)//2
+            if nums[2*m] == nums[2*m+1]:
+                s = m+1
+            else:
+                e = m
+        return nums[2*s]
+
+
+
+def gen_case():
+    n = random.randint(1, 10)
+    m = random.randrange(0, n)
+    ret = []
+    for i in range(n):
+        ret.append(i)
+        if i != m:
+            ret.append(i)
+    return ret, m
+
 
 @pytest.mark.parametrize('nums, expected', [
     ([1,1,2,3,3,4,4,8,8], 2),
     ([3,3,7,7,10,11,11], 10),
-    ([3,3,7,7,10,10,11], 11),
+    ([0, 0, 1], 1),
+    ([0, 0, 1, 2, 2], 1),
+    gen_case(),
+    gen_case(),
+    gen_case(),
+    gen_case(),
+    gen_case(),
+    gen_case(),
 ])
 def test(nums, expected):
+    print(nums, expected)
     assert expected == Solution().singleNonDuplicate(nums)
 
 

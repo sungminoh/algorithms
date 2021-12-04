@@ -2,18 +2,38 @@
 
 Medium
 
-2623227Share
+Given an integer array `` nums ``, return _an array_ `` answer `` _such that_ `` answer[i] `` _is equal to the product of all the elements of_ `` nums `` _except_ `` nums[i] ``.
 
-Given an array `nums` of *n* integers where *n* > 1,  return an array `output`such that `output[i]` is equal to the product of all the elements of `nums`except `nums[i]`.
+The product of any prefix or suffix of `` nums `` is __guaranteed__ to fit in a __32-bit__ integer.
 
-**Example:**
+You must write an algorithm that runs in `` O(n) `` time and without using the division operation.
 
-```
-Input:  [1,2,3,4]
+ 
+
+__Example 1:__
+
+```Input: nums = [1,2,3,4]
 Output: [24,12,8,6]
 ```
 
-**Note:** Please solve it **without division** and in O(*n*).
+__Example 2:__
 
-**Follow up:**
-Could you solve it with constant space complexity? (The output array **does not** count as extra space for the purpose of space complexity analysis.)
+```Input: nums = [-1,1,0,-3,3]
+Output: [0,0,9,0,0]
+```
+
+ 
+
+__Constraints:__
+
+*   <code>2 <= nums.length <= 10<sup>5</sup></code>
+*   `` -30 <= nums[i] <= 30 ``
+*   The product of any prefix or suffix of `` nums `` is __guaranteed__ to fit in a __32-bit__ integer.
+
+ 
+
+__Follow up:__ Can you solve the problem in `` O(1)  ``extra space complexity? (The output array __does not__ count as extra space for space complexity analysis.)
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,538,672 | 970,752 | 63.1% |

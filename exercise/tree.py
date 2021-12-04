@@ -9,6 +9,7 @@
 """
 
 """
+from collections import deque
 from typing import List, Union
 
 
@@ -182,6 +183,26 @@ def build_tree(lst):
         cur += 1
         cur %= 2
     return root
+
+
+def serialize_tree(root):
+    ret = []
+    if not root:
+        return ret
+    level = [root]
+    while level:
+        new_level = []
+        for node in level:
+            if node is None:
+                ret.append(node)
+            else:
+                ret.append(node.val)
+                new_level.append(node.left)
+                new_level.append(node.right)
+        level = new_level
+    while ret and ret[-1] is None:
+        ret.pop()
+    return ret
 
 
 def print_tree(root):

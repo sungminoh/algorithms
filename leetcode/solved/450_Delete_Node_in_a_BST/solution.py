@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -12,143 +11,54 @@ Given a root node reference of a BST and a key, delete the node with the given k
 
 Basically, the deletion can be divided into two stages:
 
-Search for a node to remove.
-If the node is found, delete the node.
+	Search for a node to remove.
+	If the node is found, delete the node.
 
-Note: Time complexity should be O(height of tree).
+Example 1:
 
-Example:
+Input: root = [5,3,6,2,4,null,7], key = 3
+Output: [5,4,6,2,null,null,7]
+Explanation: Given key to delete is 3. So we find the node with value 3 and delete it.
+One valid answer is [5,4,6,2,null,null,7], shown in the above BST.
+Please notice that another valid answer is [5,2,6,null,4,null,7] and it's also accepted.
 
-root = [5,3,6,2,4,null,7]
-key = 3
+Example 2:
 
-    5
-   / \
-  3   6
- / \   \
-2   4   7
+Input: root = [5,3,6,2,4,null,7], key = 0
+Output: [5,3,6,2,4,null,7]
+Explanation: The tree does not contain a node with value = 0.
 
-Given key to delete is 3. So we find the node with value 3 and delete it.
+Example 3:
 
-One valid answer is [5,4,6,2,null,null,7], shown in the following BST.
+Input: root = [], key = 0
+Output: []
 
-    5
-   / \
-  4   6
- /     \
-2       7
+Constraints:
 
-Another valid answer is [5,2,6,null,4,null,7].
+	The number of nodes in the tree is in the range [0, 104].
+	-105 <= Node.val <= 105
+	Each node has a unique value.
+	root is a valid binary search tree.
+	-105 <= key <= 105
 
-    5
-   / \
-  2   6
-   \   \
-    4   7
+Follow up: Could you solve it with time complexity O(height of tree)?
 """
 import sys
+from typing import Optional
 import pytest
-
-
-def format_tree(root):
-    from itertools import zip_longest
-    def build_lines(root):
-        if not root:
-            return [''], 0
-        left, lw = build_lines(root.left)
-        lp = ' '*lw
-        right, rw = build_lines(root.right)
-        rp = ' '*rw
-        s = str(root.val)
-        subs = [(l if l else lp) + ' '*len(s) + (r if r else rp) for l, r in zip_longest(left, right)]
-        first_line = lp + s + rp
-        return [first_line] + subs, len(first_line)
-    lines, _ = build_lines(root)
-    return '\n'.join(lines)
+sys.path.append('../')
+from exercise.tree import TreeNode, build_tree, serialize_tree
 
 
 # Definition for a binary tree node.
-class TreeNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
-    def __repr__(self):
-        return '(%r)' % self.val
-
-    def __str__(self):
-        return format_tree(self)
-
-    def __eq__(self, other):
-        return other and self.val == other.val
-
-
-def build_bst(lst):
-    def insert(root, node):
-        if node.val < root.val:
-            if not root.left:
-                root.left = node
-            else:
-                insert(root.left, node)
-        else:
-            if not root.right:
-                root.right = node
-            else:
-                insert(root.right, node)
-    if not lst:
-        return None
-    nodes = [TreeNode(x) for x in lst]
-    root = nodes[0]
-    for node in nodes[1:]:
-        insert(root, node)
-    return root
-
-
-def build_tree(lst):
-    root = TreeNode(lst[0])
-    queue = [root]
-    att = ['left', 'right']
-    cur = 0
-    for x in lst[1:]:
-        node = TreeNode(x) if x is not None else None
-        setattr(queue[0], att[cur], node)
-        if cur:
-            queue.pop(0)
-        if node:
-            queue.append(node)
-        cur += 1
-        cur %= 2
-    return root
-
-
-def find(root, key, parent=None):
-    if not root:
-        return None, parent
-    if key < root.val:
-        return find(root.left, key, root)
-    elif root.val < key:
-        return find(root.right, key, root)
-    else:
-        return root, parent
-
-
-def get_max_and_parent(root, parent=None):
-    if not root.right:
-        return root, parent
-    else:
-        return get_max_and_parent(root.right, root)
-
-
-def predecessor_and_parent(root, parent=None):
-    if not root.left:
-        return None, root
-    else:
-        return get_max_and_parent(root.left, root)
-
-
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+        """05/02/2020 18:36"""
         def delete(root):
             if not root.left:
                 return root.right
@@ -178,22 +88,58 @@ class Solution:
         else:
             return root
 
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        if not root:
+            return None
+        if key < root.val:
+            root.left = self.deleteNode(root.left, key)
+            return root
+        elif root.val < key:
+            root.right = self.deleteNode(root.right, key)
+            return root
+        else:
+            # if root.left is None:
+                # return root.right
+            if root.right is None:
+                return root.left
+            # find successor
+            p, n = None, root.right
+            while n.left:
+                p = n
+                n = n.left
+            if p is None:
+                n.left = root.left
+                return n
+            else:
+                n.left, root.left = root.left, None
+                n.right, root.right = root.right, n.right
+                p.left = root
+                p.left = self.deleteNode(p.left, key)
+                return n
 
-@pytest.mark.parametrize('tree, k', [
-    ([5,3,6,2,4,None,7], 3),
-    ([5,3,6,2,4,None,7], 6),
-    ([5,3,6,2,4,None,7], 2),
-    ([5,3,6,2,4,None,7], 4),
-    ([5,3,6,2,4,None,7], 7),
-    ([5,3,6,2,4,None,7], 5),
-    ([5,3,6,2,4,None,7], 0),
+
+@pytest.mark.parametrize('nodes, key, expected', [
+    ([3,2,4], 3, [4,2]),
+    ([5,3,6,2,4,None,7], 3, [5,4,6,2,None,None,7]),
+    ([5,3,6,2,4,None,7], 0, [5,3,6,2,4,None,7]),
+    ([], 0, []),
+    ([2,1,5,None,None,3,6], 5, [2,1,6,None,None,3]),
+    ([2,0,33,None,1,25,40,None,None,11,31,34,45,10,18,29,32,None,36,43,46,4,None,12,24,26,30,None,None,35,39,42,44,None,48,3,9,None,14,22,None,None,27,None,None,None,None,38,None,41,None,None,None,47,49,None,None,5,None,13,15,21,23,None,28,37,None,None,None,None,None,None,None,None,8,None,None,None,17,19,None,None,None,None,None,None,None,7,None,16,None,None,20,6],
+     33,
+     [2,0,34,None,1,25,40,None,None,11,31,35,45,10,18,29,32,None,36,43,46,4,None,12,24,26,30,None,None,None,39,42,44,None,48,3,9,None,14,22,None,None,27,None,None,38,None,41,None,None,None,47,49,None,None,5,None,13,15,21,23,None,28,37,None,None,None,None,None,None,None,None,8,None,None,None,17,19,None,None,None,None,None,None,None,7,None,16,None,None,20,6]),
 ])
-def test(tree, k):
+def test(nodes, key, expected):
     print()
-    t = build_tree(tree)
-    print(t)
-    print(Solution().deleteNode(t, k))
-
+    tree = build_tree(nodes)
+    print(tree)
+    print(key)
+    expected_tree = build_tree(expected)
+    actual_tree = Solution().deleteNode(tree, key)
+    print(actual_tree)
+    print('--------------------------------')
+    print(expected_tree)
+    assert expected == serialize_tree(actual_tree)
+    assert expected_tree == actual_tree
 
 if __name__ == '__main__':
     sys.exit(pytest.main(["-s", "-v"] + sys.argv))

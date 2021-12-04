@@ -2,46 +2,51 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given inorder and postorder traversal of a tree, construct the binary tree.
+Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.
 
-Note:
-You may assume that duplicates do not exist in the tree.
+Example 1:
 
-For example, given
+Input: inorder = [9,3,15,20,7], postorder = [9,15,7,20,3]
+Output: [3,9,20,null,null,15,7]
 
-inorder = [9,3,15,20,7]
-postorder = [9,15,7,20,3]
-Return the following binary tree:
+Example 2:
 
-    3
-   / \
-  9  20
-    /  \
-   15   7
+Input: inorder = [-1], postorder = [-1]
+Output: [-1]
+
+Constraints:
+
+	1 <= inorder.length <= 3000
+	postorder.length == inorder.length
+	-3000 <= inorder[i], postorder[i] <= 3000
+	inorder and postorder consist of unique values.
+	Each value of postorder also appears in inorder.
+	inorder is guaranteed to be the inorder traversal of the tree.
+	postorder is guaranteed to be the postorder traversal of the tree.
 """
+from collections import defaultdict
+from typing import Optional
+from typing import List
+import pytest
+import sys
+sys.path.append('../')
+from exercise.tree import TreeNode, build_tree, serialize_tree
 
 
 # Definition for a binary tree node.
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
-
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def buildTree_(self, inorder, postorder):
-        """
-        :type inorder: List[int]
-        :type postorder: List[int]
-        :rtype: TreeNode
-        """
-        from collections import defaultdict
+        """05/06/2018 19:12"""
         memo = defaultdict(list)
         for i, v in enumerate(inorder):
             memo[v].append(i)
@@ -58,11 +63,7 @@ class Solution:
         return build(0, len(inorder)-1, 0, len(postorder)-1)
 
     def buildTree(self, inorder, postorder):
-        """
-        :type inorder: List[int]
-        :type postorder: List[int]
-        :rtype: TreeNode
-        """
+        """05/06/2018 19:18"""
         def build(v):
             if not postorder or inorder[-1] == v:
                 return None
@@ -73,37 +74,32 @@ class Solution:
             return root
         return build(None)
 
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        inorder_map = {x: i for i, x in enumerate(inorder)}
+        def reconstruct(i, j, x, y):
+            root = TreeNode(postorder[y])
+            inorder_pivot = inorder_map[postorder[y]]
+            left_tree_size = inorder_pivot - i
+            right_tree_size = j - inorder_pivot
+            if left_tree_size:
+                root.left = reconstruct(i, inorder_pivot-1, x, x+left_tree_size-1)
+            if right_tree_size:
+                root.right = reconstruct(inorder_pivot+1, j, x+left_tree_size, y-1)
+            return root
+
+        return reconstruct(0, len(inorder)-1, 0, len(postorder)-1)
 
 
-
-from collections import defaultdict
-for_print = defaultdict(list)
-def tree2list(root, depth=0):
-    if depth == 0:
-        for_print.clear()
-    if not root:
-        return for_print[depth].append(None)
-    for_print[depth].append(root.val)
-    tree2list(root.left, depth+1)
-    tree2list(root.right, depth+1)
-    ret = []
-    for d in sorted(for_print.keys()):
-        l = for_print[d]
-        for i, v in enumerate(l):
-            if v is not None:
-                ret.extend(l[max(0, i-1):])
-                break
-    while ret and not ret[-1]:
-        ret.pop()
-    return ret
-
-
-
-def main():
-    preorder = [int(x) for x in input().split()]
-    inorder = [int(x) for x in input().split()]
-    print(tree2list(Solution().buildTree(preorder, inorder)))
+@pytest.mark.parametrize('inorder, postorder, expected', [
+    ([9,3,15,20,7], [9,15,7,20,3], [3,9,20,None,None,15,7]),
+    ([-1], [-1], [-1]),
+])
+def test(inorder, postorder, expected):
+    tree = Solution().buildTree(inorder, postorder)
+    print()
+    print(tree)
+    assert expected == serialize_tree(tree)
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

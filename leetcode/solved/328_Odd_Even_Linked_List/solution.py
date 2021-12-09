@@ -7,36 +7,56 @@
 # Distributed under terms of the MIT license.
 
 """
-Given a singly linked list, group all odd nodes together followed by the even nodes. Please note here we are talking about the node number and not the value in the nodes.
+Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
 
-You should try to do it in place. The program should run in O(1) space complexity and O(nodes) time complexity.
+The first node is considered odd, and the second node is even, and so on.
+
+Note that the relative order inside both the even and odd groups should remain as it was in the input.
+
+You must solve the problem in O(1) extra space complexity and O(n) time complexity.
 
 Example 1:
 
-Input: 1->2->3->4->5->NULL
-Output: 1->3->5->2->4->NULL
+Input: head = [1,2,3,4,5]
+Output: [1,3,5,2,4]
+
 Example 2:
 
-Input: 2->1->3->5->6->4->7->NULL
-Output: 2->3->6->7->1->5->4->NULL
-Note:
+Input: head = [2,1,3,5,6,4,7]
+Output: [2,3,6,7,1,5,4]
 
-The relative order inside both the even and odd groups should remain as it was in the input.
-The first node is considered odd, the second node even and so on ...|
+Constraints:
+
+	n == number of nodes in the linked list
+	0 <= n <= 104
+	-106 <= Node.val <= 106
 """
-import random
+import sys
+from typing import Optional
 import pytest
 
 
 # Definition for singly-linked list.
 class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+        return self.val == other.val and self.next == other.next
+
+    def __repr__(self):
+        ret = f'({self.val})'
+        if self.next:
+            ret += f' - {self.next}'
+        return ret
 
 
 class Solution:
     def oddEvenList(self, head: ListNode) -> ListNode:
+        """04/06/2020 23:13"""
         if not head or not head.next or not head.next.next:
             return head
         even, odd = head, head.next
@@ -56,34 +76,40 @@ class Solution:
         odd_tail.next = None
         return even
 
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        heads = [ListNode(), ListNode()]
+        tails = heads[:]
+        i = 0
+        while head:
+            tails[i%2].next = head
+            tails[i%2] = tails[i%2].next
+            head = head.next
+            i += 1
+        tails[0].next = heads[1].next
+        tails[1].next = None
+        return heads[0].next
 
-def gen_case():
-    n = random.randint(0, 10)
-    head = ListNode(random.randint(0, 100))
-    node = head
-    for _ in range(n):
-        new_node = ListNode(random.randint(0, 100))
-        node.next = new_node
-        node = new_node
+
+def build_list(values):
+    if not values: return None
+    head = ListNode(values[0])
+    tail = head
+    for i in range(1, len(values)):
+        node = ListNode(values[i])
+        tail.next = node
+        tail = node
     return head
 
 
-@pytest.mark.parametrize('node', [
-    gen_case(),
-    gen_case(),
-    gen_case(),
-    gen_case(),
+@pytest.mark.parametrize('values, expected', [
+    ([1,2,3,4,5], [1,3,5,2,4]),
+    ([2,1,3,5,6,4,7], [2,3,6,7,1,5,4]),
 ])
-def test(node):
-    vals = node_to_list(node)
-    print(vals)
-    ans = node_to_list(Solution().oddEvenList(node))
-    assert vals[0::2] + vals[1::2] == ans
+def test(values, expected):
+    expected = build_list(expected)
+    actual = Solution().oddEvenList(build_list(values))
+    assert expected == actual
 
 
-def node_to_list(node):
-    vals = []
-    while node:
-        vals.append(node.val)
-        node = node.next
-    return vals
+if __name__ == '__main__':
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

@@ -2,35 +2,42 @@
 
 Medium
 
-1326272Add to ListShare
+Given the `` head `` of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return _the reordered list_.
 
-Given a singly linked list, group all odd nodes together followed by the even nodes. Please note here we are talking about the node number and not the value in the nodes.
+The __first__ node is considered __odd__, and the __second__ node is __even__, and so on.
 
-You should try to do it in place. The program should run in O(1) space complexity and O(nodes) time complexity.
+Note that the relative order inside both the even and odd groups should remain as it was in the input.
 
-**Example 1:**
+You must solve the problem in `` O(1) `` extra space complexity and `` O(n) `` time complexity.
+
+ 
+
+__Example 1:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/03/10/oddeven-linked-list.jpg" style="width: 300px; height: 123px;"/>
 
 ```
-Input: 1->2->3->4->5->NULL
-Output: 1->3->5->2->4->NULL
+Input: head = [1,2,3,4,5]
+Output: [1,3,5,2,4]
 ```
 
-**Example 2:**
+__Example 2:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/03/10/oddeven2-linked-list.jpg" style="width: 500px; height: 142px;"/>
 
 ```
-Input: 2->1->3->5->6->4->7->NULL
-Output: 2->3->6->7->1->5->4->NULL
+Input: head = [2,1,3,5,6,4,7]
+Output: [2,3,6,7,1,5,4]
 ```
 
-**Note:**
+ 
 
-- The relative order inside both the even and odd groups should remain as it was in the input.
-- The first node is considered odd, the second node even and so on ...
+__Constraints:__
 
-Accepted
+*   `` n ==  ``number of nodes in the linked list
+*   <code>0 <= n <= 10<sup>4</sup></code>
+*   <code>-10<sup>6</sup> <= Node.val <= 10<sup>6</sup></code>
 
-209,278
-
-Submissions
-
-397,810
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 800,893 | 472,474 | 59.0% |

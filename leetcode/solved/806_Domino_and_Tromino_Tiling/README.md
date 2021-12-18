@@ -2,35 +2,39 @@
 
 Medium
 
-We have two types of tiles: a 2x1 domino shape, and an "L" tromino shape. These shapes may be rotated.
+You have two types of tiles: a `` 2 x 1 `` domino shape and a tromino shape. You may rotate these shapes.
 
-```
-XX  <- domino
+<img alt="" src="https://assets.leetcode.com/uploads/2021/07/15/lc-domino.jpg" style="width: 362px; height: 195px;"/>
 
-XX  <- "L" tromino
-X
-```
+Given an integer n, return _the number of ways to tile an_ `` 2 x n `` _board_. Since the answer may be very large, return it __modulo__ <code>10<sup>9</sup> + 7</code>.
 
-Given N, how many ways are there to tile a 2 x N board? __Return your answer modulo 10^9 + 7__.
-
-(In a tiling, every square must be covered by a tile. Two tilings are different if and only if there are two 4-directionally adjacent cells on the board such that exactly one of the tilings has both squares occupied by a tile.)
-
-```
-Example:
-Input: 3
-Output: 5
-Explanation: 
-The five different ways are listed below, different letters indicates different tiles:
-XYZ XXZ XYY XXY XYY
-XYZ YYZ XZZ XYY XXY
-```
-
-__Note:__
-
-*   N  will be in range `` [1, 1000] ``.
+In a tiling, every square must be covered by a tile. Two tilings are different if and only if there are two 4-directionally adjacent cells on the board such that exactly one of the tilings has both squares occupied by a tile.
 
  
 
+__Example 1:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/07/15/lc-domino1.jpg" style="width: 500px; height: 226px;"/>
+
+```
+Input: n = 3
+Output: 5
+Explanation: The five different ways are show above.
+```
+
+__Example 2:__
+
+```
+Input: n = 1
+Output: 1
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= n <= 1000 ``
+
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 40,096 | 15,773 | 39.3% |
+| 83,948 | 39,651 | 47.2% |

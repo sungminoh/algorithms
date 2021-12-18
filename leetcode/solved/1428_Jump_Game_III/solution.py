@@ -47,6 +47,7 @@ import pytest
 
 class Solution:
     def canReach(self, arr: List[int], start: int) -> bool:
+        """04/17/2021 21:14"""
         visited = set([start])
         def dfs(arr, i):
             if arr[i] == 0:
@@ -60,11 +61,25 @@ class Solution:
 
         return dfs(arr, start)
 
+    def canReach(self, arr: List[int], start: int) -> bool:
+        reachable = [False]*len(arr)
+
+        def dfs(i):
+            if not (0 <= i < len(arr)) or reachable[i]:
+                return
+            reachable[i] = True
+            dfs(i-arr[i])
+            dfs(i+arr[i])
+
+        dfs(start)
+        return any(r for n, r in zip(arr, reachable) if n == 0)
+
 
 @pytest.mark.parametrize('arr, start, expected', [
     ([4,2,3,0,3,1,2], 5, True),
     ([4,2,3,0,3,1,2], 0, True),
     ([3,0,2,1,2], 2, False),
+    ([0,3,0,6,3,3,4], 6, True),
 ])
 def test(arr, start, expected):
     assert expected == Solution().canReach(arr, start)

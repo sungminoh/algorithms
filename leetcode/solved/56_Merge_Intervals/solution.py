@@ -2,62 +2,60 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2017 Sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-56. Merge Intervals
-DescriptionHintsSubmissionsDiscussSolution
-DiscussPick One
-Given a collection of intervals, merge all overlapping intervals.
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
 
-For example,
-Given [1,3],[2,6],[8,10],[15,18],
-return [1,6],[8,10],[15,18].
+Example 1:
+
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
+
+Example 2:
+
+Input: intervals = [[1,4],[4,5]]
+Output: [[1,5]]
+Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+
+Constraints:
+
+	1 <= intervals.length <= 104
+	intervals[i].length == 2
+	0 <= starti <= endi <= 104
 """
-
-
-# Definition for an interval.
-class Interval(object):
-    def __init__(self, s=0, e=0):
-        self.start = s
-        self.end = e
-
-    def __repr__(self):
-        return '(%s, %s)' % (self.start, self.end)
+import sys
+from typing import List
+import pytest
 
 
 class Solution:
-    def merge(self, intervals):
-        """
-        :type intervals: List[Interval]
-        :rtype: List[Interval]
-        """
-        if not intervals:
-            return []
-        intervals = list(sorted(intervals, key=lambda x: x.start))
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key=lambda x: (x[0], -x[1]))
         ret = []
-        interval = intervals[0]
+        cur = intervals[0]
         for i in range(1, len(intervals)):
-            x = intervals[i]
-            if x.start <= interval.end:
-                interval.end = max(interval.end, x.end)
+            s, e = intervals[i]
+            if s > cur[1]:
+                ret.append(cur)
+                cur = [s, e]
             else:
-                ret.append(interval)
-                interval = x
-        ret.append(interval)
+                cur[1] = max(cur[1], e)
+        ret.append(cur)
+
         return ret
 
 
-def main():
-    intervals = []
-    s = list(map(int, input().split()))
-    while s:
-        intervals.append(Interval(*s))
-        s = list(map(int, input().split()))
-    print(Solution().merge(intervals))
+@pytest.mark.parametrize('intervals, expected', [
+    ([[1,3],[2,6],[8,10],[15,18]], [[1,6],[8,10],[15,18]]),
+    ([[1,4],[4,5]], [[1,5]]),
+])
+def test(intervals, expected):
+    assert expected == Solution().merge(intervals)
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

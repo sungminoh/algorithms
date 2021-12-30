@@ -1,13 +1,35 @@
-### [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/description/)
+### [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/)
 
-[**Description](https://leetcode.com/problems/merge-intervals/description/)[**Hints](https://leetcode.com/problems/merge-intervals/hints/)[**Submissions](https://leetcode.com/problems/merge-intervals/submissions/)[**Discuss](https://leetcode.com/problems/merge-intervals/discuss/)[**Solution](https://leetcode.com/problems/merge-intervals/solution/)
+Medium
 
-[**Discuss](https://discuss.leetcode.com/category/64)[**Pick One](https://leetcode.com/problems/random-one-question/)
+Given an array of `` intervals `` where <code>intervals[i] = [start<sub>i</sub>, end<sub>i</sub>]</code>, merge all overlapping intervals, and return _an array of the non-overlapping intervals that cover all the intervals in the input_.
 
-------
+ 
 
-Given a collection of intervals, merge all overlapping intervals.
+__Example 1:__
 
-For example,
-Given `[1,3],[2,6],[8,10],[15,18]`,
-return `[1,6],[8,10],[15,18]`.
+```
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
+```
+
+__Example 2:__
+
+```
+Input: intervals = [[1,4],[4,5]]
+Output: [[1,5]]
+Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+```
+
+ 
+
+__Constraints:__
+
+*   <code>1 <= intervals.length <= 10<sup>4</sup></code>
+*   `` intervals[i].length == 2 ``
+*   <code>0 <= start<sub>i</sub> <= end<sub>i</sub> <= 10<sup>4</sup></code>
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 2,749,644 | 1,205,249 | 43.8% |

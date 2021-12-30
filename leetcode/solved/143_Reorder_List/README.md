@@ -1,26 +1,48 @@
-### [143. Reorder List](https://leetcode.com/problems/reorder-list/description/)
+### [143. Reorder List](https://leetcode.com/problems/reorder-list/)
 
-[Description](https://leetcode.com/problems/reorder-list/description/)[Hints](https://leetcode.com/problems/reorder-list/hints/)[Submissions](https://leetcode.com/problems/reorder-list/submissions/)[Discuss](https://leetcode.com/problems/reorder-list/discuss/)[Solution](https://leetcode.com/problems/reorder-list/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
-
-------
-
-Given a singly linked list *L*: *L*0→*L*1→…→*L**n*-1→*L*n,
-reorder it to: *L*0→*L**n*→*L*1→*L**n*-1→*L*2→*L**n*-2→…
-
-You may **not** modify the values in the list's nodes, only nodes itself may be changed.
-
-**Example 1:**
+You are given the head of a singly linked-list. The list can be represented as:
 
 ```
-Given 1->2->3->4, reorder it to 1->4->2->3.
+L<sub>0</sub> → L<sub>1</sub> → … → L<sub>n - 1</sub> → L<sub>n</sub>
 ```
 
-**Example 2:**
+_Reorder the list to be on the following form:_
 
 ```
-Given 1->2->3->4->5, reorder it to 1->5->2->4->3.
+L<sub>0</sub> → L<sub>n</sub> → L<sub>1</sub> → L<sub>n - 1</sub> → L<sub>2</sub> → L<sub>n - 2</sub> → …
 ```
 
- 
+You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+
+ 
+
+__Example 1:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/03/04/reorder1linked-list.jpg" style="width: 422px; height: 222px;"/>
+
+```
+Input: head = [1,2,3,4]
+Output: [1,4,2,3]
+```
+
+__Example 2:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/03/09/reorder2-linked-list.jpg" style="width: 542px; height: 222px;"/>
+
+```
+Input: head = [1,2,3,4,5]
+Output: [1,5,2,4,3]
+```
+
+ 
+
+__Constraints:__
+
+*   The number of nodes in the list is in the range <code>[1, 5 * 10<sup>4</sup>]</code>.
+*   `` 1 <= Node.val <= 1000 ``
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 913,246 | 418,564 | 45.8% |

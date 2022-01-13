@@ -2,63 +2,63 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given a binary tree
+You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:
 
-struct TreeLinkNode {
-  TreeLinkNode *left;
-  TreeLinkNode *right;
-  TreeLinkNode *next;
+struct Node {
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
 }
+
 Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
 
 Initially, all next pointers are set to NULL.
 
-Note:
+Example 1:
 
-You may only use constant extra space.
-Recursive approach is fine, implicit stack space does not count as extra space for this problem.
-You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children).
-Example:
+Input: root = [1,2,3,4,5,6,7]
+Output: [1,#,2,3,#,4,5,6,7,#]
+Explanation: Given the above perfect binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.
 
-Given the following perfect binary tree,
+Example 2:
 
-     1
-   /  \
-  2    3
- / \  / \
-4  5  6  7
-After calling your function, the tree should look like:
+Input: root = []
+Output: []
 
-     1 -> NULL
-   /  \
-  2 -> 3 -> NULL
- / \  / \
-4->5->6->7 -> NULL
+Constraints:
+
+	The number of nodes in the tree is in the range [0, 212 - 1].
+	-1000 <= Node.val <= 1000
+
+Follow-up:
+
+	You may only use constant extra space.
+	The recursive approach is fine. You may assume implicit stack space does not count as extra space for this problem.
 """
+import pytest
+import sys
+sys.path.append('../')
+from exercise.tree import TreeNode, build_tree
 
 
-# Definition for binary tree with next pointer.
-class TreeLinkNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-        self.next = None
-
-    def __repr__(self):
-        return 'TreeLinkNode(%r, %r, %r, %r)' % (self.val, self.left, self.right, self.next)
-        # return 'TreeLinkNode(%r)' % (self.val)
+# Definition for a Node.
+class Node(TreeNode):
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
 
 
 class Solution:
-    # @param root, a tree link node
-    # @return nothing
     def connect(self, root):
+        """05/06/2018 23:03"""
         if not root:
             return
         q = [[root], []]
@@ -75,34 +75,65 @@ class Solution:
             i = j
             j = (i+1)%2
 
+    def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        """
+        Time complexity: O(n)
+        Space complexity: O(n/2)  # the number of leaf nodes
+        """
+        row = [root]
+        while row:
+            next_row = []
+            for i in range(len(row)):
+                if i+1 < len(row):
+                    row[i].next = row[i+1]
+                if row[i].left:
+                    next_row.append(row[i].left)
+                if row[i].right:
+                    next_row.append(row[i].right)
+            row = next_row
+        return root
 
-def list2tree(arr):
-    root = TreeLinkNode(arr[0])
-    level = [root]
-    i = 1
-    while level:
-        t = level.pop(0)
-        if not t:
-            continue
-        if i >= len(arr):
-            break
-        t.left = TreeLinkNode(arr[i]) if arr[i] is not None else None; i += 1
-        t.right = TreeLinkNode(arr[i]) if arr[i] is not None else None; i += 1
-        level.extend([t.left, t.right])
-    return root
+    def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        """
+        Time complexity: O(n*h)
+        Space complexity: O(h)  # height
+        """
+        if not root:
+            return
+        self.connect(root.left)
+        self.connect(root.right)
+        l = root.left
+        r = root.right
+        while l and r:
+            l.next = r
+            l = l.right
+            r = r.left
+        return root
 
 
-def main():
-    root = list2tree([eval(x) for x in input().split()])
-    Solution().connect(root)
+def serialize(root):
+    ret = []
     while root:
-        p = root
-        while p:
-            print(p.val, end=' ')
-            p = p.next
-        print()
+        node = root
+        while node:
+            ret.append(node.val)
+            node = node.next
+        else:
+            ret.append('#')
         root = root.left
+    return ret
+
+
+@pytest.mark.parametrize('values, expected', [
+    ([1,2,3,4,5,6,7], [1,'#',2,3,'#',4,5,6,7,'#']),
+    ([], []),
+])
+def test(values, expected):
+    tree = build_tree(values, Node)
+    print('\n------------')
+    print(tree)
+    assert expected == serialize(Solution().connect(tree))
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

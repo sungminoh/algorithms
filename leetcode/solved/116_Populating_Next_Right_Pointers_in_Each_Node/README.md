@@ -1,49 +1,55 @@
-### [116. Populating Next Right Pointers in Each Node](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/description/)
+### [116. Populating Next Right Pointers in Each Node](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/)
 
-[Description](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/description/)[Hints](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/hints/)[Submissions](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/submissions/)[Discuss](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/discuss/)[Solution](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
-
-------
-
-Given a binary tree
+You are given a __perfect binary tree__ where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:
 
 ```
-struct TreeLinkNode {
-  TreeLinkNode *left;
-  TreeLinkNode *right;
-  TreeLinkNode *next;
+struct Node {
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
 }
 ```
 
-Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to `NULL`.
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to `` NULL ``.
 
-Initially, all next pointers are set to `NULL`.
+Initially, all next pointers are set to `` NULL ``.
 
-**Note:**
+ 
 
-- You may only use constant extra space.
-- Recursive approach is fine, implicit stack space does not count as extra space for this problem.
-- You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children).
+__Example 1:__
 
-**Example:**
-
-Given the following perfect binary tree,
+<img alt="" src="https://assets.leetcode.com/uploads/2019/02/14/116_sample.png" style="width: 500px; height: 171px;"/>
 
 ```
-     1
-   /  \
-  2    3
- / \  / \
-4  5  6  7
+Input: root = [1,2,3,4,5,6,7]
+Output: [1,#,2,3,#,4,5,6,7,#]
+Explanation: Given the above perfect binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.
 ```
 
-After calling your function, the tree should look like:
+__Example 2:__
 
 ```
-     1 -> NULL
-   /  \
-  2 -> 3 -> NULL
- / \  / \
-4->5->6->7 -> NULL
+Input: root = []
+Output: []
 ```
+
+ 
+
+__Constraints:__
+
+*   The number of nodes in the tree is in the range <code>[0, 2<sup>12</sup> - 1]</code>.
+*   `` -1000 <= Node.val <= 1000 ``
+
+ 
+
+__Follow-up:__
+
+*   You may only use constant extra space.
+*   The recursive approach is fine. You may assume implicit stack space does not count as extra space for this problem.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,184,530 | 651,836 | 55.0% |

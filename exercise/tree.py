@@ -166,15 +166,15 @@ class TreeNode(object):
             and other.right == self.right
 
 
-def build_tree(lst):
+def build_tree(lst, constructor=TreeNode):
     if not lst:
         return None
-    root = TreeNode(lst[0])
+    root = constructor(lst[0])
     queue = [root]
     att = ['left', 'right']
     cur = 0
     for x in lst[1:]:
-        node = TreeNode(x) if x is not None else None
+        node = constructor(x) if x is not None else None
         setattr(queue[0], att[cur], node)
         if cur:
             queue.pop(0)

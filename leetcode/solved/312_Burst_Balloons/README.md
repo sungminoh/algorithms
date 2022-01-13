@@ -1,30 +1,40 @@
-### [312. Burst Balloons](https://leetcode.com/problems/burst-balloons/description/)
+### [312. Burst Balloons](https://leetcode.com/problems/burst-balloons/)
 
-[**Description](https://leetcode.com/problems/burst-balloons/description/)[**Hints](https://leetcode.com/problems/burst-balloons/hints/)[**Submissions](https://leetcode.com/problems/burst-balloons/submissions/)[**Discuss](https://leetcode.com/problems/burst-balloons/discuss/)[**Solution](https://leetcode.com/problems/burst-balloons/solution/)
+Hard
 
-[**Discuss](https://discuss.leetcode.com/category/392)[**Pick One](https://leetcode.com/problems/random-one-question/)
+You are given `` n `` balloons, indexed from `` 0 `` to `` n - 1 ``. Each balloon is painted with a number on it represented by an array `` nums ``. You are asked to burst all the balloons.
 
-------
+If you burst the <code>i<sup>th</sup></code> balloon, you will get `` nums[i - 1] * nums[i] * nums[i + 1] `` coins. If `` i - 1 `` or `` i + 1 `` goes out of bounds of the array, then treat it as if there is a balloon with a `` 1 `` painted on it.
 
-Given `n` balloons, indexed from `0` to `n-1`. Each balloon is painted with a number on it represented by array `nums`. You are asked to burst all the balloons. If the you burst balloon `i` you will get `nums[left] * nums[i] * nums[right]` coins. Here `left` and `right`are adjacent indices of `i`. After the burst, the `left` and `right` then becomes adjacent.
+Return _the maximum coins you can collect by bursting the balloons wisely_.
 
-Find the maximum coins you can collect by bursting the balloons wisely.
+ 
 
-**Note:** 
-(1) You may imagine `nums[-1] = nums[n] = 1`. They are not real therefore you can not burst them.
-(2) 0 ≤ `n` ≤ 500, 0 ≤ `nums[i]` ≤ 100
-
-**Example:**
-
-Given `[3, 1, 5, 8]`
-
-Return `167`
+__Example 1:__
 
 ```
-    nums = [3,1,5,8] --> [3,5,8] -->   [3,8]   -->  [8]  --> []
-   coins =  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   = 167
-
+Input: nums = [3,1,5,8]
+Output: 167
+Explanation:
+nums = [3,1,5,8] --> [3,5,8] --> [3,8] --> [8] --> []
+coins =  3*1*5    +   3*5*8   +  1*3*8  + 1*8*1 = 167
 ```
 
-**Credits:**
-Special thanks to [@dietpepsi](https://leetcode.com/discuss/user/dietpepsi) for adding this problem and creating all test cases.
+__Example 2:__
+
+```
+Input: nums = [1,5]
+Output: 10
+```
+
+ 
+
+__Constraints:__
+
+*   `` n == nums.length ``
+*   `` 1 <= n <= 500 ``
+*   `` 0 <= nums[i] <= 100 ``
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 308,415 | 172,690 | 56.0% |

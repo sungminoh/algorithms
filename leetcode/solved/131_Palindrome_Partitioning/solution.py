@@ -54,6 +54,7 @@ class Solution:
         return part(0)
 
     def partition(self, s: str) -> List[List[str]]:
+        """12/04/2021 10:59"""
         @lru_cache(None)  # O(n^2)
         def is_palindrome(i, j):
             if i == j:
@@ -82,6 +83,22 @@ class Solution:
             return ret
 
         return partition(len(s)-1)
+
+    @lru_cache(None)
+    def partition(self, s: str) -> List[List[str]]:
+        @lru_cache(None)
+        def is_palindrome(s):
+            return s == s[::-1]
+
+        ret = []
+        for i in range(1, len(s)):
+            if is_palindrome(s[:i]):
+                for sub in self.partition(s[i:]):
+                    ret.append([s[:i]] + sub)
+        if is_palindrome(s):
+            ret.append([s])
+        return ret
+
 
 
 @pytest.mark.parametrize('s, expected', [

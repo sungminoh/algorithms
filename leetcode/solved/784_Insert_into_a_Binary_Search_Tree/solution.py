@@ -7,96 +7,50 @@
 # Distributed under terms of the MIT license.
 
 """
-Given the root node of a binary search tree (BST) and a value to be inserted into the tree, insert the value into the BST. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST.
+You are given the root node of a binary search tree (BST) and a value to insert into the tree. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST.
 
-Note that there may exist multiple valid ways for the insertion, as long as the tree remains a BST after insertion. You can return any of them.
+Notice that there may exist multiple valid ways for the insertion, as long as the tree remains a BST after insertion. You can return any of them.
 
-For example, 
+Example 1:
 
-Given the tree:
-        4
-       / \
-      2   7
-     / \
-    1   3
-And the value to insert: 5
+Input: root = [4,2,7,1,3], val = 5
+Output: [4,2,7,1,3,5]
+Explanation: Another accepted tree is:
 
-You can return this binary search tree:
+Example 2:
 
-         4
-       /   \
-      2     7
-     / \   /
-    1   3 5
+Input: root = [40,20,60,10,30,50,70], val = 25
+Output: [40,20,60,10,30,50,70,null,null,25]
 
-This tree is also valid:
+Example 3:
 
-         5
-       /   \
-      2     7
-     / \
-    1   3
-         \
-          4
+Input: root = [4,2,7,1,3,null,null,null,null,null,null], val = 5
+Output: [4,2,7,1,3,5]
 
 Constraints:
 
-	The number of nodes in the given tree will be between 0 and 10^4.
-	Each node will have a unique integer value from 0 to -10^8, inclusive.
-	-10^8 <= val <= 10^8
+	The number of nodes in the tree will be in the range [0, 104].
+	-108 <= Node.val <= 108
+	All the values Node.val are unique.
+	-108 <= val <= 108
 	It's guaranteed that val does not exist in the original BST.
 """
-import sys
-from idlelib.tree import TreeNode
+from typing import Optional
 import pytest
+import sys
+sys.path.append('../')
+from exercise.tree import build_tree, TreeNode
 
 
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-    def __repr__(self):
-        from itertools import zip_longest
-        left_lines = repr(self.left).split('\n') if self.left else []
-        right_lines = repr(self.right).split('\n') if self.right else []
-        node_padding = len(repr(self.val)) + 2
-        left_padding = len(left_lines[0]) if left_lines else 0
-        right_padding = len(right_lines[0]) if right_lines else 0
-        lines = [' '*left_padding + rf'({self.val})' + ' '*right_padding]
-        for ll, rl in zip_longest(left_lines, right_lines):
-            if ll is not None:
-                lines.append(ll + ' '*node_padding + (rl or ''))
-            else:
-                lines.append(' '*(node_padding + left_padding) + (rl or ''))
-        return '\n'.join(lines)
-
-    def __eq__(self, other):
-        return other.val == self.val \
-            and other.left == self.left \
-            and other.right == self.right
-
-
-def build_tree(lst):
-    root = TreeNode(lst[0])
-    queue = [root]
-    att = ['left', 'right']
-    cur = 0
-    for x in lst[1:]:
-        node = TreeNode(x) if x is not None else None
-        setattr(queue[0], att[cur], node)
-        if cur:
-            queue.pop(0)
-        if node:
-            queue.append(node)
-        cur += 1
-        cur %= 2
-    return root
-
-
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
+        """08/29/2020 11:14"""
         if not root:
             return TreeNode(val)
         if val < root.val:
@@ -111,14 +65,24 @@ class Solution:
                 self.insertIntoBST(root.right, val)
         return root
 
+    def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        if not root:
+            return TreeNode(val)
+        if root.val < val:
+            root.right = self.insertIntoBST(root.right, val)
+        if root.val > val:
+            root.left = self.insertIntoBST(root.left, val)
 
-@pytest.mark.parametrize('nodes, val', [
-    ([4,2,7,1,3], 5),
+        return root
+
+
+@pytest.mark.parametrize('values, val, expected', [
+    ([4,2,7,1,3], 5, [4,2,7,1,3,5]),
+    ([40,20,60,10,30,50,70], 25, [40,20,60,10,30,50,70,None,None,25]),
+    ([4,2,7,1,3,None,None,None,None,None,None], 5, [4,2,7,1,3,5]),
 ])
-def test(nodes, val):
-    print()
-    root = build_tree(nodes)
-    print(Solution().insertIntoBST(root, val))
+def test(values, val, expected):
+    assert build_tree(expected) == Solution().insertIntoBST(build_tree(values), val)
 
 
 if __name__ == '__main__':

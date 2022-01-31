@@ -124,6 +124,36 @@ class Solution:
             m.pop(arr[i])
         return -1
 
+    def minJumps(self, arr: List[int]) -> int:
+        warp = defaultdict(set)
+        for i, x in enumerate(arr):
+            warp[x].add(i)
+
+        visited = set([0])
+        queue = [0]
+
+        def visit_if_not_visited(i, queue):
+            if 0<= i < len(arr) and i not in visited:
+                visited.add(i)
+                queue.append(i)
+
+        ret = 0
+        while queue:
+            new_queue = []
+            for i in queue:
+                if i == len(arr)-1:
+                    return ret
+                visit_if_not_visited(i-1, new_queue)
+                visit_if_not_visited(i+1, new_queue)
+                for j in warp[arr[i]]:
+                    visit_if_not_visited(j, new_queue)
+                # This is not to iterate the above for loop ever again
+                warp.pop(arr[i])
+            queue = new_queue
+            ret += 1
+
+        return -1
+
 
 @pytest.mark.parametrize('arr, expected', [
     ([100,-23,-23,404,100,23,23,23,3,404], 3),
@@ -132,7 +162,8 @@ class Solution:
     ([6,1,9], 2),
     ([11,22,7,7,7,7,7,7,7,22,13], 3),
     ([-53,97,65,-78,-84,-56,-96,-19,-84,67,-47,-53,-78,65,-62,-81,11,67,-53], 1),
-    *json.load(open(Path(__file__).parent/'testcase.json'))
+    *json.load(open(Path(__file__).parent/'testcase.json')),
+    (json.load(open(Path(__file__).parent/'testcase2.json')), 4),
 ])
 def test(arr, expected):
     assert expected == Solution().minJumps(arr)

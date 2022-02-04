@@ -51,6 +51,7 @@ import pytest
 
 class Solution:
     def maxDistToClosest(self, seats: List[int]) -> int:
+        """02/05/2021 20:18"""
         max_gap = 0
         first = -1
         last = len(seats)
@@ -70,7 +71,16 @@ class Solution:
             max_gap = max(max_gap, len(seats)-1 - last)
         return max_gap
 
-
+    def maxDistToClosest(self, seats: List[int]) -> int:
+        prev_i = -1
+        ret = 0
+        for i, s in enumerate(seats):
+            if s == 1:
+                ret = max(ret, ((i - prev_i)//2) if prev_i >= 0 else i)
+                prev_i = i
+        if seats[len(seats)-1] == 0:
+            ret = max(ret, len(seats)-1-prev_i)
+        return ret
 
 
 @pytest.mark.parametrize('seats, expected', [

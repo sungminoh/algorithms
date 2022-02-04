@@ -1,32 +1,20 @@
-### [134. Gas Station](https://leetcode.com/problems/gas-station/description/)
+### [134. Gas Station](https://leetcode.com/problems/gas-station/)
 
-[Description](https://leetcode.com/problems/gas-station/description/)[Hints](https://leetcode.com/problems/gas-station/hints/)[Submissions](https://leetcode.com/problems/gas-station/submissions/)[Discuss](https://leetcode.com/problems/gas-station/discuss/)[Solution](https://leetcode.com/problems/gas-station/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+There are `` n `` gas stations along a circular route, where the amount of gas at the <code>i<sup>th</sup></code> station is `` gas[i] ``.
 
-------
+You have a car with an unlimited gas tank and it costs `` cost[i] `` of gas to travel from the <code>i<sup>th</sup></code> station to its next <code>(i + 1)<sup>th</sup></code> station. You begin the journey with an empty tank at one of the gas stations.
 
-There are *N* gas stations along a circular route, where the amount of gas at station *i* is `gas[i]`.
+Given two integer arrays `` gas `` and `` cost ``, return _the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return_ `` -1 ``. If there exists a solution, it is __guaranteed__ to be __unique__
 
-You have a car with an unlimited gas tank and it costs `cost[i]` of gas to travel from station *i* to its next station (*i*+1). You begin the journey with an empty tank at one of the gas stations.
+ 
 
-Return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1.
-
-**Note:**
-
-- If there exists a solution, it is guaranteed to be unique.
-- Both input arrays are non-empty and have the same length.
-- Each element in the input arrays is a non-negative integer.
-
-**Example 1:**
+__Example 1:__
 
 ```
-Input: 
-gas  = [1,2,3,4,5]
-cost = [3,4,5,1,2]
-
+Input: gas = [1,2,3,4,5], cost = [3,4,5,1,2]
 Output: 3
-
 Explanation:
 Start at station 3 (index 3) and fill up with 4 unit of gas. Your tank = 0 + 4 = 4
 Travel to station 4. Your tank = 4 - 1 + 5 = 8
@@ -37,15 +25,11 @@ Travel to station 3. The cost is 5. Your gas is just enough to travel back to st
 Therefore, return 3 as the starting index.
 ```
 
-**Example 2:**
+__Example 2:__
 
 ```
-Input: 
-gas  = [2,3,4]
-cost = [3,4,3]
-
+Input: gas = [2,3,4], cost = [3,4,3]
 Output: -1
-
 Explanation:
 You can't start at station 0 or 1, as there is not enough gas to travel to the next station.
 Let's start at station 2 and fill up with 4 unit of gas. Your tank = 0 + 4 = 4
@@ -55,6 +39,15 @@ You cannot travel back to station 2, as it requires 4 unit of gas but you only h
 Therefore, you can't travel around the circuit once no matter where you start.
 ```
 
-------
+ 
 
- 
+__Constraints:__
+
+*   `` gas.length == n ``
+*   `` cost.length == n ``
+*   <code>1 <= n <= 10<sup>5</sup></code>
+*   <code>0 <= gas[i], cost[i] <= 10<sup>4</sup></code>
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 855,195 | 378,239 | 44.2% |

@@ -1,28 +1,38 @@
-### [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/description/)
+### [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
 
-[Description](https://leetcode.com/problems/largest-rectangle-in-histogram/description/)[Hints](https://leetcode.com/problems/largest-rectangle-in-histogram/hints/)[Submissions](https://leetcode.com/problems/largest-rectangle-in-histogram/submissions/)[Discuss](https://leetcode.com/problems/largest-rectangle-in-histogram/discuss/)[Solution](https://leetcode.com/problems/largest-rectangle-in-histogram/solution/)
+Hard
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given an array of integers `` heights `` representing the histogram's bar height where the width of each bar is `` 1 ``, return _the area of the largest rectangle in the histogram_.
 
-------
+ 
 
-Given *n* non-negative integers representing the histogram's bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
+__Example 1:__
 
-![img](https://leetcode.com/static/images/problemset/histogram.png)
-Above is a histogram where width of each bar is 1, given height = `[2,1,5,6,2,3]`.
-
- 
-
-![img](https://leetcode.com/static/images/problemset/histogram_area.png)
-The largest rectangle is shown in the shaded area, which has area = `10` unit.
-
- 
-
-**Example:**
+<img alt="" src="https://assets.leetcode.com/uploads/2021/01/04/histogram.jpg" style="width: 522px; height: 242px;"/>
 
 ```
-Input: [2,1,5,6,2,3]
+Input: heights = [2,1,5,6,2,3]
 Output: 10
+Explanation: The above is a histogram where width of each bar is 1.
+The largest rectangle is shown in the red area, which has an area = 10 units.
 ```
 
- 
+__Example 2:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/01/04/histogram-1.jpg" style="width: 202px; height: 362px;"/>
+
+```
+Input: heights = [2,4]
+Output: 4
+```
+
+ 
+
+__Constraints:__
+
+*   <code>1 <= heights.length <= 10<sup>5</sup></code>
+*   <code>0 <= heights[i] <= 10<sup>4</sup></code>
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,176,145 | 474,225 | 40.3% |

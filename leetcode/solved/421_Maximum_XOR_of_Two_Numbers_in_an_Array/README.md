@@ -2,24 +2,32 @@
 
 Medium
 
-Given a __non-empty__ array of numbers, a<sub>0</sub>, a<sub>1</sub>, a<sub>2</sub>, … , a<sub>n-1</sub>, where 0 ≤ a<sub>i</sub> < 2<sup>31</sup>.
+Given an integer array `` nums ``, return _the maximum result of _`` nums[i] XOR nums[j] ``, where `` 0 <= i <= j < n ``.
 
-Find the maximum result of a<sub>i</sub> XOR a<sub>j</sub>, where 0 ≤ _i_, _j_ < _n_.
+ 
 
-Could you do this in O(_n_) runtime?
-
-__Example:__
+__Example 1:__
 
 ```
-<b>Input:</b> [3, 10, 5, 25, 2, 8]
-
-<b>Output:</b> 28
-
-<b>Explanation:</b> The maximum result is <b>5</b> ^ <b>25</b> = 28.
+Input: nums = [3,10,5,25,2,8]
+Output: 28
+Explanation: The maximum result is 5 XOR 25 = 28.
 ```
 
+__Example 2:__
 
+```
+Input: nums = [14,70,53,83,49,91,36,80,92,51,66,70]
+Output: 127
+```
+
+ 
+
+__Constraints:__
+
+*   <code>1 <= nums.length <= 2 * 10<sup>5</sup></code>
+*   <code>0 <= nums[i] <= 2<sup>31</sup> - 1</code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 89,920 | 47,637 | 53.0% |
+| 217,724 | 118,000 | 54.2% |

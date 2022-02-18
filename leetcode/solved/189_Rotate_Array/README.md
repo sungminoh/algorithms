@@ -1,15 +1,15 @@
 ### [189. Rotate Array](https://leetcode.com/problems/rotate-array/)
 
-Easy
+Medium
 
-2294760Add to ListShare
+Given an array, rotate the array to the right by `` k `` steps, where `` k `` is non-negative.
 
-Given an array, rotate the array to the right by *k* steps, where *k* is non-negative.
+ 
 
-**Example 1:**
+__Example 1:__
 
 ```
-Input: [1,2,3,4,5,6,7] and k = 3
+Input: nums = [1,2,3,4,5,6,7], k = 3
 Output: [5,6,7,1,2,3,4]
 Explanation:
 rotate 1 steps to the right: [7,1,2,3,4,5,6]
@@ -17,25 +17,31 @@ rotate 2 steps to the right: [6,7,1,2,3,4,5]
 rotate 3 steps to the right: [5,6,7,1,2,3,4]
 ```
 
-**Example 2:**
+__Example 2:__
 
 ```
-Input: [-1,-100,3,99] and k = 2
+Input: nums = [-1,-100,3,99], k = 2
 Output: [3,99,-1,-100]
 Explanation: 
 rotate 1 steps to the right: [99,-1,-100,3]
 rotate 2 steps to the right: [3,99,-1,-100]
 ```
 
-**Note:**
+ 
 
-- Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.
-- Could you do it in-place with O(1) extra space?
+__Constraints:__
 
-Accepted
+*   <code>1 <= nums.length <= 10<sup>5</sup></code>
+*   <code>-2<sup>31</sup> <= nums[i] <= 2<sup>31</sup> - 1</code>
+*   <code>0 <= k <= 10<sup>5</sup></code>
 
-428,375
+ 
 
-Submissions
+__Follow up:__
 
-1,286,147
+*   Try to come up with as many solutions as you can. There are at least __three__ different ways to solve this problem.
+*   Could you do it in-place with `` O(1) `` extra space?
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 2,633,606 | 1,008,385 | 38.3% |

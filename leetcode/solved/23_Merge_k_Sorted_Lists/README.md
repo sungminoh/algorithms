@@ -1,21 +1,53 @@
-### [23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/description/)
+### [23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
 
-[Description](https://leetcode.com/problems/merge-k-sorted-lists/description/)[Hints](https://leetcode.com/problems/merge-k-sorted-lists/hints/)[Submissions](https://leetcode.com/problems/merge-k-sorted-lists/submissions/)[Discuss](https://leetcode.com/problems/merge-k-sorted-lists/discuss/)[Solution](https://leetcode.com/problems/merge-k-sorted-lists/solution/)
+Hard
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+You are given an array of `` k `` linked-lists `` lists ``, each linked-list is sorted in ascending order.
 
-------
+_Merge all the linked-lists into one sorted linked-list and return it._
 
-Merge *k* sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+ 
 
-**Example:**
+__Example 1:__
 
 ```
-Input:
+Input: lists = [[1,4,5],[1,3,4],[2,6]]
+Output: [1,1,2,3,4,4,5,6]
+Explanation: The linked-lists are:
 [
   1->4->5,
   1->3->4,
   2->6
 ]
-Output: 1->1->2->3->4->4->5->6
+merging them into one sorted list:
+1->1->2->3->4->4->5->6
 ```
+
+__Example 2:__
+
+```
+Input: lists = []
+Output: []
+```
+
+__Example 3:__
+
+```
+Input: lists = [[]]
+Output: []
+```
+
+ 
+
+__Constraints:__
+
+*   `` k == lists.length ``
+*   <code>0 <= k <= 10<sup>4</sup></code>
+*   `` 0 <= lists[i].length <= 500 ``
+*   <code>-10<sup>4</sup> <= lists[i][j] <= 10<sup>4</sup></code>
+*   `` lists[i] `` is sorted in __ascending order__.
+*   The sum of `` lists[i].length `` will not exceed <code>10<sup>4</sup></code>.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 2,519,272 | 1,170,337 | 46.5% |

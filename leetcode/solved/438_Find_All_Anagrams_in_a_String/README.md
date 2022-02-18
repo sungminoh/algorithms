@@ -2,22 +2,18 @@
 
 Medium
 
-Given a string __s__ and a __non-empty__ string __p__, find all the start indices of __p__'s anagrams in __s__.
+Given two strings `` s `` and `` p ``, return _an array of all the start indices of _`` p ``_'s anagrams in _`` s ``. You may return the answer in __any order__.
 
-Strings consists of lowercase English letters only and the length of both strings __s__ and __p__ will not be larger than 20,100.
+An __Anagram__ is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
 
-The order of output does not matter.
+ 
 
 __Example 1:__
 
 ```
-<b>Input:</b>
-s: "cbaebabacd" p: "abc"
-
-<b>Output:</b>
-[0, 6]
-
-<b>Explanation:</b>
+Input: s = "cbaebabacd", p = "abc"
+Output: [0,6]
+Explanation:
 The substring with start index = 0 is "cba", which is an anagram of "abc".
 The substring with start index = 6 is "bac", which is an anagram of "abc".
 ```
@@ -25,18 +21,21 @@ The substring with start index = 6 is "bac", which is an anagram of "abc".
 __Example 2:__
 
 ```
-<b>Input:</b>
-s: "abab" p: "ab"
-
-<b>Output:</b>
-[0, 1, 2]
-
-<b>Explanation:</b>
+Input: s = "abab", p = "ab"
+Output: [0,1,2]
+Explanation:
 The substring with start index = 0 is "ab", which is an anagram of "ab".
 The substring with start index = 1 is "ba", which is an anagram of "ab".
 The substring with start index = 2 is "ab", which is an anagram of "ab".
 ```
 
+ 
+
+__Constraints:__
+
+*   <code>1 <= s.length, p.length <= 3 * 10<sup>4</sup></code>
+*   `` s `` and `` p `` consist of lowercase English letters.
+
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 484,518 | 200,364 | 41.4% |
+| 1,031,734 | 493,890 | 47.9% |

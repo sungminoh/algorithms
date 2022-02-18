@@ -2,41 +2,65 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
 
-Example:
+Merge all the linked-lists into one sorted linked-list and return it.
 
-Input:
+Example 1:
+
+Input: lists = [[1,4,5],[1,3,4],[2,6]]
+Output: [1,1,2,3,4,4,5,6]
+Explanation: The linked-lists are:
 [
   1->4->5,
   1->3->4,
   2->6
 ]
-Output: 1->1->2->3->4->4->5->6
+merging them into one sorted list:
+1->1->2->3->4->4->5->6
 
+Example 2:
+
+Input: lists = []
+Output: []
+
+Example 3:
+
+Input: lists = [[]]
+Output: []
+
+Constraints:
+
+	k == lists.length
+	0 <= k <= 104
+	0 <= lists[i].length <= 500
+	-104 <= lists[i][j] <= 104
+	lists[i] is sorted in ascending order.
+	The sum of lists[i].length will not exceed 104.
 """
+from heapq import heappop
+from heapq import heappush
+from typing import Optional
+from typing import List
+import pytest
+import sys
+sys.path.append('../')
+from exercise.list import build_list, ListNode
+
 
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
-
-    def __repr__(self):
-        return '%r -> %r' % (self.val, self.next)
-
-
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def mergeKLists(self, lists):
-        """
-        :type lists: List[ListNode]
-        :rtype: ListNode
-        """
+        """08/04/2018 22:06"""
         if not lists:
             return None
         from heapq import heappush, heappop
@@ -59,24 +83,58 @@ class Solution:
                 tmp += 1
         return head.next
 
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        """
+        Time complexity: O(n*m*n)
+        Space complexity: O(n)
+        """
+        dummy = cur = ListNode()
+        lists = [x for x in lists if x is not None]
+        while lists:
+            min_i = 0
+            min_n = lists[0]
+            for i in range(1, len(lists)):
+                if lists[i].val < min_n.val:
+                    min_i = i
+                    min_n = lists[i]
+            cur.next = min_n
+            cur = cur.next
+            lists[min_i] = lists[min_i].next
+            if lists[min_i] is None:
+                lists.pop(min_i)
+        return dummy.next
 
-def get_list():
-    nodes = [ListNode(int(x)) for x in input().split()]
-    if not nodes:
-        return None
-    for i, n in enumerate(nodes[:-1]):
-        n.next = nodes[i+1]
-    return nodes[0]
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        """
+        Time complexity: O(n*m*logn)
+        Space complexity: O(n)
+        """
+        dummy = cur = ListNode()
+        heap = []
+        i = 0
+        for node in lists:
+            if node is not None:
+                heappush(heap, (node.val, i, node))
+                i += 1
+        while heap:
+            _, _, node = heappop(heap)
+            cur.next = node
+            cur = cur.next
+            if node.next is not None:
+                heappush(heap, (node.next.val, i, node.next))
+                i += 1
+        return dummy.next
 
 
-def main():
-    lists = []
-    nodes = get_list()
-    while nodes:
-        lists.append(nodes)
-        nodes = get_list()
-    print(Solution().mergeKLists(lists))
+@pytest.mark.parametrize('lists, expected', [
+    ([[1,4,5],[1,3,4],[2,6]], [1,1,2,3,4,4,5,6]),
+    ([], []),
+    ([[]], []),
+])
+def test(lists, expected):
+    lists = [build_list(x) for x in lists]
+    assert build_list(expected) == Solution().mergeKLists(lists)
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

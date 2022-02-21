@@ -1,27 +1,56 @@
-### [399. Evaluate Division](https://leetcode.com/problems/evaluate-division/submissions/)
+### [399. Evaluate Division](https://leetcode.com/problems/evaluate-division/)
 
 Medium
 
-Equations are given in the format `` A / B = k ``, where `` A `` and `` B `` are variables represented as strings, and `` k `` is a real number (floating point number). Given some queries, return the answers. If the answer does not exist, return `` -1.0 ``.
+You are given an array of variable pairs `` equations `` and an array of real numbers `` values ``, where <code>equations[i] = [A<sub>i</sub>, B<sub>i</sub>]</code> and `` values[i] `` represent the equation <code>A<sub>i</sub> / B<sub>i</sub> = values[i]</code>. Each <code>A<sub>i</sub></code> or <code>B<sub>i</sub></code> is a string that represents a single variable.
 
-__Example:__  
-Given ``  a / b = 2.0, b / c = 3.0. ``  
-queries are: ``  a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ? . ``  
-return ``  [6.0, 0.5, -1.0, 1.0, -1.0 ]. ``
+You are also given some `` queries ``, where <code>queries[j] = [C<sub>j</sub>, D<sub>j</sub>]</code> represents the <code>j<sup>th</sup></code> query where you must find the answer for <code>C<sub>j</sub> / D<sub>j</sub> = ?</code>.
 
-The input is: ``  vector&lt;pair&lt;string, string&gt;&gt; equations, vector&lt;double&gt;&amp; values, vector&lt;pair&lt;string, string&gt;&gt; queries  ``, where `` equations.size() == values.size() ``, and the values are positive. This represents the equations. Return ``  vector&lt;double&gt; ``.
+Return _the answers to all queries_. If a single answer cannot be determined, return `` -1.0 ``.
 
-According to the example above:
+__Note:__ The input is always valid. You may assume that evaluating the queries will not result in division by zero and that there is no contradiction.
+
+ 
+
+__Example 1:__
 
 ```
-equations = [ ["a", "b"], ["b", "c"] ],
-values = [2.0, 3.0],
-queries = [ ["a", "c"], ["b", "a"], ["a", "e"], ["a", "a"], ["x", "x"] ]. ```
+Input: equations = [["a","b"],["b","c"]], values = [2.0,3.0], queries = [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]
+Output: [6.00000,0.50000,-1.00000,1.00000,-1.00000]
+Explanation: 
+Given: <em>a / b = 2.0</em>, <em>b / c = 3.0</em>
+queries are: <em>a / c = ?</em>, <em>b / a = ?</em>, <em>a / e = ?</em>, <em>a / a = ?</em>, <em>x / x = ?</em>
+return: [6.0, 0.5, -1.0, 1.0, -1.0 ]
+```
 
-&nbsp;
+__Example 2:__
 
-The input is always valid. You may assume that evaluating the queries will result in no division by zero and there is no contradiction.
+```
+Input: equations = [["a","b"],["b","c"],["bc","cd"]], values = [1.5,2.5,5.0], queries = [["a","c"],["c","b"],["bc","cd"],["cd","bc"]]
+Output: [3.75000,0.40000,5.00000,0.20000]
+```
+
+__Example 3:__
+
+```
+Input: equations = [["a","b"]], values = [0.5], queries = [["a","b"],["b","a"],["a","c"],["x","y"]]
+Output: [0.50000,2.00000,-1.00000,-1.00000]
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= equations.length <= 20 ``
+*   `` equations[i].length == 2 ``
+*   <code>1 <= A<sub>i</sub>.length, B<sub>i</sub>.length <= 5</code>
+*   `` values.length == equations.length ``
+*   `` 0.0 < values[i] <= 20.0 ``
+*   `` 1 <= queries.length <= 20 ``
+*   `` queries[i].length == 2 ``
+*   <code>1 <= C<sub>j</sub>.length, D<sub>j</sub>.length <= 5</code>
+*   <code>A<sub>i</sub>, B<sub>i</sub>, C<sub>j</sub>, D<sub>j</sub></code> consist of lower case English letters and digits.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 229,880 | 115,903 | 50.4% |
+| 414,152 | 234,808 | 56.7% |

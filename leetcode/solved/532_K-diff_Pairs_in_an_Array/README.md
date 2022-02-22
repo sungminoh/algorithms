@@ -4,13 +4,13 @@ Medium
 
 Given an array of integers `` nums `` and an integer `` k ``, return _the number of __unique__ k-diff pairs in the array_.
 
-A __k-diff__ pair is an integer pair `` (nums[i], nums[j]) ``, where the following are true:
+A __k-diff__ pair is an integer pair `` (nums[i], nums[j]) ``, where the following are true:
 
 *   `` 0 <= i, j < nums.length ``
 *   `` i != j ``
-*   `` |nums[i] - nums[j]| == k ``
+*   `` nums[i] - nums[j] == k ``
 
-__Notice__ that `` |val| `` denotes the absolute value of `` val ``.
+__Notice__ that `` |val| `` denotes the absolute value of `` val ``.
 
  
 
@@ -39,20 +39,6 @@ Output: 1
 Explanation: There is one 0-diff pair in the array, (1, 1).
 ```
 
-__Example 4:__
-
-```
-Input: nums = [1,2,4,4,3,3,0,9,2,3], k = 3
-Output: 2
-```
-
-__Example 5:__
-
-```
-Input: nums = [-1,-2,-3], k = 1
-Output: 2
-```
-
  
 
 __Constraints:__
@@ -63,4 +49,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 433,115 | 149,907 | 34.6% |
+| 612,515 | 244,041 | 39.8% |

@@ -1,51 +1,45 @@
-### [127. Word Ladder](https://leetcode.com/problems/word-ladder/description/)
+### [127. Word Ladder](https://leetcode.com/problems/word-ladder/)
 
-[Description](https://leetcode.com/problems/word-ladder/description/)[Hints](https://leetcode.com/problems/word-ladder/hints/)[Submissions](https://leetcode.com/problems/word-ladder/submissions/)[Discuss](https://leetcode.com/problems/word-ladder/discuss/)[Solution](https://leetcode.com/problems/word-ladder/solution/)
+Hard
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+A __transformation sequence__ from word `` beginWord `` to word `` endWord `` using a dictionary `` wordList `` is a sequence of words <code>beginWord -> s<sub>1</sub> -> s<sub>2</sub> -> ... -> s<sub>k</sub></code> such that:
 
-------
+*   Every adjacent pair of words differs by a single letter.
+*   Every <code>s<sub>i</sub></code> for `` 1 <= i <= k `` is in `` wordList ``. Note that `` beginWord `` does not need to be in `` wordList ``.
+*   <code>s<sub>k</sub> == endWord</code>
 
-Given two words (*beginWord* and *endWord*), and a dictionary's word list, find the length of shortest transformation sequence from *beginWord* to *endWord*, such that:
+Given two words, `` beginWord `` and `` endWord ``, and a dictionary `` wordList ``, return _the __number of words__ in the __shortest transformation sequence__ from_ `` beginWord `` _to_ `` endWord ``_, or _`` 0 ``_ if no such sequence exists._
 
-1. Only one letter can be changed at a time.
-2. Each transformed word must exist in the word list. Note that *beginWord* is *not* a transformed word.
+ 
 
-**Note:**
-
-- Return 0 if there is no such transformation sequence.
-- All words have the same length.
-- All words contain only lowercase alphabetic characters.
-- You may assume no duplicates in the word list.
-- You may assume *beginWord* and *endWord* are non-empty and are not the same.
-
-**Example 1:**
+__Example 1:__
 
 ```
-Input:
-beginWord = "hit",
-endWord = "cog",
-wordList = ["hot","dot","dog","lot","log","cog"]
-
+Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
 Output: 5
-
-Explanation: As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
-return its length 5.
+Explanation: One shortest transformation sequence is "hit" -> "hot" -> "dot" -> "dog" -> cog", which is 5 words long.
 ```
 
-**Example 2:**
+__Example 2:__
 
 ```
-Input:
-beginWord = "hit"
-endWord = "cog"
-wordList = ["hot","dot","dog","lot","log"]
-
+Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log"]
 Output: 0
-
-Explanation: The endWord "cog" is not in wordList, therefore no possible transformation.
+Explanation: The endWord "cog" is not in wordList, therefore there is no valid transformation sequence.
 ```
 
+ 
 
+__Constraints:__
 
- 
+*   `` 1 <= beginWord.length <= 10 ``
+*   `` endWord.length == beginWord.length ``
+*   `` 1 <= wordList.length <= 5000 ``
+*   `` wordList[i].length == beginWord.length ``
+*   `` beginWord ``, `` endWord ``, and `` wordList[i] `` consist of lowercase English letters.
+*   `` beginWord != endWord ``
+*   All the words in `` wordList `` are __unique__.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 2,087,121 | 730,906 | 35.0% |

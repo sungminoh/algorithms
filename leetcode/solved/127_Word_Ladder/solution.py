@@ -2,80 +2,60 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given two words (beginWord and endWord), and a dictionary's word list, find the length of shortest transformation sequence from beginWord to endWord, such that:
+A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:
 
-Only one letter can be changed at a time.
-Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
-Note:
+	Every adjacent pair of words differs by a single letter.
+	Every si for 1 <= i <= k is in wordList. Note that beginWord does not need to be in wordList.
+	sk == endWord
 
-Return 0 if there is no such transformation sequence.
-All words have the same length.
-All words contain only lowercase alphabetic characters.
-You may assume no duplicates in the word list.
-You may assume beginWord and endWord are non-empty and are not the same.
+Given two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.
+
 Example 1:
 
-Input:
-beginWord = "hit",
-endWord = "cog",
-wordList = ["hot","dot","dog","lot","log","cog"]
-
+Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
 Output: 5
+Explanation: One shortest transformation sequence is "hit" -> "hot" -> "dot" -> "dog" -> cog", which is 5 words long.
 
-Explanation: As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
-return its length 5.
 Example 2:
 
-Input:
-beginWord = "hit"
-endWord = "cog"
-wordList = ["hot","dot","dog","lot","log"]
-
+Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log"]
 Output: 0
+Explanation: The endWord "cog" is not in wordList, therefore there is no valid transformation sequence.
 
-Explanation: The endWord "cog" is not in wordList, therefore no possible transformation.
+Constraints:
+
+	1 <= beginWord.length <= 10
+	endWord.length == beginWord.length
+	1 <= wordList.length <= 5000
+	wordList[i].length == beginWord.length
+	beginWord, endWord, and wordList[i] consist of lowercase English letters.
+	beginWord != endWord
+	All the words in wordList are unique.
 """
+import sys
+from collections import deque
+from collections import defaultdict
+from typing import List
+import pytest
 
 
-class Solution(object):
-    def are_transformable(self, a, b):
-        return sum(x != y for x, y in zip(a, b)) == 1
+class Solution:
+    def ladderLength(self, beginWord, endWord, wordList):
+        """05/07/2018 04:31"""
+        try:
+            i = wordList.index(endWord)
+            words = [*wordList[:i], *wordList[i+1:]]
+        except ValueError:
+            return 0
 
-    def build_list(self, s, e, words):
-        words = [s, *words, e]
-        mat = [[] for _ in words]
-        for i in range(len(words)-1):
-            for j in range(i+1, len(words)):
-                if self.are_transformable(words[i], words[j]):
-                    mat[i].append(j)
-                    mat[j].append(i)
-        return mat
-
-    def bfs(self, mat):
-        from collections import deque
-        visited = [False] * len(mat)
-        stack = deque([(0, 1)])
-        visited[0] = True
-        while stack:
-            i, d = stack.popleft()
-            for j in mat[i]:
-                if not visited[j]:
-                    if j == len(mat)-1:
-                        return d+1
-                    stack.append((j, d+1))
-                    visited[j] = True
-        return 0
-
-    def bfs_raw(self, begin, end, words):
-        from collections import deque
-        possibles = [set(x) for x in zip(*words, begin, end)]
-        words = set([*words, end])
-        queue = deque([(1, begin)])
+        possibles = [set(x) for x in zip(*words, beginWord, endWord)]
+        words = set([*words, endWord])
+        queue = deque([(1, beginWord)])
         def gen_words(w):
             for i in range(len(w)):
                 for c in possibles[i]:
@@ -86,24 +66,31 @@ class Solution(object):
         while queue:
             d, word = queue.popleft()
             for w in gen_words(word):
-                if w == end:
+                if w == endWord:
                     return d+1
                 queue.append((d+1, w))
                 words.remove(w)
         return 0
 
-    def bfs_set(self, begin, end, words):
-        possibles = [set(x) for x in zip(*words, begin)]
-        words = {*words}
-        words.discard(begin)
+    def ladderLength(self, beginWord, endWord, wordList):
+        """05/07/2018 04:50"""
+        try:
+            i = wordList.index(endWord)
+            words = [*wordList[:i], *wordList[i+1:]]
+        except ValueError:
+            return 0
+
+        possibles = [set(x) for x in zip(*words, beginWord)]
+        words = set([*words, endWord])
+        words.discard(beginWord)
         def gen_words(w):
             for i in range(len(w)):
                 for c in possibles[i]:
                     ret = w[:i] + c + w[i+1:]
-                    yield ret
-
-        begin_set = {begin}
-        end_set = {end}
+                    if ret in words:
+                        yield ret
+        begin_set = set([beginWord])
+        end_set = set([endWord])
         d = 1
         while begin_set:
             if len(begin_set) > len(end_set):
@@ -113,48 +100,47 @@ class Solution(object):
                 for w in gen_words(b):
                     if w in end_set:
                         return d+1
-                    if w in words:
-                        new_set.add(w)
-                        words.remove(w)
+                    new_set.add(w)
+                    # words.remove(w)
             begin_set = new_set
             d += 1
         return 0
 
-    def dijkstra(self, mat):
-        from heapq import heappop, heappush, heapify
-        dist = [float('inf')] * len(mat)
-        h = [(1, 0)]
-        heapify(h)
-        while h:
-            d, i = heappop(h)
-            row = mat[i]
-            for j in row:
-                new_d = d + 1
-                if new_d < dist[j]:
-                    if j == len(mat)-1:
-                        return new_d
-                    dist[j] = new_d
-                    heappush(h, (new_d, j))
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        def encode(w, i):
+            return w[:i] + '.' + w[i+1:]
+
+        g = defaultdict(list)
+        for w in wordList:
+            for i in range(len(w)):
+                g[encode(w, i)].append(w)
+
+        # bfs
+        visited = set([beginWord])
+        queue = [beginWord]
+        dist = 1
+        while queue:
+            new_queue = []
+            for w in queue:
+                if w == endWord:
+                    return dist
+                for i in range(len(w)):
+                    for nw in g[encode(w, i)]:
+                        if nw not in visited:
+                            visited.add(nw)
+                            new_queue.append(nw)
+            queue = new_queue
+            dist += 1
         return 0
 
-    def ladderLength(self, beginWord, endWord, wordList):
-        """
-        :type beginWord: str
-        :type endWord: str
-        :type wordList: List[str]
-        :rtype: int
-        """
-        if endWord not in wordList:
-            return 0
-        return self.bfs_set(beginWord, endWord, wordList)
 
-
-def main():
-    s = input()
-    e = input()
-    words = input().split()
-    print(Solution().ladderLength(s, e, words))
+@pytest.mark.parametrize('beginWord, endWord, wordList, expected', [
+    ("hit", "cog", ["hot","dot","dog","lot","log","cog"], 5),
+    ("hit", "cog", ["hot","dot","dog","lot","log"], 0),
+])
+def test(beginWord, endWord, wordList, expected):
+    assert expected == Solution().ladderLength(beginWord, endWord, wordList)
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

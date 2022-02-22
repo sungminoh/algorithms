@@ -2,32 +2,34 @@
 
 Medium
 
-Given two strings __s1__ and __s2__, write a function to return true if __s2__ contains the permutation of __s1__. In other words, one of the first string's permutations is the __substring__ of the second string.
+Given two strings `` s1 `` and `` s2 ``, return `` true ``_ if _`` s2 ``_ contains a permutation of _`` s1 ``_, or _`` false ``_ otherwise_.
+
+In other words, return `` true `` if one of `` s1 ``'s permutations is the substring of `` s2 ``.
 
  
 
 __Example 1:__
 
 ```
-<b>Input: </b>s1 = "ab" s2 = "eidbaooo"
-<b>Output: </b>True
-<b>Explanation:</b> s2 contains one permutation of s1 ("ba").
+Input: s1 = "ab", s2 = "eidbaooo"
+Output: true
+Explanation: s2 contains one permutation of s1 ("ba").
 ```
 
 __Example 2:__
 
 ```
-<b>Input:</b>s1= "ab" s2 = "eidboaoo"
-<b>Output:</b> False
+Input: s1 = "ab", s2 = "eidboaoo"
+Output: false
 ```
 
  
 
 __Constraints:__
 
-*   The input strings only contain lower case letters.
-*   The length of both given strings is in range \[1, 10,000\].
+*   <code>1 <= s1.length, s2.length <= 10<sup>4</sup></code>
+*   `` s1 `` and `` s2 `` consist of lowercase English letters.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 292,495 | 129,718 | 44.3% |
+| 754,598 | 340,109 | 45.1% |

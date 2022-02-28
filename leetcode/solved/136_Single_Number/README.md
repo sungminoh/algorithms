@@ -2,32 +2,38 @@
 
 Easy
 
-3796146Add to ListShare
+Given a __non-empty__ array of integers `` nums ``, every element appears _twice_ except for one. Find that single one.
 
-Given a **non-empty** array of integers, every element appears *twice* except for one. Find that single one.
+You must implement a solution with a linear runtime complexity and use only constant extra space.
 
-**Note:**
+ 
 
-Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+__Example 1:__
 
-**Example 1:**
-
-```
-Input: [2,2,1]
+```Input: nums = [2,2,1]
 Output: 1
 ```
 
-**Example 2:**
+__Example 2:__
 
-```
-Input: [4,1,2,1,2]
+```Input: nums = [4,1,2,1,2]
 Output: 4
 ```
 
-Accepted
+__Example 3:__
 
-698,773
+```Input: nums = [1]
+Output: 1
+```
 
-Submissions
+ 
 
-1,091,334
+__Constraints:__
+
+*   <code>1 <= nums.length <= 3 * 10<sup>4</sup></code>
+*   <code>-3 * 10<sup>4</sup> <= nums[i] <= 3 * 10<sup>4</sup></code>
+*   Each element in the array appears twice except for one element which appears only once.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 2,243,339 | 1,549,900 | 69.1% |

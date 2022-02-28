@@ -1,28 +1,35 @@
-### [78. Subsets](https://leetcode.com/problems/subsets/description/)
+### [78. Subsets](https://leetcode.com/problems/subsets/)
 
-[Description](https://leetcode.com/problems/subsets/description/)[Hints](https://leetcode.com/problems/subsets/hints/)[Submissions](https://leetcode.com/problems/subsets/submissions/)[Discuss](https://leetcode.com/problems/subsets/discuss/)[Solution](https://leetcode.com/problems/subsets/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given an integer array `` nums `` of __unique__ elements, return _all possible subsets (the power set)_.
 
-------
+The solution set __must not__ contain duplicate subsets. Return the solution in __any order__.
 
-Given a set of **distinct** integers, *nums*, return all possible subsets (the power set).
+ 
 
-**Note:** The solution set must not contain duplicate subsets.
-
-**Example:**
+__Example 1:__
 
 ```
 Input: nums = [1,2,3]
-Output:
-[
-  [3],
-  [1],
-  [2],
-  [1,2,3],
-  [1,3],
-  [2,3],
-  [1,2],
-  []
-]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
 ```
+
+__Example 2:__
+
+```
+Input: nums = [0]
+Output: [[],[0]]
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= nums.length <= 10 ``
+*   `` -10 <= nums[i] <= 10 ``
+*   All the numbers of `` nums `` are __unique__.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,446,953 | 1,022,658 | 70.7% |

@@ -1,14 +1,41 @@
-### [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/description/)
+### [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/)
 
-[**Description](https://leetcode.com/problems/swap-nodes-in-pairs/description/)[**Hints](https://leetcode.com/problems/swap-nodes-in-pairs/hints/)[**Submissions](https://leetcode.com/problems/swap-nodes-in-pairs/submissions/)[**Discuss](https://leetcode.com/problems/swap-nodes-in-pairs/discuss/)[**Solution](https://leetcode.com/problems/swap-nodes-in-pairs/solution/)
+Medium
 
-[**Pick One](https://leetcode.com/problems/random-one-question/)
+Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
 
-------
+ 
 
-Given a linked list, swap every two adjacent nodes and return its head.
+__Example 1:__
 
-For example,
-Given `1->2->3->4`, you should return the list as `2->1->4->3`.
+<img alt="" src="https://assets.leetcode.com/uploads/2020/10/03/swap_ex1.jpg" style="width: 422px; height: 222px;"/>
 
-Your algorithm should use only constant space. You may **not** modify the values in the list, only nodes itself can be changed.
+```
+Input: head = [1,2,3,4]
+Output: [2,1,4,3]
+```
+
+__Example 2:__
+
+```
+Input: head = []
+Output: []
+```
+
+__Example 3:__
+
+```
+Input: head = [1]
+Output: [1]
+```
+
+ 
+
+__Constraints:__
+
+*   The number of nodes in the list is in the range `` [0, 100] ``.
+*   `` 0 <= Node.val <= 100 ``
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,410,700 | 820,338 | 58.2% |

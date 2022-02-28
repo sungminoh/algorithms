@@ -7,23 +7,30 @@
 # Distributed under terms of the MIT license.
 
 """
-Given a non-empty array of integers, every element appears twice except for one. Find that single one.
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
 
-Note:
-
-Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+You must implement a solution with a linear runtime complexity and use only constant extra space.
 
 Example 1:
-
-Input: [2,2,1]
+Input: nums = [2,2,1]
 Output: 1
 Example 2:
-
-Input: [4,1,2,1,2]
+Input: nums = [4,1,2,1,2]
 Output: 4
+Example 3:
+Input: nums = [1]
+Output: 1
+
+Constraints:
+
+	1 <= nums.length <= 3 * 104
+	-3 * 104 <= nums[i] <= 3 * 104
+	Each element in the array appears twice except for one element which appears only once.
 """
-from typing import List
 import random
+import sys
+from typing import List
+import pytest
 
 
 class Solution:
@@ -31,6 +38,7 @@ class Solution:
         ret = 0
         for n in nums:
             ret ^= n
+
         return ret
 
 
@@ -52,24 +60,21 @@ def gen_case():
     return nums, pool[:num_uniques][0]
 
 
+@pytest.mark.parametrize('nums, expected', [
+    ([2,2,1], 1),
+    ([4,1,2,1,2], 4),
+    ([1], 1),
+    gen_case(),
+    gen_case(),
+    gen_case(),
+    gen_case(),
+    gen_case(),
+    gen_case(),
+    gen_case()
+])
+def test(nums, expected):
+    assert expected == Solution().singleNumber(nums)
+
+
 if __name__ == '__main__':
-    cases = [
-        ([2,2,1], 1),
-        ([4,1,2,1,2], 4),
-        gen_case(),
-        gen_case(),
-        gen_case(),
-        gen_case(),
-        gen_case(),
-        gen_case(),
-        gen_case()
-    ]
-    result = []
-    for case, expected in cases:
-        print(case, expected)
-        actual = Solution().singleNumber(case)
-        ans = expected == actual
-        result.append(ans)
-        print(f'{ans}\texpected: {expected}\tactual: {actual}')
-    if not all(result):
-        raise Exception('Wrong')
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

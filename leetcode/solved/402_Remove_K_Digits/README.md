@@ -2,12 +2,9 @@
 
 Medium
 
-Given a non-negative integer _num_ represented as a string, remove _k_ digits from the number so that the new number is the smallest possible.
+Given string num representing a non-negative integer `` num ``, and an integer `` k ``, return _the smallest possible integer after removing_ `` k `` _digits from_ `` num ``.
 
-__Note:__  
-
-*   The length of _num_ is less than 10002 and will be ≥ _k_.
-*   The given _num_ does not contain any leading zero.
+ 
 
 __Example 1:__
 
@@ -33,6 +30,14 @@ Output: "0"
 Explanation: Remove all the digits from the number and it is left with nothing which is 0.
 ```
 
+ 
+
+__Constraints:__
+
+*   <code>1 <= k <= num.length <= 10<sup>5</sup></code>
+*   `` num `` consists of only digits.
+*   `` num `` does not have any leading zeros except for the zero itself.
+
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 323,299 | 89,228 | 27.6% |
+| 825,683 | 251,440 | 30.5% |

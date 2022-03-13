@@ -7,28 +7,46 @@
 # Distributed under terms of the MIT license.
 
 """
-Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1's in their binary representation and return them as an array.
+Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
 
 Example 1:
 
-Input: 2
+Input: n = 2
 Output: [0,1,1]
+Explanation:
+0 --> 0
+1 --> 1
+2 --> 10
+
 Example 2:
 
-Input: 5
+Input: n = 5
 Output: [0,1,1,2,1,2]
+Explanation:
+0 --> 0
+1 --> 1
+2 --> 10
+3 --> 11
+4 --> 100
+5 --> 101
+
+Constraints:
+
+	0 <= n <= 105
+
 Follow up:
 
-It is very easy to come up with a solution with run time O(n*sizeof(integer)). But can you do it in linear time O(n) /possibly in a single pass?
-Space complexity should be O(n).
-Can you do it like a boss? Do it without using any builtin function like __builtin_popcount in c++ or in any other language.
+	It is very easy to come up with a solution with a runtime of O(n log n). Can you do it in linear time O(n) and possibly in a single pass?
+	Can you do it without using any built-in function (i.e., like __builtin_popcount in C++)?
 """
-
-import pytest
+import sys
 from typing import List
+import pytest
+
 
 class Solution:
     def countBits(self, num: int) -> List[int]:
+        """04/08/2020 22:44"""
         if num == 0:
             return [0]
         elif num == 1:
@@ -42,19 +60,32 @@ class Solution:
             k += 1
         return ret
 
+    def countBits(self, n: int) -> List[int]:
+        ret = [0]
+        #      0
+        #      1
+        #     10
+        #     11
+        #    100
+        #    101
+        #    110
+        #    111
+        j = 0
+        for i in range(1, n+1):
+            if i == i & ~(i-1): # if i is power of 2
+                j = 0
+            ret.append(1+ret[j])
+            j += 1
+        return ret
 
 
-def count_one(n):
-    cnt = 0
-    while n:
-        if n % 2:
-            cnt += 1
-        n //= 2
-    return cnt
-
-
-@pytest.mark.parametrize('num', [
-    0,1,2,3,4,5,6,7,8,9,10
+@pytest.mark.parametrize('n, expected', [
+    (2, [0,1,1]),
+    (5, [0,1,1,2,1,2]),
 ])
-def test(num):
-    assert [count_one(i) for i in range(num + 1)] == Solution().countBits(num)
+def test(n, expected):
+    assert expected == Solution().countBits(n)
+
+
+if __name__ == '__main__':
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

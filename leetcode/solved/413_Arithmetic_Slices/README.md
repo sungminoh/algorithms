@@ -2,39 +2,38 @@
 
 Medium
 
-A sequence of number is called arithmetic if it consists of at least three elements and if the difference between any two consecutive elements is the same.
+An integer array is called arithmetic if it consists of __at least three elements__ and if the difference between any two consecutive elements is the same.
 
-For example, these are arithmetic sequence:
+*   For example, `` [1,3,5,7,9] ``, `` [7,7,7,7] ``, and `` [3,-1,-5,-9] `` are arithmetic sequences.
 
-```1, 3, 5, 7, 9
-7, 7, 7, 7
-3, -1, -5, -9```
+Given an integer array `` nums ``, return _the number of arithmetic __subarrays__ of_ `` nums ``.
 
-The following sequence is not arithmetic.
+A __subarray__ is a contiguous subsequence of the array.
 
- 
+ 
 
-```1, 1, 2, 5, 7```
-
-  
-
-A zero-indexed array A consisting of N numbers is given. A slice of that array is any pair of integers (P, Q) such that 0 &lt;= P &lt; Q &lt; N.
-
-A slice (P, Q) of array A is called arithmetic if the sequence:  
- A\[P\], A\[p + 1\], ..., A\[Q - 1\], A\[Q\] is arithmetic. In particular, this means that P + 1 &lt; Q.
-
-The function should return the number of arithmetic slices in the array A. 
-
-  
-
-__Example:__
+__Example 1:__
 
 ```
-A = [1, 2, 3, 4]
-
-return: 3, for 3 arithmetic slices in A: [1, 2, 3], [2, 3, 4] and [1, 2, 3, 4] itself.
+Input: nums = [1,2,3,4]
+Output: 3
+Explanation: We have 3 arithmetic slices in nums: [1, 2, 3], [2, 3, 4] and [1,2,3,4] itself.
 ```
+
+__Example 2:__
+
+```
+Input: nums = [1]
+Output: 0
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= nums.length <= 5000 ``
+*   `` -1000 <= nums[i] <= 1000 ``
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 141,543 | 81,130 | 57.3% |
+| 341,387 | 219,271 | 64.2% |

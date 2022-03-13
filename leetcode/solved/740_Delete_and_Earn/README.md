@@ -2,44 +2,44 @@
 
 Medium
 
-Given an array `` nums `` of integers, you can perform operations on the array.
+You are given an integer array `` nums ``. You want to maximize the number of points you get by performing the following operation any number of times:
 
-In each operation, you pick any `` nums[i] `` and delete it to earn `` nums[i] `` points. After, you must delete __every__ element equal to `` nums[i] - 1 `` or `` nums[i] + 1 ``.
+*   Pick any `` nums[i] `` and delete it to earn `` nums[i] `` points. Afterwards, you must delete __every__ element equal to `` nums[i] - 1 `` and __every__ element equal to `` nums[i] + 1 ``.
 
-You start with 0 points. Return the maximum number of points you can earn by applying such operations.
+Return _the __maximum number of points__ you can earn by applying the above operation some number of times_.
+
+ 
 
 __Example 1:__
 
 ```
-<b>Input:</b> nums = [3, 4, 2]
-<b>Output:</b> 6
-<b>Explanation:</b> 
-Delete 4 to earn 4 points, consequently 3 is also deleted.
-Then, delete 2 to earn 2 points. 6 total points are earned.
+Input: nums = [3,4,2]
+Output: 6
+Explanation: You can perform the following operations:
+- Delete 4 to earn 4 points. Consequently, 3 is also deleted. nums = [2].
+- Delete 2 to earn 2 points. nums = [].
+You earn a total of 6 points.
 ```
-
- 
 
 __Example 2:__
 
 ```
-<b>Input:</b> nums = [2, 2, 3, 3, 3, 4]
-<b>Output:</b> 9
-<b>Explanation:</b> 
-Delete 3 to earn 3 points, deleting both 2's and the 4.
-Then, delete 3 again to earn 3 points, and 3 again to earn 3 points.
-9 total points are earned.
+Input: nums = [2,2,3,3,3,4]
+Output: 9
+Explanation: You can perform the following operations:
+- Delete a 3 to earn 3 points. All 2's and 4's are also deleted. nums = [3,3].
+- Delete a 3 again to earn 3 points. nums = [3].
+- Delete a 3 once more to earn 3 points. nums = [].
+You earn a total of 9 points.
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-*   The length of `` nums `` is at most `` 20000 ``.
-*   Each element `` nums[i] `` is an integer in the range `` [1, 10000] ``.
-
- 
+*   <code>1 <= nums.length <= 2 * 10<sup>4</sup></code>
+*   <code>1 <= nums[i] <= 10<sup>4</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 82,962 | 40,441 | 48.7% |
+| 289,559 | 165,184 | 57.0% |

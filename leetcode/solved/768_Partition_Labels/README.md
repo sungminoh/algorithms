@@ -2,30 +2,39 @@
 
 Medium
 
-A string `` S `` of lowercase English letters is given. We want to partition this string into as many parts as possible so that each letter appears in at most one part, and return a list of integers representing the size of these parts.
+You are given a string `` s ``. We want to partition the string into as many parts as possible so that each letter appears in at most one part.
+
+Note that the partition is done so that after concatenating all the parts in order, the resultant string should be `` s ``.
+
+Return _a list of integers representing the size of these parts_.
 
  
 
 __Example 1:__
 
 ```
-<b>Input:</b> S = "ababcbacadefegdehijhklij"
-<b>Output:</b> [9,7,8]
-<b>Explanation:</b>
+Input: s = "ababcbacadefegdehijhklij"
+Output: [9,7,8]
+Explanation:
 The partition is "ababcbaca", "defegde", "hijhklij".
 This is a partition so that each letter appears in at most one part.
-A partition like "ababcbacadefegde", "hijhklij" is incorrect, because it splits S into less parts.
+A partition like "ababcbacadefegde", "hijhklij" is incorrect, because it splits s into less parts.
+```
+
+__Example 2:__
+
+```
+Input: s = "eccbbbbdec"
+Output: [10]
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-*   `` S `` will have length in range `` [1, 500] ``.
-*   `` S `` will consist of lowercase English letters (`` 'a' `` to `` 'z' ``) only.
-
- 
+*   `` 1 <= s.length <= 500 ``
+*   `` s `` consists of lowercase English letters.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 223,061 | 172,210 | 77.2% |
+| 473,118 | 376,247 | 79.5% |

@@ -7,29 +7,43 @@
 # Distributed under terms of the MIT license.
 
 """
-Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), prove that at least one duplicate number must exist. Assume that there is only one duplicate number, find the duplicate one.
+Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+
+There is only one repeated number in nums, return this repeated number.
+
+You must solve the problem without modifying the array nums and uses only constant extra space.
 
 Example 1:
 
-Input: [1,3,4,2,2]
+Input: nums = [1,3,4,2,2]
 Output: 2
+
 Example 2:
 
-Input: [3,1,3,4,2]
+Input: nums = [3,1,3,4,2]
 Output: 3
-Note:
 
-You must not modify the array (assume the array is read only).
-You must use only constant, O(1) extra space.
-Your runtime complexity should be less than O(n2).
-There is only one duplicate number in the array, but it could be repeated more than once.
+Constraints:
+
+	1 <= n <= 105
+	nums.length == n + 1
+	1 <= nums[i] <= n
+	All the integers in nums appear only once except for precisely one integer which appears two or more times.
+
+Follow up:
+
+	How can we prove that at least one duplicate number must exist in nums?
+	Can you solve the problem in linear runtime complexity?
 """
 import random
+import sys
 from typing import List
+import pytest
 
 
 class Solution:
-    def _findDuplicate(self, nums: List[int]) -> int:
+    def findDuplicate(self, nums: List[int]) -> int:
+        """03/28/2020 11:28"""
         l, r = 1, len(nums) - 1
         while l <= r:
             k = l + (r - l) // 2
@@ -54,16 +68,35 @@ class Solution:
         return -1
 
     def findDuplicate(self, nums: List[int]) -> int:
+        """
+        If we consider `nums` is a graph with a cycle. The problem is how to
+        find the start of the cycle.
+        For example, [1,3,4,2,2] can be considered as a graph like
+        0 -> 1 -> 3 -> 2 -> 4 -> 2
+
+        Let's say the cycle starte after l and the length of the cycle is k.
+        If a fast pointer moved 2v and a slow pointer moved v when they met,
+        v = l + xk + r
+        2v = 2l + xk + 2r
+        Thus, l = zk - r
+
+        While a new pointer starting from zero moves l to the start of the
+        cylce, a pointer from l+r can also go l to l + (r+l)%k.
+        Since l = zk - r, (r+l)%k = 0.
+
+        This means that the new pointer from zero and a pointer from l+r will
+        meet at l
+        """
         slow = nums[0]
         fast = nums[slow]
         while slow != fast:
             slow = nums[slow]
             fast = nums[nums[fast]]
-        slow = 0
-        while slow != fast:
+        new = 0
+        while new != slow:
             slow = nums[slow]
-            fast = nums[fast]
-        return fast
+            new = nums[new]
+        return new
 
 
 def gen_case():
@@ -75,26 +108,18 @@ def gen_case():
     return nums, duplicate
 
 
+@pytest.mark.parametrize('nums, expected', [
+    ([1,3,4,2,2], 2),
+    ([3,1,3,4,2], 3),
+    ([2,2,2,2,2], 2),
+    ([3,2,2,2,4], 2),
+    gen_case(),
+    gen_case(),
+    gen_case(),
+])
+def test(nums, expected):
+    assert expected == Solution().findDuplicate(nums)
+
+
 if __name__ == '__main__':
-    cases = [
-        ([1,3,4,2,2], 2),
-        ([3,1,3,4,2], 3),
-        ([4,3,1,4,2], 4),
-        ([6,5,4,1,8,3,7,5,2], 5),
-        gen_case(),
-        gen_case(),
-        gen_case(),
-        gen_case(),
-        gen_case(),
-        gen_case(),
-        gen_case()
-    ]
-    result = []
-    for case, expected in cases:
-        print(case, expected)
-        actual = Solution().findDuplicate(case)
-        ans = expected == actual
-        result.append(ans)
-        print(f'{ans}\texpected: {expected}\tactual: {actual}')
-    if not all(result):
-        raise Exception('Wrong')
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

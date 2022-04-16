@@ -2,45 +2,42 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
+Write an efficient algorithm that searches for a value target in an m x n integer matrix matrix. This matrix has the following properties:
 
-Integers in each row are sorted from left to right.
-The first integer of each row is greater than the last integer of the previous row.
+	Integers in each row are sorted from left to right.
+	The first integer of each row is greater than the last integer of the previous row.
+
 Example 1:
 
-Input:
-matrix = [
-  [1,   3,  5,  7],
-  [10, 11, 16, 20],
-  [23, 30, 34, 50]
-]
-target = 3
+Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3
 Output: true
+
 Example 2:
 
-Input:
-matrix = [
-  [1,   3,  5,  7],
-  [10, 11, 16, 20],
-  [23, 30, 34, 50]
-]
-target = 13
+Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13
 Output: false
+
+Constraints:
+
+	m == matrix.length
+	n == matrix[i].length
+	1 <= m, n <= 100
+	-104 <= matrix[i][j], target <= 104
 """
+import sys
+import operator
+from typing import List
+import pytest
 
 
 class Solution:
     def searchMatrix(self, matrix, target):
-        """
-        :type matrix: List[List[int]]
-        :type target: int
-        :rtype: bool
-        """
+        """04/22/2018 06:45"""
         if not matrix or not matrix[0]:
             return False
         l, r = 0, len(matrix)-1
@@ -64,28 +61,38 @@ class Solution:
                 return True
         return False
 
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        def bisearch(arr, x, func=operator.lt):
+            l, r = 0, len(arr)-1
+            while l <= r:
+                m = l + (r-l)//2
+                if func(arr[m], x):
+                    l = m+1
+                else:
+                    r = m-1
+            return l
 
-def bisearch(arr, t):
-    l, r = 0, len(arr)-1
-    while l <= r:
-        p = (l+r)//2
-        if t < arr[p]:
-            r = p-1
-        elif t > arr[p]:
-            l = p+1;
-        else:
-            return p
-    return False
+        i = bisearch(matrix, target, lambda row, x: row[0] < x)
+        if i < len(matrix) and matrix[i][0] == target:
+            return True
+        if i == 0:
+            return False
+        j = bisearch(matrix[i-1], target)
+        if j < 0 or j >= len(matrix[i-1]):
+            return False
+        return matrix[i-1][j] == target
 
 
-def main():
-    mat = []
-    row = input().split()
-    while len(row) > 1:
-        mat.append([int(x) for x in row])
-        row = input().split()
-    print(Solution().searchMatrix(mat, int(row[0])))
+@pytest.mark.parametrize('matrix, target, expected', [
+    ([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 3, True),
+    ([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 13, False),
+    ([[1]], 1, True),
+    ([[1,3]], 3, True),
+])
+def test(matrix, target, expected):
+    assert expected == Solution().searchMatrix(matrix, target)
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))
+

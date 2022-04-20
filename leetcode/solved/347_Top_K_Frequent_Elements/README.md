@@ -2,33 +2,34 @@
 
 Medium
 
-2533179Add to ListShare
+Given an integer array `` nums `` and an integer `` k ``, return _the_ `` k `` _most frequent elements_. You may return the answer in __any order__.
 
-Given a non-empty array of integers, return the ***k\*** most frequent elements.
+ 
 
-**Example 1:**
+__Example 1:__
 
-```
-Input: nums = [1,1,1,2,2,3], k = 2
+```Input: nums = [1,1,1,2,2,3], k = 2
 Output: [1,2]
 ```
 
-**Example 2:**
+__Example 2:__
 
-```
-Input: nums = [1], k = 1
+```Input: nums = [1], k = 1
 Output: [1]
 ```
 
-**Note:**
+ 
 
-- You may assume *k* is always valid, 1 ≤ *k* ≤ number of unique elements.
-- Your algorithm's time complexity **must be** better than O(*n* log *n*), where *n* is the array's size.
+__Constraints:__
 
-Accepted
+*   <code>1 <= nums.length <= 10<sup>5</sup></code>
+*   `` k `` is in the range `` [1, the number of unique elements in the array] ``.
+*   It is __guaranteed__ that the answer is __unique__.
 
-337,097
+ 
 
-Submissions
+__Follow up:__ Your algorithm's time complexity must be better than `` O(n log n) ``, where n is the array's size.
 
-567,002
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,427,306 | 929,152 | 65.1% |

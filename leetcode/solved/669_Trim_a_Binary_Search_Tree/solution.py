@@ -21,21 +21,6 @@ Example 2:
 Input: root = [3,0,4,null,2,null,null,1], low = 1, high = 3
 Output: [3,2,null,1]
 
-Example 3:
-
-Input: root = [1], low = 1, high = 2
-Output: [1]
-
-Example 4:
-
-Input: root = [1,null,2], low = 1, high = 3
-Output: [1,null,2]
-
-Example 5:
-
-Input: root = [1,null,2], low = 2, high = 4
-Output: [2]
-
 Constraints:
 
 	The number of nodes in the tree in the range [1, 104].
@@ -44,56 +29,22 @@ Constraints:
 	root is guaranteed to be a valid binary search tree.
 	0 <= low <= high <= 104
 """
-import sys
+from typing import Optional
 import pytest
+import sys
+sys.path.append('../')
+from exercise.tree import TreeNode, build_tree
 
 
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-    def __repr__(self):
-        from itertools import zip_longest
-        left_lines = repr(self.left).split('\n') if self.left else []
-        right_lines = repr(self.right).split('\n') if self.right else []
-        node_padding = len(repr(self.val)) + 2
-        left_padding = len(left_lines[0]) if left_lines else 0
-        right_padding = len(right_lines[0]) if right_lines else 0
-        lines = [' '*left_padding + rf'({self.val})' + ' '*right_padding]
-        for ll, rl in zip_longest(left_lines, right_lines):
-            if ll is not None:
-                lines.append(ll + ' '*node_padding + (rl or ''))
-            else:
-                lines.append(' '*(node_padding + left_padding) + (rl or ''))
-        return '\n'.join(lines)
-
-    def __eq__(self, other):
-        return other.val == self.val \
-            and other.left == self.left \
-            and other.right == self.right
-
-
-def build_tree(lst):
-    root = TreeNode(lst[0])
-    queue = [root]
-    att = ['left', 'right']
-    cur = 0
-    for x in lst[1:]:
-        node = TreeNode(x) if x is not None else None
-        setattr(queue[0], att[cur], node)
-        if cur:
-            queue.pop(0)
-        if node:
-            queue.append(node)
-        cur += 1
-        cur %= 2
-    return root
-
-
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def trimBST(self, root: TreeNode, low: int, high: int) -> TreeNode:
+        """02/03/2021 23:06"""
         def remove_smaller(node, val):
             if not node:
                 return None
@@ -114,8 +65,19 @@ class Solution:
         root = remove_larger(root, high)
         return root
 
+    def trimBST(self, root: Optional[TreeNode], low: int, high: int) -> Optional[TreeNode]:
+        if not root:
+            return root
+        if root.val < low:
+            return self.trimBST(root.right, low, high)
+        elif root.val > high:
+            return self.trimBST(root.left, low, high)
+        root.left = self.trimBST(root.left, low, high)
+        root.right = self.trimBST(root.right, low, high)
+        return root
 
-@pytest.mark.parametrize('root, low, high, expected', [
+
+@pytest.mark.parametrize('values, low, high, expected', [
     ([1,0,2], 1, 2, [1,None,2]),
     ([3,0,4,None,2,None,None,1], 1, 3, [3,2,None,1]),
     ([1], 1, 2, [1]),
@@ -123,14 +85,10 @@ class Solution:
     ([1,None,2], 2, 4, [2]),
     ([3,1,4,None,2], 3, 4, [3,None,4])
 ])
-def test(root, low, high, expected):
-    print()
-    tree = build_tree(root)
-    print(tree)
-    print('------------------')
-    actual = Solution().trimBST(tree, low, high)
-    print(actual)
-    assert build_tree(expected) == actual
+def test(values, low, high, expected):
+    exp = build_tree(expected)
+    act = Solution().trimBST(build_tree(values), low, high)
+    assert exp == act
 
 
 if __name__ == '__main__':

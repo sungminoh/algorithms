@@ -26,27 +26,6 @@ Input: root = [3,0,4,null,2,null,null,1], low = 1, high = 3
 Output: [3,2,null,1]
 ```
 
-__Example 3:__
-
-```
-Input: root = [1], low = 1, high = 2
-Output: [1]
-```
-
-__Example 4:__
-
-```
-Input: root = [1,null,2], low = 1, high = 3
-Output: [1,null,2]
-```
-
-__Example 5:__
-
-```
-Input: root = [1,null,2], low = 2, high = 4
-Output: [2]
-```
-
  
 
 __Constraints:__
@@ -59,4 +38,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 227,761 | 147,064 | 64.6% |
+| 349,488 | 231,542 | 66.3% |

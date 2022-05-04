@@ -1,58 +1,41 @@
-### [99. Recover Binary Search Tree](https://leetcode.com/problems/recover-binary-search-tree/description/)
+### [99. Recover Binary Search Tree](https://leetcode.com/problems/recover-binary-search-tree/)
 
-[Description](https://leetcode.com/problems/recover-binary-search-tree/description/)[Hints](https://leetcode.com/problems/recover-binary-search-tree/hints/)[Submissions](https://leetcode.com/problems/recover-binary-search-tree/submissions/)[Discuss](https://leetcode.com/problems/recover-binary-search-tree/discuss/)[Solution](https://leetcode.com/problems/recover-binary-search-tree/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+You are given the `` root `` of a binary search tree (BST), where the values of __exactly__ two nodes of the tree were swapped by mistake. _Recover the tree without changing its structure_.
 
-------
+ 
 
-Two elements of a binary search tree (BST) are swapped by mistake.
+__Example 1:__
 
-Recover the tree without changing its structure.
-
-**Example 1:**
+<img alt="" src="https://assets.leetcode.com/uploads/2020/10/28/recover1.jpg" style="width: 422px; height: 302px;"/>
 
 ```
-Input: [1,3,null,null,2]
-
-   1
-  /
- 3
-  \
-   2
-
+Input: root = [1,3,null,null,2]
 Output: [3,1,null,null,2]
-
-   3
-  /
- 1
-  \
-   2
+Explanation: 3 cannot be a left child of 1 because 3 > 1. Swapping 1 and 3 makes the BST valid.
 ```
 
-**Example 2:**
+__Example 2:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2020/10/28/recover2.jpg" style="width: 581px; height: 302px;"/>
 
 ```
-Input: [3,1,4,null,null,2]
-
-  3
- / \
-1   4
-   /
-  2
-
+Input: root = [3,1,4,null,null,2]
 Output: [2,1,4,null,null,3]
-
-  2
- / \
-1   4
-   /
-  3
+Explanation: 2 cannot be in the right subtree of 3 because 2 < 3. Swapping 2 and 3 makes the BST valid.
 ```
 
-**Follow up:**
+ 
 
-- A solution using O(*n*) space is pretty straight forward.
-- Could you devise a constant space solution?
+__Constraints:__
 
- 
+*   The number of nodes in the tree is in the range `` [2, 1000] ``.
+*   <code>-2<sup>31</sup> <= Node.val <= 2<sup>31</sup> - 1</code>
+
+ 
+__Follow up:__ A solution using `` O(n) `` space is pretty straight-forward. Could you devise a constant `` O(1) `` space solution?
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 662,790 | 322,575 | 48.7% |

@@ -2,38 +2,40 @@
 
 Medium
 
-132743Share
+Given the `` root `` of a binary search tree, and an integer `` k ``, return _the_ <code>k<sup>th</sup></code> _smallest value (__1-indexed__) of all the values of the nodes in the tree_.
 
-Given a binary search tree, write a function `kthSmallest` to find the **k**th smallest element in it.
+ 
 
-**Note:** 
-You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
+__Example 1:__
 
-**Example 1:**
+<img alt="" src="https://assets.leetcode.com/uploads/2021/01/28/kthtree1.jpg" style="width: 212px; height: 301px;"/>
 
 ```
 Input: root = [3,1,4,null,2], k = 1
-   3
-  / \
- 1   4
-  \
-   2
 Output: 1
 ```
 
-**Example 2:**
+__Example 2:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/01/28/kthtree2.jpg" style="width: 382px; height: 302px;"/>
 
 ```
 Input: root = [5,3,6,2,4,null,null,1], k = 3
-       5
-      / \
-     3   6
-    / \
-   2   4
-  /
- 1
 Output: 3
 ```
 
-**Follow up:**
-What if the BST is modified (insert/delete operations) often and you need to find the kth smallest frequently? How would you optimize the kthSmallest routine?
+ 
+
+__Constraints:__
+
+*   The number of nodes in the tree is `` n ``.
+*   <code>1 <= k <= n <= 10<sup>4</sup></code>
+*   <code>0 <= Node.val <= 10<sup>4</sup></code>
+
+ 
+
+__Follow up:__ If the BST is modified often (i.e., we can do insert and delete operations) and you need to find the kth smallest frequently, how would you optimize?
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,169,678 | 790,956 | 67.6% |

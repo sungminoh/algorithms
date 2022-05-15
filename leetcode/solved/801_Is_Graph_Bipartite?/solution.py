@@ -7,49 +7,75 @@
 # Distributed under terms of the MIT license.
 
 """
-Given an undirected graph, return true if and only if it is bipartite.
+There is an undirected graph with n nodes, where each node is numbered between 0 and n - 1. You are given a 2D array graph, where graph[u] is an array of nodes that node u is adjacent to. More formally, for each v in graph[u], there is an undirected edge between node u and node v. The graph has the following properties:
 
-Recall that a graph is bipartite if we can split it's set of nodes into two independent subsets A and B such that every edge in the graph has one node in A and another node in B.
+	There are no self-edges (graph[u] does not contain u).
+	There are no parallel edges (graph[u] does not contain duplicate values).
+	If v is in graph[u], then u is in graph[v] (the graph is undirected).
+	The graph may not be connected, meaning there may be two nodes u and v such that there is no path between them.
 
-The graph is given in the following form: graph[i] is a list of indexes j for which the edge between nodes i and j exists.  Each node is an integer between 0 and graph.length - 1.  There are no self edges or parallel edges: graph[i] does not contain i, and it doesn't contain any element twice.
+A graph is bipartite if the nodes can be partitioned into two independent sets A and B such that every edge in the graph connects a node in set A and a node in set B.
+
+Return true if and only if it is bipartite.
 
 Example 1:
-Input: [[1,3], [0,2], [1,3], [0,2]]
-Output: true
-Explanation:
-The graph looks like this:
-0----1
-|    |
-|    |
-3----2
-We can divide the vertices into two groups: {0, 2} and {1, 3}.
+
+Input: graph = [[1,2,3],[0,2],[0,1,3],[0,2]]
+Output: false
+Explanation: There is no way to partition the nodes into two independent sets such that every edge connects a node in one and a node in the other.
 
 Example 2:
-Input: [[1,2,3], [0,2], [0,1,3], [0,2]]
-Output: false
-Explanation:
-The graph looks like this:
-0----1
-| \  |
-|  \ |
-3----2
-We cannot find a way to divide the set of nodes into two independent subsets.
 
-Note:
+Input: graph = [[1,3],[0,2],[1,3],[0,2]]
+Output: true
+Explanation: We can partition the nodes into two sets: {0, 2} and {1, 3}.
 
-	graph will have length in range [1, 100].
-	graph[i] will contain integers in range [0, graph.length - 1].
-	graph[i] will not contain i or duplicate values.
-	The graph is undirected: if any element j is in graph[i], then i will be in graph[j].
+Constraints:
+
+	graph.length == n
+	1 <= n <= 100
+	0 <= graph[u].length < n
+	0 <= graph[u][i] <= n - 1
+	graph[u] does not contain u.
+	All the values of graph[u] are unique.
+	If graph[u] contains v, then graph[v] contains u.
 """
-import sys
 from collections import defaultdict
+import sys
 from typing import List
 import pytest
 
 
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
+        """09/11/2020 23:15"""
+        groups = [set(), set()]
+        g = defaultdict(set)
+
+        for i, nodes in enumerate(graph):
+            for j in nodes:
+                g[i].add(j)
+                g[j].add(i)
+
+        def dfs(u, i):
+            result = True
+            for v in g[u]:
+                if v in groups[i]:
+                    return False
+                elif v not in groups[(i+1)%2]:
+                    groups[(i+1)%2].add(v)
+                    result &= dfs(v, (i+1)%2)
+            return result
+
+        for u in g.keys():
+            if u not in groups[0] and u not in groups[1]:
+                groups[0].add(u)
+                if not dfs(u, 0):
+                    return False
+        return True
+
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        """09/11/2020 23:17"""
         groups = [set(), set()]
 
         def dfs(u, i):
@@ -69,13 +95,25 @@ class Solution:
                     return False
         return True
 
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        """05/14/2022 18:22"""
+        side = {}
+        def dfs(a, flag):
+            if a in side:
+                return side[a] == flag
+            side[a] = flag
+            return all(dfs(b, -flag) for b in graph[a])
+
+        ret = True
+        for i in range(len(graph)):
+            if i not in side:
+                ret &= dfs(i, 1)
+        return ret
+
 
 @pytest.mark.parametrize('graph, expected', [
-    ([[1,3], [0,2], [1,3], [0,2]], True),
-    ([[1,2,3], [0,2], [0,1,3], [0,2]], False),
-    ([[4],[],[4],[4],[0,2,3]], True),
-    ([[], [2,4], [1,4], [], [1,2]], False),
-    ([[],[2,4,6],[1,4,8,9],[7,8],[1,2,8,9],[6,9],[1,5,7,8,9],[3,6,9],[2,3,4,6,9],[2,4,5,6,7,8]], False)
+    ([[1,2,3],[0,2],[0,1,3],[0,2]], False),
+    ([[1,3],[0,2],[1,3],[0,2]], True),
 ])
 def test(graph, expected):
     assert expected == Solution().isBipartite(graph)

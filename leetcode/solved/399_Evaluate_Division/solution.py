@@ -103,7 +103,7 @@ class Solution:
         return [dfs(a, b, set()) for a, b in queries]
 
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        """
+        """02/21/2022 11:08
         Union Set
         Time complexity: O(nlogn) + O(mlogn)
         Space complexity: O(n)
@@ -159,15 +159,39 @@ class Solution:
 
         return ret
 
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        """05/14/2022 18:01"""
+        graph = {}
+        for (a, b), v in zip(equations, values):
+            graph.setdefault(a, {})
+            graph.setdefault(b, {})
+            graph[a][b] = v
+            graph[b][a] = 1/v
+
+        def dfs(a, b, visited):
+            if a not in graph:
+                return -1.
+            if b in graph[a]:
+                return graph[a][b]
+            for k, v in graph[a].items():
+                if k not in visited:
+                    visited.add(k)
+                    sub = dfs(k, b, visited)
+                    if sub >= 0:
+                        return v*sub
+                    visited.remove(k)
+            return -1.
+
+        return [dfs(a, b, set([a])) for a, b in queries]
 
 
-@pytest.mark.parametrize('equations, values, queries, expected', [
+@pytest.mark.parametrize('equations, values, queries, expecteds', [
     ([["a","b"],["b","c"]], [2.0,3.0], [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]], [6.00000,0.50000,-1.00000,1.00000,-1.00000]),
     ([["a","b"],["b","c"],["bc","cd"]], [1.5,2.5,5.0], [["a","c"],["c","b"],["bc","cd"],["cd","bc"]], [3.75000,0.40000,5.00000,0.20000]),
     ([["a","b"]], [0.5], [["a","b"],["b","a"],["a","c"],["x","y"]], [0.50000,2.00000,-1.00000,-1.00000]),
 ])
-def test(equations, values, queries, expected):
-    assert expected == Solution().calcEquation(equations, values, queries)
+def test(equations, values, queries, expecteds):
+    assert expecteds == Solution().calcEquation(equations, values, queries)
 
 
 if __name__ == '__main__':

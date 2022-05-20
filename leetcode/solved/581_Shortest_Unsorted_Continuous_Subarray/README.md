@@ -4,7 +4,7 @@ Medium
 
 Given an integer array `` nums ``, you need to find one __continuous subarray__ that if you only sort this subarray in ascending order, then the whole array will be sorted in ascending order.
 
-Return _the shortest such subarray and output its length_.
+Return _the shortest such subarray and output its length_.
 
  
 
@@ -37,6 +37,9 @@ __Constraints:__
 *   <code>1 <= nums.length <= 10<sup>4</sup></code>
 *   <code>-10<sup>5</sup> <= nums[i] <= 10<sup>5</sup></code>
 
+ 
+__Follow up:__ Can you solve it in `` O(n) `` time complexity?
+
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 462,276 | 145,630 | 31.5% |
+| 746,237 | 268,530 | 36.0% |

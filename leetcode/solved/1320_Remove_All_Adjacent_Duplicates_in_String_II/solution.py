@@ -39,15 +39,14 @@ Constraints:
 	2 <= k <= 104
 	s only contains lower case English letters.
 """
-import sys
-from typing import Tuple
 from typing import List
+import sys
 import pytest
 
 
 class Solution:
     def removeDuplicates(self, s: str, k: int) -> str:
-        """
+        """05/05/2021 09:41
         Time complexity: O(n)
         Space complexity: O(n)
         """
@@ -60,6 +59,18 @@ class Solution:
             while stack and stack[-1][1] == k:
                 stack.pop()
         return ''.join([c*n for c, n in stack])
+
+    def removeDuplicates(self, s: str, k: int) -> str:
+        """05/20/2022 14:27"""
+        stack = []
+        for c in s:
+            if stack and stack[-1][0] == c:
+                stack[-1][1] += 1
+                if stack and stack[-1][1] == k:
+                    stack.pop()
+            else:
+                stack.append([c, 1])
+        return ''.join(c*n for c, n in stack)
 
 
 @pytest.mark.parametrize('s, k, expected', [

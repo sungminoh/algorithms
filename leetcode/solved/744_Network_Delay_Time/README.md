@@ -2,32 +2,47 @@
 
 Medium
 
-There are `` N `` network nodes, labelled `` 1 `` to `` N ``.
+You are given a network of `` n `` nodes, labeled from `` 1 `` to `` n ``. You are also given `` times ``, a list of travel times as directed edges <code>times[i] = (u<sub>i</sub>, v<sub>i</sub>, w<sub>i</sub>)</code>, where <code>u<sub>i</sub></code> is the source node, <code>v<sub>i</sub></code> is the target node, and <code>w<sub>i</sub></code> is the time it takes for a signal to travel from source to target.
 
-Given `` times ``, a list of travel times as __directed__ edges `` times[i] = (u, v, w) ``, where `` u `` is the source node, `` v `` is the target node, and `` w `` is the time it takes for a signal to travel from source to target.
-
-Now, we send a signal from a certain node `` K ``. How long will it take for all nodes to receive the signal? If it is impossible, return `` -1 ``.
+We will send a signal from a given node `` k ``. Return _the __minimum__ time it takes for all the_ `` n `` _nodes to receive the signal_. If it is impossible for all the `` n `` nodes to receive the signal, return `` -1 ``.
 
  
 
 __Example 1:__
 
-<img alt="" src="https://assets.leetcode.com/uploads/2019/05/23/931_example_1.png" style="width: 200px; height: 220px;"/>
+<img alt="" src="https://assets.leetcode.com/uploads/2019/05/23/931_example_1.png" style="width: 217px; height: 239px;"/>
 
 ```
-Input: times = <span id="example-input-1-1">[[2,1,1],[2,3,1],[3,4,1]]</span>, N = <span id="example-input-1-2">4</span>, K = <span id="example-input-1-3">2</span>
-Output: <span id="example-output-1">2</span>
+Input: times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2
+Output: 2
+```
+
+__Example 2:__
+
+```
+Input: times = [[1,2,1]], n = 2, k = 1
+Output: 1
+```
+
+__Example 3:__
+
+```
+Input: times = [[1,2,1]], n = 2, k = 2
+Output: -1
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-1.   `` N `` will be in the range `` [1, 100] ``.
-2.   `` K `` will be in the range `` [1, N] ``.
-3.   The length of `` times `` will be in the range `` [1, 6000] ``.
-4.   All edges `` times[i] = (u, v, w) `` will have `` 1 <= u, v <= N `` and `` 0 <= w <= 100 ``.
+*   `` 1 <= k <= n <= 100 ``
+*   `` 1 <= times.length <= 6000 ``
+*   `` times[i].length == 3 ``
+*   <code>1 <= u<sub>i</sub>, v<sub>i</sub> <= n</code>
+*   <code>u<sub>i</sub> != v<sub>i</sub></code>
+*   <code>0 <= w<sub>i</sub> <= 100</code>
+*   All the pairs <code>(u<sub>i</sub>, v<sub>i</sub>)</code> are __unique__. (i.e., no multiple edges.)
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 244,451 | 110,009 | 45.0% |
+| 555,554 | 278,595 | 50.1% |

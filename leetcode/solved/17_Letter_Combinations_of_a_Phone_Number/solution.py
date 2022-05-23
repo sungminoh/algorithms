@@ -38,7 +38,8 @@ import pytest
 
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        """DFS
+        """04/28/2021 00:17
+        DFS
         Time complexitiy: exponential
         Space complexitiy: exponential
         """
@@ -65,6 +66,22 @@ class Solution:
         dfs(0, '', out)
         return out
 
+
+    def letterCombinations(self, digits: str) -> List[str]:
+        """05/22/2022 12:21
+        BFS
+        """
+        if not digits:
+            return []
+        m = ['', '', 'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+        queue = list(m[int(digits[0])])
+        for d in digits[1:]:
+            new_queue = []
+            for el in queue:
+                for c in m[int(d)]:
+                    new_queue.append(el + c)
+            queue = new_queue
+        return queue
 
 
 @pytest.mark.parametrize('digits, expected', [

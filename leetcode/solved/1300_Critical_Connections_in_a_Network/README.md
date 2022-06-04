@@ -12,12 +12,19 @@ Return all critical connections in the network in any order.
 
 __Example 1:__
 
-<strong><img alt="" src="https://assets.leetcode.com/uploads/2019/09/03/1537_ex1_2.png" style="width: 198px; height: 248px;"/></strong>
+<img alt="" src="https://assets.leetcode.com/uploads/2019/09/03/1537_ex1_2.png" style="width: 198px; height: 248px;"/>
 
 ```
 Input: n = 4, connections = [[0,1],[1,2],[2,0],[1,3]]
 Output: [[1,3]]
 Explanation: [[3,1]] is also accepted.
+```
+
+__Example 2:__
+
+```
+Input: n = 2, connections = [[0,1]]
+Output: [[0,1]]
 ```
 
  
@@ -32,4 +39,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 224,292 | 115,450 | 51.5% |
+| 321,786 | 174,655 | 54.3% |

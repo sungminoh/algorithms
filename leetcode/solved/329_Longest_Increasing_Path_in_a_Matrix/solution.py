@@ -44,7 +44,7 @@ import pytest
 
 class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        """2020.10"""
+        """10/01/2020 19:52"""
         def neighbors(i, j):
             if i > 0:
                 yield i-1, j
@@ -60,9 +60,10 @@ class Solution:
             if memo[i][j] != 0:
                 return memo[i][j]
             memo[i][j] = 1 + max(
-                chain([0],
-                      (dfs(_i, _j) for _i, _j in neighbors(i, j)
-                       if matrix[_i][_j] > matrix[i][j])))
+                chain(
+                    [0],
+                    (dfs(_i, _j) for _i, _j in neighbors(i, j)
+                     if matrix[_i][_j] > matrix[i][j])))
             return memo[i][j]
 
         ret = 0
@@ -72,7 +73,8 @@ class Solution:
         return ret
 
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        """DFS from each cell leveraging cache
+        """04/29/2021 10:00
+        DFS from each cell leveraging cache
         Time complexity: O(m*n)
         Space complexity: O(m*n)
         """
@@ -98,6 +100,23 @@ class Solution:
             return 1 + mx
 
         return max([dfs(i, j) for i in range(n) for j in range(m)])
+
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        """06/05/2022 19:00"""
+        def increasing_neighbors(i, j):
+            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                x, y = i+dx, j+dy
+                if 0<=x<len(matrix) and 0<=y<len(matrix[x]) and matrix[x][y]>matrix[i][j]:
+                    yield x, y
+
+        @lru_cache(None)
+        def dfs(i, j):
+            ret = 0
+            for x, y in increasing_neighbors(i, j):
+                ret = max(ret, dfs(x, y))
+            return ret+1
+
+        return max(dfs(i, j) for i in range(len(matrix)) for j in range(len(matrix[i])))
 
 
 @pytest.mark.parametrize('matrix, expected', [

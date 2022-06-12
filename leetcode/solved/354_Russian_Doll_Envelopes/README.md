@@ -29,10 +29,10 @@ Output: 1
 
 __Constraints:__
 
-*   `` 1 <= envelopes.length <= 5000 ``
+*   <code>1 <= envelopes.length <= 10<sup>5</sup></code>
 *   `` envelopes[i].length == 2 ``
-*   <code>1 <= w<sub>i</sub>, h<sub>i</sub> <= 10<sup>4</sup></code>
+*   <code>1 <= w<sub>i</sub>, h<sub>i</sub> <= 10<sup>5</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 268,960 | 101,507 | 37.7% |
+| 428,185 | 166,336 | 38.8% |

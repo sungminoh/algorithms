@@ -7,23 +7,37 @@
 # Distributed under terms of the MIT license.
 
 """
-You have a number of envelopes with widths and heights given as a pair of integers (w, h). One envelope can fit into another if and only if both the width and height of one envelope is greater than the width and height of the other envelope.
+You are given a 2D array of integers envelopes where envelopes[i] = [wi, hi] represents the width and the height of an envelope.
 
-What is the maximum number of envelopes can you Russian doll? (put one inside other)
+One envelope can fit into another if and only if both the width and height of one envelope are greater than the other envelope's width and height.
 
-Note:
-Rotation is not allowed.
+Return the maximum number of envelopes you can Russian doll (i.e., put one inside the other).
 
-Example:
+Note: You cannot rotate an envelope.
 
-Input: [[5,4],[6,4],[6,7],[2,3]]
+Example 1:
+
+Input: envelopes = [[5,4],[6,4],[6,7],[2,3]]
 Output: 3
 Explanation: The maximum number of envelopes you can Russian doll is 3 ([2,3] => [5,4] => [6,7]).
+
+Example 2:
+
+Input: envelopes = [[1,1],[1,1],[1,1]]
+Output: 1
+
+Constraints:
+
+	1 <= envelopes.length <= 105
+	envelopes[i].length == 2
+	1 <= wi, hi <= 105
 """
+from functools import lru_cache
 from pathlib import Path
 import json
-from functools import lru_cache
+import operator
 import sys
+import bisect
 from typing import List
 import pytest
 
@@ -91,7 +105,7 @@ class Solution:
         return dp[-2][-2][0]
 
     def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
-        """
+        """04/17/2021 22:49
         Time complexity: O(n*logn)
         Space complexity: O(n)
         """
@@ -122,10 +136,38 @@ class Solution:
                 hs.append(h)
         return len(hs)
 
+    def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
+        """06/12/2022 11:59
+        Time complexity: O(n*logn)
+        Space complexity: O(n)
+        """
+        def bisearch(arr, x, func=operator.lt):
+            s, e = 0, len(arr)-1
+            while s <= e:
+                m = s + ((e-s)//2)
+                if func(arr[m], x):
+                    s = m+1
+                else:
+                    e = m-1
+            return s
+
+        envelopes = list(set(tuple(x) for x in envelopes))
+        envelopes.sort(key=lambda x: (x[0], -x[1]))
+        heights = []
+        for w, h in envelopes:
+            # i = bisect.bisect_left(heights, h)
+            i = bisearch(heights, h)
+            if i == len(heights):
+                heights.append(h)
+            else:
+                heights[i] = h
+        return len(heights)
+
 
 @pytest.mark.parametrize('envelopes, expected', [
     ([[5,4],[6,4],[6,7],[2,3]], 3),
     ([[1,1],[1,1],[1,1]], 1),
+    ([[2,1],[4,1],[6,2],[8,3],[10,5],[12,8],[14,13],[16,21],[18,34],[20,55]], 9),
     ([[2,100],[3,200],[4,300],[5,500],[5,400],[5,250],[6,370],[6,360],[7,380]], 5),
     ([[10,8],[1,12],[6,15],[2,18]], 2),
     (json.load(open(Path(__file__).parent/'testcase.json')), 129),

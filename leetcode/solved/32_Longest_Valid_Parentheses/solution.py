@@ -31,12 +31,38 @@ Constraints:
 	0 <= s.length <= 3 * 104
 	s[i] is '(', or ')'.
 """
-from functools import lru_cache
 import sys
+from functools import lru_cache
 import pytest
 
 
 class Solution:
+    def longestValidParentheses(self, s):
+        """08/05/2018 05:38"""
+        if len(s) < 2:
+            return 0
+        stack = []
+        mx = 0
+        for c in s:
+            # print(stack)
+            if c == ')':
+                if stack:
+                    prev = 0
+                    while stack and stack[-1] != '(':
+                        prev += stack.pop()
+                    if not stack:
+                        stack = []
+                        continue
+                    else:
+                        stack.pop()
+                        prev += 2
+                        while stack and stack[-1] != '(':
+                            prev += stack.pop()
+                        stack.append(prev)
+                        mx = max(mx, prev)
+            elif c == '(':
+                stack.append(c)
+        return mx
     def longestValidParentheses(self, s: str) -> int:
         """
         Time complexity: O(n^2)
@@ -62,7 +88,7 @@ class Solution:
         return ret
 
     def longestValidParentheses(self, s: str) -> int:
-        """
+        """04/22/2021 09:27
         Time complexity: O(n)
         Space complexity: O(n)
         """
@@ -87,7 +113,7 @@ class Solution:
         return m*2
 
     def longestValidParentheses(self, s: str) -> int:
-        """
+        """04/22/2021 09:46
         Time complexity: O(n)
         Space complexity: O(n)
         Optimized space. Negative value in the stack means the number of open
@@ -166,11 +192,45 @@ class Solution:
                     stack = []
         return m*2
 
+    def longestValidParentheses(self, s: str) -> int:
+        """06/08/2022 10:43"""
+        if not s:
+            return 0
+        pair = [-1]*len(s)
+        stack = []
+        for i, c in enumerate(s):
+            if c == ')' and stack and s[stack[-1]] == '(':
+                j = stack.pop()
+                pair[i] = j
+            else:
+                stack.append(i)
+
+        @lru_cache(None)
+        def dfs(i):
+            if i >= 0 and pair[i] >= 0:
+                return dfs(pair[i]-1) + (i - pair[i] + 1)
+            return 0
+
+        return max(dfs(i) for i in range(len(s)))
+
+    def longestValidParentheses(self, s: str) -> int:
+        """06/08/2022 10:50"""
+        stack = [-1]
+        ret = 0
+        for i, c in enumerate(s):
+            if c == ')' and stack[-1]>=0 and s[stack[-1]] == '(':
+                j = stack.pop()
+                ret = max(ret, i-stack[-1])
+            else:
+                stack.append(i)
+        return ret
+
 
 @pytest.mark.parametrize('s, expected', [
     ("(()", 2),
     (")()())", 4),
     ("", 0),
+    ("()", 2),
     ("()(()", 2),
     ("((((",0),
     ("))))",0),
@@ -178,7 +238,6 @@ class Solution:
     ("((())())(()))(()()(()(()))(()((((()))))))((()())()))()()(()(((((()()()())))()())(()()))((((((())))((()))()()))))(()))())))()))()())((()()))))(()(((((())))))()((()(()(())((((())(())((()()(()())))())(()(())()()))())(()()()))()(((()())(((()()())))(((()()()))(()()))()))()))))))())()()((()(())(()))()((()()()((())))()(((()())(()))())())))(((()))))())))()(())))()())))())()((()))((()))()))(((())((()()()(()((()((())))((()()))())(()()(()))))())((())))(()))()))))))()(()))())(()())))))(()))((())(()((())(((((()()()(()()())))(()())()((()(()()))(()(())((()((()))))))))(()(())()())()(()(()(()))()()()(()()())))(())(()((((()()))())))(())((()(())())))))())()()))(((())))())((()(()))(()()))((())(())))))(()(()((()((()()))))))(()()()(()()()(()(())()))()))(((()(())()())(()))())))(((()))())(()((()))(()((()()()(())()(()())()(())(()(()((((())()))(((()()(((()())(()()()(())()())())(()(()()((()))))()(()))))(((())))()()))(()))((()))))()()))))((((()(())()()()((()))((()))())())(()((()()())))))))()))(((()))))))(()())))(((()))((()))())))(((()(((())))())(()))))(((()(((((((((((((())(((()))((((())())()))())((((())(((())))())(((()))))()())()(())())(()))))()))()()()))(((((())()()((()))())(()))()()(()()))(())(()()))()))))(((())))))((()()(()()()()((())((((())())))))((((((()((()((())())(()((()))(()())())())(()(())(())(()((())((())))(())())))(()()())((((()))))((()(())(()(()())))))))))((()())()()))((()(((()((()))(((((()()()()()(()(()((()(()))(()(()((()()))))()(()()((((((()((()())()))((())()()(((((()(()))))()()((()())((()())()(())((()))()()(()))", 168)
 ])
 def test(s, expected):
-    ()
     assert expected == Solution().longestValidParentheses(s)
 
 

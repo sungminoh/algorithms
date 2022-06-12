@@ -2,36 +2,37 @@
 
 Medium
 
-Given a string, your task is to count how many palindromic substrings in this string.
+Given a string `` s ``, return _the number of __palindromic substrings__ in it_.
 
-The substrings with different start indexes or end indexes are counted as different substrings even they consist of same characters.
+A string is a __palindrome__ when it reads the same backward as forward.
+
+A __substring__ is a contiguous sequence of characters within the string.
+
+ 
 
 __Example 1:__
 
 ```
-<b>Input:</b> "abc"
-<b>Output:</b> 3
-<b>Explanation:</b> Three palindromic strings: "a", "b", "c".
+Input: s = "abc"
+Output: 3
+Explanation: Three palindromic strings: "a", "b", "c".
 ```
-
- 
 
 __Example 2:__
 
 ```
-<b>Input:</b> "aaa"
-<b>Output:</b> 6
-<b>Explanation:</b> Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
+Input: s = "aaa"
+Output: 6
+Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-1.   The input string length won't exceed 1000.
-
- 
+*   `` 1 <= s.length <= 1000 ``
+*   `` s `` consists of lowercase English letters.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 300,862 | 181,124 | 60.2% |
+| 692,503 | 455,097 | 65.7% |

@@ -40,10 +40,19 @@ import pytest
 
 class Solution:
     def runningSum(self, nums: List[int]) -> List[int]:
+        """05/19/2021 09:15"""
         ret = [0]
         for n in nums:
             ret.append(ret[-1]+n)
         return ret[1:]
+
+    def runningSum(self, nums: List[int]) -> List[int]:
+        if not nums:
+            return []
+        ret = [nums[0]]
+        for i in range(1, len(nums)):
+            ret.append(ret[-1] + nums[i])
+        return ret
 
 
 @pytest.mark.parametrize('nums, expected', [

@@ -4,9 +4,9 @@ Medium
 
 Given a 2D matrix `` matrix ``, handle multiple queries of the following type:
 
-1.   Calculate the __sum__ of the elements of `` matrix `` inside the rectangle defined by its __upper left corner__ `` (row1, col1) `` and __lower right corner__ `` (row2, col2) ``.
+*   Calculate the __sum__ of the elements of `` matrix `` inside the rectangle defined by its __upper left corner__ `` (row1, col1) `` and __lower right corner__ `` (row2, col2) ``.
 
-Implement the NumMatrix class:
+Implement the `` NumMatrix `` class:
 
 *   `` NumMatrix(int[][] matrix) `` Initializes the object with the integer matrix `` matrix ``.
 *   `` int sumRegion(int row1, int col1, int row2, int col2) `` Returns the __sum__ of the elements of `` matrix `` inside the rectangle defined by its __upper left corner__ `` (row1, col1) `` and __lower right corner__ `` (row2, col2) ``.
@@ -38,11 +38,11 @@ __Constraints:__
 *   `` m == matrix.length ``
 *   `` n == matrix[i].length ``
 *   `` 1 <= m, n <= 200 ``
-*   <code>-10<sup>5</sup> <= matrix[i][j] <= 10<sup>5</sup></code>
+*   <code>-10<sup>4</sup> <= matrix[i][j] <= 10<sup>4</sup></code>
 *   `` 0 <= row1 <= row2 < m ``
 *   `` 0 <= col1 <= col2 < n ``
 *   At most <code>10<sup>4</sup></code> calls will be made to `` sumRegion ``.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 391,472 | 170,882 | 43.7% |
+| 551,627 | 281,812 | 51.1% |

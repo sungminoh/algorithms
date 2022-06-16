@@ -33,8 +33,8 @@ Constraints:
 	1 <= words[i].length <= 1000
 	words[i] consists only of lowercase English letters.
 """
-import sys
 import string
+import sys
 from typing import List
 import pytest
 
@@ -58,8 +58,8 @@ class Solution:
         return m
 
     def maxProduct(self, words: List[str]) -> int:
-        """
-        Time complexity: O(n*l)
+        """06/08/2021 05:20
+        Time complexity: O(n*n + n*l)
         Space complexity: O(n)
         """
         codebook = {c: 1<<i for i, c in enumerate(string.ascii_lowercase)}
@@ -73,6 +73,23 @@ class Solution:
             for j in range(i, len(codes)):
                 if codes[i] & codes[j] == 0:
                     ret = max(ret, len(words[i])*len(words[j]))
+        return ret
+
+
+    def maxProduct(self, words: List[str]) -> int:
+        """06/16/2022 11:29"""
+        def conv(word):
+            ret = 0
+            for c in word:
+                ret |= 1 << (ord(c) - ord('a'))
+            return ret
+
+        mask = [conv(w) for w in words]
+        ret = 0
+        for i in range(len(words)):
+            for j in range(i+1, len(words)):
+                if mask[i] & mask[j] == 0:
+                    ret = max(ret, len(words[i]) * len(words[j]))
         return ret
 
 

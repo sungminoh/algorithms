@@ -1,17 +1,43 @@
-### [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/)
+### [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
-[**Description](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/)[**Hints](https://leetcode.com/problems/longest-substring-without-repeating-characters/hints/)[**Submissions](https://leetcode.com/problems/longest-substring-without-repeating-characters/submissions/)[**Discuss](https://leetcode.com/problems/longest-substring-without-repeating-characters/discuss/)[**Solution](https://leetcode.com/problems/longest-substring-without-repeating-characters/solution/)
+Medium
 
-[**Discuss](https://discuss.leetcode.com/category/11)[**Pick One](https://leetcode.com/problems/random-one-question/)
+Given a string `` s ``, find the length of the __longest substring__ without repeating characters.
 
-------
+ 
 
-Given a string, find the length of the **longest substring** without repeating characters.
+__Example 1:__
 
-**Examples:**
+```
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+```
 
-Given `"abcabcbb"`, the answer is `"abc"`, which the length is 3.
+__Example 2:__
 
-Given `"bbbbb"`, the answer is `"b"`, with the length of 1.
+```
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+```
 
-Given `"pwwkew"`, the answer is `"wke"`, with the length of 3. Note that the answer must be a **substring**, `"pwke"` is a *subsequence*and not a substring.
+__Example 3:__
+
+```
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+```
+
+ 
+
+__Constraints:__
+
+*   <code>0 <= s.length <= 5 * 10<sup>4</sup></code>
+*   `` s `` consists of English letters, digits, symbols and spaces.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 10,333,373 | 3,454,150 | 33.4% |

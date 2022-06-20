@@ -102,10 +102,10 @@ class Solution:
                     j = c-(i-c)
                     if i + p[j] >= r:
                         p[i] = expand(i, r-i)
-                        if p[i] > r:
+                        if i + p[i] > r:
                             l = i-p[i]
                             c = i
-                            l = i+p[i]
+                            r = i+p[i]
                     else:
                         p[i] = p[j]
                 i += 1

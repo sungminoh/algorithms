@@ -30,14 +30,15 @@ Constraints:
 	1 <= nums.length <= 105
 	1 <= nums[i] <= 104
 """
-import sys
 from collections import deque
+import sys
 from typing import List
 import pytest
 
 
 class Solution:
     def maximumUniqueSubarray(self, nums: List[int]) -> int:
+        """06/09/2021 05:14"""
         cnt = {}
         deq = deque()
         acc = 0
@@ -56,11 +57,28 @@ class Solution:
             ret = max(ret, acc)
         return ret
 
+    def maximumUniqueSubarray(self, nums: List[int]) -> int:
+        pool = set()
+        ret = 0
+        cur = 0
+        j = 0
+        for i, n in enumerate(nums):
+            if n in pool:
+                while nums[j] != n:
+                    cur -= nums[j]
+                    pool.remove(nums[j])
+                    j += 1
+                cur -= nums[j]
+                j += 1
+            pool.add(n)
+            cur += n
+            ret = max(ret, cur)
+        return ret
+
 
 @pytest.mark.parametrize('nums, expected', [
     ([4,2,4,5,6], 17),
     ([5,2,1,2,5,2,1,2,5], 8),
-    ([187,470,25,436,538,809,441,167,477,110,275,133,666,345,411,459,490,266,987,965,429,166,809,340,467,318,125,165,809,610,31,585,970,306,42,189,169,743,78,810,70,382,367,490,787,670,476,278,775,673,299,19,893,817,971,458,409,886,434], 16911),
 ])
 def test(nums, expected):
     assert expected == Solution().maximumUniqueSubarray(nums)

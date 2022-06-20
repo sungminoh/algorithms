@@ -42,4 +42,4 @@ __Follow up:__ Could you do this using only `` O(n) `` extra space, where `` n 
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 667,882 | 313,842 | 47.0% |
+| 918,626 | 484,503 | 52.7% |

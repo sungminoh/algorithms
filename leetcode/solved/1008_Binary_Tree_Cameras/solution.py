@@ -28,17 +28,23 @@ Constraints:
 	The number of nodes in the tree is in the range [1, 1000].
 	Node.val == 0
 """
-from pathlib import Path
 from typing import Tuple
+from typing import Optional
 import pytest
 import sys
-sys.path.append(str(Path('__file__').absolute().parent.parent.parent))
+sys.path.append('../')
 from exercise.tree import TreeNode, build_tree
 
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def minCameraCover(self, root: TreeNode) -> int:
-        """
+        """06/05/2021 19:46
         Top down
         Time complexity: O(3*n)
         Space complexity: O(3*n)
@@ -66,7 +72,7 @@ class Solution:
         return rec(root, True, False)
 
     def minCameraCover(self, root: TreeNode) -> int:
-        """
+        """06/05/2021 19:58
         Greedy bottom up
         Time complexity: O(n)
         Space complexity: O(logn)  (call stack)
@@ -91,22 +97,52 @@ class Solution:
             cnt += 1
         return cnt
 
+    def minCameraCover(self, root: Optional[TreeNode]) -> int:
+        """06/19/2022 20:13
+        Top down
+        Time complexity: O(2*n)
+        Space complexity: O(2*n)
+        """
+        if not root:
+            return 0
 
-@pytest.mark.parametrize('nodes, expected', [
+        memo = {}
+        def dfs(node, is_covered):
+            if not node:
+                return 0
+            key = (id(node), is_covered)
+            if key in memo:
+                return memo[key]
+            possibles = [1 + dfs(node.left, True) + dfs(node.right, True)]
+            if is_covered:
+                possibles.append(dfs(node.left, False) + dfs(node.right, False))
+            else:
+                if node.left:
+                    left = 1 + dfs(node.left.left, True) + dfs(node.left.right, True)
+                    right = dfs(node.right, False)
+                    possibles.append(left+right)
+                if node.right:
+                    left = dfs(node.left, False)
+                    right = 1 + dfs(node.right.left, True) + dfs(node.right.right, True)
+                    possibles.append(left+right)
+            memo[key] = min(possibles)
+            return memo[key]
+
+        return dfs(root, False)
+
+
+@pytest.mark.parametrize('values, expected', [
     ([0,0,None,0,0], 1),
-    ([0,0,None,0,None,None,0], 2),
     ([0,0,None,0,None,0,None,None,0], 2),
+    ([0], 1),
     ([0,0,0,None,None,None,0], 2),
+    ([0,0,None,0,None,None,0], 2),
     ([1,2,3,None,None,None,4], 2),
     ([0,0,0,0,0,0,0,0,0,0,None,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,None,0,0,0,None,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,None,None,0,0,0,0,0,0,0,0,None,None,0,None,0,0,0,0,0,0,0,0,0,0,0,0,None,None,0,None,0,0,None,0,None,0,0,0,0,0,None,None,None,None,0,0,0,0,None,None,0,0,0,0,0,0,None,None,None,None,0,None,None,0,None,None,None,None,0,0,0,0,0,None,0,0,None,None,0,0,0,0,0,None,0,None,0,0,0,0,0,0,None,None,0,0,0,0,0,None,None,0,0,None,0,None,0,None,0,0,0,None,0,0,None,0,0,None,0,0,0,0,0,0,0,0,0,0,None,0,0,0,None,0,0,0,0,0,None,0,0,0,None,None,0,0,0,0,0,0,None,0,0,None,None,0,None,0,0,None,0,0,None,0,0,0,0,0,None,0,None,0,None,None,None,0,0,0,0,0,0,None,None,None,0,0,0,0,0,None,None,None,0,None,None,0,None,None,None,None,0,None,0,None,0,0,0,None,None,0,None,None,None,0,0,0,None,None,0,0,0,0,None,None,0,0,None,0,0,0,None,0,0,None,0,None,0,0,0,0,None,0,0,0,0,0,0,0,None,0,None,None,None,0,0,0,0,0,None,0,0,0,0,0,0,0,0,0,None,None,None,None,0,None,None,None,None,0,0,None,None,0,None,0,0,0,0,0,None,0,0,0,0,None,0,None,None,None,None,None,None,None,0,0,0,0,None,0,0,None,0,0,0,0,0,0,0,None,0,None,None,0,None,None,None,None,None,None,0,0,None,None,0,None,None,None,None,None,0,None,0,0,0,None,0,0,0,0,0,0,0,0,None,0,0,0,0,0,None,None,None,0,0,None,0,0,None,0,None,None,0,0,None,None,None,0,0,None,None,None,None,0,0,0,0,0,None,0,0,None,0,0,0,None,0,0,0,0,None,0,None,0,0,0,0,0,None,None,None,0,0,0,0,0,0,0,None,None,None,None,0,None,0,None,None,None,0,0,0,None,0,None,None,None,0,None,0,0,None,None,None,0,None,None,0,None,None,0,0,0,None,0,None,None,None,None,0,0,0,0,0,0,0,0,0,0,None,0,0,0,0,None,0,None,None,0,None,None,0,0,None,None,0,0,None,0,0,0,0,0,0,0,0,0,0,0,None,0,0,0,0,0,0,0,0,None,0,0,0,0,0,0,0,None,None,0,None,None,0,None,0,None,0,None,0,0,0,0,0,None,None,None,None,None,None,0,0,None,0,0,None,0,0,0,0,None,None,None,None,None,0,None,None,0,None,0,None,None,None,0,None,None,None,None,0,0,0,0,None,None,0,None,None,None,0,0,0,None,0,0,0,0,0,0,None,0,None,None,0,0,None,None,None,None,0,None,None,None,None,None,None,None,None,0,None,None,None,None,0,None,0,None,0,None,0,0,None,0,None,None,0,None,0,None,0,None,None,0,0,None,0,None,0,0,0,0,0,0,None,0,0,0,0,None,None,None,None,None,0,0,0,0,0,0,None,0,0,0,None,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,None,0,0,0,0,0,None,0,None,0,0,0,0,0,0,None,0,0,0,None,None,None,None,None,None,None,None,0,None,0,None,0,None,None,None,0,None,None,None,0,0,None,None,None,0,0,0,0,0,0,None,None,None,None,None,0,0,None,0,0,None,None,None,None,None,None,0,None,0,None,None,None,0,0,0,None,0,0,None,0,0,None,None,None,None,None,None,0,0,0,0,0,None,None,0,None,None,0,0,0,0,0,0,0,None,None,None,0,0,None,None,None,None,None,None,None,None,None,None,0,None,None,None,None,0,None,None,None,None,None,None,None,0,None,None,0,None,0,0,None,None,0,None,None,None,0,None,None,None,None,None,None,None,None,None,None,None,None,0,None,None,None,None,0,0,None,0,0,0,None,None,None,None,0,0,None,None,None,None,0,0,0,0,None,None,0,0,None,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,None,None,None,None,None,0,0,None,None,None,None,None,None,None,None,None,None,None,None,None,0,0,0,0,None,None,0,None,None,None,None,None,0,None,None,None,None,None,None,0,0,None,0,None,0,0,0,0,None,None,None,None,None,None,0,0,0,0,0,0,0,0,0,None,None,None,None,0,0,None,None,None,None,0,0,None,None,0,None,0,None,0,None,None,0,None,None,None,None,0,None,0,None,None,None,None,0,0,None,0,0,0,None,0,0,0,None,0,None,None,None,None,0,None,None,None,None,None,None,None,None,0,0,0,0,None,0,None,0,None,0,None,0,0,0,0,0,None,0,0,0,None,None,None,None,0,0,0,0,None,0,0,None,None,0,None,None,0,None,0,0,None,0,0,0,None,0,0,None,None,None,0,0,None,None,None,None,None,0,0,0,None,0,0,0,0,0,0,0,0,None,None,0,0,None,0,None,None,None,0,0,None,None,None,0,0,None,0,None,None,0,None,None,0,0,None,None,None,0,0,None,None,0,None,0,None,0,0,None,None,None,0,0,None,None,None,None,0,0,None,0,None,None,None,None,0,0,0,0,0,0,None,None,None,0,0,None,0,None,None,None,None,0,None,0,None,None,0,0,None,None,0,0,0,0,None,0,None,None,None,None,None,None,None,None,None,0,0,0,None,0,None,None,0,0,None,0,0,0,None,0,None,None,None,0,None,0,None,None,0,None,0,0,0,0,0,0,0,0,0,None,None,0,0,0,None,None,None,None,None,0,0,None,None,None,None,0,0,0,0,0,None,0,0,0,None,None,None,None,None,0,None,None,0,0,0,0,0,None,None,0,0,0,0,None,None,None,0,0,None,None,0,None,None,0,0,0,None,0,None,0,None,0,None,None,0,0,None,None,None,None,None,None,None,None,None,None,None,None,0,None,None,0,0,None,None,None,None,None,0,None,0,0,0,0,None,0,0,0,None,None,0,None,None,0,None,None,0,None,None,None,None,None,None,0,0,0,0,0,0,0,None,None,None,None,None,None,0,0,None,0,None,0,None,None,None,None,None,0,None,None,None,None,None,0,0,0,0,None,None,None,None,None,None,None,None,0,0,0,0,0,None,0,0,None,0,0,0,0,0,0,0,None,0,0,0,None,None,0,None,None,None,None,None,None,None,None,0,None,None,None,0,None,0,None,0,0,None,None,0,0,None,0,0,0,None,0,0,0,None,0,None,None,None,None,0,None,0,None,0,None,None,None,None,None,None,0,0,0,None,None,0,None,None,None,0,0,None,None,None,None,0,None,0,None,None,None,0,None,0,0,0,0,0,0,None,0,0,None,None,None,0,None,0,None,None,0,None,None,None,None,None,None,None,None,None,None,0,None,0,0,None,None,None,None,0,None,0,None,None,None,None,0,0,None,None,0,None,None,0,0,0,0,None,0,None,None,0,None,None,None,0,None,0,0,0,None,0,0,0,0,0,None,None,None,None,None,0,None,0,None,0,None,None,0,None,None,None,None,None,None,None,None,None,0,None,0,0,0,None,None,None,None,0,None,None,None,0,None,None,None,None,0,None,None,None,None,None,None,None,None,0,None,0,None,None,None,0,None,None,None,None,None,0,None,0,0,0,0,None,None,None,0,0,0,None,0,0,0,None,0,None,None,None,None,None,None,None,None,None,None,None,None,0,0,0,None,None,None,None,None,None,None,0,0,0,0,0,0,None,None,None,0,0,None,None,None,0,0,None,0,0,0,0,None,None,None,0,None,None,None,None,None,None,None,None,None,0,None,None,None,None,None,None,None,0,0,0,0,0,None,0,0,None,None,None,0,0,0,0,0,None,None,None,None,None,0,0,0,None,0,None,None,None,None,0,0,0,None,None,None,0,None,None,0,0,None,None,0,0,None,None,None,None,None,None,None,0,None,0,None,None,None,None,0,0,None,None,0,0,0,0,0,None,None,0,None,None,0,0,0,0,0,0,None,None,None,0,None,None,None,0,0,None,None,None,None,None,None,None,None,None,None,0,0,None,0,None,None,0,None,0,None,None,None,None,None,None,None,0,None,None,None,None,None,None,None,0,None,0,None,None,0,None,None,0,0,None,None,None,0,None,None,0,0,None,None,0,0,0,0,0,0,0,0,None,None,0,0,None,None,None,None,None,None,None,None,0,0,0,None,None,None,None,0,None,0,None,0,None,None,None,None,0,0,None,None,None,None,None,0,0,0,None,0,None,None,None,0,None,None,0,0,None,None,None,None,0,None,None,None,None,None,0,0,None,None,None,None,None,None,0,0,None,None,None,0,None,None,None,None,None,None,None,None,None,None,0,None,None,None,None,None,0,0,None,None,None,None,None,None,0,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,0], 360)
 ])
-def test(nodes, expected):
-    root = build_tree(nodes)
-    print()
-    print(root)
-    actual = Solution().minCameraCover(root)
-    print(actual)
-    assert expected == actual
+def test(values, expected):
+    tree = build_tree(values)
+    assert expected == Solution().minCameraCover(tree)
 
 
 if __name__ == '__main__':

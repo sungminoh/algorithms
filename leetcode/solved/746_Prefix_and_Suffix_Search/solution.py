@@ -38,13 +38,13 @@ from functools import lru_cache
 from pathlib import Path
 import json
 import sys
-from typing import List
 from collections import defaultdict
+from typing import List
 import pytest
 
 
 class WordFilter:
-    """
+    """05/21/2021 08:59
     Prefix trie and suffix Trie
     Time complexity:
         init: O(n*l) where n = len(words), l = len(word)
@@ -83,7 +83,7 @@ class WordFilter:
 
 
 class WordFilter:
-    """
+    """05/21/2021 09:07
     Store possible (prefix, suffix) in a map
     Time complexity:
         init: O(n*l*l) without considering string slicing
@@ -104,8 +104,29 @@ class WordFilter:
         return self.dic.get((prefix, suffix), -1)
 
 
+class WordFilter(object):
+    """05/21/2021 09:11	"""
+    def __init__(self, words):
+        """
+        :type words: List[str]
+        """
+        self.dic = {}
+        for weight, word in enumerate(words):
+            for i in range(len(word)+1):
+                for j in range(len(word)+1):
+                    self.dic[word[:i]+"#"+word[j:]] = weight
+
+    def f(self, prefix, suffix):
+        """
+        :type prefix: str
+        :type suffix: str
+        :rtype: int
+        """
+        return self.dic.get(prefix+'#'+suffix, -1)
+
+
 class WordFilter:
-    """
+    """05/21/2021 09:23
     Prefix map and suffix map
     Time complexity:
         init: O(n*l) where n = len(words), l = len(word)
@@ -130,18 +151,44 @@ class WordFilter:
         return max(indexes) if indexes else -1
 
 
-@pytest.mark.parametrize('commands, args, expecteds', [
-    (["WordFilter", "f"], [[["apple"]], ["a", "e"]], [None, 0]),
+class WordFilter:
+    """06/19/2022 20:39"""
+    def __init__(self, words: List[str]):
+        self.words = {word: i for i, word in enumerate(words)}
+        self.prefix_map = defaultdict(set)
+        self.suffix_map = defaultdict(set)
+
+        def add_word(word, prefix_map, i):
+            k = ''
+            prefix_map[k].add(i)
+            for c in word:
+                k += c
+                prefix_map[k].add(i)
+
+        for word, i in self.words.items():
+            add_word(word, self.prefix_map, i)
+            add_word(word[::-1], self.suffix_map, i)
+
+    def f(self, prefix: str, suffix: str) -> int:
+        indexes = self.prefix_map[prefix] & self.suffix_map[suffix[::-1]]
+        return -1 if not indexes else max(indexes)
+
+
+@pytest.mark.parametrize('commands, arguments, expecteds', [
+    (["WordFilter", "f"],
+     [[["apple"]], ["a", "e"]],
+     [None, 0]),
     (["WordFilter","f","f","f","f","f","f","f","f","f","f"],
-     [[["cabaabaaaa","ccbcababac","bacaabccba","bcbbcbacaa","abcaccbcaa","accabaccaa","cabcbbbcca","ababccabcb","caccbbcbab","bccbacbcba"]],
-      ["bccbacbcba","a"],["ab","abcaccbcaa"],["a","aa"],["cabaaba","abaaaa"],["cacc","accbbcbab"],["ccbcab","bac"],["bac","cba"],["ac","accabaccaa"],["bcbb","aa"],["ccbca","cbcababac"]],
+     [[["cabaabaaaa","ccbcababac","bacaabccba","bcbbcbacaa","abcaccbcaa","accabaccaa","cabcbbbcca","ababccabcb","caccbbcbab","bccbacbcba"]],["bccbacbcba","a"],["ab","abcaccbcaa"],["a","aa"],["cabaaba","abaaaa"],["cacc","accbbcbab"],["ccbcab","bac"],["bac","cba"],["ac","accabaccaa"],["bcbb","aa"],["ccbca","cbcababac"]],
      [None,9,4,5,0,8,1,2,5,3,1]),
     json.load(open(Path(__file__).parent/'testcase.json')),
 ])
-def test(commands, args, expecteds):
-    o = globals()[commands[0]](*args[0])
-    for cmd, arg, exp in zip(commands[1:], args[1:], expecteds[1:]):
-        assert exp == getattr(o, cmd)(*arg)
+def test(commands, arguments, expecteds):
+    obj = globals()[commands.pop(0)](*arguments.pop(0))
+    actual = []
+    for cmd, arg in zip(commands, arguments):
+        actual.append(getattr(obj, cmd)(*arg))
+    assert expecteds[1:] == actual
 
 
 if __name__ == '__main__':

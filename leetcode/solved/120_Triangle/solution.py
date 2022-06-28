@@ -103,9 +103,8 @@ class Solution:
             cost = new_cost
         return min(cost)
 
-
     def minimumTotal(self, triangle: List[List[int]]) -> int:
-        """
+        """05/05/2021 08:55
         Top-down DP
         Time complexity: O(n^2)
         Space complexity: O(n)
@@ -118,12 +117,22 @@ class Solution:
                 cost[j] = v + min(cost[j], cost[j+1])
         return cost[0]
 
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        """06/19/2022 15:56"""
+        if not triangle:
+            return 0
+        cur = triangle[0]
+        for row in triangle[1:]:
+            cur = [
+                x + min([cur[j] for j in range(max(0, i-1), min(len(cur), i+1))])
+                for i, x in enumerate(row)
+            ]
+        return min(cur)
+
 
 @pytest.mark.parametrize('triangle, expected', [
-([[2],[3,4],[6,5,7],[4,1,8,3]], 11),
-([[-10]], -10),
-
-
+    ([[2],[3,4],[6,5,7],[4,1,8,3]], 11),
+    ([[-10]], -10),
 ])
 def test(triangle, expected):
     assert expected == Solution().minimumTotal(triangle)

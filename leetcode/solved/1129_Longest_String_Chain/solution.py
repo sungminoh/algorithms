@@ -44,13 +44,14 @@ Constraints:
 """
 import sys
 from functools import lru_cache
+from collections import defaultdict
 from typing import List
 import pytest
 
 
 class Solution:
     def longestStrChain(self, words: List[str]) -> int:
-        """
+        """06/03/2021 05:56
         DFS DP
         Time complexity: O(n^2*l)
         Space complexity: O(n)
@@ -101,7 +102,7 @@ class Solution:
         return max(dfs(i) for i in range(len(words)))
 
     def longestStrChain(self, words: List[str]) -> int:
-        """
+        """06/03/2021 06:07
         DP
         Time complexity: O(n*l*l)
         Space complexity: O(n*l)
@@ -117,11 +118,66 @@ class Solution:
         return max(dp.values())
 
 
+    def longestStrChain(self, words: List[str]) -> int:
+        """06/19/2022 17:06"""
+        if not words:
+            return 0
+        words.sort(key=len)
+
+        def is_predecessor(w1, w2):
+            i = j = 0
+            has_chance = True
+            while i < len(w1) or j < len(w2):
+                if i == len(w1):
+                    return has_chance and j == len(w2)-1
+                if w1[i] != w2[j]:
+                    if not has_chance:
+                        return False
+                    has_chance = False
+                    j += 1
+                else:
+                    i += 1
+                    j += 1
+            return True
+
+        # build successor graph
+        graph = defaultdict(set)
+        lth = len(words[0])
+        i = j = k = 0
+        while k < len(words):
+            if len(words[k]) > lth+1:
+                lth += 1
+                i = j = k
+            elif len(words[k]) == lth:
+                k += 1
+            else:
+                for a in range(i, j):
+                    for b in range(j, k):
+                        if is_predecessor(words[a], words[b]):
+                            graph[a].add(b)
+                lth += 1
+                i, j, k = j, k, k
+        for a in range(i, j):
+            for b in range(j, k):
+                if is_predecessor(words[a], words[b]):
+                    graph[a].add(b)
+
+        # dfs
+        @lru_cache(None)
+        def dfs(i):
+            ret = 0
+            for j in graph[i]:
+                ret = max(ret, dfs(j))
+            return ret+1
+
+        return max(dfs(i) for i in range(len(words)))
+
+
 @pytest.mark.parametrize('words, expected', [
     (["a","b","ba","bca","bda","bdca"], 4),
     (["xbc","pcxbcf","xb","cxbc","pcxbc"], 5),
     (["abcd","dbqca"], 1),
-    (["a","b","ab","bac"], 2)
+    (["a","b","ab","bac"], 2),
 ])
 def test(words, expected):
     assert expected == Solution().longestStrChain(words)

@@ -1,28 +1,33 @@
-### [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/description/)
+### [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
 
-[**Description](https://leetcode.com/problems/longest-palindromic-substring/description/)[**Hints](https://leetcode.com/problems/longest-palindromic-substring/hints/)[**Submissions](https://leetcode.com/problems/longest-palindromic-substring/submissions/)[**Discuss](https://leetcode.com/problems/longest-palindromic-substring/discuss/)[**Solution](https://leetcode.com/problems/longest-palindromic-substring/solution/)
+Medium
 
-[**Discuss](https://discuss.leetcode.com/category/13)[**Pick One](https://leetcode.com/problems/random-one-question/)
+Given a string `` s ``, return _the longest palindromic substring_ in `` s ``.
 
-------
+ 
 
-Given a string **s**, find the longest palindromic substring in **s**. You may assume that the maximum length of **s** is 1000.
-
-**Example:**
+__Example 1:__
 
 ```
-Input: "babad"
-
+Input: s = "babad"
 Output: "bab"
-
-Note: "aba" is also a valid answer.
-
+Explanation: "aba" is also a valid answer.
 ```
 
-**Example:**
+__Example 2:__
 
 ```
-Input: "cbbd"
-
+Input: s = "cbbd"
 Output: "bb"
 ```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= s.length <= 1000 ``
+*   `` s `` consist of only digits and English letters.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 5,991,590 | 1,928,490 | 32.2% |

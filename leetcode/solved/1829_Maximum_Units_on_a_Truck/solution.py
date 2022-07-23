@@ -45,6 +45,7 @@ import pytest
 
 class Solution:
     def maximumUnits(self, boxTypes: List[List[int]], truckSize: int) -> int:
+        """06/25/2021 20:52"""
         cnt = 0
         ret = 0
         for c, u in sorted(boxTypes, key=lambda x: x[1], reverse=True):
@@ -55,10 +56,21 @@ class Solution:
                 break
         return ret
 
+    def maximumUnits(self, boxTypes: List[List[int]], truckSize: int) -> int:
+        """07/21/2022 21:50"""
+        ret = 0
+        for box_cnt, unit_cnt in sorted(boxTypes, key=lambda x: x[1], reverse=True):
+            if truckSize == 0:
+                break
+            cnt = min(box_cnt, truckSize)
+            ret += cnt * unit_cnt
+            truckSize -= cnt
+        return ret
+
 
 @pytest.mark.parametrize('boxTypes, truckSize, expected', [
-([[1,3],[2,2],[3,1]], 4, 8),
-([[5,10],[2,5],[4,7],[3,9]], 10, 91),
+    ([[1,3],[2,2],[3,1]], 4, 8),
+    ([[5,10],[2,5],[4,7],[3,9]], 10, 91),
 ])
 def test(boxTypes, truckSize, expected):
     assert expected == Solution().maximumUnits(boxTypes, truckSize)

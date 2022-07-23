@@ -39,17 +39,7 @@ import pytest
 
 class Solution:
     def minMoves2(self, nums: List[int]) -> int:
-        """
-        Find median by sorting
-        Time complexity: O(nlogn)
-        Space complexity: O(1)
-        """
-        nums = sorted(nums)
-        m = nums[len(nums) // 2]
-        return sum(abs(n - m) for n in nums)
-
-    def minMoves2(self, nums: List[int]) -> int:
-        """
+        """06/01/2021 16:09
         Find median by quick select
         Time complexity: O(n) ~ O(n^2)
         Space complexity: O(1)
@@ -81,6 +71,12 @@ class Solution:
 
         mid = quick_select(nums, len(nums)//2+1)
         return sum(abs(n-mid) for n in nums)
+
+
+    def minMoves2(self, nums: List[int]) -> int:
+        nums.sort()
+        n = nums[len(nums)//2]
+        return sum(abs(x - n) for x in nums)
 
 
 @pytest.mark.parametrize('nums, expected', [

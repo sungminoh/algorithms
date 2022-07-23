@@ -48,6 +48,7 @@ import pytest
 
 class Solution:
     def maxArea(self, h: int, w: int, horizontalCuts: List[int], verticalCuts: List[int]) -> int:
+        """06/22/2021 06:07"""
         MOD = 1e9+7
         hs = sorted(horizontalCuts + [h]) + [0]
         ws = sorted(verticalCuts + [w]) + [0]
@@ -60,6 +61,17 @@ class Solution:
             width -= MOD
         return int((height*width) % MOD)
 
+    def maxArea(self, h: int, w: int, horizontalCuts: List[int], verticalCuts: List[int]) -> int:
+        horizontalCuts.append(0)
+        horizontalCuts.append(h)
+        horizontalCuts.sort()
+        verticalCuts.append(0)
+        verticalCuts.append(w)
+        verticalCuts.sort()
+        MOD = int(1e9)+7
+        height = max(horizontalCuts[i+1]-horizontalCuts[i] for i in range(len(horizontalCuts)-1)) % MOD
+        width = max(verticalCuts[i+1]-verticalCuts[i] for i in range(len(verticalCuts)-1)) % MOD
+        return (height * width) % MOD
 
 
 @pytest.mark.parametrize('h, w, horizontalCuts, verticalCuts, expected', [

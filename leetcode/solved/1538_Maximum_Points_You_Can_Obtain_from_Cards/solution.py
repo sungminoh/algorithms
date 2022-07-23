@@ -33,17 +33,6 @@ Input: cardPoints = [9,7,7,9,7,7,9], k = 7
 Output: 55
 Explanation: You have to take all the cards. Your score is the sum of points of all cards.
 
-Example 4:
-
-Input: cardPoints = [1,1000,1], k = 1
-Output: 1
-Explanation: You cannot take the card in the middle. Your best score is 1.
-
-Example 5:
-
-Input: cardPoints = [1,79,80,1,1,1,200,1], k = 3
-Output: 202
-
 Constraints:
 
 	1 <= cardPoints.length <= 105
@@ -51,8 +40,8 @@ Constraints:
 	1 <= k <= cardPoints.length
 """
 import itertools
-import json
 from pathlib import Path
+import json
 import sys
 from functools import lru_cache
 from typing import List
@@ -61,26 +50,7 @@ import pytest
 
 class Solution:
     def maxScore(self, cardPoints: List[int], k: int) -> int:
-        """
-        DFS
-        Time complexity: O(k^3)
-        Space complexity: O(k^3)
-        """
-        if k >= len(cardPoints):
-            return sum(cardPoints)
-
-        @lru_cache(None)
-        def dfs(i, j, k):
-            if k == 0:
-                return 0
-            return max(
-                cardPoints[i] + dfs(i+1, j, k-1),
-                dfs(i, j-1, k-1) + cardPoints[j])
-
-        return dfs(0, len(cardPoints)-1, k)
-
-    def maxScore(self, cardPoints: List[int], k: int) -> int:
-        """
+        """05/27/2021 15:20
         DP
         Time complexity: O(n)
         Space complexity: O(n)
@@ -90,6 +60,30 @@ class Solution:
         left = [0] + list(itertools.accumulate(cardPoints))
         right = [0] + list(itertools.accumulate(reversed(cardPoints)))
         return max(left[i] + right[k-i] for i in range(k+1))
+
+    def maxScore(self, cardPoints: List[int], k: int) -> int:
+        """TLE"""
+        n = len(cardPoints)-1
+
+        @lru_cache(None)
+        def rec(i, j):
+            if i + (n-j) == k:
+                return 0
+            return max(cardPoints[i] + rec(i+1, j), cardPoints[j] + rec(i, j-1))
+
+        return rec(0, n)
+
+    def maxScore(self, cardPoints: List[int], k: int) -> int:
+        """07/22/2022 21:26"""
+        n = len(cardPoints)-1
+        acc = list(itertools.accumulate(cardPoints))
+        ret = 0
+        for i in range(k+1):
+            j = n-(k-i)
+            left = acc[i-1] if i>0 else 0
+            right = acc[-1] - acc[j]
+            ret = max(ret, left + right)
+        return ret
 
 
 @pytest.mark.parametrize('cardPoints, k, expected', [

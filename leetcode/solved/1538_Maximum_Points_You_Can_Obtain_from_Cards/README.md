@@ -36,21 +36,6 @@ Output: 55
 Explanation: You have to take all the cards. Your score is the sum of points of all cards.
 ```
 
-__Example 4:__
-
-```
-Input: cardPoints = [1,1000,1], k = 1
-Output: 1
-Explanation: You cannot take the card in the middle. Your best score is 1. 
-```
-
-__Example 5:__
-
-```
-Input: cardPoints = [1,79,80,1,1,1,200,1], k = 3
-Output: 202
-```
-
  
 
 __Constraints:__
@@ -61,4 +46,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 162,751 | 78,648 | 48.3% |
+| 368,210 | 192,784 | 52.4% |

@@ -33,15 +33,28 @@ Constraints:
 	n consists of only digits.
 	n does not contain any leading zeros and represents a positive integer.
 """
+import sys
 import pytest
 
 
 class Solution:
     def minPartitions(self, n: str) -> int:
+        """06/09/2021 05:05"""
         return max(int(x) for x in n)
 
+    def minPartitions(self, n: str) -> int:
+        """07/22/2022 21:51"""
+        return max(map(int, n))
 
-@pytest.mark.parametrize('', [
+
+@pytest.mark.parametrize('n, expected', [
+    ("32", 3),
+    ("82734", 8),
+    ("27346209830709182346", 9),
 ])
-def test():
-    pass
+def test(n, expected):
+    assert expected == Solution().minPartitions(n)
+
+
+if __name__ == '__main__':
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

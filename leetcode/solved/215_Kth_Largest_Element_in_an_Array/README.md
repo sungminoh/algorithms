@@ -2,21 +2,31 @@
 
 Medium
 
-Find the **k**th largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
+Given an integer array `` nums `` and an integer `` k ``, return _the_ <code>k<sup>th</sup></code> _largest element in the array_.
 
-**Example 1:**
+Note that it is the <code>k<sup>th</sup></code> largest element in the sorted order, not the <code>k<sup>th</sup></code> distinct element.
 
-```
-Input: [3,2,1,5,6,4] and k = 2
+ 
+
+__Example 1:__
+
+```Input: nums = [3,2,1,5,6,4], k = 2
 Output: 5
 ```
 
-**Example 2:**
+__Example 2:__
 
-```
-Input: [3,2,3,1,2,4,5,5,6] and k = 4
+```Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
 Output: 4
 ```
 
-**Note:** 
-You may assume k is always valid, 1 ≤ k ≤ array's length.
+ 
+
+__Constraints:__
+
+*   <code>1 <= k <= nums.length <= 10<sup>4</sup></code>
+*   <code>-10<sup>4</sup> <= nums[i] <= 10<sup>4</sup></code>
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 2,199,448 | 1,423,663 | 64.7% |

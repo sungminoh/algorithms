@@ -91,10 +91,33 @@ class Solution:
         return True
 
 
+    def checkPossibility(self, nums: List[int]) -> bool:
+        """
+        One pass
+        Time complexity: O(n)
+        Space complexity: O(1)
+        """
+        if not nums:
+            return True
+        found = False
+        nums.insert(0, -float('inf'))
+        p = nums[0]
+        for i in range(1, len(nums)):
+            if p > nums[i]:
+                if found:
+                    return False
+                if i>=2 and nums[i-2] <= nums[i]:
+                    p = nums[i]
+                found = True
+            else:
+                p = nums[i]
+        return True
+
+
 @pytest.mark.parametrize('nums, expected', [
     ([4,2,3], True),
     ([4,2,1], False),
-    ([-1,4,2,3], True)
+    ([-1,4,2,3], True),
 ])
 def test(nums, expected):
     assert expected == Solution().checkPossibility(nums)

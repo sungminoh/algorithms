@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -8,25 +7,34 @@
 # Distributed under terms of the MIT license.
 
 """
-Given a list of words, we may encode it by writing a reference string S and a list of indexes A.
+A valid encoding of an array of words is any reference string s and array of indices indices such that:
 
-For example, if the list of words is ["time", "me", "bell"], we can write it as S = "time#bell#" and indexes = [0, 2, 5].
+	words.length == indices.length
+	The reference string s ends with the '#' character.
+	For each index indices[i], the substring of s starting from indices[i] and up to (but not including) the next '#' character is equal to words[i].
 
-Then for each index, we will recover the word by reading from the reference string from that index until we reach a "#" character.
+Given an array of words, return the length of the shortest reference string s possible of any valid encoding of words.
 
-What is the length of the shortest reference string S possible that encodes the given words?
-
-Example:
+Example 1:
 
 Input: words = ["time", "me", "bell"]
 Output: 10
-Explanation: S = "time#bell#" and indexes = [0, 2, 5].
+Explanation: A valid encoding would be s = "time#bell#" and indices = [0, 2, 5].
+words[0] = "time", the substring of s starting from indices[0] = 0 to the next '#' is underlined in "time#bell#"
+words[1] = "me", the substring of s starting from indices[1] = 2 to the next '#' is underlined in "time#bell#"
+words[2] = "bell", the substring of s starting from indices[2] = 5 to the next '#' is underlined in "time#bell#"
 
-Note:
+Example 2:
 
-	1 .
-	1 .
-	Each word has only lowercase letters.
+Input: words = ["t"]
+Output: 2
+Explanation: A valid encoding would be s = "t#" and indices = [0].
+
+Constraints:
+
+	1 <= words.length <= 2000
+	1 <= words[i].length <= 7
+	words[i] consists of only lowercase letters.
 """
 import sys
 from collections import defaultdict
@@ -37,8 +45,10 @@ import pytest
 def infdict():
     return defaultdict(infdict)
 
+
 class Solution:
     def minimumLengthEncoding(self, words: List[str]) -> int:
+        """05/25/2020 15:36"""
         if not words:
             return 0
 
@@ -56,10 +66,25 @@ class Solution:
 
         return count(suffix_trie)
 
+    def minimumLengthEncoding(self, words: List[str]) -> int:
+        trie = infdict()
+        for word in words:
+            t = trie
+            for c in reversed(word):
+                t = t[c]
+
+        def dfs(t, d):
+            if not t:
+                return d+1
+            return sum(dfs(v, d+1) for v in t.values())
+
+        return dfs(trie, 0)
+
 
 @pytest.mark.parametrize('words, expected', [
     (["time", "me", "bell"], 10),
     ([], 0),
+    (["t"], 2),
     (["lime", "time", "me", "bell"], 15),
 ])
 def test(words, expected):

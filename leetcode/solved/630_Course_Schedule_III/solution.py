@@ -36,20 +36,18 @@ Output: 0
 
 Constraints:
 
-	1 <= courses.length <= 10^4
-	1 <= durationi, lastDayi <= 10^4
+	1 <= courses.length <= 104
+	1 <= durationi, lastDayi <= 104
 """
-from heapq import heappop
-from heapq import heappush
 import sys
-from functools import lru_cache
+from heapq import heappop, heappush
 from typing import List
 import pytest
 
 
 class Solution:
     def scheduleCourse(self, courses: List[List[int]]) -> int:
-        """
+        """05/20/2021 23:41
         After sort the course by the due, take course as much as possible.
         if a course doesn't end by its due, see if we could've take the current
         course instead of one that took the longest
@@ -73,7 +71,7 @@ class Solution:
         return len(taken)
 
     def scheduleCourse(self, courses: List[List[int]]) -> int:
-        """
+        """05/20/2021 23:48
         Same logic but simplified
         Time complexity: O(n*logn)
         Space complexity: O(n)
@@ -87,6 +85,18 @@ class Solution:
                 current += heappop(taken)
         return len(taken)
 
+    def scheduleCourse(self, courses: List[List[int]]) -> int:
+        """07/05/2022 08:47"""
+        s = 0
+        h = []
+        courses.sort(key=lambda x: (x[1], -x[0]))
+        for duration, lastday in courses:
+            heappush(h, -duration)
+            s += duration
+            while s > lastday:
+                s += heappop(h)
+        return len(h)
+
 
 @pytest.mark.parametrize('courses, expected', [
     ([[100,200],[200,1300],[1000,1250],[2000,3200]], 3),
@@ -94,10 +104,9 @@ class Solution:
     ([[3,2],[4,3]], 0),
     ([[100,2],[32,50]], 1),
     ([[9,14],[7,12],[1,11],[4,7]], 3),
-    ([[7,17],[3,12],[10,20],[9,10],[5,20],[10,19],[4,18]], 4)
+    ([[7,17],[3,12],[10,20],[9,10],[5,20],[10,19],[4,18]], 4),
 ])
 def test(courses, expected):
-    print()
     assert expected == Solution().scheduleCourse(courses)
 
 

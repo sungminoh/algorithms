@@ -108,7 +108,7 @@ class Solution:
         heap = [(0, k-1)]
         while heap:
             d, u = heappop(heap)
-            if dists[u] == -1:
+            if dists[u] != -1:
                 continue
             dists[u] = d
             for v, t in graph[u].items():

@@ -36,15 +36,23 @@ Constraints:
 
 	0 <= n <= 30
 """
-import sys
 from functools import lru_cache
+import sys
 import pytest
 
 
 class Solution:
     @lru_cache(None)
     def fib(self, n: int) -> int:
+        """05/03/2021 09:13"""
         return n if n <= 1 else self.fib(n-1) + self.fib(n-2)
+
+    def fib(self, n: int) -> int:
+        """07/23/2022 10:40"""
+        memo = [0, 1]
+        for i in range(2, n+1):
+            memo[i%2] = sum(memo)
+        return memo[n%2]
 
 
 @pytest.mark.parametrize('n, expected', [

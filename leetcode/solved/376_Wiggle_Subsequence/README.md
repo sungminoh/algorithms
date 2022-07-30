@@ -2,35 +2,52 @@
 
 Medium
 
-A sequence of numbers is called a __wiggle sequence__ if the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with fewer than two elements is trivially a wiggle sequence.
+A __wiggle sequence__ is a sequence where the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with one element and a sequence with two non-equal elements are trivially wiggle sequences.
 
-For example, `` [1,7,4,9,2,5] `` is a wiggle sequence because the differences `` (6,-3,5,-7,3) `` are alternately positive and negative. In contrast, `` [1,4,7,2,5] `` and `` [1,7,4,5,5] `` are not wiggle sequences, the first because its first two differences are positive and the second because its last difference is zero.
+*   For example, `` [1, 7, 4, 9, 2, 5] `` is a __wiggle sequence__ because the differences `` (6, -3, 5, -7, 3) `` alternate between positive and negative.
+*   In contrast, `` [1, 4, 7, 2, 5] `` and `` [1, 7, 4, 5, 5] `` are not wiggle sequences. The first is not because its first two differences are positive, and the second is not because its last difference is zero.
 
-Given a sequence of integers, return the length of the longest subsequence that is a wiggle sequence. A subsequence is obtained by deleting some number of elements (eventually, also zero) from the original sequence, leaving the remaining elements in their original order.
+A __subsequence__ is obtained by deleting some elements (possibly zero) from the original sequence, leaving the remaining elements in their original order.
+
+Given an integer array `` nums ``, return _the length of the longest __wiggle subsequence__ of _`` nums ``.
+
+ 
 
 __Example 1:__
 
 ```
-<strong>Input: </strong><span id="example-input-1-1">[1,7,4,9,2,5]</span>
-<strong>Output: </strong><span id="example-output-1">6
-<strong>Explanation:</strong> </span>The entire sequence is a wiggle sequence.```
+Input: nums = [1,7,4,9,2,5]
+Output: 6
+Explanation: The entire sequence is a wiggle sequence with differences (6, -3, 5, -7, 3).
+```
 
-<div>
-<p><strong>Example 2:</strong></p>
+__Example 2:__
+
 ```
-<strong>Input: </strong><span id="example-input-2-1">[1,17,5,10,13,15,10,5,16,8]</span>
-<strong>Output: </strong><span id="example-output-2">7
-</span><span id="example-output-1"><strong>Explanation: </strong></span>There are several subsequences that achieve this length. One is [1,17,10,13,10,16,8].```
-<div>
-<p><strong>Example 3:</strong></p>
+Input: nums = [1,17,5,10,13,15,10,5,16,8]
+Output: 7
+Explanation: There are several subsequences that achieve this length.
+One is [1, 17, 10, 13, 10, 16, 8] with differences (16, -7, 3, -3, 6, -8).
 ```
-<strong>Input: </strong><span id="example-input-3-1">[1,2,3,4,5,6,7,8,9]</span>
-<strong>Output: </strong><span id="example-output-3">2</span>```
-<p><b>Follow up:</b><br/>
-Can you do it in O(<i>n</i>) time?</p>
-</div>
-</div>
+
+__Example 3:__
+
+```
+Input: nums = [1,2,3,4,5,6,7,8,9]
+Output: 2
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= nums.length <= 1000 ``
+*   `` 0 <= nums[i] <= 1000 ``
+
+ 
+
+__Follow up:__ Could you solve this in `` O(n) `` time?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 158,400 | 61,873 | 39.1% |
+| 411,229 | 197,395 | 48.0% |

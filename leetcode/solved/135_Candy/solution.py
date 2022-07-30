@@ -35,9 +35,10 @@ Constraints:
 	1 <= n <= 2 * 104
 	0 <= ratings[i] <= 2 * 104
 """
-import sys
 from heapq import heappop
 from heapq import heapify
+from collections import deque
+import sys
 from typing import List
 import pytest
 
@@ -122,11 +123,28 @@ class Solution:
                 candies[i] = max(candies[i], candies[i+1] + 1)
         return sum(candies)
 
+    def candy(self, ratings: List[int]) -> int:
+        """07/26/2022 14:28"""
+        if not ratings:
+            return 0
+        left = [1]*len(ratings)
+        for i in range(1, len(ratings)):
+            if ratings[i-1] < ratings[i]:
+                left[i] = left[i-1]+1
+        right = [1]*len(ratings)
+        for i in range(len(ratings)-2, -1, -1):
+            if ratings[i] > ratings[i+1]:
+                right[i] = right[i+1]+1
+        return sum(max(l, r) for l, r in zip(left, right))
+
 
 @pytest.mark.parametrize('ratings, expected', [
     ([1,0,2], 5),
     ([1,2,2], 4),
-    ([1,3,4,5,2], 11)
+    ([1,3,4,5,2], 11),
+    ([1,3,2,2,1], 7),
+    ([29,51,87,87,72,12], 12),
+    ([1,6,10,8,7,3,2], 18),
 ])
 def test(ratings, expected):
     assert expected == Solution().candy(ratings)

@@ -9,7 +9,7 @@
 """
 Given strings s1, s2, and s3, find whether s3 is formed by an interleaving of s1 and s2.
 
-An interleaving of two strings s and t is a configuration where they are divided into non-empty substrings such that:
+An interleaving of two strings s and t is a configuration where s and t are divided into n and m non-empty substrings respectively, such that:
 
 	s = s1 + s2 + ... + sn
 	t = t1 + t2 + ... + tm
@@ -22,11 +22,16 @@ Example 1:
 
 Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac"
 Output: true
+Explanation: One way to obtain s3 is:
+Split s1 into s1 = "aa" + "bc" + "c", and s2 into s2 = "dbbc" + "a".
+Interleaving the two splits, we get "aa" + "dbbc" + "bc" + "a" + "c" = "aadbbcbcac".
+Since s3 can be obtained by interleaving s1 and s2, we return true.
 
 Example 2:
 
 Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbbaccc"
 Output: false
+Explanation: Notice how it is impossible to interleave s2 with any other string to obtain s3.
 
 Example 3:
 
@@ -41,8 +46,8 @@ Constraints:
 
 Follow up: Could you solve it using only O(s2.length) additional memory space?
 """
-from functools import lru_cache
 import sys
+from functools import lru_cache
 import pytest
 
 
@@ -65,7 +70,8 @@ class Solution:
         return dp(0, 0)
 
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
-        """Bottom up
+        """06/20/2021 07:27
+        Bottom up
         Time complexity: O(n*m)
         Space complexity: O(min(n, m))
         """
@@ -84,12 +90,67 @@ class Solution:
                     dp[j] |= dp[j-1]
         return dp[-1]
 
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        """07/23/2022 10:46"""
+        if len(s1) + len(s2) != len(s3):
+            return False
+
+        @lru_cache(None)
+        def rec(i, j):
+            if i+j == len(s3):
+                return True
+            ret = [False]
+            if i < len(s1) and s1[i] == s3[i+j]:
+                ret.append(rec(i+1, j))
+            if j < len(s2) and s2[j] == s3[i+j]:
+                ret.append(rec(i, j+1))
+            return any(ret)
+
+        return rec(0, 0)
+
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        """07/23/2022 11:22"""
+        if len(s1) + len(s2) != len(s3):
+            return False
+        n, m = len(s1), len(s2)
+        memo = [[False] * (m+1) for _ in range(2)]
+        memo[0][0] = True
+        for i in range(n+1):
+            for j in range(m+1):
+                if i+j == 0:
+                    continue
+                if i > 0 and s1[i-1] == s3[i+j-1]:
+                    memo[i%2][j] |= memo[(i-1)%2][j]
+                if j > 0 and s2[j-1] == s3[i+j-1]:
+                    memo[i%2][j] |= memo[i%2][j-1]
+                memo[(i-1)%2][j] = False
+        return memo[n%2][m]
+
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        """07/23/2022 11:29"""
+        if len(s1) + len(s2) != len(s3):
+            return False
+        n, m = len(s1), len(s2)
+        memo = [False] * (m+1)
+        memo[0] = True
+        for i in range(n+1):
+            for j in range(m+1):
+                if i+j == 0:
+                    continue
+                if i > 0 and s1[i-1] != s3[i+j-1]:
+                    memo[j] = False
+                if j > 0 and s2[j-1] == s3[i+j-1]:
+                    memo[j] |= memo[j-1]
+        return memo[m]
+
 
 @pytest.mark.parametrize('s1, s2, s3, expected', [
     ("aabcc", "dbbca", "aadbbcbcac", True),
     ("aabcc", "dbbca", "aadbbbaccc", False),
     ("", "", "", True),
-    ("", "", "a", False)
+    ("a", "b", "a", False),
+    ("aabc", "abad", "aabadabc", True),
+    ("a", "", "c", False),
 ])
 def test(s1, s2, s3, expected):
     assert expected == Solution().isInterleave(s1, s2, s3)

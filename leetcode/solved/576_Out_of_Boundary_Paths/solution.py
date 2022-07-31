@@ -91,6 +91,43 @@ class Solution:
         return dfs(startRow, startColumn, maxMove)
 
 
+    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
+        """07/30/2022 21:29"""
+        def neighbors(i, j):
+            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                x = i+dx
+                y = j+dy
+                if 0<=x<m and 0<=y<n:
+                    yield x, y
+
+        # for acceleration
+        def min_move_to_out(i, j):
+            return min(i+1, m-i, j+1, n-j)
+
+        MOD = int(1e9+7)
+
+        @lru_cache(None)
+        def dfs(i, j, steps):
+            if steps == 0:
+                return 0
+            ret = 0
+            if i == 0:
+                ret += 1
+            if i == m-1:
+                ret += 1
+            if j == 0:
+                ret +=1
+            if j == n-1:
+                ret += 1
+            ret += sum(
+                dfs(x, y, steps-1)
+                for x, y in neighbors(i, j)
+                if min_move_to_out(x, y)<steps) % MOD
+            return ret % MOD
+
+        return dfs(startRow, startColumn, maxMove)
+
+
 @pytest.mark.parametrize('m, n, maxMove, startRow, startColumn, expected', [
     (2, 2, 2, 0, 0, 6),
     (1, 3, 3, 0, 1, 12),

@@ -17,13 +17,22 @@ Example 1:
 
 Input: cost = [10,15,20]
 Output: 15
-Explanation: Cheapest is: start on cost[1], pay that cost, and go to the top.
+Explanation: You will start at index 1.
+- Pay 15 and climb two steps to reach the top.
+The total cost is 15.
 
 Example 2:
 
 Input: cost = [1,100,1,1,1,100,1,1,100,1]
 Output: 6
-Explanation: Cheapest is: start on cost[0], and only step on 1s, skipping cost[3].
+Explanation: You will start at index 0.
+- Pay 1 and climb two steps to reach index 2.
+- Pay 1 and climb two steps to reach index 4.
+- Pay 1 and climb two steps to reach index 6.
+- Pay 1 and climb one step to reach index 7.
+- Pay 1 and climb two steps to reach index 9.
+- Pay 1 and climb one step to reach the top.
+The total cost is 6.
 
 Constraints:
 
@@ -37,7 +46,7 @@ import pytest
 
 class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
-        """
+        """06/20/2021 07:05
         Time complexity: O(n)
         Space complexity: O(1)
         """
@@ -50,6 +59,19 @@ class Solution:
         for i, c in enumerate(cost[2:], 2):
             prv, cur = cur, min(cur, prv) + c
         return min(prv, cur)
+
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        """07/29/2022 23:43
+        Time complexity: O(n)
+        Space complexity: O(1)
+        """
+        n = len(cost)
+        if n == 0:
+            return 0
+        dp = [0, 0]
+        for i in range(2, n+1):
+            dp[i%2] = min(dp[(i-1)%2] + cost[i-1], dp[(i-2)%2] + cost[i-2])
+        return dp[n%2]
 
 
 @pytest.mark.parametrize('cost, expected', [

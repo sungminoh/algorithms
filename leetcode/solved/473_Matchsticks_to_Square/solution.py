@@ -28,9 +28,8 @@ Constraints:
 	1 <= matchsticks.length <= 15
 	1 <= matchsticks[i] <= 108
 """
-from functools import lru_cache
 import sys
-from collections import defaultdict
+from functools import lru_cache
 from typing import List
 import pytest
 
@@ -118,7 +117,7 @@ class Solution:
         return dfs(0)
 
     def makesquare(self, matchsticks: List[int]) -> bool:
-        """
+        """07/17/2021 20:33
         DFS by sides
         """
         n, r = divmod(sum(matchsticks), 4)
@@ -142,6 +141,32 @@ class Solution:
             return False
 
         return dfs(0, 0, 0)
+
+    def makesquare(self, matchsticks: List[int]) -> bool:
+        """07/30/2022 20:58"""
+        total = sum(matchsticks)
+        if total%4 != 0:
+            return False
+        side = total//4
+        matchsticks.sort(reverse=True)
+
+        @lru_cache(None)
+        def dfs(i, remainders):
+            if i == len(matchsticks):
+                return True
+            for j in range(len(remainders)):
+                if remainders[j] >= matchsticks[i]:
+                    _remainders = list(remainders)
+                    _remainders[j] -= matchsticks[i]
+                    # acceleration
+                    if 0 < _remainders[j] < matchsticks[-1]:
+                        continue
+                    _remainders.sort(reverse=True)
+                    if dfs(i+1, tuple(_remainders)):
+                        return True
+            return False
+
+        return dfs(0, tuple([side]*4))
 
 
 @pytest.mark.parametrize('matchsticks, expected', [

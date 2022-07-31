@@ -9,20 +9,6 @@
 """
 Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
 
-For example:
-Given binary tree [3,9,20,null,null,15,7],
-    3
-   / \
-  9  20
-    /  \
-   15   7
-return its level order traversal as:
-[
-  [3],
-  [9,20],
-  [15,7]
-]
-
 Example 1:
 
 Input: root = [3,9,20,null,null,15,7]
@@ -43,33 +29,40 @@ Constraints:
 	The number of nodes in the tree is in the range [0, 2000].
 	-1000 <= Node.val <= 1000
 """
-from collections import defaultdict
 from collections import deque
+from collections import defaultdict
 from typing import List
+from typing import Optional
 import pytest
 import sys
-sys.path.append('../../')
+sys.path.append('../')
 from exercise.tree import TreeNode, build_tree
 
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    memo = defaultdict(list)
-    def tree2list(self, r, d=0):
-        if d == 0:
-            self.memo.clear()
-        if not r:
-            return
-        self.memo[d].append(r.val)
-        self.tree2list(r.left, d+1)
-        self.tree2list(r.right, d+1)
-
     def levelOrder(self, root):
         """05/06/2018 22:20"""
-        self.tree2list(root)
-        return [v for k, v in sorted(self.memo.items(), key=lambda x: x[0])]
+        memo = defaultdict(list)
+        def tree2list(r, d=0):
+            if d == 0:
+                memo.clear()
+            if not r:
+                return
+            memo[d].append(r.val)
+            tree2list(r.left, d+1)
+            tree2list(r.right, d+1)
 
+        tree2list(root)
+        return [v for k, v in sorted(memo.items(), key=lambda x: x[0])]
 
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        """06/01/2021 14:48"""
         if not root:
             return []
         queue = deque([(0, root)])
@@ -90,17 +83,33 @@ class Solution:
         ret.append(level)
         return ret
 
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        """07/30/2022 18:30"""
+        ret = []
+        buf = []
+        if root:
+            buf.append(root)
+        while buf:
+            layer = []
+            _buf = []
+            for n in buf:
+                layer.append(n.val)
+                if n.left:
+                    _buf.append(n.left)
+                if n.right:
+                    _buf.append(n.right)
+            ret.append(layer)
+            buf = _buf
+        return ret
 
-@pytest.mark.parametrize('nodes, expected', [
+
+@pytest.mark.parametrize('values, expected', [
     ([3,9,20,None,None,15,7], [[3],[9,20],[15,7]]),
     ([1], [[1]]),
     ([], []),
 ])
-def test(nodes, expected):
-    print()
-    root = build_tree(nodes)
-    print(root)
-    assert expected == Solution().levelOrder(root)
+def test(values, expected):
+    assert expected == Solution().levelOrder(build_tree(values))
 
 
 if __name__ == '__main__':

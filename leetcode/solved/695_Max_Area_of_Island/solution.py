@@ -38,7 +38,7 @@ import pytest
 
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        """08/29/2020 16:41	"""
+        """08/29/2020 16:41"""
         if not grid or not grid[0]:
             return 0
 
@@ -60,7 +60,8 @@ class Solution:
         return max(dfs(x, y) for x in range(X) for y in range(Y))
 
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        """DFS
+        """06/20/2021 09:07
+        DFS
         Time complexity: O(n*m)
         Space complexity: O(n*m)
         """
@@ -92,10 +93,45 @@ class Solution:
                     ret = max(ret, dfs(i, j))
         return ret
 
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        """07/30/2022 21:40"""
+        if not grid or not grid[0]:
+            return 0
+
+        m, n = len(grid), len(grid[0])
+        def neighbors(i, j):
+            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                x, y = i+dx, j+dy
+                if 0<=x<m and 0<=y<n:
+                    yield x, y
+
+        def dfs(i, j):
+            ret = 1
+            grid[i][j] = 0
+            for x, y in neighbors(i, j):
+                if grid[x][y] == 1:
+                    ret += dfs(x, y)
+            return ret
+
+        ret = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    ret = max(ret, dfs(i, j))
+
+        return ret
+
 
 @pytest.mark.parametrize('grid, expected', [
-([[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]], 6),
-([[0,0,0,0,0,0,0,0]], 0),
+    ([[0,0,1,0,0,0,0,1,0,0,0,0,0],
+      [0,0,0,0,0,0,0,1,1,1,0,0,0],
+      [0,1,1,0,1,0,0,0,0,0,0,0,0],
+      [0,1,0,0,1,1,0,0,1,0,1,0,0],
+      [0,1,0,0,1,1,0,0,1,1,1,0,0],
+      [0,0,0,0,0,0,0,0,0,0,1,0,0],
+      [0,0,0,0,0,0,0,1,1,1,0,0,0],
+      [0,0,0,0,0,0,0,1,1,0,0,0,0]], 6),
+    ([[0,0,0,0,0,0,0,0]], 0),
 ])
 def test(grid, expected):
     assert expected == Solution().maxAreaOfIsland(grid)

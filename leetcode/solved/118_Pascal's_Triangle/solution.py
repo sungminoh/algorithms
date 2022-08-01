@@ -29,6 +29,7 @@ import pytest
 
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
+        """07/17/2021 08:17"""
         ret = []
         for i in range(numRows):
             row = [1]
@@ -39,10 +40,23 @@ class Solution:
             ret.append(row)
         return ret
 
+    def generate(self, numRows: int) -> List[List[int]]:
+        """07/31/2022 22:48"""
+        if numRows == 0:
+            return []
+        ret = [[1]]
+        for i in range(1, numRows):
+            row = [1]
+            for i in range(len(ret[-1])-1):
+                row.append(ret[-1][i] + ret[-1][i+1])
+            row.append(1)
+            ret.append(row)
+        return ret
+
 
 @pytest.mark.parametrize('numRows, expected', [
-(5, [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]),
-(1, [[1]]),
+    (5, [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]),
+    (1, [[1]]),
 ])
 def test(numRows, expected):
     assert expected == Solution().generate(numRows)

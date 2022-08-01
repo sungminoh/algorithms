@@ -34,19 +34,21 @@ Constraints:
 	1 <= nums.length <= 105
 	-104 <= nums[i] <= 104
 """
-from collections import defaultdict
-import sys
+from pathlib import Path
+import json
 import bisect
+import sys
 from typing import Tuple
 from typing import List
 import pytest
 
 
-
-
 class Solution:
     def countSmaller(self, nums: List[int]) -> List[int]:
-        """06/17/2020 23:01	"""
+        """06/17/2020 23:01
+        Time Complexity: O(n*logn)
+        Space Complexity: O(n)
+        """
         class TreeNode:
             def __init__(self, v):
                 self.val = v
@@ -92,7 +94,10 @@ class Solution:
         return list(reversed(ret))
 
     def countSmaller(self, nums: List[int]) -> List[int]:
-        """06/17/2020 23:06"""
+        """06/17/2020 23:06
+        Time Complexity: O(n*(logn+n)) considering insertion
+        Space Complexity: O(n)
+        """
         def binsearch(nums, n):
             i, j = 0, len(nums)-1
             while i <= j:
@@ -116,7 +121,7 @@ class Solution:
     def countSmaller(self, nums: List[int]) -> List[int]:
         """
         Binary search
-        Time complexity: O(n*logn*n)
+        Time Complexity: O(n*(logn+n)) considering insertion
         Space complexity: O(n)
         """
         ret = []
@@ -168,7 +173,7 @@ class Solution:
         return cnt
 
     def countSmaller(self, nums: List[int]) -> List[int]:
-        """
+        """08/09/2021 00:03
         Binary indexed tree
         Time complexity: O(n*logn)
         Space complexity: O(n)
@@ -177,13 +182,13 @@ class Solution:
             s = 0
             while i > 0:
                 s += tree[i]
-                i -= i&-i
+                i -= i&-i  # go to parent, remove the least significant 1
             return s
 
         def update(tree, i):
             while i < len(tree):
                 tree[i] += 1
-                i += i&-i
+                i += i&-i  # go to next
 
         m = {n: i for i, n in enumerate(sorted(set(nums)))}
         tree = [0] * len(m)
@@ -193,13 +198,34 @@ class Solution:
             update(tree, m[n]+1)
         return ret[::-1]
 
+    def countSmaller(self, nums: List[int]) -> List[int]:
+        """07/31/2022 23:49"""
+        def bisearch(arr, x):
+            s, e = 0, len(arr)-1
+            while s <= e:
+                m = s + ((e-s)//2)
+                if arr[m] < x:
+                    s = m+1
+                else:
+                    e = m-1
+            return s
+
+        ret = []
+        sorted_list = []
+        for i in range(len(nums)-1, -1, -1):
+            cnt = bisearch(sorted_list, nums[i])
+            sorted_list.insert(cnt, nums[i])
+            ret.append(cnt)
+        return ret[::-1]
+
 
 @pytest.mark.parametrize('nums, expected', [
     ([5,2,6,1], [2,1,1,0]),
     ([-1], [0]),
     ([-1,-1], [0,0]),
     ([26,78,27,100,33,67,90,23,66,5,38,7,35,23,52,22,83,51,98,69,81,32,78,28,94,13,2,97,3,76,99,51,9,21,84,66,65,36,100,41],
-     [10,27,10,35,12,22,28,8,19,2,12,2,9,6,12,5,17,9,19,12,14,6,12,5,12,3,0,10,0,7,8,4,0,0,4,3,2,0,1,0])
+     [10,27,10,35,12,22,28,8,19,2,12,2,9,6,12,5,17,9,19,12,14,6,12,5,12,3,0,10,0,7,8,4,0,0,4,3,2,0,1,0]),
+    json.load(open(Path(__file__).parent/'testcase.json')),
 ])
 def test(nums, expected):
     assert expected == Solution().countSmaller(nums)

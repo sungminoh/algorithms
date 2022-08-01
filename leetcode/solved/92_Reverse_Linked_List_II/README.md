@@ -36,4 +36,4 @@ __Follow up:__ Could you do it in one pass?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 939,688 | 395,624 | 42.1% |
+| 1,227,418 | 554,119 | 45.1% |

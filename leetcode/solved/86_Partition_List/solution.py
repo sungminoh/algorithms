@@ -27,36 +27,39 @@ Constraints:
 	-100 <= Node.val <= 100
 	-200 <= x <= 200
 """
-import sys
+from typing import Optional
 import pytest
+import sys
+sys.path.append('../')
+from exercise.list import ListNode, build_list
 
 
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-    def __repr__(self):
-        return f'{self.val}' + ('' if not self.next else f' -> {self.next!r}')
-
-
-def build(values):
-    nodes = [ListNode(v) for v in values]
-    for i in range(len(nodes)-1):
-        nodes[i].next = nodes[i+1]
-    return nodes[0] if nodes else None
-
-def to_list(node: ListNode):
-    ret = []
-    while node:
-        ret.append(node.val)
-        node = node.next
-    return ret
-
-
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
+    def partition(self, head, x):
+        """05/01/2018 06:46"""
+        less = ListNode(None)
+        lp = less
+        greater = ListNode(None)
+        gp = greater
+        while head:
+            if head.val < x:
+                lp.next = head
+                lp = lp.next
+            else:
+                gp.next = head
+                gp = gp.next
+            head = head.next
+        lp.next = greater.next
+        gp.next = None
+        return less.next
+
     def partition(self, head: ListNode, x: int) -> ListNode:
+        """04/28/2021 00:43"""
         smaller_head = smaller_tail = ListNode(None)
         larger_head = larger_tail = ListNode(None)
         node = head
@@ -78,17 +81,31 @@ class Solution:
         tail.next = None
         return start
 
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+        smaller = ListNode(None)
+        larger = ListNode(None)
+        sp = smaller
+        lp = larger
+        node = head
+        while node:
+            if node.val < x:
+                sp.next = node
+                sp = sp.next
+            else:
+                lp.next = node
+                lp = lp.next
+            node = node.next
+        lp.next = None
+        sp.next = larger.next
+        return smaller.next
 
-@pytest.mark.parametrize('nodes, x, expected', [
+
+@pytest.mark.parametrize('values, x, expected', [
     ([1,4,3,2,5,2], 3, [1,2,2,4,3,5]),
     ([2,1], 2, [1,2]),
 ])
-def test(nodes, x, expected):
-    head = build(nodes)
-    print(head)
-    actual = Solution().partition(head, x)
-    print(actual)
-    assert expected == to_list(actual)
+def test(values, x, expected):
+    assert build_list(expected) == Solution().partition(build_list(values), x)
 
 
 if __name__ == '__main__':

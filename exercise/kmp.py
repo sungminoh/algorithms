@@ -38,3 +38,37 @@ def get_pi(p):
             j += 1;
             pi[i] = j;
     return pi
+
+
+def kmp2(s, patterns):
+    def build_lsp(p):
+        ret = [0]
+        i = 0
+        for c in p[1:]:
+            if c == p[i]:
+                i += 1
+                ret.append(i)
+            else:
+                while i > 0 and p[i] != c:
+                    i = ret[i-1]
+                if p[i] == c:
+                    i += 1
+                ret.append(i)
+        return ret
+
+    lsps = [build_lsp(p) for p in patterns]
+    idxs = [0]*len(patterns)
+    for c in s:
+        for i in range(len(patterns)):
+            if idxs[i] == len(patterns[i]):
+                continue
+            if patterns[i][idxs[i]] == c:
+                idxs[i] += 1
+            else:
+                while idxs[i] > 0 and patterns[i][idxs[i]] != c:
+                    idxs[i] = lsps[i][idxs[i]-1]
+                if patterns[i][idxs[i]] == c:
+                    idxs[i] += 1
+    return [len(patterns[i]) == idxs[i] for i in range(len(patterns))]
+
+

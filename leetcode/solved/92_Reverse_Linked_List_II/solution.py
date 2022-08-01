@@ -28,35 +28,18 @@ Constraints:
 
 Follow up: Could you do it in one pass?
 """
-import sys
 from typing import Optional
 import pytest
+import sys
+sys.path.append('../')
+from exercise.list import ListNode, build_list
 
 
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-    def __repr__(self):
-        return f'({self.val}) -> {self.next}'
-
-    def __eq__(self, other):
-        return False if self.val != other.val else self.next == other.next
-
-
-def build(vals):
-    if not vals:
-        return None
-    head = ListNode(vals[0])
-    node = head
-    for v in vals[1:]:
-        node.next = ListNode(v)
-        node = node.next
-    return head
-
-
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def reverseBetween(self, head, m, n):
         """05/06/2018 01:00"""
@@ -86,6 +69,7 @@ class Solution:
             return child
 
     def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        """08/08/2021 17:38"""
         pre, cur, pos = None, head, head.next
         p, s, e = None, None, None
         i = 1
@@ -107,17 +91,49 @@ class Solution:
         return head if p or not s else e
 
 
-@pytest.mark.parametrize('nodes, left, right, expected', [
+    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        """07/31/2022 23:12"""
+        if not head or left == right:
+            return head
+
+        dummy = ListNode(None)
+        dummy.next = head
+        parent = dummy
+        node = head
+
+        i = 1
+        left_node = None
+        pointer = None
+        while node:
+            if left_node is None:
+                if i == left:
+                    left_parent = parent
+                    left_node = pointer = node
+                    node = node.next
+                else:
+                    parent, node = node, node.next
+            else:
+                next_node = node.next
+                node.next = pointer
+                if i != right:
+                    pointer = node
+                    node = next_node
+                else:
+                    parent.next = node
+                    left_node.next = next_node
+                    break
+            i += 1
+        return dummy.next
+
+
+@pytest.mark.parametrize('values, left, right, expected', [
     ([1,2,3,4,5], 2, 4, [1,4,3,2,5]),
     ([5], 1, 1, [5]),
-    ([3,5], 1, 2, [5,3])
+    ([3,5], 1, 2, [5,3]),
+    ([3,5], 1, 1, [3,5]),
 ])
-def test(nodes, left, right, expected):
-    head = build(nodes)
-    print(head)
-    actual = Solution().reverseBetween(head, left, right)
-    print(actual)
-    assert build(expected) == actual
+def test(values, left, right, expected):
+    assert build_list(expected) == Solution().reverseBetween(build_list(values), left, right)
 
 
 if __name__ == '__main__':

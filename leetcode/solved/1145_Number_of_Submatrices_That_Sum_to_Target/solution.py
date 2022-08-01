@@ -38,11 +38,10 @@ Constraints:
 	-10^8 <= target <= 10^8
 """
 from itertools import accumulate
-from functools import lru_cache
-from collections import defaultdict
 from pathlib import Path
 import json
 import sys
+from collections import defaultdict
 from typing import List
 import pytest
 
@@ -121,7 +120,7 @@ class Solution:
         return cnt
 
     def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
-        """
+        """05/09/2021 22:46
         For a given two row indexes of integral sum, apply below algrithm which is O(n)
         560_Subarray_Sum_Equals_K
         https://github.com/sungminoh/algorithms/tree/master/leetcode/solved/560_Subarray_Sum_Equals_K
@@ -161,17 +160,35 @@ class Solution:
                 cnt += find(arr, target)
         return cnt
 
+    def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
+        """08/01/2022 11:15"""
+        m, n = len(matrix), len(matrix[0])
+        # construct the integral matrix
+        integral = [[0]*(n+1) for _ in range(m+1)]
+        for i in range(m):
+            for j in range(n):
+                integral[i][j] = matrix[i][j] + integral[i-1][j] + integral[i][j-1] - integral[i-1][j-1]
+        ret = 0
+        for i1 in range(m):
+            for i2 in range(i1, m):
+                cnt = defaultdict(int)
+                cnt[0] = 1
+                for j2 in range(n):
+                    area = integral[i2][j2] - integral[i1-1][j2]
+                    ret += cnt.get(area-target, 0)
+                    cnt[area] += 1
+        return ret
+
 
 @pytest.mark.parametrize('matrix, target, expected', [
-([[0,1,0],[1,1,1],[0,1,0]], 0, 4),
-([[0,1,0],[1,1,1],[0,1,0]], 4, 4),
-([[0,1,0],[1,1,1],[0,1,0]], 3, 6),
-([[1,-1],[-1,1]], 0, 5),
-([[904]], 0, 0),
-# (*json.load(open(Path(__file__).parent/'testcase.json')), 3),
+    ([[0,1,0],[1,1,1],[0,1,0]], 0, 4),
+    ([[0,1,0],[1,1,1],[0,1,0]], 4, 4),
+    ([[0,1,0],[1,1,1],[0,1,0]], 3, 6),
+    ([[1,-1],[-1,1]], 0, 5),
+    ([[904]], 0, 0),
+    (*json.load(open(Path(__file__).parent/'testcase.json')), 3),
 ])
 def test(matrix, target, expected):
-    print()
     assert expected == Solution().numSubmatrixSumTarget(matrix, target)
 
 

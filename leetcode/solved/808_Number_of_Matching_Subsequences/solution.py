@@ -31,58 +31,17 @@ Constraints:
 	1 <= words[i].length <= 50
 	s and words[i] consist of only lowercase English letters.
 """
-from collections import deque
-from collections import Counter
-from collections import defaultdict
 from pathlib import Path
 import json
-import sys
 from functools import lru_cache
+from pygments.lexer import words
+import sys
+import bisect
+from collections import Counter
+from collections import deque
+from collections import defaultdict
 from typing import List
 import pytest
-
-
-def kmp(s, patterns):
-    def build_lsp(p):
-        ret = [0]
-        i = 0
-        for c in p[1:]:
-            if c == p[i]:
-                i += 1
-                ret.append(i)
-            else:
-                while i > 0 and p[i] != c:
-                    i = ret[i-1]
-                if p[i] == c:
-                    i += 1
-                ret.append(i)
-        return ret
-
-    lsps = [build_lsp(p) for p in patterns]
-    idxs = [0]*len(patterns)
-    for c in s:
-        for i in range(len(patterns)):
-            if idxs[i] == len(patterns[i]):
-                continue
-            if patterns[i][idxs[i]] == c:
-                idxs[i] += 1
-            else:
-                while idxs[i] > 0 and patterns[i][idxs[i]] != c:
-                    idxs[i] = lsps[i][idxs[i]-1]
-                if patterns[i][idxs[i]] == c:
-                    idxs[i] += 1
-    return [len(patterns[i]) == idxs[i] for i in range(len(patterns))]
-
-
-def merge(d1, d2):
-    for k, v in d2.items():
-        if k not in d1:
-            d1[k] = v
-        else:
-            if k == '__END__':
-                d1[k] += v
-            else:
-                merge(d1[k], v)
 
 
 class Solution:
@@ -102,9 +61,18 @@ class Solution:
                     qs[ord(w[1])-97].append(w[1:])
         return cnt
 
-
     def numMatchingSubseq(self, S: str, words: List[str]) -> int:
         """09/14/2020 01:38"""
+        def merge(d1, d2):
+            for k, v in d2.items():
+                if k not in d1:
+                    d1[k] = v
+                else:
+                    if k == '__END__':
+                        d1[k] += v
+                    else:
+                        merge(d1[k], v)
+
         # build trie
         trie = dict()
         for word in words:
@@ -177,12 +145,50 @@ class Solution:
                         d[w[i+1]].append((i+1, w))
         return cnt
 
+    def numMatchingSubseq(self, s: str, words: List[str]) -> int:
+        """
+        07/31/2022 23:26
+        07/31/2022 23:35
+        Time complexity: O(len(words) * len(word) * log(len(s))) + O(len(s))
+        Space complexity: O(len(s))
+        """
+        indexes = defaultdict(list)
+        for i, c in enumerate(s):
+            indexes[c].append(i)
+
+        def bisearch(arr, x):
+            i, j = 0, len(arr)-1
+            while i <= j:
+                m = i + ((j-i)//2)
+                if arr[m] < x:
+                    i = m+1
+                else:
+                    j = m-1
+            return i
+
+        def is_subsequence(word):
+            i = -1
+            for c in word:
+                idxs = indexes.get(c, [])
+                j = bisearch(idxs, i+1)
+                #j = bisect.bisect_left(idxs, i+1)
+                if j == len(idxs):
+                    return False
+                i = idxs[j]
+            return True
+
+        ret = 0
+        for word in words:
+            if is_subsequence(word):
+                ret += 1
+        return ret
+
 
 @pytest.mark.parametrize('s, words, expected', [
     ("abcde", ["a","bb","acd","ace"], 3),
     ("dsahjpjauf", ["ahjpjau","ja","ahbwzgqnuk","tnmlanowax"], 2),
     ("qlhxagxdqh", ["qlhxagxdq","qlhxagxdq","lhyiftwtut","yfzwraahab"], 2),
-    # (*json.load(open(Path(__file__).parent/'testcase.json')), 1000)
+    (*json.load(open(Path(__file__).parent/'testcase.json')), 1000)
 ])
 def test(s, words, expected):
     assert expected == Solution().numMatchingSubseq(s, words)

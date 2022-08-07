@@ -1,0 +1,69 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+# vim:fenc=utf-8
+#
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
+#
+# Distributed under terms of the MIT license.
+
+"""
+You are given two string arrays words1 and words2.
+
+A string b is a subset of string a if every letter in b occurs in a including multiplicity.
+
+	For example, "wrr" is a subset of "warrior" but is not a subset of "world".
+
+A string a from words1 is universal if for every string b in words2, b is a subset of a.
+
+Return an array of all the universal strings in words1. You may return the answer in any order.
+
+Example 1:
+
+Input: words1 = ["amazon","apple","facebook","google","leetcode"], words2 = ["e","o"]
+Output: ["facebook","google","leetcode"]
+
+Example 2:
+
+Input: words1 = ["amazon","apple","facebook","google","leetcode"], words2 = ["l","e"]
+Output: ["apple","google","leetcode"]
+
+Constraints:
+
+	1 <= words1.length, words2.length <= 104
+	1 <= words1[i].length, words2[i].length <= 10
+	words1[i] and words2[i] consist only of lowercase English letters.
+	All the strings of words1 are unique.
+"""
+import sys
+from collections import defaultdict
+from collections import Counter
+from typing import List
+import pytest
+
+
+class Solution:
+    def wordSubsets(self, words1: List[str], words2: List[str]) -> List[str]:
+        required = defaultdict(int)
+        for w in words2:
+            for k, v in Counter(w).items():
+                required[k] = max(required[k], v)
+
+        ret = []
+        for w in words1:
+            cnt = Counter(w)
+            if all(cnt.get(k, 0) >= v for k, v in required.items()):
+                ret.append(w)
+
+        return ret
+
+
+@pytest.mark.parametrize('words1, words2, expected', [
+    (["amazon","apple","facebook","google","leetcode"], ["e","o"], ["facebook","google","leetcode"]),
+    (["amazon","apple","facebook","google","leetcode"], ["l","e"], ["apple","google","leetcode"]),
+])
+def test(words1, words2, expected):
+    assert expected == Solution().wordSubsets(words1, words2)
+
+
+if __name__ == '__main__':
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

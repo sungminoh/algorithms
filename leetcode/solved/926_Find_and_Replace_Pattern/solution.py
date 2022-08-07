@@ -15,15 +15,13 @@ Recall that a permutation of letters is a bijection from letters to letters: eve
 
 Example 1:
 
-Input: words = ["abc","deq","mee","aqq","dkd","ccc"], pattern = "abb"
-Output: ["mee","aqq"]
+    (["abc","deq","mee","aqq","dkd","ccc"], pattern = "abb", ["mee","aqq"]),
 Explanation: "mee" matches the pattern because there is a permutation {a -> m, b -> e, ...}.
 "ccc" does not match the pattern because {a -> c, b -> c, ...} is not a permutation, since a and b map to the same letter.
 
 Example 2:
 
-Input: words = ["a","b","c"], pattern = "a"
-Output: ["a","b","c"]
+    (["a","b","c"], pattern = "a", ["a","b","c"]),
 
 Constraints:
 
@@ -39,7 +37,7 @@ import pytest
 
 class Solution:
     def findAndReplacePattern(self, words: List[str], pattern: str) -> List[str]:
-        """
+        """06/02/2021 07:12
         Time complexity: O(n*l)
         Space complexity: O(l)
         """
@@ -58,11 +56,29 @@ class Solution:
 
         return [word for word in words if match(word, pattern)]
 
+    def findAndReplacePattern(self, words: List[str], pattern: str) -> List[str]:
+        """08/06/2022 22:55"""
+        def match(w, p):
+            if len(w) != len(p):
+                return False
+            ab = {}
+            ba = {}
+            for a, b in zip(w, p):
+                if a not in ab and b not in ba:
+                    ab[a] = b
+                    ba[b] = a
+                else:
+                    if ab.get(a) != b or ba.get(b) != a:
+                        return False
+            return True
+
+        return [word for word in words if match(word, pattern)]
+
 
 @pytest.mark.parametrize('words, pattern, expected', [
     (["abc","deq","mee","aqq","dkd","ccc"], "abb", ["mee","aqq"]),
     (["a","b","c"], "a", ["a","b","c"]),
-    (["ef","fq","ao","at","lx"], "ya", ["ef","fq","ao","at","lx"]),
+    (["ef","fq","ao","at","lx"], "ya", ["ef","fq","ao","at","lx"])
 ])
 def test(words, pattern, expected):
     assert expected == Solution().findAndReplacePattern(words, pattern)

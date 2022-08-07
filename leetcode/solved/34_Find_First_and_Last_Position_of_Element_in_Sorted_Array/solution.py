@@ -7,7 +7,7 @@
 # Distributed under terms of the MIT license.
 
 """
-Given an array of integers nums sorted in ascending order, find the starting and ending position of a given target value.
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
 
 If target is not found in the array, return [-1, -1].
 
@@ -37,7 +37,7 @@ import pytest
 
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        """
+        """05/19/2021 09:29
         Binary search
         Time complexity: O(logn)
         Space complexity: O(1)
@@ -62,11 +62,25 @@ class Solution:
 
         return [binsearch(nums, target, True), binsearch(nums, target, False)]
 
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        def bisearch(s, e, x, func):
+            while s <= e:
+                m = s + (e-s)//2
+                if func(m, x):
+                    s = m+1
+                else:
+                    e = m-1
+            return s-1
+
+        s = bisearch(0, len(nums)-1, target, lambda i, x: nums[i] < x) + 1
+        e = bisearch(0, len(nums)-1, target, lambda i, x: nums[i] <= x)
+        return [s, e] if s <= e < len(nums) else [-1, -1]
+
 
 @pytest.mark.parametrize('nums, target, expected', [
-    ([5,7,7,8,8,10],  8, [3,4]),
-    ([5,7,7,8,8,10],  6, [-1,-1]),
-    ([],  0, [-1,-1]),
+    ([5,7,7,8,8,10], 8, [3,4]),
+    ([5,7,7,8,8,10], 6, [-1,-1]),
+    ([], 0, [-1,-1]),
     ([2,2], 3, [-1, -1]),
 ])
 def test(nums, target, expected):

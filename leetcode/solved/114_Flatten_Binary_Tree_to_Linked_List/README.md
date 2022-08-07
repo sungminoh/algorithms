@@ -44,4 +44,4 @@ __Follow up:__ Can you flatten the tree in-place (with `` O(1) `` extra space)?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 857,818 | 459,314 | 53.5% |
+| 1,147,380 | 692,599 | 60.4% |

@@ -37,11 +37,10 @@ Constraints:
 	p and q will exist in the tree.
 """
 from typing import Tuple
-from pathlib import Path
-import sys
 import pytest
-sys.path.append(str(Path('__file__').absolute().parent.parent))
-from exercise.tree import TreeNode
+import sys
+sys.path.append('../')
+from exercise.tree import TreeNode, build_tree
 
 
 # Definition for a binary tree node.
@@ -81,13 +80,14 @@ class Solution:
         return ancestor
 
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        """08/21/2021 16:57"""
         def find(node) -> Tuple[TreeNode, bool, bool]:
             """
             Returns [Common Ancestor, Found p, Found q]
             """
             if not node:
                 return None, False, False
-            la, lp, lq= find(node.left)
+            la, lp, lq = find(node.left)
             if la:
                 return la, True, True
             ra, rp, rq = find(node.right)
@@ -101,41 +101,54 @@ class Solution:
 
         return find(root)[0]
 
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        """08/06/2022 22:28"""
+        lca = None
+        def dfs(root, nodes):
+            """
+            Return an integer whose binary representation represents existence
+            of i'th node in nodes if i'th digit is 1.
+            If all nodes are found, update a non-local variable and stop
+            recursion.
+            """
+            nonlocal lca
+            if not root:
+                return 0
+            found = 0
+            for i, node in enumerate(nodes):
+                if root.val == node.val:
+                    found |= (1<<i)
+            found |= dfs(root.left, nodes)
+            if lca is None and found == (1<<len(nodes))-1:
+                lca = root
+                return found
+            found |= dfs(root.right, nodes)
+            if lca is None and found == (1<<len(nodes))-1:
+                lca = root
+                return found
+            return found
 
-def build_tree(lst, values=None):
-    if not lst:
-        return None
-    values = values or []
-    nodes = [TreeNode(x) if x is not None else None for x in lst]
-    value_nodes = {node.val: node for node in nodes if node and node.val in values}
-    root = nodes[0]
-    queue = [root]
-    att = ['left', 'right']
-    cur = 0
-    for node in nodes[1:]:
-        setattr(queue[0], att[cur], node)
-        if cur:
-            queue.pop(0)
-        if node:
-            queue.append(node)
-        cur += 1
-        cur %= 2
-    return root, value_nodes
+        dfs(root, [p, q])
+        return lca
 
 
-@pytest.mark.parametrize('nodes, p, q, expected', [
+@pytest.mark.parametrize('values, p, q, expected', [
     ([3,5,1,6,2,0,8,None,None,7,4], 5, 1, 3),
     ([3,5,1,6,2,0,8,None,None,7,4], 5, 4, 5),
     ([1,2], 1, 2, 1),
 ])
-def test(nodes, p, q, expected):
-    root, value_nodes = build_tree(nodes, [p, q])
-    p = value_nodes[p]
-    q = value_nodes[q]
-    actual = Solution().lowestCommonAncestor(root, p, q)
-    print()
-    print(actual)
-    assert expected == actual.val
+def test(values, p, q, expected):
+    def find(root, x):
+        if not root:
+            return None
+        if root.val == x:
+            return root
+        return find(root.left, x) or find(root.right, x)
+
+    root = build_tree(values)
+    p = find(root, p)
+    q = find(root, q)
+    assert expected == Solution().lowestCommonAncestor(root, p, q).val
 
 
 if __name__ == '__main__':

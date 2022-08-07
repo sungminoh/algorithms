@@ -2,7 +2,7 @@
 
 Medium
 
-Given an array of integers `` nums `` sorted in ascending order, find the starting and ending position of a given `` target `` value.
+Given an array of integers `` nums `` sorted in non-decreasing order, find the starting and ending position of a given `` target `` value.
 
 If `` target `` is not found in the array, return `` [-1, -1] ``.
 
@@ -39,4 +39,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,898,233 | 719,942 | 37.9% |
+| 3,053,077 | 1,258,105 | 41.2% |

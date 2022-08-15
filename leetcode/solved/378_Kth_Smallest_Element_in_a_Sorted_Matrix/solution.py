@@ -7,9 +7,11 @@
 # Distributed under terms of the MIT license.
 
 """
-Given an n x n matrix where each of the rows and columns are sorted in ascending order, return the kth smallest element in the matrix.
+Given an n x n matrix where each of the rows and columns is sorted in ascending order, return the kth smallest element in the matrix.
 
 Note that it is the kth smallest element in the sorted order, not the kth distinct element.
+
+You must find a solution with a memory complexity better than O(n2).
 
 Example 1:
 
@@ -24,39 +26,24 @@ Output: -5
 
 Constraints:
 
-	n == matrix.length
-	n == matrix[i].length
+	n == matrix.length == matrix[i].length
 	1 <= n <= 300
 	-109 <= matrix[i][j] <= 109
 	All the rows and columns of matrix are guaranteed to be sorted in non-decreasing order.
 	1 <= k <= n2
+
+Follow up:
+
+	Could you solve the problem with a constant memory (i.e., O(1) memory complexity)?
+	Could you solve the problem in O(n) time complexity? The solution may be too advanced for an interview but you may find reading this paper fun.
 """
 import bisect
-import sys
 import itertools
+import sys
+from heapq import heappop
+from heapq import heappush
 from typing import List
 import pytest
-
-
-def quick_select(arr, k):
-    def rec(s, e, k):
-        p = arr[e]
-        i = s
-        j = e-1
-        while i <= j:
-            if arr[i] <= p:
-                i += 1
-            elif arr[j] > p:
-                j -= 1
-            else:
-                arr[i], arr[j] = arr[j], arr[i]
-        arr[i], arr[e] = arr[e], arr[i]
-        if i > k-1:
-            return rec(s, i-1, k)
-        elif i < k-1:
-            return rec(i+1, e, k)
-        return arr[i]
-    return rec(0, len(arr)-1, k)
 
 
 class Solution:
@@ -101,12 +88,32 @@ class Solution:
         Time complexity: O(n*n) (average)
         Space complexity: O(n*n) (to make a list)
         """
+        def quick_select(arr, k):
+            def rec(s, e, k):
+                p = arr[e]
+                i = s
+                j = e-1
+                while i <= j:
+                    if arr[i] <= p:
+                        i += 1
+                    elif arr[j] > p:
+                        j -= 1
+                    else:
+                        arr[i], arr[j] = arr[j], arr[i]
+                arr[i], arr[e] = arr[e], arr[i]
+                if i > k-1:
+                    return rec(s, i-1, k)
+                elif i < k-1:
+                    return rec(i+1, e, k)
+                return arr[i]
+            return rec(0, len(arr)-1, k)
+
         return quick_select(list(itertools.chain(*matrix)), k)
 
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
-        """
+        """08/11/2021 11:29
         Binary search on the value
-        Time complexity: O(max-min)
+        Time complexity: O(log(max-min))
         Space complexity: O(1)
         """
         l = matrix[0][0]
@@ -120,14 +127,30 @@ class Solution:
                 h = m
         return l
 
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        """08/14/2022 18:21
+        Time complexity: O(n^2*logk)
+        Space complexity: O(k)
+        """
+        h = []
+        m, n = len(matrix), len(matrix[0])
+        for i in range(m):
+            for j in range(n):
+                heappush(h, -matrix[i][j])
+                if len(h) > k:
+                    heappop(h)
+        return -h[0]
 
-@pytest.mark.parametrize('arr, k, expected', [
-    ([[1,5,9],[10,11,13],[12,13,15]], 8, 13),
+
+@pytest.mark.parametrize('matrix, k, expected', [
+    ([[1,5,9],
+      [10,11,13],
+      [12,13,15]], 8, 13),
     ([[-5]], 1, -5),
-    ([[1,1,1],[1,1,1],[10,10,10]], 7, 10)
+    ([[1,1,1],[1,1,1],[10,10,10]], 7, 10),
 ])
-def test(arr, k, expected):
-    assert expected == Solution().kthSmallest(arr, k)
+def test(matrix, k, expected):
+    assert expected == Solution().kthSmallest(matrix, k)
 
 
 if __name__ == '__main__':

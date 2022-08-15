@@ -2,9 +2,11 @@
 
 Medium
 
-Given an `` n x n `` `` matrix `` where each of the rows and columns are sorted in ascending order, return _the_ <code>k<sup>th</sup></code> _smallest element in the matrix_.
+Given an `` n x n `` `` matrix `` where each of the rows and columns is sorted in ascending order, return _the_ <code>k<sup>th</sup></code> _smallest element in the matrix_.
 
 Note that it is the <code>k<sup>th</sup></code> smallest element __in the sorted order__, not the <code>k<sup>th</sup></code> __distinct__ element.
+
+You must find a solution with a memory complexity better than <code>O(n<sup>2</sup>)</code>.
 
  
 
@@ -27,13 +29,19 @@ Output: -5
 
 __Constraints:__
 
-*   `` n == matrix.length ``
-*   `` n == matrix[i].length ``
+*   `` n == matrix.length == matrix[i].length ``
 *   `` 1 <= n <= 300 ``
 *   <code>-10<sup>9</sup> <= matrix[i][j] <= 10<sup>9</sup></code>
 *   All the rows and columns of `` matrix `` are __guaranteed__ to be sorted in __non-decreasing order__.
 *   <code>1 <= k <= n<sup>2</sup></code>
 
+ 
+
+__Follow up:__
+
+*   Could you solve the problem with a constant memory (i.e., `` O(1) `` memory complexity)?
+*   Could you solve the problem in `` O(n) `` time complexity? The solution may be too advanced for an interview but you may find reading <a href="http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf" target="_blank">this paper</a> fun.
+
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 533,762 | 309,801 | 58.0% |
+| 780,764 | 479,149 | 61.4% |

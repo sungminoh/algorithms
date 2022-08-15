@@ -68,22 +68,20 @@ class MyCalendar:
             else:
                 return False
 
-
-class Node:
-    def __init__(self, s, e):
-        self.s = s
-        self.e = e
-        self.left = None
-        self.right = None
-
-
 class MyCalendar:
+    """07/25/2021 07:52"""
+    class Node:
+        def __init__(self, s, e):
+            self.s = s
+            self.e = e
+            self.left = None
+            self.right = None
+
     def __init__(self):
         self.root = None
 
-
     def book(self, start: int, end: int) -> bool:
-        node = Node(start, end)
+        node = self.Node(start, end)
         if not self.root:
             self.root = node
             return True
@@ -106,19 +104,48 @@ class MyCalendar:
 
         return insert(self.root, node)
 
+class MyCalendar:
+    """08/14/2022 18:49"""
+    def __init__(self):
+        self.tree = []
 
+    def book(self, start: int, end: int) -> bool:
+        if not self.tree:
+            self.tree = [(start, end), None, None]
+            return True
+
+        def insert(tree, node):
+            if node[1] <= tree[0][0]:
+                if tree[1] is None:
+                    tree[1] = [node, None, None]
+                    return True
+                return insert(tree[1], node)
+            elif tree[0][1] <= node[0]:
+                if tree[2] is None:
+                    tree[2] = [node, None, None]
+                    return True
+                return insert(tree[2], node)
+            return False
+
+        return insert(self.tree, (start, end))
+
+
+# Your MyCalendar object will be instantiated and called as such:
+# obj = MyCalendar()
+# param_1 = obj.book(start,end)
 @pytest.mark.parametrize('commands, arguments, expecteds', [
     (["MyCalendar", "book", "book", "book"],
      [[], [10, 20], [15, 25], [20, 30]],
      [None, True, False, True]),
+
 ])
 def test(commands, arguments, expecteds):
     obj = globals()[commands.pop(0)](*arguments.pop(0))
-    expecteds.pop(0)
-    for cmd, args, exp in zip(commands, arguments, expecteds):
-        assert exp == getattr(obj, cmd)(*args)
+    actual = []
+    for cmd, arg in zip(commands, arguments):
+        actual.append(getattr(obj, cmd)(*arg))
+    assert expecteds[1:] == actual
 
 
 if __name__ == '__main__':
     sys.exit(pytest.main(["-s", "-v"] + sys.argv))
-

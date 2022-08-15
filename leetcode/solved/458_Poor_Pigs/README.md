@@ -1,25 +1,46 @@
-### [458. Poor Pigs](https://leetcode.com/problems/poor-pigs/ls)
+### [458. Poor Pigs](https://leetcode.com/problems/poor-pigs/)
 
 Hard
 
-There are 1000 buckets, one and only one of them is poisonous, while the rest are filled with water. They all look identical. If a pig drinks the poison it will die within 15 minutes. What is the minimum amount of pigs you need to figure out which bucket is poisonous within one hour?
+There are `` buckets `` buckets of liquid, where __exactly one__ of the buckets is poisonous. To figure out which one is poisonous, you feed some number of (poor) pigs the liquid to see whether they will die or not. Unfortunately, you only have `` minutesToTest `` minutes to determine which bucket is poisonous.
 
-Answer this question, and write an algorithm for the general case.
+You can feed the pigs according to these steps:
+
+1.   Choose some live pigs to feed.
+2.   For each pig, choose which buckets to feed it. The pig will consume all the chosen buckets simultaneously and will take no time.
+3.   Wait for `` minutesToDie `` minutes. You may __not__ feed any other pigs during this time.
+4.   After `` minutesToDie `` minutes have passed, any pigs that have been fed the poisonous bucket will die, and all others will survive.
+5.   Repeat this process until you run out of time.
+
+Given `` buckets ``, `` minutesToDie ``, and `` minutesToTest ``, return _the __minimum__ number of pigs needed to figure out which bucket is poisonous within the allotted time_.
 
  
 
-__General case: __
+__Example 1:__
 
-If there are `` n `` buckets and a pig drinking poison will die within `` m `` minutes, how many pigs (`` x ``) you need to figure out the __poisonous__ bucket within `` p `` minutes? There is exactly one bucket with poison.
+```Input: buckets = 1000, minutesToDie = 15, minutesToTest = 60
+Output: 5
+```
+
+__Example 2:__
+
+```Input: buckets = 4, minutesToDie = 15, minutesToTest = 15
+Output: 2
+```
+
+__Example 3:__
+
+```Input: buckets = 4, minutesToDie = 15, minutesToTest = 30
+Output: 2
+```
 
  
 
-__Note:__
+__Constraints:__
 
-1.   A pig can be allowed to drink simultaneously on as many buckets as one would like, and the feeding takes no time.
-2.   After a pig has instantly finished drinking buckets, there has to be a __cool down time__ of _m _minutes. During this time, only observation is allowed and no feedings at all.
-3.   Any given bucket can be sampled an infinite number of times (by an unlimited number of pigs).
+*   `` 1 <= buckets <= 1000 ``
+*   `` 1 <= minutesToDie <= minutesToTest <= 100 ``
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 40,151 | 19,159 | 47.7% |
+| 104,712 | 69,586 | 66.5% |

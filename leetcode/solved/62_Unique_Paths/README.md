@@ -2,11 +2,11 @@
 
 Medium
 
-A robot is located at the top-left corner of a `` m x n `` grid (marked 'Start' in the diagram below).
+There is a robot on an `` m x n `` grid. The robot is initially located at the __top-left corner__ (i.e., `` grid[0][0] ``). The robot tries to move to the __bottom-right corner__ (i.e., `` grid[m - 1][n - 1] ``). The robot can only move either down or right at any point in time.
 
-The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+Given the two integers `` m `` and `` n ``, return _the number of possible unique paths that the robot can take to reach the bottom-right corner_.
 
-How many possible unique paths are there?
+The test cases are generated so that the answer will be less than or equal to <code>2 * 10<sup>9</sup></code>.
 
  
 
@@ -24,25 +24,10 @@ __Example 2:__
 ```
 Input: m = 3, n = 2
 Output: 3
-Explanation:
-From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:
+Explanation: From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:
 1. Right -> Down -> Down
 2. Down -> Down -> Right
 3. Down -> Right -> Down
-```
-
-__Example 3:__
-
-```
-Input: m = 7, n = 3
-Output: 28
-```
-
-__Example 4:__
-
-```
-Input: m = 3, n = 3
-Output: 6
 ```
 
  
@@ -50,8 +35,7 @@ Output: 6
 __Constraints:__
 
 *   `` 1 <= m, n <= 100 ``
-*   It's guaranteed that the answer will be less than or equal to <code>2 * 10<sup>9</sup></code>.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,356,032 | 795,288 | 58.6% |
+| 1,816,087 | 1,120,451 | 61.7% |

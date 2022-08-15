@@ -2,14 +2,18 @@
 
 Medium
 
-Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target.
+Given an array of __distinct__ integers `` nums `` and a target integer `` target ``, return _the number of possible combinations that add up to_ `` target ``.
 
-__Example:__
+The test cases are generated so that the answer can fit in a __32-bit__ integer.
+
+ 
+
+__Example 1:__
 
 ```
-<i><b>nums</b></i> = [1, 2, 3]
-<i><b>target</b></i> = 4
-
+Input: nums = [1,2,3], target = 4
+Output: 7
+Explanation:
 The possible combination ways are:
 (1, 1, 1, 1)
 (1, 1, 2)
@@ -18,22 +22,29 @@ The possible combination ways are:
 (2, 1, 1)
 (2, 2)
 (3, 1)
-
 Note that different sequences are counted as different combinations.
-
-Therefore the output is <i><b>7</b></i>.
 ```
 
-&nbsp;
+__Example 2:__
 
-__Follow up:__  
-What if negative numbers are allowed in the given array?  
-How does it change the problem?  
-What limitation we need to add to the question to allow negative numbers?
+```
+Input: nums = [9], target = 3
+Output: 0
+```
 
-__Credits:__  
-Special thanks to [@pbrother](https://leetcode.com/pbrother/) for adding this problem and creating all test cases.
+ 
+
+__Constraints:__
+
+*   `` 1 <= nums.length <= 200 ``
+*   `` 1 <= nums[i] <= 1000 ``
+*   All the elements of `` nums `` are __unique__.
+*   `` 1 <= target <= 1000 ``
+
+ 
+
+__Follow up:__ What if negative numbers are allowed in the given array? How does it change the problem? What limitation we need to add to the question to allow negative numbers?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 251,881 | 112,384 | 44.6% |
+| 611,765 | 317,029 | 51.8% |

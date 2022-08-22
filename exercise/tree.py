@@ -10,6 +10,8 @@
 
 """
 from collections import deque
+from typing import Optional
+from typing import Callable
 from typing import List, Union
 
 
@@ -142,8 +144,8 @@ class Tree(object):
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
         self.val = val
-        self.left = left
-        self.right = right
+        self.left: Optional[TreeNode] = left
+        self.right: Optional[TreeNode] = right
 
     def __repr__(self):
         from itertools import zip_longest
@@ -166,23 +168,43 @@ class TreeNode(object):
             and other.right == self.right
 
 
-def build_tree(lst, constructor=TreeNode):
+def build_tree(
+    lst,
+    constructor=TreeNode,
+    return_filter: Callable[[TreeNode], bool]=lambda _: False):
     if not lst:
         return None
     root = constructor(lst[0])
+    ret = []
     queue = [root]
-    att = ['left', 'right']
-    cur = 0
-    for x in lst[1:]:
+    for i, x in enumerate(lst[1:]):
         node = constructor(x) if x is not None else None
-        setattr(queue[0], att[cur], node)
-        if cur:
+        if i%2 == 0:
+            queue[0].left = node
+        else:
+            queue[0].right = node
             queue.pop(0)
         if node:
             queue.append(node)
-        cur += 1
-        cur %= 2
+            if return_filter(node):
+                ret.append(node)
+    if ret:
+        return root, ret
     return root
+
+
+def find_node(root: Optional[TreeNode], val, bst=True):
+    if not root:
+        return None
+    if root.val == val:
+        return root
+    if bst:
+        if val < root.val:
+            return find_node(root.left, val)
+        else:
+            return find_node(root.right, val)
+    return find_node(root.left, val) \
+        or find_node(root.right, val)
 
 
 def serialize_tree(root):

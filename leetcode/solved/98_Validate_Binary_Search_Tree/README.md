@@ -1,40 +1,43 @@
-### [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description/)
+### [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 
-[Description](https://leetcode.com/problems/validate-binary-search-tree/description/)[Hints](https://leetcode.com/problems/validate-binary-search-tree/hints/)[Submissions](https://leetcode.com/problems/validate-binary-search-tree/submissions/)[Discuss](https://leetcode.com/problems/validate-binary-search-tree/discuss/)[Solution](https://leetcode.com/problems/validate-binary-search-tree/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given the `` root `` of a binary tree, _determine if it is a valid binary search tree (BST)_.
 
-------
+A __valid BST__ is defined as follows:
 
-Given a binary tree, determine if it is a valid binary search tree (BST).
+*   The left subtree of a node contains only nodes with keys __less than__ the node's key.
+*   The right subtree of a node contains only nodes with keys __greater than__ the node's key.
+*   Both the left and right subtrees must also be binary search trees.
 
-Assume a BST is defined as follows:
+ 
 
-- The left subtree of a node contains only nodes with keys **less than** the node's key.
-- The right subtree of a node contains only nodes with keys **greater than** the node's key.
-- Both the left and right subtrees must also be binary search trees.
+__Example 1:__
 
-**Example 1:**
+<img alt="" src="https://assets.leetcode.com/uploads/2020/12/01/tree1.jpg" style="width: 302px; height: 182px;"/>
 
 ```
-Input:
-    2
-   / \
-  1   3
+Input: root = [2,1,3]
 Output: true
 ```
 
-**Example 2:**
+__Example 2:__
+
+<img alt="" src="https://assets.leetcode.com/uploads/2020/12/01/tree2.jpg" style="width: 422px; height: 292px;"/>
 
 ```
-    5
-   / \
-  1   4
-     / \
-    3   6
+Input: root = [5,1,4,null,null,3,6]
 Output: false
-Explanation: The input is: [5,1,4,null,null,3,6]. The root node's value
-             is 5 but its right child's value is 4.
+Explanation: The root node's value is 5 but its right child's value is 4.
 ```
 
- 
+ 
+
+__Constraints:__
+
+*   The number of nodes in the tree is in the range <code>[1, 10<sup>4</sup>]</code>.
+*   <code>-2<sup>31</sup> <= Node.val <= 2<sup>31</sup> - 1</code>
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 5,145,908 | 1,618,779 | 31.5% |

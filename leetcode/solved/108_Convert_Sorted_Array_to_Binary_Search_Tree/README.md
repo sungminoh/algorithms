@@ -26,7 +26,7 @@ __Example 2:__
 ```
 Input: nums = [1,3]
 Output: [3,1]
-Explanation: [1,3] and [3,1] are both a height-balanced BSTs.
+Explanation: [1,null,3] and [3,1] are both height-balanced BSTs.
 ```
 
  
@@ -39,4 +39,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 951,657 | 602,306 | 63.3% |
+| 1,244,459 | 850,838 | 68.4% |

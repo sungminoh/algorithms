@@ -43,4 +43,4 @@ __Follow up:__ Can you come up with an algorithm that runs in `` O(n log(n)) `
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,350,777 | 627,198 | 46.4% |
+| 1,986,462 | 1,016,729 | 51.2% |

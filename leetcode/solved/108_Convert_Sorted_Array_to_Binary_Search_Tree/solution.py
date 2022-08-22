@@ -21,7 +21,7 @@ Example 2:
 
 Input: nums = [1,3]
 Output: [3,1]
-Explanation: [1,3] and [3,1] are both a height-balanced BSTs.
+Explanation: [1,null,3] and [3,1] are both height-balanced BSTs.
 
 Constraints:
 
@@ -29,14 +29,12 @@ Constraints:
 	-104 <= nums[i] <= 104
 	nums is sorted in a strictly increasing order.
 """
-from pathlib import Path
-from typing import Optional
 from typing import List
+from typing import Optional
 import pytest
 import sys
-sys.path.append(str(Path('__file__').absolute().parent.parent))
+sys.path.append('../')
 from exercise.tree import TreeNode, build_tree
-
 
 
 # Definition for a binary tree node.
@@ -47,6 +45,7 @@ from exercise.tree import TreeNode, build_tree
 #         self.right = right
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        """08/19/2021 12:17"""
         def to_tree(i, j):
             if j < i:
                 return None
@@ -55,13 +54,26 @@ class Solution:
 
         return to_tree(0, len(nums)-1)
 
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        """08/21/2022 15:11"""
+        def build(i, j):
+            if j < i:
+                return None
+            m = i + (j-i)//2
+            root = TreeNode(nums[m])
+            root.left = build(i, m-1)
+            root.right = build(m+1, j)
+            return root
 
-def is_balanced(tree):
-    def get_depth(root):
-        if not root:
-            return 0
-        return max(get_depth(root.left), get_depth(root.right)) + 1
-    return abs(get_depth(tree.left) - get_depth(tree.right)) <= 1
+        return build(0, len(nums)-1)
+
+
+def validate(root: Optional[TreeNode]):
+    if not root:
+        return True, 0
+    l, ld = validate(root.left)
+    r, rd = validate(root.right)
+    return l and r, max(ld, rd)+1
 
 
 @pytest.mark.parametrize('nums, expected', [
@@ -69,10 +81,8 @@ def is_balanced(tree):
     ([1,3], [3,1]),
 ])
 def test(nums, expected):
-    tree = Solution().sortedArrayToBST(nums)
-    print()
-    print(tree)
-    assert is_balanced(tree)
+    root = Solution().sortedArrayToBST(nums)
+    assert validate(root)[0]
 
 
 if __name__ == '__main__':

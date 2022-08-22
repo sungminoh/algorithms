@@ -39,21 +39,14 @@ Constraints:
 
 	1 <= n <= 2 * 10^4
 """
-import copy
-import sys
 from functools import lru_cache
+import sys
 import pytest
 
 
 class Solution:
-    """
-    a (e)
-    e (a,i)
-    i (a,e,o,u)
-    o (i,u)
-    u (a)
-    """
     def countVowelPermutation(self, n: int) -> int:
+        """08/11/2021 13:39 TLE"""
         m = {'a': 'e', 'e': 'ai', 'i': 'aeou', 'o': 'iu', 'u': 'a'}
         visited = set()
 
@@ -69,7 +62,7 @@ class Solution:
         return len(visited) % int(1e9+7)
 
     def countVowelPermutation(self, n: int) -> int:
-        """
+        """08/11/2021 14:06
               a  e  i  o  u
         a -> [0, 1, 0, 0, 0]
         e -> [1, 0, 1, 0, 0]
@@ -127,7 +120,7 @@ class Solution:
         return sum(matmul([[1,1,1,1,1]], matpow(mat, n-1))[0])%mod
 
     def countVowelPermutation(self, n: int) -> int:
-        """
+        """08/11/2021 14:13
         Time complexity: O(n)
         Space complexity: O(1)
         """
@@ -137,12 +130,82 @@ class Solution:
             a,e,i,o,u = (x%mod for x in [(e+i+u), (a+i), (e+o), i, (i+o)])
         return (a+e+i+o+u)%mod
 
+    def countVowelPermutation(self, n: int) -> int:
+        """08/21/2022 16:11
+        Top-down
+        Time Complexity: O(n)
+        Space Complexity: O(n)
+        """
+        MOD = int(1e9+7)
+        def dfs(n):
+            assert n>=1
+            if n == 1:
+                return 1,1,1,1,1
+            a,e,i,o,u = dfs(n-1)
+            return (x%MOD for x in [e+u+i,a+i,e+o,i,o+i])
+
+        return sum(dfs(n))%MOD
+
+    def countVowelPermutation(self, n: int) -> int:
+        """08/21/2022 16:13
+        Bottom-up
+        Time Complexity: O(n)
+        Space Complexity: O(1)
+        """
+        if n == 0:
+            return 0
+        MOD = int(1e9+7)
+        a,e,i,o,u = 1,1,1,1,1
+        for _ in range(n-1):
+            a,e,i,o,u = (x%MOD for x in [e+u+i,a+i,e+o,i,o+i])
+        return (a+e+i+o+u) % MOD
+
+    def countVowelPermutation(self, n: int) -> int:
+        """08/21/2022 17:01
+        Time Complexity: O(logn)
+        Space Complexity: O(1)
+        """
+        if n == 0:
+            return 0
+
+        MOD = int(1e9+7)
+
+        def mul(m1, m2):
+            ret = [[0]*len(m2[0]) for _ in range(len(m1))]
+            for i in range(len(m1)):
+                for k in range(len(m2)):
+                    for j in range(len(m2[0])):
+                        ret[i][j] += m1[i][k] * m2[k][j]
+            return ret
+
+        mat = [[0,1,0,0,0],  # a -> e
+               [1,0,1,0,0],  # e -> a, i
+               [1,1,0,1,1],  # i -> !i
+               [0,0,1,0,1],  # o -> i, u
+               [1,0,0,0,0]]  # u -> a
+
+        # [1,1,1,1,1] * mat^(n-1)
+        # mat^(n-1) = mat^p0 * mat^p1 * ... mat^pk
+        #  where pi = 2^i and sum(pi) = n-1
+        cur = [[1,0,0,0,0],
+               [0,1,0,0,0],
+               [0,0,1,0,0],
+               [0,0,0,1,0],
+               [0,0,0,0,1]]
+        n -= 1
+        while n:
+            if n%2 == 1:
+                cur = mul(cur, mat)
+            mat = mul(mat, mat)
+            n >>= 1
+        return sum(mul([[1,1,1,1,1]], cur)[0])%MOD
+
 
 @pytest.mark.parametrize('n, expected', [
     (1, 5),
     (2, 10),
     (5, 68),
-    (144, 18208803)
+    (144, 18208803),
 ])
 def test(n, expected):
     assert expected == Solution().countVowelPermutation(n)

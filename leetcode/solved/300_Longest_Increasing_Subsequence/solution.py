@@ -34,8 +34,8 @@ Constraints:
 
 Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?
 """
-import bisect
 import sys
+import bisect
 from typing import List
 import pytest
 
@@ -110,12 +110,22 @@ class Solution:
                     lis[j] = nums[i]
         return len(lis)
 
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        """08/21/2022 15:18"""
+        lis = []
+        for n in nums:
+            i = bisect.bisect_left(lis, n)
+            if i == len(lis):
+                lis.append(n)
+            else:
+                lis[i] = n
+        return len(lis)
+
 
 @pytest.mark.parametrize('nums, expected', [
-([10,9,2,5,3,7,101,18], 4),
-([0,1,0,3,2,3], 4),
-([7,7,7,7,7,7,7], 1),
-
+    ([10,9,2,5,3,7,101,18], 4),
+    ([0,1,0,3,2,3], 4),
+    ([7,7,7,7,7,7,7], 1),
 ])
 def test(nums, expected):
     assert expected == Solution().lengthOfLIS(nums)

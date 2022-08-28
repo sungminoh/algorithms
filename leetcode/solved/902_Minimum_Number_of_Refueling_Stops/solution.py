@@ -43,11 +43,12 @@ Constraints:
 
 	1 <= target, startFuel <= 109
 	0 <= stations.length <= 500
-	0 <= positioni <= positioni+1 < target
+	1 <= positioni < positioni+1 < target
 	1 <= fueli < 109
 """
-from heapq import heappush
 from heapq import heappop
+from heapq import heappush
+from collections import defaultdict
 import sys
 from functools import lru_cache
 from typing import List
@@ -79,7 +80,7 @@ class Solution:
         return ret if ret != float('inf') else -1
 
     def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
-        """
+        """08/08/2021 03:02
         DP: max_fuel at i-th station when refuel n times
         Time complexity: O(n^2)
         Space complexity: O(n)
@@ -138,7 +139,7 @@ class Solution:
         return -1 if not h else h[0][0]
 
     def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
-        """
+        """08/08/2021 14:57
         Furthest position with cnt refuel. Assume that we refueled at the
         station that had the largest fuel when refuel is needed.
         Time complexity: O(n*logn)
@@ -160,11 +161,55 @@ class Solution:
         return -1
 
 
+    def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
+        """TLE"""
+        stations.insert(0, [0, startFuel])
+        stations.append([target, 0])
+
+        @lru_cache(None)
+        def min_fuel(cur, fuel):
+            if cur == len(stations)-1:
+                return 0
+            fuel -= stations[cur+1][0]-stations[cur][0]
+            ret = len(stations)
+            if fuel >= 0:
+                ret = min(ret, min_fuel(cur+1, fuel))
+            fuel += stations[cur][1]
+            if fuel >= 0:
+                ret = min(ret, 1+min_fuel(cur+1, fuel))
+            return ret
+
+        ret = min_fuel(0, 0)
+        return -1 if ret == len(stations) else (ret-1)
+
+    def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
+        """08/28/2022 15:50
+        Time Complexity: O(n^2)
+        Space Complexity: O(n)
+        """
+        stations.insert(0, [0, startFuel])
+        stations.append([target, 0])
+        fuel_remaining = {0: 0}
+        for i in range(1, len(stations)):
+            new_fuel_remaining = defaultdict(int)
+            dist = stations[i][0] - stations[i-1][0]
+            for num_fuel, remaining_fuel in fuel_remaining.items():
+                remaining_fuel -= dist
+                if remaining_fuel >= 0:
+                    new_fuel_remaining[num_fuel] = max(new_fuel_remaining[num_fuel], remaining_fuel)
+                remaining_fuel += stations[i-1][1]
+                if remaining_fuel >= 0:
+                    new_fuel_remaining[num_fuel+1] = max(new_fuel_remaining[num_fuel+1], remaining_fuel)
+            fuel_remaining = new_fuel_remaining
+        return -1 if not fuel_remaining else min(fuel_remaining.keys())-1
+
+
 @pytest.mark.parametrize('target, startFuel, stations, expected', [
     (1, 1, [], 0),
     (100, 1, [[10,100]], -1),
     (100, 10, [[10,60],[20,30],[30,30],[60,40]], 2),
     (1000000, 8663, [[31,195796],[42904,164171],[122849,139112],[172890,121724],[182747,90912],[194124,112994],[210182,101272],[257242,73097],[284733,108631],[369026,25791],[464270,14596],[470557,59420],[491647,192483],[516972,123213],[577532,184184],[596589,143624],[661564,154130],[705234,100816],[721453,122405],[727874,6021],[728786,19444],[742866,2995],[807420,87414],[922999,7675],[996060,32691]], 6),
+    (100, 50, [[60,50]], -1),
     (1000, 10, [[1,209],[2,30],[24,106],[25,3],[30,164],[33,4],[38,40],[56,202],[58,219],[69,90],[77,45],[78,90],[89,171],[94,26],[96,165],[109,122],[110,14],[121,142],[141,154],[150,196],[155,67],[159,246],[175,58],[203,71],[211,173],[226,64],[249,89],[272,74],[275,99],[276,205],[278,160],[279,203],[281,15],[282,72],[283,124],[295,90],[296,8],[307,120],[313,73],[327,15],[330,135],[331,87],[353,217],[364,120],[367,99],[371,152],[385,175],[392,241],[393,112],[399,125],[400,88],[409,187],[444,129],[448,158],[466,247],[468,153],[470,227],[474,129],[476,80],[477,198],[505,20],[529,125],[552,91],[553,59],[578,180],[587,142],[599,134],[617,224],[629,55],[649,79],[664,63],[669,236],[679,101],[694,108],[707,161],[717,32],[719,228],[721,95],[738,120],[747,59],[761,164],[769,153],[795,154],[802,236],[836,229],[849,247],[866,34],[874,45],[876,4],[880,31],[895,125],[908,188],[909,182],[911,62],[915,222],[928,34],[931,115],[934,165],[971,92],[993,221]], 5),
 ])
 def test(target, startFuel, stations, expected):

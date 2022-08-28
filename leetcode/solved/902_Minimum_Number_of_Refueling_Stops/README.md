@@ -48,9 +48,9 @@ __Constraints:__
 
 *   <code>1 <= target, startFuel <= 10<sup>9</sup></code>
 *   `` 0 <= stations.length <= 500 ``
-*   <code>0 <= position<sub>i</sub> <= position<sub>i+1</sub> < target</code>
+*   <code>1 <= position<sub>i</sub> < position<sub>i+1</sub> < target</code>
 *   <code>1 <= fuel<sub>i</sub> < 10<sup>9</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 139,555 | 48,759 | 34.9% |
+| 285,662 | 113,763 | 39.8% |

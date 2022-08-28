@@ -36,12 +36,13 @@ __Constraints:__
 
 *   `` 1 <= beginWord.length <= 5 ``
 *   `` endWord.length == beginWord.length ``
-*   `` 1 <= wordList.length <= 1000 ``
+*   `` 1 <= wordList.length <= 500 ``
 *   `` wordList[i].length == beginWord.length ``
 *   `` beginWord ``, `` endWord ``, and `` wordList[i] `` consist of lowercase English letters.
 *   `` beginWord != endWord ``
 *   All the words in `` wordList `` are __unique__.
+*   The __sum__ of all shortest transformation sequences does not exceed <code>10<sup>5</sup></code>.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,000,871 | 253,246 | 25.3% |
+| 1,186,862 | 327,623 | 27.6% |

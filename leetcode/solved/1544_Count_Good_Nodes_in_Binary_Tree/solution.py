@@ -38,10 +38,9 @@ Constraints:
 	The number of nodes in the binary tree is in the range [1, 10^5].
 	Each node's value is between [-10^4, 10^4].
 """
-from pathlib import Path
 import pytest
 import sys
-sys.path.append(str(Path(__file__).absolute().parent.parent.parent))
+sys.path.append('../')
 from exercise.tree import TreeNode, build_tree
 
 
@@ -53,6 +52,7 @@ from exercise.tree import TreeNode, build_tree
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
+        """08/27/2021 02:36"""
         def dfs(node, m):
             if not node:
                 return 0
@@ -61,14 +61,27 @@ class Solution:
 
         return dfs(root, -float('inf'))
 
+    def goodNodes(self, root: TreeNode) -> int:
+        """09/13/2022 23:14"""
+        def dfs(node, m):
+            if not node:
+                return 0
+            ret = 1 if node.val >= m else 0
+            m = max(m, node.val)
+            ret += dfs(node.left, m)
+            ret += dfs(node.right, m)
+            return ret
 
-@pytest.mark.parametrize('nodes, expected', [
+        return dfs(root, -float('inf'))
+
+
+@pytest.mark.parametrize('values, expected', [
     ([3,1,4,3,None,1,5], 4),
     ([3,3,None,4,2], 3),
     ([1], 1),
 ])
-def test(nodes, expected):
-    assert expected == Solution().goodNodes(build_tree(nodes))
+def test(values, expected):
+    assert expected == Solution().goodNodes(build_tree(values))
 
 
 if __name__ == '__main__':

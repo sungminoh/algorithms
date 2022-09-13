@@ -97,6 +97,7 @@ TEMPLATE = '''
 {content}
 """
 import pytest
+import sys
 
 
 {code}
@@ -107,6 +108,10 @@ import pytest
 ])
 def test():
     pass
+
+
+if __name__ == '__main__':
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))
 '''
 
 

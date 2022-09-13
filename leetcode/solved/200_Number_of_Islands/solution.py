@@ -2,32 +2,45 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 Sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
+
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
 
 Example 1:
 
-Input:
-11110
-11010
-11000
-00000
-
+Input: grid = [
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
+  ["1","1","0","0","0"],
+  ["0","0","0","0","0"]
+]
 Output: 1
+
 Example 2:
 
-Input:
-11000
-11000
-00100
-00011
-
+Input: grid = [
+  ["1","1","0","0","0"],
+  ["1","1","0","0","0"],
+  ["0","0","1","0","0"],
+  ["0","0","0","1","1"]
+]
 Output: 3
+
+Constraints:
+
+	m == grid.length
+	n == grid[i].length
+	1 <= m, n <= 300
+	grid[i][j] is '0' or '1'.
 """
+import sys
+from typing import List
+import pytest
 
 
 class Solution:
@@ -58,17 +71,41 @@ class Solution:
                     ret += 1
         return ret
 
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid or not grid[0]:
+            return 0
 
-def main():
-    inputs = []
-    inputs.append(("11110 11010 11000 00000".split(), 1))
-    inputs.append(("11000 11000 00100 00011".split(), 3))
-    for grid, expected in inputs:
-        actual = Solution().numIslands(grid)
-        print(f'{expected == actual}\texpected: {expected}\tactual: {actual}')
+        VISITED_MARKER = '2'
+        n, m = len(grid), len(grid[0])
+        def dfs(i, j):
+            if grid[i][j] != '1':
+                return 0
+            ret = 1
+            grid[i][j] = VISITED_MARKER  # mark visited
+            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                x, y = i+dx, j+dy
+                if 0 <= x < n and 0 <= y < m:
+                    ret += dfs(x, y)
+            return ret
+        return sum(1 if dfs(i, j)>0 else 0 for i in range(n) for j in range(m))
 
 
-
+@pytest.mark.parametrize('grid, expected', [
+    ([
+        ["1","1","1","1","0"],
+        ["1","1","0","1","0"],
+        ["1","1","0","0","0"],
+        ["0","0","0","0","0"]
+    ], 1),
+    ([
+        ["1","1","0","0","0"],
+        ["1","1","0","0","0"],
+        ["0","0","1","0","0"],
+        ["0","0","0","1","1"]
+    ], 3),
+])
+def test(grid, expected):
+    assert expected == Solution().numIslands(grid)
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

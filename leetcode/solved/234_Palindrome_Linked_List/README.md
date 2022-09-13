@@ -2,7 +2,7 @@
 
 Easy
 
-Given the `` head `` of a singly linked list, return `` true `` if it is a palindrome.
+Given the `` head `` of a singly linked list, return `` true ``_ if it is a palindrome or _`` false ``_ otherwise_.
 
  
 
@@ -36,4 +36,4 @@ __Follow up:__ Could you do it in `` O(n) `` time and `` O(1) `` space?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,508,588 | 635,907 | 42.2% |
+| 2,402,324 | 1,175,945 | 49.0% |

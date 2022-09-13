@@ -7,7 +7,7 @@
 # Distributed under terms of the MIT license.
 
 """
-Given the head of a singly linked list, return true if it is a palindrome.
+Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
 
 Example 1:
 
@@ -26,35 +26,21 @@ Constraints:
 
 Follow up: Could you do it in O(n) time and O(1) space?
 """
-import sys
-from typing import List
+from typing import Optional
 import pytest
+import sys
+sys.path.append('../')
+from exercise.list import ListNode, build_list
 
 
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-    def __repr__(self):
-        return f'{self.val} -> {self.next}'
-
-
-def build_list(nodes: List):
-    if not nodes:
-        return None
-    head = ListNode(nodes[0])
-    node = head
-    for v in nodes[1:]:
-        node.next = ListNode(v)
-        node = node.next
-    return head
-
-
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        """
+        """04/20/2021 23:49
         Time complexity: O(n)
         Space complexity: O(n)
         """
@@ -82,7 +68,7 @@ class Solution:
 
 
     def isPalindrome(self, head: ListNode) -> bool:
-        """
+        """04/21/2021 00:11
         Time complexity: O(n)
         Space complexity: O(1)
         """
@@ -126,16 +112,51 @@ class Solution:
         return ret
 
 
-@pytest.mark.parametrize('nodes, expected', [
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        if not head or not head.next:
+            return True
+
+        # [] -> a -> b -> c -> d -> e(or None)
+        # []    a <- b    c -> d -> e(or None)
+        #            | p  | s       | fast
+        dummy = ListNode()
+        dummy.next = head
+        parent = dummy
+        slow = fast = head
+        while fast and fast.next:
+            fast = fast.next.next
+            next_slow = slow.next
+            slow.next = parent
+            parent, slow = slow, next_slow
+        head.next = None  # detach dummy
+
+        # compare and restore
+        right = slow if not fast else slow.next
+        left = parent
+        parent = slow
+        ret = True
+        while left:
+            if left.val != right.val:
+                ret = False
+            right = right.next
+            next_left = left.next
+            left.next = parent
+            left, parent = next_left, left
+        return ret
+
+
+@pytest.mark.parametrize('values, expected', [
     ([1,2,3,4,5], False),
     ([1,2,3,2,1], True),
     ([1,2,2,1], True),
     ([1,2], False),
     ([1], True)
 ])
-def test(nodes, expected):
-    ll = build_list(nodes)
-    assert expected == Solution().isPalindrome(ll)
+def test(values, expected):
+    head = build_list(values)
+    assert expected == Solution().isPalindrome(head)
+    # To make sure there was no inplace change
+    assert build_list(values) == head
 
 
 if __name__ == '__main__':

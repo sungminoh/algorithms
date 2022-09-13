@@ -31,7 +31,7 @@ __Constraints:__
 
 *   `` m == matrix.length ``
 *   `` n == matrix[i].length ``
-*   `` 1 <= m, n <= 100 ``
+*   `` 1 <= m, n <= 200 ``
 *   `` -100 <= matrix[i][j] <= 100 ``
 *   <code>-10<sup>5</sup> <= k <= 10<sup>5</sup></code>
 
@@ -41,4 +41,4 @@ __Follow up:__ What if the number of rows is much larger than the number of colu
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 181,323 | 72,577 | 40.0% |
+| 257,998 | 114,185 | 44.3% |

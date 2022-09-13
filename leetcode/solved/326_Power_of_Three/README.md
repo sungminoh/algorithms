@@ -10,26 +10,26 @@ An integer `` n `` is a power of three, if there exists an integer `` x `` such 
 
 __Example 1:__
 
-```Input: n = 27
+```
+Input: n = 27
 Output: true
+Explanation: 27 = 3<sup>3</sup>
 ```
 
 __Example 2:__
 
-```Input: n = 0
+```
+Input: n = 0
 Output: false
+Explanation: There is no x where 3<sup>x</sup> = 0.
 ```
 
 __Example 3:__
 
-```Input: n = 9
-Output: true
 ```
-
-__Example 4:__
-
-```Input: n = 45
+Input: n = -1
 Output: false
+Explanation: There is no x where 3<sup>x</sup> = (-1).
 ```
 
  
@@ -43,4 +43,4 @@ __Follow up:__ Could you solve it without loops/recursion?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 826,880 | 351,097 | 42.5% |
+| 1,292,610 | 582,108 | 45.0% |

@@ -1,26 +1,44 @@
-### [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/description/)
+### [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
 
-[Description](https://leetcode.com/problems/binary-tree-inorder-traversal/description/)[Hints](https://leetcode.com/problems/binary-tree-inorder-traversal/hints/)[Submissions](https://leetcode.com/problems/binary-tree-inorder-traversal/submissions/)[Discuss](https://leetcode.com/problems/binary-tree-inorder-traversal/discuss/)[Solution](https://leetcode.com/problems/binary-tree-inorder-traversal/solution/)
+Easy
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given the `` root `` of a binary tree, return _the inorder traversal of its nodes' values_.
 
-------
+ 
 
-Given a binary tree, return the *inorder* traversal of its nodes' values.
+__Example 1:__
 
-**Example:**
+<img alt="" src="https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg" style="width: 125px; height: 200px;"/>
 
 ```
-Input: [1,null,2,3]
-   1
-    \
-     2
-    /
-   3
-
+Input: root = [1,null,2,3]
 Output: [1,3,2]
 ```
 
-**Follow up:** Recursive solution is trivial, could you do it iteratively?
+__Example 2:__
 
- 
+```
+Input: root = []
+Output: []
+```
+
+__Example 3:__
+
+```
+Input: root = [1]
+Output: [1]
+```
+
+ 
+
+__Constraints:__
+
+*   The number of nodes in the tree is in the range `` [0, 100] ``.
+*   `` -100 <= Node.val <= 100 ``
+
+ 
+__Follow up:__ Recursive solution is trivial, could you do it iteratively?
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 2,380,971 | 1,730,981 | 72.7% |

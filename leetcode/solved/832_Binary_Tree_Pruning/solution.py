@@ -34,11 +34,10 @@ Constraints:
 	The number of nodes in the tree is in the range [1, 200].
 	Node.val is either 0 or 1.
 """
-from pathlib import Path
 from typing import Optional
 import pytest
 import sys
-sys.path.append(str(Path('__file__').absolute().parent.parent))
+sys.path.append('../')
 from exercise.tree import TreeNode, build_tree
 
 
@@ -60,6 +59,7 @@ class Solution:
         return root
 
     def pruneTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        """08/20/2021 04:36"""
         if not root:
             return None
         root.left = self.pruneTree(root.left)
@@ -69,14 +69,24 @@ class Solution:
         return root
 
 
-@pytest.mark.parametrize('nodes, expected', [
+    def pruneTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        """09/18/2022 22:46"""
+        if not root:
+            return None
+        root.left = self.pruneTree(root.left)
+        root.right = self.pruneTree(root.right)
+        if not root.left and not root.right and root.val == 0:
+            return None
+        return root
+
+
+@pytest.mark.parametrize('values, expected', [
     ([1,None,0,0,1], [1,None,0,None,1]),
     ([1,0,1,0,0,0,1], [1,None,1,None,1]),
     ([1,1,0,1,1,0,1,0], [1,1,0,1,1,None,1]),
 ])
-def test(nodes, expected):
-    actual = Solution().pruneTree(build_tree(nodes))
-    assert build_tree(expected) == actual
+def test(values, expected):
+    assert build_tree(expected) == Solution().pruneTree(build_tree(values))
 
 
 if __name__ == '__main__':

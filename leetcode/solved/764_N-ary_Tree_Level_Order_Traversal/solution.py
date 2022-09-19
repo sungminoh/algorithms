@@ -26,11 +26,12 @@ Constraints:
 	The height of the n-ary tree is less than or equal to 1000
 	The total number of nodes is between [0, 104]
 """
-import sys
 from itertools import zip_longest
 from collections import deque
 from typing import List
 import pytest
+import sys
+sys.path.append('../')
 
 
 # Definition for a Node.
@@ -74,6 +75,7 @@ class Solution:
         return ret
 
     def levelOrder(self, root: 'Node') -> List[List[int]]:
+        """08/23/2021 15:04"""
         if not root:
             return []
         ret = []
@@ -85,6 +87,24 @@ class Solution:
                 for c in (n.children or []):
                     next_level.append(c)
             nodes = next_level
+        return ret
+
+    def levelOrder(self, root: 'Node') -> List[List[int]]:
+        """09/18/2022 22:40"""
+        level_nodes = [root]
+        ret = []
+        while level_nodes:
+            layer = []
+            next_level_nodes = []
+            for node in level_nodes:
+                if node is None:
+                    continue
+                layer.append(node.val)
+                if node.children:
+                    next_level_nodes.extend(node.children)
+            if layer:
+                ret.append(layer)
+            level_nodes = next_level_nodes
         return ret
 
 
@@ -108,6 +128,7 @@ def build_tree(arr) -> 'Node':
 
 
 def build_tree(nodes):
+    """08/23/2021 15:04"""
     if not nodes:
         return None
     root = Node(nodes[0])
@@ -129,7 +150,7 @@ def build_tree(nodes):
 @pytest.mark.parametrize('nodes, expected', [
     ([1,None,3,2,4,None,5,6], [[1],[3,2,4],[5,6]]),
     ([1,None,2,3,4,5,None,None,6,7,None,8,None,9,10,None,None,11,None,12,None,13,None,None,14], [[1],[2,3,4,5],[6,7,8,9,10],[11,12,13],[14]]),
-    ([], [])
+    ([], []),
 ])
 def test(nodes, expected):
     tree = build_tree(nodes)

@@ -33,62 +33,25 @@ Constraints:
 	The number of nodes in the tree is in the range [1, 105].
 	1 <= Node.val <= 9
 """
-import sys
+from typing import Optional
 import pytest
+import sys
+sys.path.append('../')
+from exercise.tree import TreeNode, build_tree
 
 
 # Definition for a binary tree node.
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-    def __repr__(self):
-        from itertools import zip_longest
-        left_lines = repr(self.left).split('\n') if self.left else []
-        right_lines = repr(self.right).split('\n') if self.right else []
-        node_padding = len(repr(self.val)) + 2
-        left_padding = len(left_lines[0]) if left_lines else 0
-        right_padding = len(right_lines[0]) if right_lines else 0
-        lines = [' '*left_padding + rf'({self.val})' + ' '*right_padding]
-        for ll, rl in zip_longest(left_lines, right_lines):
-            if ll is not None:
-                lines.append(ll + ' '*node_padding + (rl or ''))
-            else:
-                lines.append(' '*(node_padding + left_padding) + (rl or ''))
-        return '\n'.join(lines)
-
-    def __eq__(self, other):
-        return other.val == self.val \
-            and other.left == self.left \
-            and other.right == self.right
-
-
-def build_tree(lst):
-    root = TreeNode(lst[0])
-    queue = [root]
-    att = ['left', 'right']
-    cur = 0
-    for x in lst[1:]:
-        node = TreeNode(x) if x is not None else None
-        setattr(queue[0], att[cur], node)
-        if cur:
-            queue.pop(0)
-        if node:
-            queue.append(node)
-        cur += 1
-        cur %= 2
-    return root
-
-
-def is_leaf(node):
-    return node.left is None and node.right is None
-
-
-
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def pseudoPalindromicPaths (self, root: TreeNode) -> int:
+        """04/18/2021 13:37"""
+        def is_leaf(node):
+            return node.left is None and node.right is None
+
         def toggle(s, v):
             if v in s:
                 s.remove(v)
@@ -112,18 +75,33 @@ class Solution:
 
         return dfs(root, set())
 
+    def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:
+        """10/03/2022 22:09"""
+        def dfs(node, bit):
+            bit ^= (1<<node.val)
+            if not node.left and not node.right:  # leaf
+                lsb = bit&(~(bit-1))
+                if bit ^ lsb == 0:
+                    return 1
+            ret = 0
+            if node.left:
+                ret += dfs(node.left, bit)
+            if node.right:
+                ret += dfs(node.right, bit)
+            bit ^= (1<<node.val)
+            return ret
 
-@pytest.mark.parametrize('nodes, expected', [
+        return dfs(root, 0) if root else 0
+
+
+@pytest.mark.parametrize('values, expected', [
     ([2,3,1,3,1,None,1], 2),
     ([2,1,1,1,3,None,None,None,None,None,1], 1),
     ([9], 1),
-
 ])
-def test(nodes, expected):
-    tree = build_tree(nodes)
-    print()
-    print(tree)
-    assert expected == Solution().pseudoPalindromicPaths(tree)
+def test(values, expected):
+    assert expected == Solution().pseudoPalindromicPaths(build_tree(values))
+
 
 
 if __name__ == '__main__':

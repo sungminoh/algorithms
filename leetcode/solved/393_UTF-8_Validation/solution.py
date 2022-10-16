@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -8,48 +7,56 @@
 # Distributed under terms of the MIT license.
 
 """
+Given an integer array data representing the data, return whether it is a valid UTF-8 encoding (i.e. it translates to a sequence of valid UTF-8 encoded characters).
+
 A character in UTF8 can be from 1 to 4 bytes long, subjected to the following rules:
 
-For 1-byte character, the first bit is a 0, followed by its unicode code.
-For n-bytes character, the first n-bits are all one's, the n+1 bit is 0, followed by n-1 bytes with most significant 2 bits being 10.
+	For a 1-byte character, the first bit is a 0, followed by its Unicode code.
+	For an n-bytes character, the first n bits are all one's, the n + 1 bit is 0, followed by n - 1 bytes with the most significant 2 bits being 10.
 
 This is how the UTF-8 encoding would work:
 
-   Char. number range  |        UTF-8 octet sequence
-      (hexadecimal)    |              (binary)
-   --------------------+---------------------------------------------
-   0000 0000-0000 007F | 0xxxxxxx
-   0000 0080-0000 07FF | 110xxxxx 10xxxxxx
-   0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx
-   0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+     Number of Bytes   |        UTF-8 Octet Sequence
+                       |              (binary)
+   --------------------+-----------------------------------------
+            1          |   0xxxxxxx
+            2          |   110xxxxx 10xxxxxx
+            3          |   1110xxxx 10xxxxxx 10xxxxxx
+            4          |   11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
 
-Given an array of integers representing the data, return whether it is a valid utf-8 encoding.
+x denotes a bit in the binary form of a byte that may be either 0 or 1.
 
-Note:
-The input is an array of integers. Only the least significant 8 bits of each integer is used to store the data. This means each integer represents only 1 byte of data.
+Note: The input is an array of integers. Only the least significant 8 bits of each integer is used to store the data. This means each integer represents only 1 byte of data.
 
 Example 1:
 
-data = [197, 130, 1], which represents the octet sequence: 11000101 10000010 00000001.
-
-Return true.
+Input: data = [197,130,1]
+Output: true
+Explanation: data represents the octet sequence: 11000101 10000010 00000001.
 It is a valid utf-8 encoding for a 2-bytes character followed by a 1-byte character.
 
 Example 2:
 
-data = [235, 140, 4], which represented the octet sequence: 11101011 10001100 00000100.
-
-Return false.
+Input: data = [235,140,4]
+Output: false
+Explanation: data represented the octet sequence: 11101011 10001100 00000100.
 The first 3 bits are all one's and the 4th bit is 0 means it is a 3-bytes character.
 The next byte is a continuation byte which starts with 10 and that's correct.
 But the second continuation byte does not start with 10, so it is invalid.
+
+Constraints:
+
+	1 <= data.length <= 2 * 104
+	0 <= data[i] <= 255
 """
-from typing import List
 import pytest
+import sys
+from typing import List
 
 
 class Solution:
     def validUtf8(self, data: List[int]) -> bool:
+        """04/20/2020 06:37"""
         def _byte_size(i):
             for j in range(8):
                 if 1 & (data[i] >> (7 - j)) != 1:
@@ -71,12 +78,42 @@ class Solution:
 
         return _rec(0)
 
+    def validUtf8(self, data: List[int]) -> bool:
+        """10/03/2022 21:32"""
+        remain = 0
+        print()
+        for d in data:
+            print(bin(d)[2:])
+            if d == 255:
+                return False
+            if remain == 0:
+                if d & (1<<7) == 0:
+                    continue
+                cnt = 0
+                while (1<<(6-cnt)) & d != 0:
+                    cnt += 1
+                if cnt == 0 or cnt > 3:
+                    return False
+                remain = cnt
+            else:
+                cond1 = (d & (1<<7)) != 0
+                cond2 = (d ^ (1<<6)) != 0
+                if not (cond1 and cond2):
+                    return False
+                remain -= 1
+        return remain == 0
+
 
 @pytest.mark.parametrize('data, expected', [
-    ([197, 130, 1], True),
-    ([235, 140, 4], False),
-    ([255], False)
+    ([197,130,1], True),
+    ([235,140,4], False),
+    ([255], False),
+    ([237], False),
+    ([250,145,145,145,145], False),
 ])
 def test(data, expected):
     assert expected == Solution().validUtf8(data)
 
+
+if __name__ == '__main__':
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

@@ -2,19 +2,27 @@
 
 Hard
 
-Given a list of __unique__ words, return all the pairs of the ___distinct___ indices `` (i, j) `` in the given list, so that the concatenation of the two words `` words[i] + words[j] `` is a palindrome.
+You are given a __0-indexed__ array of __unique__ strings `` words ``.
+
+A __palindrome pair__ is a pair of integers `` (i, j) `` such that:
+
+*   `` 0 <= i, j < word.length ``,
+*   `` i != j ``, and
+*   `` words[i] + words[j] `` (the concatenation of the two strings) is a palindrome string.
+
+Return _an array of all the __palindrome pairs__ of _`` words ``.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: words = ["abcd","dcba","lls","s","sssll"]
 Output: [[0,1],[1,0],[3,2],[2,4]]
-Explanation: The palindromes are ["dcbaabcd","abcddcba","slls","llssssll"]
+Explanation: The palindromes are ["abcddcba","dcbaabcd","slls","llssssll"]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: words = ["bat","tab","cat"]
@@ -22,11 +30,12 @@ Output: [[0,1],[1,0]]
 Explanation: The palindromes are ["battab","tabbat"]
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: words = ["a",""]
 Output: [[0,1],[1,0]]
+Explanation: The palindromes are ["a","a"]
 ```
 
  
@@ -35,8 +44,8 @@ __Constraints:__
 
 *   `` 1 <= words.length <= 5000 ``
 *   `` 0 <= words[i].length <= 300 ``
-*   `` words[i] `` consists of lower-case English letters.
+*   `` words[i] `` consists of lowercase English letters.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 372,278 | 134,382 | 36.1% |
+| 525,418 | 185,085 | 35.2% |

@@ -12,7 +12,7 @@ Return _the maximum performance of this team_. Since the answer can be a huge nu
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: n = 6, speed = [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2], k = 2
@@ -21,7 +21,7 @@ Explanation:
 We have the maximum performance of the team by selecting engineer 2 (with speed=10 and efficiency=4) and engineer 5 (with speed=5 and efficiency=7). That is, performance = (10 + 5) * min(4, 7) = 60.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: n = 6, speed = [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2], k = 3
@@ -30,7 +30,7 @@ Explanation:
 This is the same example as the first but k = 3. We can select engineer 1, engineer 2 and engineer 5 to get the maximum performance of the team. That is, performance = (2 + 10 + 5) * min(5, 4, 7) = 68.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: n = 6, speed = [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2], k = 4
@@ -49,4 +49,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 78,043 | 32,181 | 41.2% |
+| 166,892 | 81,706 | 49.0% |

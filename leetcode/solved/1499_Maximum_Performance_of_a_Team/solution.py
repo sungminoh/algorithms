@@ -44,16 +44,15 @@ Constraints:
 """
 from pathlib import Path
 import json
-import sys
-from heapq import heappop
-from heapq import heappush
+from heapq import heappop, heappush
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def maxPerformance(self, n: int, speed: List[int], efficiency: List[int], k: int) -> int:
-        """
+        """06/25/2021 18:29
         Time complexity: O(nlogn)  # sort
         Space complexity: O(k)  # heap
         """
@@ -67,6 +66,34 @@ class Solution:
                 acc -= heappop(h)
             ret = max(ret, acc*e)
         return ret % (int(1e9)+7)
+
+    def maxPerformance(self, n: int, speed: List[int], efficiency: List[int], k: int) -> int:
+        """09/23/2022 05:23"""
+        ret = 0
+        acc = 0
+        h = []
+        for s, e in sorted(zip(speed, efficiency), key=lambda x: -x[1]):
+            heappush(h, s)
+            acc += s
+            if len(h) > k:
+                acc -= heappop(h)
+            ret = max(ret, acc*e)
+        return ret % (int(1e9)+7)
+
+    def maxPerformance(self, n: int, speed: List[int], efficiency: List[int], k: int) -> int:
+        """10/16/2022 14:44"""
+        # sort by efficiency in descending order
+        engineers = sorted(zip(speed, efficiency), key=lambda x: -x[1])
+        ret = 0
+        speed_sum = 0
+        h = []
+        for s, e in engineers:
+            speed_sum += s
+            heappush(h, s)
+            while len(h) > k:
+                speed_sum -= heappop(h)
+            ret = max(ret, speed_sum*e)
+        return ret%int(1e9+7)
 
 
 @pytest.mark.parametrize('n, speed, efficiency, k, expected', [

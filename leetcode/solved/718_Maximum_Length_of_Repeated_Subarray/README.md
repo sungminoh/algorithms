@@ -6,7 +6,7 @@ Given two integer arrays `` nums1 `` and `` nums2 ``, return _the maximum length
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: nums1 = [1,2,3,2,1], nums2 = [3,2,1,4,7]
@@ -14,11 +14,12 @@ Output: 3
 Explanation: The repeated subarray with maximum length is [3,2,1].
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: nums1 = [0,0,0,0,0], nums2 = [0,0,0,0,0]
 Output: 5
+Explanation: The repeated subarray with maximum length is [0,0,0,0,0].
 ```
 
  
@@ -30,4 +31,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 259,368 | 132,468 | 51.1% |
+| 471,785 | 243,470 | 51.6% |

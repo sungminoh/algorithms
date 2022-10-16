@@ -45,10 +45,11 @@ Follow up:
 	What is the time complexity of your modified solution? What is the most time-consuming part and memory-consuming part of it? How to optimize?
 	How to make sure the duplicated files you find are not false positive?
 """
-import sys
+import os
 from collections import defaultdict
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -63,7 +64,7 @@ class Solution:
         return list(x for x in groups.values() if len(x) > 1)
 
     def findDuplicate(self, paths: List[str]) -> List[List[str]]:
-        """
+        """06/02/2021 06:39
         Imagine you are given a real file system, how will you search files? DFS or BFS?
         - Either would work. But I'd use DFS not to keep a queue
         If the file content is very large (GB level), how will you modify your solution?
@@ -84,18 +85,24 @@ class Solution:
         return [x for x in groups.values() if len(x) > 1]
 
 
+    def findDuplicate(self, paths: List[str]) -> List[List[str]]:
+        groups = defaultdict(list)
+        for path in paths:
+            d, *files = path.split(' ')
+            for f in files:
+                fname, content = f[:-1].split('(')
+                groups[content].append(os.path.join(d, fname))
+        return [x for x in groups.values() if len(x)>=2]
+
+
 @pytest.mark.parametrize('paths, expected', [
     (["root/a 1.txt(abcd) 2.txt(efgh)","root/c 3.txt(abcd)","root/c/d 4.txt(efgh)","root 4.txt(efgh)"], [["root/a/2.txt","root/c/d/4.txt","root/4.txt"],["root/a/1.txt","root/c/3.txt"]]),
     (["root/a 1.txt(abcd) 2.txt(efgh)","root/c 3.txt(abcd)","root/c/d 4.txt(efgh)"], [["root/a/2.txt","root/c/d/4.txt"],["root/a/1.txt","root/c/3.txt"]]),
-    (["root/a 1.txt(abcd) 2.txt(efsfgh)","root/c 3.txt(abdfcd)","root/c/d 4.txt(efggdfh)"], []),
+    (["root/a 1.txt(abcd) 2.txt(efsfgh)","root/c 3.txt(abdfcd)","root/c/d 4.txt(efggdfh)"], [])
 ])
 def test(paths, expected):
-    expected = sorted(sorted(x) for x in expected)
-    actual = sorted(sorted(x) for x in Solution().findDuplicate(paths))
-    print()
-    print(expected)
-    print(actual)
-    assert expected == actual
+    actual = Solution().findDuplicate(paths)
+    assert sorted([sorted(x) for x in expected]) == sorted([sorted(x) for x in actual])
 
 
 if __name__ == '__main__':

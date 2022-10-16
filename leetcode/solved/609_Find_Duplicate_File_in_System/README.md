@@ -1,4 +1,4 @@
-### [609. Find Duplicate File in System](https://leetcode.com/problems/find-duplicate-file-in-system)
+### [609. Find Duplicate File in System](https://leetcode.com/problems/find-duplicate-file-in-system/)
 
 Medium
 
@@ -18,13 +18,13 @@ The output is a list of groups of duplicate file paths. For each group, it conta
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```Input: paths = ["root/a 1.txt(abcd) 2.txt(efgh)","root/c 3.txt(abcd)","root/c/d 4.txt(efgh)","root 4.txt(efgh)"]
 Output: [["root/a/2.txt","root/c/d/4.txt","root/4.txt"],["root/a/1.txt","root/c/3.txt"]]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```Input: paths = ["root/a 1.txt(abcd) 2.txt(efgh)","root/c 3.txt(abcd)","root/c/d 4.txt(efgh)"]
 Output: [["root/a/2.txt","root/c/d/4.txt"],["root/a/1.txt","root/c/3.txt"]]
@@ -53,4 +53,4 @@ __Follow up:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 130,579 | 82,266 | 63.0% |
+| 206,995 | 140,390 | 67.8% |

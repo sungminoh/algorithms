@@ -6,7 +6,7 @@ Given `` n `` non-negative integers representing an elevation map where the widt
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img src="https://assets.leetcode.com/uploads/2018/10/22/rainwatertrap.png" style="width: 412px; height: 161px;"/>
 
@@ -16,7 +16,7 @@ Output: 6
 Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: height = [4,2,0,3,2,5]
@@ -33,4 +33,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,594,998 | 847,884 | 53.2% |
+| 2,319,211 | 1,361,917 | 58.7% |

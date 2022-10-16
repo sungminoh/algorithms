@@ -26,9 +26,9 @@ Constraints:
 	1 <= n <= 2 * 104
 	0 <= height[i] <= 105
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -108,10 +108,28 @@ class Solution:
                 water = 0
         return ret
 
+    def _trap(self, height: List[int]) -> int:
+        """10/16/2022 16:16
+        Time complexity: O(n)
+        Space complexity: O(n)
+        """
+        max_from_left = [0]
+        max_from_right = [0]
+        for h in height:
+            max_from_left.append(max(max_from_left[-1], h))
+        for h in reversed(height):
+            max_from_right.append(max(max_from_right[-1], h))
+        max_from_right.reverse()
+        return sum(
+            max(0, min(l, r) - height[i])
+            for i, (l, r)
+            in enumerate(zip(max_from_left, max_from_right), -1))
+
 
 @pytest.mark.parametrize('height, expected', [
     ([0,1,0,2,1,0,1,3,2,1,2,1], 6),
     ([4,2,0,3,2,5], 9),
+    ([0,10,0,0,0,10,0], 30),
 ])
 def test(height, expected):
     assert expected == Solution().trap(height)

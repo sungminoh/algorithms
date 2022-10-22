@@ -1,4 +1,4 @@
-### [868. Push Dominoes](https://leetcode.com/problems/push-dominoes)
+### [868. Push Dominoes](https://leetcode.com/problems/push-dominoes/)
 
 Medium
 
@@ -20,7 +20,7 @@ Return _a string representing the final state_.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: dominoes = "RR.L"
@@ -28,7 +28,7 @@ Output: "RR.L"
 Explanation: The first domino expends no additional force on the second domino.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://s3-lc-upload.s3.amazonaws.com/uploads/2018/05/18/domino.png" style="height: 196px; width: 512px;"/>
 
@@ -47,4 +47,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 99,127 | 51,384 | 51.8% |
+| 186,734 | 106,436 | 57.0% |

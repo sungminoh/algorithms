@@ -11,13 +11,13 @@ An integer `` a `` is closer to `` x `` than an integer `` b `` if:
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```Input: arr = [1,2,3,4,5], k = 4, x = 3
 Output: [1,2,3,4]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```Input: arr = [1,2,3,4,5], k = 4, x = -1
 Output: [1,2,3,4]
@@ -34,4 +34,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 476,067 | 206,198 | 43.3% |
+| 835,407 | 390,344 | 46.7% |

@@ -7,21 +7,23 @@
 # Distributed under terms of the MIT license.
 
 """
-Design your implementation of the circular queue. The circular queue is a linear data structure in which the operations are performed based on FIFO (First In First Out) principle and the last position is connected back to the first position to make a circle. It is also called "Ring Buffer".
+Design your implementation of the circular queue. The circular queue is a linear data structure in which the operations are performed based on FIFO (First In First Out) principle, and the last position is connected back to the first position to make a circle. It is also called "Ring Buffer".
 
 One of the benefits of the circular queue is that we can make use of the spaces in front of the queue. In a normal queue, once the queue becomes full, we cannot insert the next element even if there is a space in front of the queue. But using the circular queue, we can use the space to store new values.
 
-Your implementation should support following operations:
+Implement the MyCircularQueue class:
 
-	MyCircularQueue(k): Constructor, set the size of the queue to be k.
-	Front: Get the front item from the queue. If the queue is empty, return -1.
-	Rear: Get the last item from the queue. If the queue is empty, return -1.
-	enQueue(value): Insert an element into the circular queue. Return true if the operation is successful.
-	deQueue(): Delete an element from the circular queue. Return true if the operation is successful.
-	isEmpty(): Checks whether the circular queue is empty or not.
-	isFull(): Checks whether the circular queue is full or not.
+	MyCircularQueue(k) Initializes the object with the size of the queue to be k.
+	int Front() Gets the front item from the queue. If the queue is empty, return -1.
+	int Rear() Gets the last item from the queue. If the queue is empty, return -1.
+	boolean enQueue(int value) Inserts an element into the circular queue. Return true if the operation is successful.
+	boolean deQueue() Deletes an element from the circular queue. Return true if the operation is successful.
+	boolean isEmpty() Checks whether the circular queue is empty or not.
+	boolean isFull() Checks whether the circular queue is full or not.
 
-Example:
+You must solve the problem without using the built-in queue data structure in your programming language. 
+
+Example 1:
 
 Input
 ["MyCircularQueue", "enQueue", "enQueue", "enQueue", "enQueue", "Rear", "isFull", "deQueue", "enQueue", "Rear"]
@@ -30,32 +32,31 @@ Output
 [null, true, true, true, false, 3, true, true, true, 4]
 
 Explanation
-MyCircularQueue circularQueue = new MyCircularQueue(3); // set the size to be 3
-circularQueue.enQueue(1);  // return true
-circularQueue.enQueue(2);  // return true
-circularQueue.enQueue(3);  // return true
-circularQueue.enQueue(4);  // return false, the queue is full
-circularQueue.Rear();  // return 3
-circularQueue.isFull();  // return true
-circularQueue.deQueue();  // return true
-circularQueue.enQueue(4);  // return true
-circularQueue.Rear();  // return 4
+MyCircularQueue myCircularQueue = new MyCircularQueue(3);
+myCircularQueue.enQueue(1); // return True
+myCircularQueue.enQueue(2); // return True
+myCircularQueue.enQueue(3); // return True
+myCircularQueue.enQueue(4); // return False
+myCircularQueue.Rear();     // return 3
+myCircularQueue.isFull();   // return True
+myCircularQueue.deQueue();  // return True
+myCircularQueue.enQueue(4); // return True
+myCircularQueue.Rear();     // return 4
 
 Constraints:
 
 	1 <= k <= 1000
 	0 <= value <= 1000
 	At most 3000 calls will be made to enQueue, deQueue, Front, Rear, isEmpty, and isFull.
-
-Follow up: Could you solve the problem without using the built-in queue?
 """
-import sys
 import pytest
+import sys
 
 
 class MyCircularQueue:
-    """Using an Array"""
-
+    """06/20/2020 15:32
+    Using an Array
+    """
     def __init__(self, k: int):
         """
         Initialize your data structure here. Set the size of the queue to be k.
@@ -115,7 +116,9 @@ class MyCircularQueue:
 
 
 class MyCircularQueue:
-    """Using a CircularLikedList"""
+    """04/21/2021 09:45
+    Using a CircularLikedList
+    """
     class Node:
         def __init__(self, val, nxt=None):
             self.val = val
@@ -162,18 +165,56 @@ class MyCircularQueue:
         return self.t.nxt == self.h
 
 
-@pytest.mark.parametrize('commands, args, expected', [
-    (['MyCircularQueue', 'enQueue', 'enQueue', 'enQueue', 'enQueue', 'Rear', 'isFull', 'deQueue', 'enQueue', 'Rear'],
-     [[3],[1],[2],[3],[4],[],[],[],[4],[]],
+class MyCircularQueue:
+    """10/21/2022 17:15"""
+    def __init__(self, k: int):
+        self.store = [None] * (k+1)
+        self.h = 0
+        self.t = 0
+
+    def _idx(self, i, d) -> int:
+        return (i+d)%len(self.store)
+
+    def enQueue(self, value: int) -> bool:
+        if self.isFull():
+            return False
+        self.store[self.t] = value
+        self.t = self._idx(self.t, 1)
+        return True
+
+    def deQueue(self) -> bool:
+        if self.isEmpty():
+            return False
+        self.h = self._idx(self.h, 1)
+        return True
+
+    def Front(self) -> int:
+        return self.store[self.h] if not self.isEmpty() else -1
+
+    def Rear(self) -> int:
+        return self.store[self._idx(self.t, -1)] if not self.isEmpty() else -1
+
+    def isEmpty(self) -> bool:
+        return self.h == self.t
+
+    def isFull(self) -> bool:
+        return self._idx(self.t, 1) == self.h
+
+
+@pytest.mark.parametrize('commands, arguments, expecteds', [
+    (["MyCircularQueue", "enQueue", "enQueue", "enQueue", "enQueue", "Rear", "isFull", "deQueue", "enQueue", "Rear"],
+     [[3], [1], [2], [3], [4], [], [], [], [4], []],
      [None, True, True, True, False, 3, True, True, True, 4]),
     (["MyCircularQueue","enQueue","Rear","Rear","deQueue","enQueue","Rear","deQueue","Front","deQueue","deQueue","deQueue"],
      [[6],[6],[],[],[],[5],[],[],[],[],[],[]],
      [None,True,6,6,True,True,5,True,-1,False,False,False]),
 ])
-def test(commands, args, expected):
-    obj = globals()[commands[0]](*args[0])
-    actual = [getattr(obj, cmd)(*arg) for cmd, arg in zip(commands[1:], args[1:])]
-    assert expected[1:] == actual
+def test(commands, arguments, expecteds):
+    obj = globals()[commands.pop(0)](*arguments.pop(0))
+    actuals = []
+    for cmd, arg in zip(commands, arguments):
+        actuals.append(getattr(obj, cmd)(*arg))
+    assert expecteds[1:] == actuals
 
 
 if __name__ == '__main__':

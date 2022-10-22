@@ -23,7 +23,7 @@ Note that the grouping (1 11 06) is invalid because "06" cannot be mapped into '
 
 Given a string s containing only digits, return the number of ways to decode it.
 
-The answer is guaranteed to fit in a 32-bit integer.
+The test cases are generated so that the answer fits in a 32-bit integer.
 
 Example 1:
 
@@ -39,14 +39,6 @@ Explanation: "226" could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6
 
 Example 3:
 
-Input: s = "0"
-Output: 0
-Explanation: There is no character that is mapped to a number starting with 0.
-The only valid mappings with 0 are 'J' -> "10" and 'T' -> "20", neither of which start with 0.
-Hence, there are no valid ways to decode this since all digits need to be mapped.
-
-Example 4:
-
 Input: s = "06"
 Output: 0
 Explanation: "06" cannot be mapped to "F" because of the leading zero ("6" is different from "06").
@@ -57,8 +49,8 @@ Constraints:
 	s contains only digits and may contain leading zero(s).
 """
 from functools import lru_cache
-import sys
 import pytest
+import sys
 
 
 class Solution:
@@ -79,7 +71,7 @@ class Solution:
         return n
 
     def numDecodings(self, s: str) -> int:
-        """
+        """08/24/2021 10:37
         Time complexity: O(n)
         Space complexity: O(1)
         """
@@ -101,6 +93,21 @@ class Solution:
             if '1' <= s[i] <= '9':
                 dp[i%2] += dp[(i-1)%2]
         return dp[(len(s)-1)%2]
+
+    def numDecodings(self, s: str) -> int:
+        """10/16/2022 16:44"""
+        @lru_cache(None)
+        def decode(i):
+            if i == len(s):
+                return 1
+            ret = 0
+            if 1 <= int(s[i]) <= 9:
+                ret += decode(i+1)
+            if 10 <= int(s[i:min(len(s), i+2)]) <= 26:
+                ret += decode(i+2)
+            return ret
+
+        return decode(0)
 
 
 @pytest.mark.parametrize('s, expected', [

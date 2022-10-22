@@ -28,12 +28,11 @@ Constraints:
 	arr is sorted in ascending order.
 	-104 <= arr[i], x <= 104
 """
-from heapq import heappop
-from heapq import heappush
-import sys
 import bisect
+from heapq import heappop, heappush
 from typing import List
 import pytest
+import sys
 
 
 def binsearch(arr, x):
@@ -136,10 +135,53 @@ class Solution:
         return arr[l:l+k]
 
 
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        """10/21/2022 17:33
+        Time complexity: O(logn + k)
+        Space complexity: O(1)
+        """
+        i = bisect.bisect_left(arr, x)
+        if i == 0:
+            return arr[:k]
+        if i == len(arr):
+            return arr[-k:]
+        if abs(x-arr[i-1]) <= abs(x-arr[i]):
+            i -= 1
+
+        j = i
+        while (i>0 or j<len(arr)-1) and j-i+1 < k:
+            if i == 0:
+                j += 1
+            elif j == len(arr)-1:
+                i -= 1
+            else:
+                if abs(x-arr[i-1]) <= abs(x-arr[j+1]):
+                    i -= 1
+                else:
+                    j += 1
+
+        return arr[i:j+1]
+
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        """10/21/2022 17:47
+        Time complexity: O(logn)
+        Space complexity: O(1)
+        """
+        l, r = 0, len(arr)-k
+        while l <= r:
+             m = l + (r-l)//2
+             if m+k>=len(arr) or x-arr[m] <= arr[m+k]-x:
+                 r = m-1
+             else:
+                 l = m+1
+        return arr[r+1:r+1+k]
+
+
 @pytest.mark.parametrize('arr, k, x, expected', [
     ([1,2,3,4,5], 4, 3, [1,2,3,4]),
     ([1,2,3,4,5], 4, -1, [1,2,3,4]),
-    ([0,1,1,1,2,3,6,7,8,9], 9, 4, [0,1,1,1,2,3,6,7,8]),
+    ([1,3], 1, 2, [1]),
+    ([1], 1, 1, [1]),
 ])
 def test(arr, k, x, expected):
     assert expected == Solution().findClosestElements(arr, k, x)

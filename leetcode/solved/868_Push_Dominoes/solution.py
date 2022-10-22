@@ -40,8 +40,8 @@ Constraints:
 	1 <= n <= 105
 	dominoes[i] is either 'L', 'R', or '.'.
 """
-import sys
 import pytest
+import sys
 
 
 class Solution:
@@ -101,10 +101,44 @@ class Solution:
         return ''.join(['R' if l>r else 'L' if l<r else '.' for r, l in zip(right_forces, left_forces)])
 
 
+
+    def pushDominoes(self, dominoes: str) -> str:
+        """10/21/2022 18:01"""
+        r = [float('inf')]*len(dominoes)
+        sec = 0
+        cur = '.'
+        for i, d in enumerate(dominoes):
+            if d in 'LR':
+                cur = d
+                sec = 0
+            if cur == 'R':
+                r[i] = sec
+            sec += 1
+
+        l = [float('inf')]*len(dominoes)
+        sec = 0
+        cur = '.'
+        for i in range(len(dominoes)-1, -1, -1):
+            d = dominoes[i]
+            if d in 'LR':
+                cur = d
+                sec = 0
+            if cur == 'L':
+                l[i] = sec
+            sec += 1
+
+        ret = ['.']*len(dominoes)
+        for i, (a, b) in enumerate(zip(r, l)):
+            if a < b:
+                ret[i] = 'R'
+            elif a > b:
+                ret[i] = 'L'
+        return ''.join(ret)
+
+
 @pytest.mark.parametrize('dominoes, expected', [
     ("RR.L", "RR.L"),
     (".L.R...LR..L..", "LL.RR.LLRRLL.."),
-    (".L.R.", "LL.RR")
 ])
 def test(dominoes, expected):
     assert expected == Solution().pushDominoes(dominoes)

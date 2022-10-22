@@ -47,7 +47,7 @@ class MyCalendarTwo:
 
     def overlap(self, root, node):
         if not root:
-            return 0
+            return []
         ret = [(root[0][0], root[0][1])] \
             if not (node[0][0] >= root[0][1] or node[0][1] <= root[0][0]) \
             else []

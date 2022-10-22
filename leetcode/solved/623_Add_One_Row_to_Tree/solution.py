@@ -7,76 +7,51 @@
 # Distributed under terms of the MIT license.
 
 """
-Given the root of a binary tree, then value v and depth d, you need to add a row of nodes with value v at the given depth d. The root node is at depth 1.
+Given the root of a binary tree and two integers val and depth, add a row of nodes with value val at the given depth depth.
 
-The adding rule is: given a positive integer depth d, for each NOT null tree nodes N in depth d-1, create two tree nodes with value v as N's left subtree root and right subtree root. And N's original left subtree should be the left subtree of the new left subtree root, its original right subtree should be the right subtree of the new right subtree root. If depth d is 1 that means there is no depth d-1 at all, then create a tree node with value v as the new root of the whole original tree, and the original tree is the new root's left subtree.
+Note that the root node is at depth 1.
+
+The adding rule is:
+
+	Given the integer depth, for each not null tree node cur at the depth depth - 1, create two tree nodes with value val as cur's left subtree root and right subtree root.
+	cur's original left subtree should be the left subtree of the new left subtree root.
+	cur's original right subtree should be the right subtree of the new right subtree root.
+	If depth == 1 that means there is no depth depth - 1 at all, then create a tree node with value val as the new root of the whole original tree, and the original tree is the new root's left subtree.
 
 Example 1:
 
-Input:
-A binary tree as following:
-       4
-     /   \
-    2     6
-   / \   /
-  3   1 5
-
-v = 1
-
-d = 2
-
-Output:
-       4
-      / \
-     1   1
-    /     \
-   2       6
-  / \     /
- 3   1   5
+Input: root = [4,2,6,3,1,5], val = 1, depth = 2
+Output: [4,1,1,2,null,null,6,3,1,5]
 
 Example 2:
 
-Input:
-A binary tree as following:
-      4
-     /
-    2
-   / \
-  3   1
+Input: root = [4,2,null,3,1], val = 1, depth = 3
+Output: [4,2,null,1,1,3,null,null,1]
 
-v = 1
+Constraints:
 
-d = 3
-
-Output:
-      4
-     /
-    2
-   / \
-  1   1
- /     \
-3       1
-
-Note:
-
-The given d is in range [1, maximum depth of the given tree + 1].
-The given binary tree has at least one tree node.
+	The number of nodes in the tree is in the range [1, 104].
+	The depth of the tree is in the range [1, 104].
+	-100 <= Node.val <= 100
+	-105 <= val <= 105
+	1 <= depth <= the depth of tree + 1
 """
-from jedi import debug
-import sys
+from typing import Optional
 import pytest
+import sys
+sys.path.append('../')
+from exercise.tree import TreeNode, build_tree
 
 
 # Definition for a binary tree node.
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
+        """06/20/2020 17:37"""
         def dfs(node, depth):
             if not node:
                 return
@@ -99,42 +74,29 @@ class Solution:
             dfs(root, 1)
             return root
 
+    def addOneRow(self, root: Optional[TreeNode], val: int, depth: int) -> Optional[TreeNode]:
+        """10/21/2022 20:39"""
+        def add_row(root, depth, direction):
+            if depth == 1:
+                ret = TreeNode(val)
+                setattr(ret, direction, root)
+                return ret
+            if not root:
+                return None
+            root.left = add_row(root.left, depth-1, 'left')
+            root.right = add_row(root.right, depth-1, 'right')
+            return root
 
-def build_tree(lst):
-    root = TreeNode(lst[0])
-    queue = [root]
-    att = ['left', 'right']
-    cur = 0
-    for x in lst[1:]:
-        node = TreeNode(x) if x is not None else None
-        setattr(queue[0], att[cur], node)
-        if cur:
-            queue.pop(0)
-        if node:
-            queue.append(node)
-        cur += 1
-        cur %= 2
-    return root
+        return add_row(root, depth, 'left')
 
 
-def compare_tree(t1, t2):
-    if t1 and t2:
-        return t1.val == t2.val \
-            and compare_tree(t1.left, t2.left) \
-            and compare_tree(t1.right, t2.right)
-    elif not t1 and not t2:
-        return True
-    else:
-        return False
-
-
-@pytest.mark.parametrize('nodes, v, d, expected', [
+@pytest.mark.parametrize('values, val, depth, expected', [
     ([4,2,6,3,1,5], 1, 2, [4,1,1,2,None,None,6,3,1,5]),
-    ([4,2,None,3,1], 1, 3, [4,2,None,1,1,3,None,None,1])
+    ([4,2,None,3,1], 1, 3, [4,2,None,1,1,3,None,None,1]),
 ])
-def test(nodes, v, d, expected):
-    root = build_tree(nodes)
-    assert compare_tree(build_tree(expected), Solution().addOneRow(root, v, d))
+def test(values, val, depth, expected):
+    actual = Solution().addOneRow(build_tree(values), val, depth)
+    assert build_tree(expected) == actual
 
 
 if __name__ == '__main__':

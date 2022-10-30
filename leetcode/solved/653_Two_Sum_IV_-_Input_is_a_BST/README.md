@@ -6,43 +6,22 @@ Given the `` root `` of a Binary Search Tree and a target number `` k ``, return
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
-<img alt="" src="https://assets.leetcode.com/uploads/2020/09/21/sum_tree_1.jpg" style="width: 562px; height: 322px;"/>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/09/21/sum_tree_1.jpg" style="width: 400px; height: 229px;"/>
 
 ```
 Input: root = [5,3,6,2,4,null,7], k = 9
 Output: true
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
-<img alt="" src="https://assets.leetcode.com/uploads/2020/09/21/sum_tree_2.jpg" style="width: 562px; height: 322px;"/>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/09/21/sum_tree_2.jpg" style="width: 400px; height: 229px;"/>
 
 ```
 Input: root = [5,3,6,2,4,null,7], k = 28
 Output: false
-```
-
-__Example 3:__
-
-```
-Input: root = [2,1,3], k = 4
-Output: true
-```
-
-__Example 4:__
-
-```
-Input: root = [2,1,3], k = 1
-Output: false
-```
-
-__Example 5:__
-
-```
-Input: root = [2,1,3], k = 3
-Output: true
 ```
 
  
@@ -56,4 +35,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 415,365 | 239,136 | 57.6% |
+| 684,429 | 417,232 | 61.0% |

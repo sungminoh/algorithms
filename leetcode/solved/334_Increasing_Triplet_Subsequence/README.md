@@ -2,35 +2,44 @@
 
 Medium
 
-1336119Add to ListShare
+Given an integer array `` nums ``, return `` true ``_ if there exists a triple of indices _`` (i, j, k) ``_ such that _`` i < j < k ``_ and _`` nums[i] < nums[j] < nums[k] ``. If no such indices exists, return `` false ``.
 
-Given an unsorted array return whether an increasing subsequence of length 3 exists or not in the array.
+ 
 
-Formally the function should:
-
-> Return true if there exists *i, j, k*
-> such that *arr[i]* < *arr[j]* < *arr[k]* given 0 ≤ *i* < *j* < *k* ≤ *n*-1 else return false.
-
-**Note:** Your algorithm should run in O(*n*) time complexity and O(*1*) space complexity.
-
-**Example 1:**
+<strong class="example">Example 1:</strong>
 
 ```
-Input: [1,2,3,4,5]
+Input: nums = [1,2,3,4,5]
 Output: true
+Explanation: Any triplet where i < j < k is valid.
 ```
 
-**Example 2:**
+<strong class="example">Example 2:</strong>
 
 ```
-Input: [5,4,3,2,1]
+Input: nums = [5,4,3,2,1]
 Output: false
+Explanation: No triplet exists.
 ```
 
-Accepted
+<strong class="example">Example 3:</strong>
 
-129,598
+```
+Input: nums = [2,1,5,0,4,6]
+Output: true
+Explanation: The triplet (3, 4, 5) is valid because nums[3] == 0 < nums[4] == 4 < nums[5] == 6.
+```
 
-Submissions
+ 
 
-324,963
+__Constraints:__
+
+*   <code>1 <= nums.length <= 5 * 10<sup>5</sup></code>
+*   <code>-2<sup>31</sup> <= nums[i] <= 2<sup>31</sup> - 1</code>
+
+ 
+__Follow up:__ Could you implement a solution that runs in `` O(n) `` time complexity and `` O(1) `` space complexity?
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 843,598 | 360,112 | 42.7% |

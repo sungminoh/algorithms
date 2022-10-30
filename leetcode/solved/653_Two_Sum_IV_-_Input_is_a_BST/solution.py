@@ -19,21 +19,6 @@ Example 2:
 Input: root = [5,3,6,2,4,null,7], k = 28
 Output: false
 
-Example 3:
-
-Input: root = [2,1,3], k = 4
-Output: true
-
-Example 4:
-
-Input: root = [2,1,3], k = 1
-Output: false
-
-Example 5:
-
-Input: root = [2,1,3], k = 3
-Output: true
-
 Constraints:
 
 	The number of nodes in the tree is in the range [1, 104].
@@ -41,16 +26,22 @@ Constraints:
 	root is guaranteed to be a valid binary search tree.
 	-105 <= k <= 105
 """
-from pathlib import Path
-import sys
 from typing import Optional
 import pytest
-sys.path.append(str(Path(__file__).absolute().parent.parent.parent))
+import sys
+sys.path.append('../')
 from exercise.tree import TreeNode, build_tree
 
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
+        """09/03/2021 23:20"""
         visited = set()
         def dfs(node):
             if not node:
@@ -62,16 +53,29 @@ class Solution:
 
         return dfs(root)
 
+    def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
+        """10/29/2022 14:12"""
+        s = set()
+        def traverse(node):
+            if not node:
+                return False
+            if k - node.val in s:
+                return True
+            s.add(node.val)
+            return traverse(node.left) or traverse(node.right)
 
-@pytest.mark.parametrize('nodes, k, expected', [
+        return traverse(root)
+
+
+@pytest.mark.parametrize('values, k, expected', [
     ([5,3,6,2,4,None,7], 9, True),
     ([5,3,6,2,4,None,7], 28, False),
     ([2,1,3], 4, True),
     ([2,1,3], 1, False),
     ([2,1,3], 3, True),
 ])
-def test(nodes, k, expected):
-    assert expected == Solution().findTarget(build_tree(nodes), k)
+def test(values, k, expected):
+    assert expected == Solution().findTarget(build_tree(values), k)
 
 
 if __name__ == '__main__':

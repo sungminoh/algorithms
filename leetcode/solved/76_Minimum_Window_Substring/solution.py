@@ -11,8 +11,6 @@ Given two strings s and t of lengths m and n respectively, return the minimum wi
 
 The testcases will be generated such that the answer is unique.
 
-A substring is a contiguous sequence of characters within the string.
-
 Example 1:
 
 Input: s = "ADOBECODEBANC", t = "ABC"
@@ -36,15 +34,14 @@ Constraints:
 
 	m == s.length
 	n == t.length
-	1 <= m, n <= 105
+	1 <= m, n <= 105
 	s and t consist of uppercase and lowercase English letters.
 
 Follow up: Could you find an algorithm that runs in O(m + n) time?
 """
-import sys
-from collections import defaultdict
 from collections import Counter
 import pytest
+import sys
 
 
 class Solution:
@@ -154,6 +151,54 @@ class Solution:
                 i += 1
             j += 1
         return ret.strip()
+
+    def minWindow(self, s: str, t: str) -> str:
+        """11/05/2022 23:27
+        Time complexity: O(n*m)
+        """
+        def include(a, b):
+            for k, v in b.items():
+                if a.get(k, 0) < v:
+                    return False
+            return True
+
+        required = dict(Counter(t).most_common())
+        counter = Counter()
+        i = j = 0
+        ret = ''
+        s += ' '
+        while i < len(s):
+            if not include(counter, required):
+                counter[s[i]] += 1
+                i += 1
+            else:
+                ret = min(ret or s[j:i], s[j:i], key=len)
+                counter[s[j]] -= 1
+                j += 1
+        return ret
+
+    def minWindow(self, s: str, t: str) -> str:
+        """11/05/2022 23:27
+        Time complexity: O(n+m)
+        """
+        required = Counter(t)
+        required_chars = set(required.keys())
+        i = j = 0
+        ret = ''
+        s += ' '
+        while i < len(s):
+            if len(required_chars)>0:
+                required[s[i]] -= 1
+                if required[s[i]] == 0:
+                    required_chars.remove(s[i])
+                i += 1
+            else:
+                ret = min(ret or s[j:i], s[j:i], key=len)
+                required[s[j]] += 1
+                if required[s[j]] > 0:
+                    required_chars.add(s[j])
+                j += 1
+        return ret
 
 
 @pytest.mark.parametrize('s, t, expected', [

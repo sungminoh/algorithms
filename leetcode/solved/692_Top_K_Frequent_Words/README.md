@@ -2,35 +2,42 @@
 
 Medium
 
-Given a non-empty list of words, return the _k_ most frequent elements.
+Given an array of strings `` words `` and an integer `` k ``, return _the _`` k ``_ most frequent strings_.
 
-Your answer should be sorted by frequency from highest to lowest. If two words have the same frequency, then the word with the lower alphabetical order comes first.
+Return the answer __sorted__ by __the frequency__ from highest to lowest. Sort the words with the same frequency by their __lexicographical order__.
 
-__Example 1:__  
+ 
 
-```
-<b>Input:</b> ["i", "love", "leetcode", "i", "love", "coding"], k = 2
-<b>Output:</b> ["i", "love"]
-<b>Explanation:</b> "i" and "love" are the two most frequent words.
-    Note that "i" comes before "love" due to a lower alphabetical order.
-```
-
-__Example 2:__  
+<strong class="example">Example 1:</strong>
 
 ```
-<b>Input:</b> ["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], k = 4
-<b>Output:</b> ["the", "is", "sunny", "day"]
-<b>Explanation:</b> "the", "is", "sunny" and "day" are the four most frequent words,
-    with the number of occurrence being 4, 3, 2 and 1 respectively.
+Input: words = ["i","love","leetcode","i","love","coding"], k = 2
+Output: ["i","love"]
+Explanation: "i" and "love" are the two most frequent words.
+Note that "i" comes before "love" due to a lower alphabetical order.
 ```
 
-__Note:__  
+<strong class="example">Example 2:</strong>
 
-1.   You may assume _k_ is always valid, 1 ≤ _k_ ≤ number of unique elements.
-2.   Input words contain only lowercase letters.
+```
+Input: words = ["the","day","is","sunny","the","the","the","sunny","is","is"], k = 4
+Output: ["the","is","sunny","day"]
+Explanation: "the", "is", "sunny" and "day" are the four most frequent words, with the number of occurrence being 4, 3, 2 and 1 respectively.
+```
 
-__Follow up:__  
+ 
+
+__Constraints:__
+
+*   `` 1 <= words.length <= 500 ``
+*   `` 1 <= words[i].length <= 10 ``
+*   `` words[i] `` consists of lowercase English letters.
+*   `` k `` is in the range <code>[1, The number of <strong>unique</strong> words[i]]</code>
+
+ 
+
+__Follow-up:__ Could you solve it in `` O(n log(k)) `` time and `` O(n) `` extra space?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 374,297 | 194,685 | 52.0% |
+| 881,293 | 501,096 | 56.9% |

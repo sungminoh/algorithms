@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -8,46 +7,51 @@
 # Distributed under terms of the MIT license.
 
 """
-Given a list of non-negative numbers and a target integer k, write a function to check if the array has a continuous subarray of size at least 2 that sums up to a multiple of k, that is, sums up to n*k where n is also an integer.
+Given an integer array nums and an integer k, return true if nums has a good subarray or false otherwise.
+
+A good subarray is a subarray where:
+
+	its length is at least two, and
+	the sum of the elements of the subarray is a multiple of k.
+
+Note that:
+
+	A subarray is a contiguous part of the array.
+	An integer x is a multiple of k if there exists an integer n such that x = n * k. 0 is always a multiple of k.
 
 Example 1:
 
-Input: [23, 2, 4, 6, 7],  k=6
-Output: True
-Explanation: Because [2, 4] is a continuous subarray of size 2 and sums up to 6.
+Input: nums = [23,2,4,6,7], k = 6
+Output: true
+Explanation: [2, 4] is a continuous subarray of size 2 whose elements sum up to 6.
 
 Example 2:
 
-Input: [23, 2, 6, 4, 7],  k=6
-Output: True
-Explanation: Because [23, 2, 6, 4, 7] is an continuous subarray of size 5 and sums up to 42.
+Input: nums = [23,2,6,4,7], k = 6
+Output: true
+Explanation: [23, 2, 6, 4, 7] is an continuous subarray of size 5 whose elements sum up to 42.
+42 is a multiple of 6 because 42 = 7 * 6 and 7 is an integer.
 
-Note:
-	1. The length of the array won't exceed 10,000.
-	2. You may assume the sum of all the numbers is in the range of a signed 32-bit integer.
+Example 3:
+
+Input: nums = [23,2,6,4,7], k = 13
+Output: false
+
+Constraints:
+
+	1 <= nums.length <= 105
+	0 <= nums[i] <= 109
+	0 <= sum(nums[i]) <= 231 - 1
+	1 <= k <= 231 - 1
 """
-import sys
-from functools import lru_cache
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        modulo_position = {0: -1}
-        s = 0
-        for i, n in enumerate(nums):
-            s += n
-            if k != 0:
-                s %= k
-            if s in modulo_position:
-                if modulo_position[s] + 2 <= i:
-                    return True
-            else:
-                modulo_position[s] = i
-        return False
-
-    def _checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        """05/31/2020 17:30"""
         cumsum = [0]
         for i in range(len(nums)):
             if i == 0:
@@ -66,13 +70,42 @@ class Solution:
                         return True
         return False
 
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        """05/31/2020 17:39"""
+        modulo_position = {0: -1}
+        s = 0
+        for i, n in enumerate(nums):
+            s += n
+            if k != 0:
+                s %= k
+            if s in modulo_position:
+                if modulo_position[s] + 2 <= i:
+                    return True
+            else:
+                modulo_position[s] = i
+        return False
+
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        """11/06/2022 14:29"""
+        exists = {0: -1}
+        acc = 0
+        for i, n in enumerate(nums):
+            acc += n
+            if k != 0:
+                acc %= k
+            if exists.get(acc, i) < i-1:
+                return True
+            exists.setdefault(acc, i)
+        return False
+
 
 @pytest.mark.parametrize('nums, k, expected', [
     ([23,2,4,6,7], 6, True),
     ([23,2,6,4,7], 6, True),
     ([23,2,6,4,7], 0, False),
     ([23,2,4,6,7], -6, True),
-    ([0,0], 0, True)
+    ([23,2,4,6,6], 7, True),
+    ([0,0], 0, True),
 ])
 def test(nums, k, expected):
     assert expected == Solution().checkSubarraySum(nums, k)

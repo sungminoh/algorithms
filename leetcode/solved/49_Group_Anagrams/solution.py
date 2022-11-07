@@ -27,10 +27,10 @@ Constraints:
 	0 <= strs[i].length <= 100
 	strs[i] consists of lowercase English letters.
 """
-import sys
 from collections import defaultdict
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -42,10 +42,25 @@ class Solution:
         return list(d.values())
 
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        """09/22/2021 23:39"""
         d = defaultdict(set)
         for i, s in enumerate(''.join(sorted(x)) for x in strs):
             d[s].add(i)
         return [[strs[i] for i in indexes ]for indexes in d.values()]
+
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        """11/06/2022 14:20"""
+        def encode(w):
+            cnt = [0]*26
+            for c in w:
+                cnt[ord(c)-ord('a')] += 1
+            return tuple(cnt)
+
+        grouped = defaultdict(list)
+        for w in strs:
+            grouped[encode(w)].append(w)
+        return list(grouped.values())
+
 
 
 @pytest.mark.parametrize('strs, expected', [
@@ -54,9 +69,8 @@ class Solution:
     (["a"], [["a"]]),
 ])
 def test(strs, expected):
-    assert sorted(sorted(x) for x in expected) == sorted(sorted(x) for x in Solution().groupAnagrams(strs))
+    assert sorted([sorted(x) for x in expected]) == sorted([sorted(x) for x in Solution().groupAnagrams(strs)])
 
 
 if __name__ == '__main__':
     sys.exit(pytest.main(["-s", "-v"] + sys.argv))
-

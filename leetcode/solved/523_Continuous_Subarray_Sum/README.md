@@ -1,34 +1,54 @@
-### [523. Continuous Subarray Sum](https://leetcode.com/problems/continuous-subarray-sum/)
+### [523. Continuous Subarray Sum](https://leetcode.com/problems/continuous-subarray-sum/submissions/)
 
 Medium
 
-Given a list of __non-negative__ numbers and a target __integer__ k, write a function to check if the array has a continuous subarray of size at least 2 that sums up to a multiple of __k__, that is, sums up to n\*k where n is also an __integer__.
+Given an integer array nums and an integer k, return `` true `` _if _`` nums ``_ has a __good subarray__ or _`` false ``_ otherwise_.
+
+A __good subarray__ is a subarray where:
+
+*   its length is __at least two__, and
+*   the sum of the elements of the subarray is a multiple of `` k ``.
+
+__Note__ that:
+
+*   A __subarray__ is a contiguous part of the array.
+*   An integer `` x `` is a multiple of `` k `` if there exists an integer `` n `` such that `` x = n * k ``. `` 0 `` is __always__ a multiple of `` k ``.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
-<b>Input:</b> [23, 2, 4, 6, 7],  k=6
-<b>Output:</b> True
-<b>Explanation:</b> Because [2, 4] is a continuous subarray of size 2 and sums up to 6.
+Input: nums = [23,<u>2,4</u>,6,7], k = 6
+Output: true
+Explanation: [2, 4] is a continuous subarray of size 2 whose elements sum up to 6.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
-<b>Input:</b> [23, 2, 6, 4, 7],  k=6
-<b>Output:</b> True
-<b>Explanation:</b> Because [23, 2, 6, 4, 7] is an continuous subarray of size 5 and sums up to 42.
+Input: nums = [<u>23,2,6,4,7</u>], k = 6
+Output: true
+Explanation: [23, 2, 6, 4, 7] is an continuous subarray of size 5 whose elements sum up to 42.
+42 is a multiple of 6 because 42 = 7 * 6 and 7 is an integer.
+```
+
+<strong class="example">Example 3:</strong>
+
+```
+Input: nums = [23,2,6,4,7], k = 13
+Output: false
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-1.   The length of the array won't exceed 10,000.
-2.   You may assume the sum of all the numbers is in the range of a signed 32-bit integer.
+*   <code>1 <= nums.length <= 10<sup>5</sup></code>
+*   <code>0 <= nums[i] <= 10<sup>9</sup></code>
+*   <code>0 <= sum(nums[i]) <= 2<sup>31</sup> - 1</code>
+*   <code>1 <= k <= 2<sup>31</sup> - 1</code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 494,580 | 120,928 | 24.5% |
+| 1,305,125 | 372,398 | 28.5% |

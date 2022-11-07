@@ -8,19 +8,19 @@ An __Anagram__ is a word or phrase formed by rearranging the letters of a differ
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```Input: strs = ["eat","tea","tan","ate","nat","bat"]
 Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```Input: strs = [""]
 Output: [[""]]
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```Input: strs = ["a"]
 Output: [["a"]]
@@ -36,4 +36,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,733,714 | 1,072,991 | 61.9% |
+| 2,591,751 | 1,721,617 | 66.4% |

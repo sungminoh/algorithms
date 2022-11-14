@@ -10,7 +10,7 @@ Return _the final string after all such duplicate removals have been made_. It c
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: s = "abbaca"
@@ -19,7 +19,7 @@ Explanation:
 For example, in "abbaca" we could remove "bb" since the letters are adjacent and equal, and this is the only possible move.  The result of this move is that the string is "aaca", of which only "aa" is possible, so the final string is "ca".
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: s = "azxxzy"
@@ -35,4 +35,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 269,122 | 192,324 | 71.5% |
+| 573,024 | 403,601 | 70.4% |

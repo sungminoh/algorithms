@@ -8,7 +8,7 @@ Return _the lexicographically smallest string you could have after applying the 
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: s = "cba", k = 1
@@ -18,7 +18,7 @@ In the first move, we move the 1<sup>st</sup> character 'c' to the end, obtainin
 In the second move, we move the 1<sup>st</sup> character 'b' to the end, obtaining the final result "acb".
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: s = "baaca", k = 3
@@ -37,4 +37,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 41,310 | 23,998 | 58.1% |
+| 93,022 | 61,887 | 66.5% |

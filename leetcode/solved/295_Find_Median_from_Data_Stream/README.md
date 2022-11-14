@@ -2,7 +2,7 @@
 
 Hard
 
-The __median__ is the middle value in an ordered integer list. If the size of the list is even, there is no middle value and the median is the mean of the two middle values.
+The __median__ is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
 
 *   For example, for `` arr = [2,3,4] ``, the median is `` 3 ``.
 *   For example, for `` arr = [2,3] ``, the median is `` (2 + 3) / 2 = 2.5 ``.
@@ -15,7 +15,7 @@ Implement the MedianFinder class:
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input
@@ -50,4 +50,4 @@ __Follow up:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 720,666 | 353,220 | 49.0% |
+| 1,135,991 | 584,899 | 51.5% |

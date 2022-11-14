@@ -30,18 +30,27 @@ Constraints:
 	1 <= s.length <= 105
 	s consists of lowercase English letters.
 """
-import sys
 import pytest
+import sys
 
 
 class Solution:
     def removeDuplicates(self, s: str) -> str:
-        """
+        """08/08/2021 16:43
         Time complexity: O(n)
         Space complexity: O(n)
         """
         stack = []
         i = 0
+        for c in s:
+            if stack and stack[-1] == c:
+                stack.pop()
+            else:
+                stack.append(c)
+        return ''.join(stack)
+
+    def removeDuplicates(self, s: str) -> str:
+        stack = []
         for c in s:
             if stack and stack[-1] == c:
                 stack.pop()

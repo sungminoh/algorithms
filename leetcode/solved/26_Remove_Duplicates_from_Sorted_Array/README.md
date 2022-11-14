@@ -2,47 +2,60 @@
 
 Easy
 
-21994594Add to ListShare
+Given an integer array `` nums `` sorted in __non-decreasing order__, remove the duplicates <a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank">__in-place__</a> such that each unique element appears only __once__. The __relative order__ of the elements should be kept the __same__.
 
-Given a sorted array *nums*, remove the duplicates [**in-place**](https://en.wikipedia.org/wiki/In-place_algorithm) such that each element appear only *once* and return the new length.
+Since it is impossible to change the length of the array in some languages, you must instead have the result be placed in the __first part__ of the array `` nums ``. More formally, if there are `` k `` elements after removing the duplicates, then the first `` k `` elements of `` nums `` should hold the final result. It does not matter what you leave beyond the first `` k `` elements.
 
-Do not allocate extra space for another array, you must do this by **modifying the input array [in-place](https://en.wikipedia.org/wiki/In-place_algorithm)** with O(1) extra memory.
+Return `` k ``_ after placing the final result in the first _`` k ``_ slots of _`` nums ``.
 
-**Example 1:**
+Do __not__ allocate extra space for another array. You must do this by __modifying the input array <a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank">in-place</a>__ with O(1) extra memory.
 
-```
-Given nums = [1,1,2],
+__Custom Judge:__
 
-Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.
-
-It doesn't matter what you leave beyond the returned length.
-```
-
-**Example 2:**
+The judge will test your solution with the following code:
 
 ```
-Given nums = [0,0,1,1,1,2,2,3,3,4],
+int[] nums = [...]; // Input array
+int[] expectedNums = [...]; // The expected answer with correct length
 
-Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively.
+int k = removeDuplicates(nums); // Calls your implementation
 
-It doesn't matter what values are set beyond the returned length.
-```
-
-**Clarification:**
-
-Confused why the returned value is an integer but your answer is an array?
-
-Note that the input array is passed in by **reference**, which means modification to the input array will be known to the caller as well.
-
-Internally you can think of this:
-
-```
-// nums is passed in by reference. (i.e., without making a copy)
-int len = removeDuplicates(nums);
-
-// any modification to nums in your function would be known by the caller.
-// using the length returned by your function, it prints the first len elements.
-for (int i = 0; i < len; i++) {
-    print(nums[i]);
+assert k == expectedNums.length;
+for (int i = 0; i < k; i++) {
+    assert nums[i] == expectedNums[i];
 }
 ```
+
+If all assertions pass, then your solution will be __accepted__.
+
+ 
+
+<strong class="example">Example 1:</strong>
+
+```
+Input: nums = [1,1,2]
+Output: 2, nums = [1,2,_]
+Explanation: Your function should return k = 2, with the first two elements of nums being 1 and 2 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+```
+
+<strong class="example">Example 2:</strong>
+
+```
+Input: nums = [0,0,1,1,1,2,2,3,3,4]
+Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+Explanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+```
+
+ 
+
+__Constraints:__
+
+*   <code>1 <= nums.length <= 3 * 10<sup>4</sup></code>
+*   `` -100 <= nums[i] <= 100 ``
+*   `` nums `` is sorted in __non-decreasing__ order.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 5,142,579 | 2,615,659 | 50.9% |

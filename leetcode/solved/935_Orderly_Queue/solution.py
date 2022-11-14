@@ -32,12 +32,13 @@ Constraints:
 	1 <= k <= s.length <= 1000
 	s consist of lowercase English letters.
 """
-import sys
 import pytest
+import sys
 
 
 class Solution:
     def orderlyQueue(self, s: str, k: int) -> str:
+        """09/22/2021 21:15"""
         if k == 0:
             return s
         if k == 1:
@@ -45,10 +46,20 @@ class Solution:
         else:
             return ''.join(sorted(list(s)))
 
+    def orderlyQueue(self, s: str, k: int) -> str:
+        """11/13/2022 18:09"""
+        if k > 2:
+            return ''.join(sorted(s))
+        ret = s
+        for i in range(1,len(s)):
+            ret = min(ret, s[i:] + s[:i])
+        return ret
+
 
 @pytest.mark.parametrize('s, k, expected', [
     ("cba", 1, "acb"),
     ("baaca", 3, "aaabc"),
+    ("xmvzi", 2, "imvxz"),
 ])
 def test(s, k, expected):
     assert expected == Solution().orderlyQueue(s, k)

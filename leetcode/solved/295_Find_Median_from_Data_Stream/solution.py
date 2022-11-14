@@ -7,7 +7,7 @@
 # Distributed under terms of the MIT license.
 
 """
-The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value and the median is the mean of the two middle values.
+The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
 
 	For example, for arr = [2,3,4], the median is 3.
 	For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
@@ -45,14 +45,10 @@ Follow up:
 	If all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
 	If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
 """
-from pathlib import Path
-import json
-from heapq import heappushpop
-from heapq import heappop
-from heapq import heappush
 from collections import defaultdict
-import sys
+from heapq import heappop, heappush, heappushpop
 import pytest
+import sys
 
 
 class MedianFinder:
@@ -220,7 +216,6 @@ class MedianFinder:
             self.l_cnt += self.cnt[n]
             heappush(self.l, -n)
 
-
     def findMedian(self) -> float:
         if not self.r:
             return -self.l[0]
@@ -232,22 +227,48 @@ class MedianFinder:
             return (-self.l[0] + self.r[0]) / 2
 
 
+class MedianFinder:
+    """11/13/2022 20:36"""
+    def __init__(self):
+        # all elements in the max heap is smaller than any element in the min heap
+        self.mxh = []  # max heap
+        self.mnh = []  # min heap
+
+    def addNum(self, num: int) -> None:
+        if not self.mxh or num > -self.mxh[0]:
+            heappush(self.mnh, num)
+        else:
+            heappush(self.mxh, -num)
+        if len(self.mnh) > len(self.mxh)+1:
+            heappush(self.mxh, -heappop(self.mnh))
+        elif len(self.mnh) + 1 < len(self.mxh):
+            heappush(self.mnh, -heappop(self.mxh))
+
+    def findMedian(self) -> float:
+        if len(self.mxh) < len(self.mnh):
+            return self.mnh[0]
+        elif len(self.mxh) > len(self.mnh):
+            return -self.mxh[0]
+        return (-self.mxh[0] + self.mnh[0])/2
+
+
 @pytest.mark.parametrize('commands, arguments, expecteds', [
     (["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"],
      [[], [1], [2], [], [3], []],
      [None, None, None, 1.5, None, 2.0]),
-    (["MedianFinder","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian"],
-     [[],[6],[],[10],[],[2],[],[6],[],[5],[],[0],[],[6],[],[3],[],[1],[],[0],[],[0],[]],
-     [None,None,6.00000,None,8.00000,None,6.00000,None,6.00000,None,6.00000,None,5.50000,None,6.00000,None,5.50000,None,5.00000,None,4.00000,None,3.00000]),
+    (["MedianFinder","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian"],
+     [[],[-1],[],[-2],[],[-3],[],[-4],[],[-5],[]],
+     [None,None,-1.00000,None,-1.50000,None,-2.00000,None,-2.50000,None,-3.00000]),
     (["MedianFinder","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian"],
      [[],[12],[],[10],[],[13],[],[11],[],[5],[],[15],[],[1],[],[11],[],[6],[],[17],[],[14],[],[8],[],[17],[],[6],[],[4],[],[16],[],[8],[],[10],[],[2],[],[12],[],[0],[]],
      [None,None,12.00000,None,11.00000,None,12.00000,None,11.50000,None,11.00000,None,11.50000,None,11.00000,None,11.00000,None,11.00000,None,11.00000,None,11.00000,None,11.00000,None,11.00000,None,11.00000,None,11.00000,None,11.00000,None,11.00000,None,10.50000,None,10.00000,None,10.50000,None,10.00000]),
 ])
 def test(commands, arguments, expecteds):
-    print()
-    obj = globals()[commands[0]](*arguments[0])
-    for cmd, args, exp in zip(commands[1:], arguments[1:], expecteds[1:]):
-        assert exp == getattr(obj, cmd)(*args)
+    obj = globals()[commands.pop(0)](*arguments.pop(0))
+    actuals = []
+    for cmd, arg in zip(commands, arguments):
+        actuals.append(getattr(obj, cmd)(*arg))
+    assert expecteds[1:] == actuals
 
 
 if __name__ == '__main__':

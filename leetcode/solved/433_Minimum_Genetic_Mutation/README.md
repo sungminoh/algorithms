@@ -2,60 +2,42 @@
 
 Medium
 
-A gene string can be represented by an 8-character long string, with choices from `` "A" ``, `` "C" ``, `` "G" ``, `` "T" ``.
+A gene string can be represented by an 8-character long string, with choices from `` 'A' ``, `` 'C' ``, `` 'G' ``, and `` 'T' ``.
 
-Suppose we need to investigate about a mutation (mutation from "start" to "end"), where ONE mutation is defined as ONE single character changed in the gene string.
+Suppose we need to investigate a mutation from a gene string `` startGene `` to a gene string `` endGene `` where one mutation is defined as one single character changed in the gene string.
 
-For example, `` "AACCGGTT" `` -> `` "AACCGGTA" `` is 1 mutation.
+*   For example, `` "AACCGGTT" --> "AACCGGTA" `` is one mutation.
 
-Also, there is a given gene "bank", which records all the valid gene mutations. A gene must be in the bank to make it a valid gene string.
+There is also a gene bank `` bank `` that records all the valid gene mutations. A gene must be in `` bank `` to make it a valid gene string.
 
-Now, given 3 things - start, end, bank, your task is to determine what is the minimum number of mutations needed to mutate from "start" to "end". If there is no such a mutation, return -1.
+Given the two gene strings `` startGene `` and `` endGene `` and the gene bank `` bank ``, return _the minimum number of mutations needed to mutate from _`` startGene ``_ to _`` endGene ``. If there is no such a mutation, return `` -1 ``.
 
-__Note:__
-
-1.   Starting point is assumed to be valid, so it might not be included in the bank.
-2.   If multiple mutations are needed, all mutations during in the sequence must be valid.
-3.   You may assume start and end string is not the same.
+Note that the starting point is assumed to be valid, so it might not be included in the bank.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
-start: "AACCGGTT"
-end:   "AACCGGTA"
-bank: ["AACCGGTA"]
-
-return: 1
+Input: startGene = "AACCGGTT", endGene = "AACCGGTA", bank = ["AACCGGTA"]
+Output: 1
 ```
 
- 
-
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
-start: "AACCGGTT"
-end:   "AAACGGTA"
-bank: ["AACCGGTA", "AACCGCTA", "AAACGGTA"]
-
-return: 2
+Input: startGene = "AACCGGTT", endGene = "AAACGGTA", bank = ["AACCGGTA","AACCGCTA","AAACGGTA"]
+Output: 2
 ```
 
  
 
-__Example 3:__
+__Constraints:__
 
-```
-start: "AAAAACCC"
-end:   "AACCCCCC"
-bank: ["AAAACCCC", "AAACCCCC", "AACCCCCC"]
-
-return: 3
-```
-
- 
+*   `` 0 <= bank.length <= 10 ``
+*   `` startGene.length == endGene.length == bank[i].length == 8 ``
+*   `` startGene ``, `` endGene ``, and `` bank[i] `` consist of only the characters `` ['A', 'C', 'G', 'T'] ``.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 70,283 | 28,687 | 40.8% |
+| 205,735 | 107,116 | 52.1% |

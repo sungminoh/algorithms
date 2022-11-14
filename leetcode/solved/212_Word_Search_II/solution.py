@@ -34,17 +34,16 @@ Constraints:
 """
 from pathlib import Path
 import json
-import sys
 from collections import defaultdict
-from typing import Set
 from typing import Dict
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        """06/14/2020 10:47"""
+        """06/14/2020 10:47, 10/15/2021 00:11"""
         if not board or not board[0]:
             return []
 
@@ -86,6 +85,7 @@ class Solution:
         return list(ret)
 
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        """10/15/2021 00:11"""
         if not board or not board[0]:
             return []
         m, n = len(board), len(board[0])
@@ -124,12 +124,84 @@ class Solution:
                 dfs(i, j, trie)
         return list(ret)
 
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        """11/08/2022 22:47
+        TLE
+        """
+        trie = {}
+        for w in words:
+            t = trie
+            for c in w:
+                t.setdefault(c, {})
+                t = t[c]
+            else:
+                t[None] = w  # end of the word
+
+        m, n = len(board), len(board[0])
+        def dfs(i, j, visited, trie):
+            if not trie or board[i][j] not in trie or visited&(1<<(n*i+j)) != 0:
+                return
+
+            trie = trie[board[i][j]]
+            visited |= (1<<(n*i+j))
+            if None in trie:
+                yield trie[None]
+
+            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                x, y = i+dx, j+dy
+                if 0<=x<m and 0<=y<n:
+                    yield from dfs(x, y, visited, trie)
+
+        ret = set()
+        for i in range(m):
+            for j in range(n):
+                for w in dfs(i, j, 0, trie):
+                    ret.add(w)
+        return list(ret)
+
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        """"11/08/2022 23:10"""
+        ws = set(words)
+        prefixes = defaultdict(int)
+        for w in ws:
+            for i in range(len(w)):
+                prefixes[w[:i]] += 1
+
+        m, n = len(board), len(board[0])
+        def dfs(i, j, visited, w):
+            if prefixes.get(w, 0) == 0 or visited&(1<<(n*i+j)) != 0:
+                return
+
+            w += board[i][j]
+            visited |= (1<<(n*i+j))
+
+            if w in ws:
+                ws.remove(w)
+                for k in range(len(w)):
+                    prefixes[w[:k]] -= 1
+                yield w
+
+            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                x, y = i+dx, j+dy
+                if 0<=x<m and 0<=y<n:
+                    yield from dfs(x, y, visited, w)
+
+        ret = set()
+        for i in range(m):
+            for j in range(n):
+                ret.update(dfs(i, j, 0, ''))
+        return list(ret)
+
 
 @pytest.mark.parametrize('board, words, expected', [
     ([["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], ["oath","pea","eat","rain"], ["eat","oath"]),
     ([["a","b"],["c","d"]], ["abcb"], []),
-    ([["o","a","b","n"],["o","t","a","e"],["a","h","k","r"],["a","f","l","v"]], ["oa","oaa"], ["oa","oaa"]),
-    (*json.load(open(Path(__file__).parent/'testcase.json')), ['ababababab']),
+    ([["o","a","b","n"],
+      ["o","t","a","e"],
+      ["a","h","k","r"],
+      ["a","f","l","v"]], ["oa","oaa"], ["oa","oaa"]),
+    # (*json.load(open(Path(__file__).parent/'testcase.json')), ['ababababab']),
+    # (*json.load(open(Path(__file__).parent/'testcase2.json')), ['aaaaaaaaon','aaaaaaaawv','aaaaaaaaad','aaaaaaaars','aaaaaaaanm','aaaaaaaagf','aaaaaaaast','aaaaaaaaaa','aaaaaaaayz','aaaaaaaabc','aaaaaaaaah','aaaaaaaaay','aaaaaaaabm','aaaaaaaaaf','aaaaaaaacb','aaaaaaaalk','aaaaaaaaae','aaaaaaaavu','aaaaaaaafg','aaaaaaaapq','aaaaaaaaih','aaaaaaaatu','aaaaaaaaji','aaaaaaaaed','aaaaaaaaef','aaaaaaaavw','aaaaaaaaau','aaaaaaaaut','aaaaaaaafe','aaaaaaaaat','aaaaaaaaav','aaaaaaaarq','aaaaaaaade','aaaaaaaaag','aaaaaaaazy','aaaaaaaaas','aaaaaaaaaq','aaaaaaaapo','aaaaaaaano','aaaaaaaaaw','aaaaaaaayx','aaaaaaaaap','aaaaaaaacd','aaaaaaaauv','aaaaaaaaak','aaaaaaaakj','aaaaaaaaai','aaaaaaaaar','aaaaaaaaaj','aaaaaaaagh','aaaaaaaats','aaaaaaaaab','aaaaaaaahi','aaaaaaaahg','aaaaaaaaal','aaaaaaaaij','aaaaaaaaop','aaaaaaaawx','aaaaaaaaao','aaaaaaaaza','aaaaaaaaan','aaaaaaaaaz','aaaaaaaasr','aaaaaaaaqp','aaaaaaaakl','aaaaaaaaac','aaaaaaaajk','aaaaaaaadc','aaaaaaaaqr']),
 ])
 def test(board, words, expected):
     assert sorted(expected) == sorted(Solution().findWords(board, words))

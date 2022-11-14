@@ -8,7 +8,7 @@ Each word must be constructed from letters of sequentially adjacent cells, where
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/11/07/search1.jpg" style="width: 322px; height: 322px;"/>
 
@@ -17,7 +17,7 @@ Input: board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","
 Output: ["eat","oath"]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/11/07/search2.jpg" style="width: 162px; height: 162px;"/>
 
@@ -41,4 +41,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 946,418 | 363,386 | 38.4% |
+| 1,422,236 | 525,070 | 36.9% |

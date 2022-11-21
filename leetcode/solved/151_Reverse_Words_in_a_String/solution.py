@@ -32,16 +32,6 @@ Input: s = "a good   example"
 Output: "example good a"
 Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
 
-Example 4:
-
-Input: s = "  Bob    Loves  Alice   "
-Output: "Alice Loves Bob"
-
-Example 5:
-
-Input: s = "Alice does not even like bob"
-Output: "bob like even not does Alice"
-
 Constraints:
 
 	1 <= s.length <= 104
@@ -50,8 +40,8 @@ Constraints:
 
 Follow-up: If the string data type is mutable in your language, can you solve it in-place with O(1) extra space?
 """
-import sys
 import pytest
+import sys
 
 
 class Solution:
@@ -119,6 +109,57 @@ class Solution:
         reverse(s, i, length-1)
 
         return ''.join(s[:length])
+
+
+    def reverseWords(self, s: str) -> str:
+        """11/19/2022 13:36"""
+        return ' '.join(reversed(s.split()))
+
+    def reverseWords(self, s: str) -> str:
+        """11/20/2022 13:22"""
+        s = list(s)
+
+        def compress(s):
+            i = j = 0
+            p = ' '
+            while i < len(s):
+                if not (p == ' ' and s[i] == ' '):
+                    s[j] = s[i]
+                    j += 1
+                p = s[i]
+                i += 1
+            while s[j-1] == ' ':
+                j -= 1
+                s[j] = ''
+            while j < len(s):
+                s[j] = ''
+                j += 1
+
+        def reverse(i, j, s):
+            while i < j:
+                s[i], s[j] = s[j], s[i]
+                i += 1
+                j -= 1
+
+        def find_all_words(s):
+            ret = []
+            i = j = 0
+            while i < len(s):
+                if s[i] == ' ' and i != j:
+                    yield j, i-1
+                    i += 1
+                    j = i
+                else:
+                    i += 1
+            if j != i:
+                yield j, i-1
+            return ret
+
+        compress(s)
+        for i, j in find_all_words(s):
+            reverse(i, j, s)
+        reverse(0, len(s)-1, s)
+        return ''.join(s)
 
 
 @pytest.mark.parametrize('s, expected', [

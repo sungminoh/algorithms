@@ -147,11 +147,11 @@ class TreeNode(object):
         self.left: Optional[TreeNode] = left
         self.right: Optional[TreeNode] = right
 
-    def __repr__(self):
+    def __str__(self):
         from itertools import zip_longest
-        left_lines = repr(self.left).split('\n') if self.left else []
-        right_lines = repr(self.right).split('\n') if self.right else []
-        node_padding = len(repr(self.val)) + 2
+        left_lines = str(self.left).split('\n') if self.left else []
+        right_lines = str(self.right).split('\n') if self.right else []
+        node_padding = len(str(self.val)) + 2
         left_padding = len(left_lines[0]) if left_lines else 0
         right_padding = len(right_lines[0]) if right_lines else 0
         lines = [' '*left_padding + rf'({self.val})' + ' '*right_padding]

@@ -31,9 +31,9 @@ Constraints:
 	All the given points are unique.
 """
 import math
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -115,6 +115,7 @@ class Solution:
         return list(map(list, {tuple(p) for p in upper}.union({tuple(p) for p in lower})))
 
     def outerTrees(self, trees: List[List[int]]) -> List[List[int]]:
+        """09/18/2021 22:33"""
         if len(trees) <= 3:
             return trees
 
@@ -138,15 +139,38 @@ class Solution:
 
         return list(set([*[tuple(x) for x in upper], *[tuple(x) for x in lower[1:-1]]]))
 
+    def outerTrees(self, trees: List[List[int]]) -> List[List[int]]:
+        """11/20/2022 17:20"""
+        if not trees:
+            return []
+
+        def is_inner(a, b, c):
+            return (a[1] - b[1]) * (a[0] - c[0]) > (a[1] - c[1]) * (a[0] - b[0])
+
+        trees.sort()
+        stack = [trees[0]]
+        for i in range(1, len(trees)):
+            while len(stack) >= 2 and is_inner(stack[-2], stack[-1], trees[i]):
+                stack.pop()
+            stack.append(trees[i])
+        ret = set(tuple(x) for x in stack)
+
+        trees.sort(reverse=True)
+        stack = [trees[0]]
+        for i in range(1, len(trees)):
+            while len(stack) >= 2 and is_inner(stack[-2], stack[-1], trees[i]):
+                stack.pop()
+            stack.append(trees[i])
+        ret.update([tuple(x) for x in stack])
+        return [list(x) for x in ret]
+
 
 @pytest.mark.parametrize('trees, expected', [
     ([[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]], [[1,1],[2,0],[3,3],[2,4],[4,2]]),
     ([[1,2],[2,2],[4,2]], [[4,2],[2,2],[1,2]]),
-    ([[1,2],[2,2],[4,2],[5,2],[6,2],[7,2]], [[4,2],[5,2],[1,2],[2,2],[7,2],[6,2]])
 ])
 def test(trees, expected):
-    print()
-    assert set(tuple(x) for x in expected) == set(tuple(x) for x in Solution().outerTrees(trees))
+    assert sorted(expected) == sorted(Solution().outerTrees(trees))
 
 
 if __name__ == '__main__':

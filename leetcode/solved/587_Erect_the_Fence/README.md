@@ -10,7 +10,7 @@ Return _the coordinates of trees that are exactly located on the fence perimeter
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/04/24/erect2-plane.jpg" style="width: 509px; height: 500px;"/>
 
@@ -19,7 +19,7 @@ Input: points = [[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]]
 Output: [[1,1],[2,0],[3,3],[2,4],[4,2]]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/04/24/erect1-plane.jpg" style="width: 509px; height: 500px;"/>
 
@@ -39,4 +39,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 52,441 | 22,686 | 43.3% |
+| 98,250 | 51,369 | 52.3% |

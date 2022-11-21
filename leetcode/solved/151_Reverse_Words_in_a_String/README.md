@@ -12,14 +12,14 @@ __Note__ that `` s `` may contain leading or trailing spaces or multiple spaces 
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: s = "the sky is blue"
 Output: "blue is sky the"
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: s = "  hello world  "
@@ -27,26 +27,12 @@ Output: "world hello"
 Explanation: Your reversed string should not contain leading or trailing spaces.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: s = "a good   example"
 Output: "example good a"
 Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
-```
-
-__Example 4:__
-
-```
-Input: s = "  Bob    Loves  Alice   "
-Output: "Alice Loves Bob"
-```
-
-__Example 5:__
-
-```
-Input: s = "Alice does not even like bob"
-Output: "bob like even not does Alice"
 ```
 
  
@@ -63,4 +49,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,310,945 | 618,905 | 26.8% |
+| 2,693,561 | 856,363 | 31.8% |

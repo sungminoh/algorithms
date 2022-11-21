@@ -10,7 +10,7 @@ Design an algorithm that runs in less than <code data-stringify-type="code">O(n
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/01/14/complete.jpg" style="width: 372px; height: 302px;"/>
 
@@ -19,14 +19,14 @@ Input: root = [1,2,3,4,5,6]
 Output: 6
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: root = []
 Output: 0
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: root = [1]
@@ -43,4 +43,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 667,623 | 356,344 | 53.4% |
+| 860,460 | 514,225 | 59.8% |

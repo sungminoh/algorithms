@@ -34,11 +34,11 @@ Constraints:
 	0 <= Node.val <= 5 * 104
 	The tree is guaranteed to be complete.
 """
-import sys
 from typing import Optional
 import pytest
+import sys
 sys.path.append('../')
-from exercise.tree import TreeNode, build_tree, print_tree
+from exercise.tree import TreeNode, build_tree
 
 
 # Definition for a binary tree node.
@@ -47,8 +47,6 @@ from exercise.tree import TreeNode, build_tree, print_tree
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
-
 class Solution:
     def countNodes(self, root: TreeNode) -> int:
         """05/12/2019 22:01"""
@@ -91,6 +89,7 @@ class Solution:
         return cnt
 
     def countNodes(self, root: Optional[TreeNode]) -> int:
+        """11/05/2021 15:04"""
         cnt = 0
         def dfs(node):
             if not node:
@@ -114,29 +113,33 @@ class Solution:
         dfs(root)
         return cnt
 
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        """11/20/2022 16:28"""
+        def traverse(node, i):
+            if not node:
+                return False, i//2
+            rf, ri = traverse(node.right, i*2+1)
+            if rf:
+                return rf, ri
+            lf, li = traverse(node.left, i*2)
+            if lf:
+                return lf, li
+            if li > ri:
+                return True, li
+            return False, ri
 
-def build_complete_tree(nodes):
-    if not nodes:
-        return None
-    nodes = [TreeNode(x) for x in nodes]
-    for i, n in enumerate(nodes):
-        l = 2*i+1
-        if l < len(nodes):
-            n.left = nodes[l]
-        r = 2*i+2
-        if r < len(nodes):
-            n.right = nodes[r]
-    return nodes[0]
+        _, i = traverse(root, 1)
+        return i
 
 
-@pytest.mark.parametrize('nodes, expected', [
+@pytest.mark.parametrize('values, expected', [
     ([1,2,3,4,5,6], 6),
     ([], 0),
     ([1], 1),
 ])
-def test(nodes, expected):
-    tree = build_complete_tree(nodes)
-    assert expected == Solution().countNodes(tree)
+def test(values, expected):
+    root = build_tree(values)
+    assert expected == Solution().countNodes(root)
 
 
 if __name__ == '__main__':

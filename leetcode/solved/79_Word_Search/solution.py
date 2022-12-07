@@ -36,6 +36,8 @@ Constraints:
 
 Follow up: Could you use search pruning to make your solution faster with a larger board?
 """
+import itertools
+from collections import Counter
 import sys
 from typing import List
 import pytest
@@ -95,6 +97,32 @@ class Solution:
                     return True
         return False
 
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        """12/03/2022 12:41"""
+        m, n = len(board), len(board[0])
+
+        # early termination
+        if not (Counter(itertools.chain(*board)) >= Counter(word)):
+            return False
+
+        def dfs(i, j, visited, word, k):
+            if k == len(word):
+                return True
+            if not (0<=i<m) \
+                    or not (0<=j<n) \
+                    or 1<<(i*n+j) & visited \
+                    or word[k] != board[i][j]:
+                return False
+            visited |= 1<<(i*n+j)
+            return any(
+                dfs(i+dx, j+dy, visited, word, k+1)
+                for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)))
+
+        return any(
+            dfs(i, j, 0, word, 0)
+            for i in range(n)
+            for j in range(n))
+
 
 @pytest.mark.parametrize('board, word, expected', [
     ([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "ABCCED", True),
@@ -103,6 +131,12 @@ class Solution:
     ([["a"]], "a", True),
     ([["a","a"]], "aaa", False),
     ([["a","b"]], "ba", True),
+    ([["A","A","A","A","A","A"],
+      ["A","A","A","A","A","A"],
+      ["A","A","A","A","A","A"],
+      ["A","A","A","A","A","A"],
+      ["A","A","A","A","A","A"],
+      ["A","A","A","A","A","A"]], "AAAAAAAAAAAAAAB", False),
 ])
 def test(board, word, expected):
     assert expected == Solution().exist(board, word)

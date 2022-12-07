@@ -28,16 +28,16 @@ Output: 23
 
 Constraints:
 
-	1 <= s.length <= 3 * 105
+	1 <= s.length <= 3 * 105
 	s consists of digits, '+', '-', '(', ')', and ' '.
 	s represents a valid expression.
-	'+' is not used as a unary operation.
-	'-' could be used as a unary operation and in this case, it will not be used directly after a +ve or -ve signs (will be inside parentheses).
+	'+' is not used as a unary operation (i.e., "+1" and "+(2 + 3)" is invalid).
+	'-' could be used as a unary operation (i.e., "-1" and "-(2 + 3)" is valid).
 	There will be no two consecutive operators in the input.
 	Every number and running calculation will fit in a signed 32-bit integer.
 """
-import sys
 import pytest
+import sys
 
 
 class Solution:
@@ -86,6 +86,7 @@ class Solution:
         return stack[0]
 
     def calculate(self, s: str) -> int:
+        """09/28/2021 09:40"""
         def calc(stack):
             while len(stack)>=2:
                 if not isinstance(stack[-2], str):
@@ -123,6 +124,32 @@ class Solution:
         return stack[0]
 
 
+    def calculate(self, s: str) -> int:
+        """12/03/2022 11:50"""
+        def calc(i):
+            sign = 1
+            ret = 0
+            while i < len(s) and s[i] != ')':
+                if s[i] == '(':
+                    i, n = calc(i+1)
+                    ret += sign*n
+                    i += 1
+                elif s[i].isdigit():
+                    j = i
+                    while j < len(s) and s[j].isdigit():
+                        j += 1
+                    ret += sign*int(s[i:j])
+                    i = j
+                elif s[i] in '+-':
+                    sign = 1 if s[i] == '+' else -1
+                    i += 1
+                else:
+                    i += 1
+            return i, ret
+
+        return calc(0)[1]
+
+
 @pytest.mark.parametrize('s, expected', [
     ("1 + 1", 2),
     (" 2-1 + 2 ", 3),
@@ -136,4 +163,4 @@ def test(s, expected):
 
 
 if __name__ == '__main__':
-    sys.exit(pytest.main(['-v', '-s', ] + sys.argv))
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

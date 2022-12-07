@@ -54,6 +54,7 @@ Constraints:
 	board[i][j] is a digit or '.'.
 """
 import sys
+from collections import defaultdict
 from collections import Counter
 from typing import List
 import pytest
@@ -79,6 +80,25 @@ class Solution:
             y, x = divmod(i, 3)
             if not is_valid([board[3*x + j%3][3*y + j//3] for j in range(9)]):
                 return False
+        return True
+
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        """12/03/2022 12:22"""
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        blks = defaultdict(set)
+
+        for i in range(9):
+            for j in range(9):
+                b = (i//3)*3 + (j//3)
+                v = board[i][j]
+                if not v.isdigit():
+                    continue
+                if v in rows[i] or v in cols[j] or v in blks[b]:
+                    return False
+                rows[i].add(v)
+                cols[j].add(v)
+                blks[b].add(v)
         return True
 
 

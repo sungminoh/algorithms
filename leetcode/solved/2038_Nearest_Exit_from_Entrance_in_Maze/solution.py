@@ -75,11 +75,32 @@ class Solution:
             cnt += 1
         return -1
 
+    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+        """12/03/2022 12:07"""
+        m, n = len(maze), len(maze[0])
+        cnt = 0
+        visited = set([tuple(entrance)])
+        queue = [entrance]
+        while queue:
+            new_queue = []
+            for i, j in queue:
+                if (i == 0 or i == m-1 or j == 0 or j == n-1) and [i, j] != entrance:
+                    return cnt
+                for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                    x, y = i+dx, j+dy
+                    if 0<=x<m and 0<=y<n and maze[x][y]=='.' and (x, y) not in visited:
+                        visited.add((x, y))
+                        new_queue.append((x, y))
+            queue = new_queue
+            cnt += 1
+        return -1
+
 
 @pytest.mark.parametrize('maze, entrance, expected', [
     ([["+","+",".","+"],[".",".",".","+"],["+","+","+","."]], [1,2], 1),
     ([["+","+","+"],[".",".","."],["+","+","+"]], [1,0], 2),
     ([[".","+"]], [0,0], -1),
+    ([["."]], [0,0], -1),
 ])
 def test(maze, entrance, expected):
     assert expected == Solution().nearestExit(maze, entrance)

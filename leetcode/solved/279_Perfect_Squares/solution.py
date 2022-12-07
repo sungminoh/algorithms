@@ -95,6 +95,43 @@ class Solution:
         dfs(n, 0)
         return m
 
+    def numSquares(self, n: int) -> int:
+        """11/29/2022 08:06, TLE"""
+        squares = list(reversed([i*i for i in range(1, int(n**0.5)+1)]))
+
+        def dfs(i, n):
+            if n == 0:
+                return 0
+            if i == len(squares):
+                return float('inf')
+            ret = dfs(i+1, n)
+            cnt = 0
+            while squares[i] <= n:
+                cnt += 1
+                n -= squares[i]
+                ret = min(ret, cnt+dfs(i+1, n))
+            return ret
+
+        return dfs(0, n)
+
+    def numSquares(self, n: int) -> int:
+        """12/03/2022 12:16"""
+        ret = float('inf')
+
+        visited = {}
+        def rec(n, cnt):
+            nonlocal ret
+            if cnt >= ret or visited.get(n, float('inf'))<=cnt:
+                return
+            visited[n] = cnt
+            if n == 0:
+                ret = cnt
+            for x in range(int(n**(0.5)), 0, -1):
+                rec(n-(x*x), cnt+1)
+
+        rec(n, 0)
+        return ret
+
 
 @pytest.mark.parametrize('n, expected', [
     (12, 3),

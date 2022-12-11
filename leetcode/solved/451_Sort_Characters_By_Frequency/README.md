@@ -8,7 +8,7 @@ Return _the sorted string_. If there are multiple answers, return _any of them_.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: s = "tree"
@@ -17,7 +17,7 @@ Explanation: 'e' appears twice while 'r' and 't' both appear once.
 So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid answer.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: s = "cccaaa"
@@ -26,7 +26,7 @@ Explanation: Both 'c' and 'a' appear three times, so both "cccaaa" and "aaaccc" 
 Note that "cacaca" is incorrect, as the same characters must be together.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: s = "Aabb"
@@ -44,4 +44,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 473,581 | 316,325 | 66.8% |
+| 674,231 | 470,992 | 69.9% |

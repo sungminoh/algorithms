@@ -17,24 +17,14 @@ Example 1:
 
 Input: s = "book"
 Output: true
-Explanation: a = "bo" and b = "ok". a has 1 vowel and b has 1 vowel. Therefore, they are alike.
+Explanation: a = "bo" and b = "ok". a has 1 vowel and b has 1 vowel. Therefore, they are alike.
 
 Example 2:
 
 Input: s = "textbook"
 Output: false
-Explanation: a = "text" and b = "book". a has 1 vowel whereas b has 2. Therefore, they are not alike.
+Explanation: a = "text" and b = "book". a has 1 vowel whereas b has 2. Therefore, they are not alike.
 Notice that the vowel o is counted twice.
-
-Example 3:
-
-Input: s = "MerryChristmas"
-Output: false
-
-Example 4:
-
-Input: s = "AbCdEfGh"
-Output: true
 
 Constraints:
 
@@ -42,8 +32,8 @@ Constraints:
 	s.length is even.
 	s consists of uppercase and lowercase letters.
 """
-import sys
 import pytest
+import sys
 
 
 class Solution:
@@ -62,6 +52,15 @@ class Solution:
             return cnt
 
         return count_vowels(s, 0, len(s)//2) == count_vowels(s, len(s)//2, len(s))
+
+
+    def halvesAreAlike(self, s: str) -> bool:
+        counters = [0, 0]
+        cur = 0
+        for i, c in enumerate(s):
+            if c in 'aeiouAEIOU':
+                counters[i//(len(s)//2)] += 1
+        return counters[0] == counters[1]
 
 
 @pytest.mark.parametrize('s, expected', [

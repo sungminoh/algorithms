@@ -37,9 +37,9 @@ Constraints:
 	1 <= s.length <= 5 * 105
 	s consists of uppercase and lowercase English letters and digits.
 """
-import sys
 from collections import Counter
 import pytest
+import sys
 
 
 class Solution:
@@ -57,6 +57,12 @@ class Solution:
             ret += c*cnt
         return ret
 
+    def frequencySort(self, s: str) -> str:
+        cnt = Counter(s)
+        ret = ''
+        for c, t in sorted(cnt.most_common(), key=lambda x: (-x[1], x[0])):
+            ret += c*t
+        return ret
 
 @pytest.mark.parametrize('s, expected', [
     ("tree", "eert"),

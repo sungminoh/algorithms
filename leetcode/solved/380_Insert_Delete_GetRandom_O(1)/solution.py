@@ -40,9 +40,9 @@ Constraints:
 	At most 2 * 105 calls will be made to insert, remove, and getRandom.
 	There will be at least one element in the data structure when getRandom is called.
 """
-import sys
 import random
 import pytest
+import sys
 
 
 class RandomizedSet:
@@ -111,23 +111,52 @@ class RandomizedSet:
         return random.choice(self.lst)
 
 
+class RandomizedSet:
+    def __init__(self):
+        self.s = {}
+        self.l = []
+
+    def insert(self, val: int) -> bool:
+        if val in self.s:
+            return False
+        self.s[val] = len(self.l)
+        self.l.append(val)
+        return True
+
+    def remove(self, val: int) -> bool:
+        if val not in self.s:
+            return False
+        self.s[self.l[-1]] = self.s[val]
+        i = self.s.pop(val)
+        self.l[i], self.l[-1] = self.l[-1], self.l[i]
+        self.l.pop()
+        return True
+
+    def getRandom(self) -> int:
+        return self.l[random.randrange(0, len(self.l))]
+
+
 @pytest.mark.parametrize('commands, arguments, expecteds', [
     (["RandomizedSet", "insert", "remove", "insert", "getRandom", "remove", "insert", "getRandom"],
      [[], [1], [2], [2], [], [1], [2], []],
      [None, True, False, True, 2, True, False, 2]),
+    (["RandomizedSet","insert","remove","insert","getRandom","remove","insert","getRandom"],
+     [[],[1],[2],[2],[],[1],[2],[]],
+     [None, True, False, True, 1, True, False, 2]),
     (["RandomizedSet","remove","remove","insert","getRandom","remove","insert"],
      [[],[0],[0],[0],[],[0],[0]],
-     [None,False,False,True,0,True,True]
-     )
+     [None,False,False,True,0,True,True]),
 ])
 def test(commands, arguments, expecteds):
-    o = globals()[commands.pop(0)](*arguments.pop(0))
+    obj = globals()[commands.pop(0)](*arguments.pop(0))
     expecteds.pop(0)
-    for cmd, args, expected in zip(commands, arguments, expecteds):
+    actual = []
+    for i, (cmd, arg) in enumerate(zip(commands, arguments)):
         if cmd == 'getRandom':
-            continue
-        print(cmd, args, expected)
-        assert expected == getattr(o, cmd)(*args)
+            actual.append(expecteds[i])
+        else:
+            actual.append(getattr(obj, cmd)(*arg))
+    assert expecteds == actual
 
 
 if __name__ == '__main__':

@@ -17,7 +17,7 @@ The test cases are generated so that the answer fits in __32-bit__ integer.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: nums = [2,4,6,8,10]
@@ -32,7 +32,7 @@ Explanation: All arithmetic subsequence slices are:
 [2,6,10]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: nums = [7,7,7,7,7]
@@ -49,4 +49,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 103,026 | 39,888 | 38.7% |
+| 154,425 | 71,986 | 46.6% |

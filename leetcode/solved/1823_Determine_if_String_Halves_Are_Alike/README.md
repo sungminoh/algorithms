@@ -10,35 +10,21 @@ Return `` true ``_ if _`` a ``_ and _`` b ``_ are __alike___. Otherwise, return 
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: s = "book"
 Output: true
-Explanation: a = "b<u>o</u>" and b = "<u>o</u>k". a has 1 vowel and b has 1 vowel. Therefore, they are alike.
+Explanation: a = "b<u>o</u>" and b = "<u>o</u>k". a has 1 vowel and b has 1 vowel. Therefore, they are alike.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: s = "textbook"
 Output: false
-Explanation: a = "t<u>e</u>xt" and b = "b<u>oo</u>k". a has 1 vowel whereas b has 2. Therefore, they are not alike.
+Explanation: a = "t<u>e</u>xt" and b = "b<u>oo</u>k". a has 1 vowel whereas b has 2. Therefore, they are not alike.
 Notice that the vowel o is counted twice.
-```
-
-__Example 3:__
-
-```
-Input: s = "MerryChristmas"
-Output: false
-```
-
-__Example 4:__
-
-```
-Input: s = "AbCdEfGh"
-Output: true
 ```
 
  
@@ -51,4 +37,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 68,016 | 53,881 | 79.2% |
+| 218,518 | 170,721 | 78.1% |

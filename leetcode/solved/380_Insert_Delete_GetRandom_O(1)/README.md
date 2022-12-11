@@ -13,7 +13,7 @@ You must implement the functions of the class such that each function works in 
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input
@@ -43,4 +43,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 814,506 | 412,606 | 50.7% |
+| 1,117,047 | 590,363 | 52.9% |

@@ -6,7 +6,7 @@ Given the `` root `` node of a binary search tree and two integers `` low `` and
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/11/05/bst1.jpg" style="width: 400px; height: 222px;"/>
 
@@ -16,7 +16,7 @@ Output: 32
 Explanation: Nodes 7, 10, and 15 are in the range [7, 15]. 7 + 10 + 15 = 32.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/11/05/bst2.jpg" style="width: 400px; height: 335px;"/>
 
@@ -37,4 +37,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 618,951 | 523,593 | 84.6% |
+| 890,835 | 765,004 | 85.9% |

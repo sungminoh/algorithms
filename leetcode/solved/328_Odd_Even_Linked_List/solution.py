@@ -27,33 +27,21 @@ Output: [2,3,6,7,1,5,4]
 
 Constraints:
 
-	n == number of nodes in the linked list
-	0 <= n <= 104
+	The number of nodes in the linked list is in the range [0, 104].
 	-106 <= Node.val <= 106
 """
-import sys
 from typing import Optional
 import pytest
+import sys
+sys.path.append('../')
+from exercise.list import ListNode, build_list
 
 
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-    def __eq__(self, other):
-        if other is None:
-            return False
-        return self.val == other.val and self.next == other.next
-
-    def __repr__(self):
-        ret = f'({self.val})'
-        if self.next:
-            ret += f' - {self.next}'
-        return ret
-
-
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def oddEvenList(self, head: ListNode) -> ListNode:
         """04/06/2020 23:13"""
@@ -77,6 +65,7 @@ class Solution:
         return even
 
     def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """Dec 09, 2021 10:13"""
         heads = [ListNode(), ListNode()]
         tails = heads[:]
         i = 0
@@ -89,16 +78,34 @@ class Solution:
         tails[1].next = None
         return heads[0].next
 
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """Dec 11, 2022 16:08"""
+        even = ListNode()
+        odd = ListNode()
+        pointers = [even, odd]
+        i = 0
+        while head:
+            pointers[i%2].next = pointers[i%2] = head
+            head = head.next
+            i = i+1
+        pointers[0].next = odd.next
+        pointers[1].next = None
+        return even.next
 
-def build_list(values):
-    if not values: return None
-    head = ListNode(values[0])
-    tail = head
-    for i in range(1, len(values)):
-        node = ListNode(values[i])
-        tail.next = node
-        tail = node
-    return head
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """Feb 18, 2023 19:23"""
+        eohead = [ListNode(), ListNode()]
+        eotail = eohead[:]
+        i = 0
+        node = head
+        while node:
+            i += 1
+            eotail[i%2].next = node
+            eotail[i%2] = node
+            node = node.next
+        eotail[0].next = None
+        eotail[1].next = eohead[0].next
+        return eohead[1].next
 
 
 @pytest.mark.parametrize('values, expected', [
@@ -106,9 +113,7 @@ def build_list(values):
     ([2,1,3,5,6,4,7], [2,3,6,7,1,5,4]),
 ])
 def test(values, expected):
-    expected = build_list(expected)
-    actual = Solution().oddEvenList(build_list(values))
-    assert expected == actual
+    assert build_list(expected) == Solution().oddEvenList(build_list(values))
 
 
 if __name__ == '__main__':

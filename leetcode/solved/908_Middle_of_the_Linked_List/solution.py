@@ -42,6 +42,7 @@ from exercise.list import build_list, ListNode
 #         self.next = next
 class Solution:
     def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """Jan 07, 2022 18:37"""
         slow = head
         fast = head.next
         while fast:
@@ -49,6 +50,23 @@ class Solution:
             fast = fast.next
             if fast:
                 fast = fast.next
+        return slow
+
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """Dec 11, 2022 16:00"""
+        fast = slow = head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        return slow
+
+
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """Feb 18, 2023 19:15"""
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
         return slow
 
 

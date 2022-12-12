@@ -12,7 +12,7 @@ You must solve the problem in `` O(1) `` extra space complexity and `` O(n) ``
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/03/10/oddeven-linked-list.jpg" style="width: 300px; height: 123px;"/>
 
@@ -21,7 +21,7 @@ Input: head = [1,2,3,4,5]
 Output: [1,3,5,2,4]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/03/10/oddeven2-linked-list.jpg" style="width: 500px; height: 142px;"/>
 
@@ -34,10 +34,9 @@ Output: [2,3,6,7,1,5,4]
 
 __Constraints:__
 
-*   `` n ==  ``number of nodes in the linked list
-*   <code>0 <= n <= 10<sup>4</sup></code>
+*   The number of nodes in the linked list is in the range <code>[0, 10<sup>4</sup>]</code>.
 *   <code>-10<sup>6</sup> <= Node.val <= 10<sup>6</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 800,893 | 472,474 | 59.0% |
+| 1,136,355 | 695,604 | 61.2% |

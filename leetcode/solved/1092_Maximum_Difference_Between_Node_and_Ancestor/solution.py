@@ -32,12 +32,13 @@ Constraints:
 	The number of nodes in the tree is in the range [2, 5000].
 	0 <= Node.val <= 105
 """
-from typing import Tuple
+import bisect
 from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
-from exercise.tree import build_tree, TreeNode
+from exercise.tree import TreeNode, build_tree
+
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -47,6 +48,7 @@ from exercise.tree import build_tree, TreeNode
 #         self.right = right
 class Solution:
     def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
+        """Jan 08, 2022 21:38"""
         ret = 0
 
         def minmax(node: TreeNode) -> Tuple:
@@ -64,14 +66,43 @@ class Solution:
         minmax(root)
         return ret
 
+    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
+        """Jan 08, 2022 21:38"""
+        ret = 0
+
+        def dfs(node, mn, mx):
+            if not node:
+                return
+            nonlocal ret
+            ret = max(ret, abs(node.val-mn), abs(node.val-mx))
+            mn = min(mn, node.val)
+            mx = max(mx, node.val)
+            dfs(node.left, mn, mx)
+            dfs(node.right, mn, mx)
+
+        dfs(root, root.val, root.val)
+        return ret
+
+    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
+        """Feb 19, 2023 14:38"""
+        def dfs(node, mx, mn):
+            if not node:
+                return 0
+            return max(
+                abs(node.val-mx),
+                abs(node.val-mn),
+                dfs(node.left, max(mx, node.val), min(mn, node.val)),
+                dfs(node.right, max(mx, node.val), min(mn, node.val)))
+
+        return dfs(root, root.val, root.val)
+
 
 @pytest.mark.parametrize('values, expected', [
     ([8,3,10,1,6,None,14,None,None,4,7,13], 7),
     ([1,None,2,None,0,3], 3),
 ])
 def test(values, expected):
-    root = build_tree(values)
-    assert expected == Solution().maxAncestorDiff(root)
+    assert expected == Solution().maxAncestorDiff(build_tree(values))
 
 
 if __name__ == '__main__':

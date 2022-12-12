@@ -1,4 +1,4 @@
-### [1465. Maximum Product of Splitted Binary Tree](https://leetcode.com/problems/maximum-product-of-splitted-binary-tree/)
+### [1465. Maximum Product of Splitted Binary Tree](https://leetcode.com/problems/maximum-product-of-splitted-binary-tree/description/)
 
 Medium
 
@@ -10,7 +10,7 @@ __Note__ that you need to maximize the answer before taking the mod and not afte
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/01/21/sample_1_1699.png" style="width: 500px; height: 167px;"/>
 
@@ -20,7 +20,7 @@ Output: 110
 Explanation: Remove the red edge and get 2 binary trees with sum 11 and 10. Their product is 110 (11*10)
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/01/21/sample_2_1699.png" style="width: 500px; height: 211px;"/>
 
@@ -28,20 +28,6 @@ __Example 2:__
 Input: root = [1,null,2,3,4,null,null,5,6]
 Output: 90
 Explanation: Remove the red edge and get 2 binary trees with sum 15 and 6.Their product is 90 (15*6)
-```
-
-__Example 3:__
-
-```
-Input: root = [2,3,9,10,7,8,6,5,4,11,1]
-Output: 1025
-```
-
-__Example 4:__
-
-```
-Input: root = [1,1]
-Output: 1
 ```
 
  
@@ -53,4 +39,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 113,534 | 47,967 | 42.2% |
+| 234,472 | 112,207 | 47.9% |

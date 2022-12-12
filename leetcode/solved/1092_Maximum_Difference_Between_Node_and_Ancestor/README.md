@@ -1,4 +1,4 @@
-### [1092. Maximum Difference Between Node and Ancestor](https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/)
+### [1092. Maximum Difference Between Node and Ancestor](https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/description/)
 
 Medium
 
@@ -8,7 +8,7 @@ A node `` a `` is an ancestor of `` b `` if either: any child of `` a `` is equa
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/11/09/tmp-tree.jpg" style="width: 400px; height: 390px;"/>
 
@@ -23,7 +23,7 @@ Explanation: We have various ancestor-node differences, some of which are given 
 Among all possible differences, the maximum value of 7 is obtained by |8 - 1| = 7.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/11/09/tmp-tree-1.jpg" style="width: 250px; height: 349px;"/>
 
@@ -41,4 +41,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 166,926 | 121,699 | 72.9% |
+| 262,844 | 199,168 | 75.8% |

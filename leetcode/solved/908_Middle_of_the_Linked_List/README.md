@@ -8,7 +8,7 @@ If there are two middle nodes, return __the second middle__ node.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/07/23/lc-midlist1.jpg" style="width: 544px; height: 65px;"/>
 
@@ -18,7 +18,7 @@ Output: [3,4,5]
 Explanation: The middle node of the list is node 3.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/07/23/lc-midlist2.jpg" style="width: 664px; height: 65px;"/>
 
@@ -37,4 +37,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 712,252 | 510,821 | 71.7% |
+| 1,606,186 | 1,208,844 | 75.3% |

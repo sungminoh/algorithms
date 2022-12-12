@@ -32,7 +32,7 @@ from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
-from exercise.tree import TreeNode, build_tree, print_tree
+from exercise.tree import build_tree, TreeNode
 
 
 # Definition for a binary tree node.
@@ -43,6 +43,7 @@ from exercise.tree import TreeNode, build_tree, print_tree
 #         self.right = right
 class Solution:
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        """Dec 23, 2021 13:06"""
         def dfs(node):
             if not node:
                 return 0
@@ -62,14 +63,40 @@ class Solution:
 
         return dfs(root)
 
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        """Dec 11, 2022 16:13"""
+        def summation(node):
+            if not node:
+                return 0
+            if node.val < low:
+                return summation(node.right)
+            if node.val > high:
+                return summation(node.left)
+            return summation(node.left) + summation(node.right) + node.val
+
+        return summation(root)
+
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        """Feb 18, 2023 19:27"""
+        ret = 0
+        stack = [root]
+        while stack:
+            n = stack.pop()
+            if not n:
+                continue
+            if low <= n.val <= high:
+                ret += n.val
+            stack.append(n.left)
+            stack.append(n.right)
+        return ret
+
 
 @pytest.mark.parametrize('values, low, high, expected', [
     ([10,5,15,3,7,None,18], 7, 15, 32),
     ([10,5,15,3,7,13,18,1,None,6], 6, 10, 23),
 ])
 def test(values, low, high, expected):
-    tree = build_tree(values)
-    assert expected == Solution().rangeSumBST(tree, low, high)
+    assert expected == Solution().rangeSumBST(build_tree(values), low, high)
 
 
 if __name__ == '__main__':

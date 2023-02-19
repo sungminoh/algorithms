@@ -8,7 +8,7 @@ Given an integer array `` nums `` representing the amount of money of each house
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: nums = [1,2,3,1]
@@ -17,7 +17,7 @@ Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
 Total amount you can rob = 1 + 3 = 4.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: nums = [2,7,9,3,1]
@@ -35,4 +35,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,031,785 | 926,685 | 45.6% |
+| 3,110,076 | 1,534,127 | 49.3% |

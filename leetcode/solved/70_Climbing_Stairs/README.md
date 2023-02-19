@@ -8,7 +8,7 @@ Each time you can either climb `` 1 `` or `` 2 `` steps. In how many distinct wa
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: n = 2
@@ -18,7 +18,7 @@ Explanation: There are two ways to climb to the top.
 2. 2 steps
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: n = 3
@@ -37,4 +37,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,374,154 | 1,185,233 | 49.9% |
+| 4,242,701 | 2,212,909 | 52.2% |

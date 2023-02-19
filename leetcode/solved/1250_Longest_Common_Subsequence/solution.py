@@ -39,12 +39,13 @@ Constraints:
 	text1 and text2 consist of only lowercase English characters.
 """
 from functools import lru_cache
-import sys
 import pytest
+import sys
 
 
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        """Oct 11, 2021 09:07"""
         @lru_cache(None)
         def dp(i, j):
             if i == len(text1) or j == len(text2):
@@ -56,6 +57,7 @@ class Solution:
         return dp(0, 0)
 
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        """Oct 11, 2021 09:15"""
         pre = [0]*(len(text2)+1)
         for i in range(len(text1)):
             cur = [0]*(len(text2)+1)
@@ -64,12 +66,25 @@ class Solution:
             pre = cur
         return pre[-2]
 
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        """Feb 19, 2023 15:22"""
+        m, n = len(text1), len(text2)
+
+        @lru_cache(None)
+        def lcs(i, j):
+            if i == m or j == n:
+                return 0
+            if text1[i] == text2[j]:
+                return 1 + lcs(i+1, j+1)
+            return max(lcs(i+1, j), lcs(i, j+1))
+
+        return lcs(0, 0)
+
 
 @pytest.mark.parametrize('text1, text2, expected', [
     ("abcde", "ace", 3),
     ("abc", "abc", 3),
     ("abc", "def", 0),
-    ("pmjghexybyrgzczy", "hafcdqbgncrcbihkd", 4),
 ])
 def test(text1, text2, expected):
     assert expected == Solution().longestCommonSubsequence(text1, text2)

@@ -2,17 +2,22 @@
 
 Medium
 
-Evaluate the value of an arithmetic expression in <a href="http://en.wikipedia.org/wiki/Reverse_Polish_notation" target="_blank">Reverse Polish Notation</a>.
+You are given an array of strings `` tokens `` that represents an arithmetic expression in a <a href="http://en.wikipedia.org/wiki/Reverse_Polish_notation" target="_blank">Reverse Polish Notation</a>.
 
-Valid operators are `` + ``, `` - ``, `` * ``, and `` / ``. Each operand may be an integer or another expression.
+Evaluate the expression. Return _an integer that represents the value of the expression_.
 
-__Note__ that division between two integers should truncate toward zero.
+__Note__ that:
 
-It is guaranteed that the given RPN expression is always valid. That means the expression would always evaluate to a result, and there will not be any division by zero operation.
+*   The valid operators are `` '+' ``, `` '-' ``, `` '*' ``, and `` '/' ``.
+*   Each operand may be an integer or another expression.
+*   The division between two integers always __truncates toward zero__.
+*   There will not be any division by zero.
+*   The input represents a valid arithmetic expression in a reverse polish notation.
+*   The answer and all the intermediate calculations can be represented in a __32-bit__ integer.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: tokens = ["2","1","+","3","*"]
@@ -20,7 +25,7 @@ Output: 9
 Explanation: ((2 + 1) * 3) = 9
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: tokens = ["4","13","5","/","+"]
@@ -28,7 +33,7 @@ Output: 6
 Explanation: (4 + (13 / 5)) = 6
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
@@ -51,4 +56,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 772,839 | 305,493 | 39.5% |
+| 1,369,682 | 622,614 | 45.5% |

@@ -12,7 +12,7 @@ A __common subsequence__ of two strings is a subsequence that is common to both 
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: text1 = "abcde", text2 = "ace" 
@@ -20,7 +20,7 @@ Output: 3
 Explanation: The longest common subsequence is "ace" and its length is 3.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: text1 = "abc", text2 = "abc"
@@ -28,7 +28,7 @@ Output: 3
 Explanation: The longest common subsequence is "abc" and its length is 3.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: text1 = "abc", text2 = "def"
@@ -45,4 +45,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 476,669 | 280,575 | 58.9% |
+| 1,112,126 | 650,446 | 58.5% |

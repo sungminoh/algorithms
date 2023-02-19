@@ -30,9 +30,9 @@ Constraints:
 	1 <= nums.length <= 100
 	0 <= nums[i] <= 400
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -49,10 +49,19 @@ class Solution:
         return max(yes, no)
 
     def rob(self, nums: List[int]) -> int:
+        """Dec 09, 2021 09:56"""
         yes, no = 0, 0
         for n in nums:
             no, yes = max(no, yes), no + n
         return max(yes, no)
+
+
+    def rob(self, nums: List[int]) -> int:
+        """Feb 19, 2023 15:19"""
+        y = n = 0
+        for x in nums:
+            y, n = n+x, max(y, n)
+        return max(y, n)
 
 
 @pytest.mark.parametrize('nums, expected', [

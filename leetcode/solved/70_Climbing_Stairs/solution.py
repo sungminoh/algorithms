@@ -32,8 +32,9 @@ Constraints:
 
 	1 <= n <= 45
 """
-import sys
+from functools import lru_cache
 import pytest
+import sys
 
 
 class Solution:
@@ -45,6 +46,7 @@ class Solution:
         return memo[(n-1)%2]
 
     def climbStairs(self, n: int) -> int:
+        """Oct 13, 2021 10:57"""
         two = 1
         one = 1
         for i in range(2, n+1):
@@ -53,10 +55,16 @@ class Solution:
             one = new
         return one
 
+    @lru_cache(None)
+    def climbStairs(self, n: int) -> int:
+        """Feb 19, 2023 15:07"""
+        if n <= 1:
+            return 1
+        return self.climbStairs(n-1) + self.climbStairs(n-2)
+
 
 @pytest.mark.parametrize('n, expected', [
-    (2, 2),
-    (3, 3),
+    (2,2),(3,3),
 ])
 def test(n, expected):
     assert expected == Solution().climbStairs(n)

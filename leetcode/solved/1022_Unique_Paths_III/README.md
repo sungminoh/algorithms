@@ -13,7 +13,7 @@ Return _the number of 4-directional walks from the starting square to the ending
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/08/02/lc-unique1.jpg" style="width: 324px; height: 245px;"/>
 
@@ -25,7 +25,7 @@ Explanation: We have the following two paths:
 2. (0,0),(1,0),(2,0),(2,1),(1,1),(0,1),(0,2),(0,3),(1,3),(1,2),(2,2)
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/08/02/lc-unique2.jpg" style="width: 324px; height: 245px;"/>
 
@@ -39,7 +39,7 @@ Explanation: We have the following four paths:
 4. (0,0),(1,0),(2,0),(2,1),(1,1),(0,1),(0,2),(0,3),(1,3),(1,2),(2,2),(2,3)
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/08/02/lc-unique3-.jpg" style="width: 164px; height: 165px;"/>
 
@@ -63,4 +63,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 128,597 | 101,856 | 79.2% |
+| 208,739 | 171,081 | 82.0% |

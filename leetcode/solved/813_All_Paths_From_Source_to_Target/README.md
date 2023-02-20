@@ -8,7 +8,7 @@ The graph is given as follows: `` graph[i] `` is a list of all nodes you can vis
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/09/28/all_1.jpg" style="width: 242px; height: 242px;"/>
 
@@ -18,34 +18,13 @@ Output: [[0,1,3],[0,2,3]]
 Explanation: There are two paths: 0 -> 1 -> 3 and 0 -> 2 -> 3.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/09/28/all_2.jpg" style="width: 423px; height: 301px;"/>
 
 ```
 Input: graph = [[4,3,1],[3,2,4],[3],[4],[]]
 Output: [[0,4],[0,3,4],[0,1,3,4],[0,1,2,3,4],[0,1,4]]
-```
-
-__Example 3:__
-
-```
-Input: graph = [[1],[]]
-Output: [[0,1]]
-```
-
-__Example 4:__
-
-```
-Input: graph = [[1,2,3],[2],[3],[]]
-Output: [[0,1,2,3],[0,2,3],[0,3]]
-```
-
-__Example 5:__
-
-```
-Input: graph = [[1,3],[2],[3],[]]
-Output: [[0,1,2,3],[0,3]]
 ```
 
  
@@ -61,4 +40,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 270,794 | 217,732 | 80.4% |
+| 511,036 | 420,195 | 82.2% |

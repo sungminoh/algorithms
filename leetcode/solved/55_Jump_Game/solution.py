@@ -28,9 +28,9 @@ Constraints:
 	1 <= nums.length <= 104
 	0 <= nums[i] <= 105
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -46,6 +46,7 @@ class Solution:
         return True
 
     def canJump(self, nums: List[int]) -> bool:
+        """Oct 13, 2021 11:16"""
         reachable = 0
         i = 0
         while i < len(nums):
@@ -56,6 +57,15 @@ class Solution:
                 return True
             i += 1
         return False
+
+    def canJump(self, nums: List[int]) -> bool:
+        """Feb 19, 2023 21:40"""
+        m = 0
+        i = 0
+        while i < len(nums) and i <= m:
+            m = max(m, i+nums[i])
+            i += 1
+        return m >= len(nums)-1
 
 
 @pytest.mark.parametrize('nums, expected', [

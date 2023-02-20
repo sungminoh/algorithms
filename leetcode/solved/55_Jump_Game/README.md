@@ -8,7 +8,7 @@ Return `` true ``_ if you can reach the last index, or _`` false ``_ otherwise_.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: nums = [2,3,1,1,4]
@@ -16,7 +16,7 @@ Output: true
 Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: nums = [3,2,1,0,4]
@@ -33,4 +33,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,127,506 | 779,970 | 36.7% |
+| 3,408,255 | 1,325,635 | 38.9% |

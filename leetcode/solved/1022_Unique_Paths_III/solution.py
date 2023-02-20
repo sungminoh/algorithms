@@ -50,14 +50,16 @@ Constraints:
 	-1 <= grid[i][j] <= 2
 	There is exactly one starting cell and one ending cell.
 """
-import sys
+from functools import lru_cache
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def uniquePathsIII(self, grid: List[List[int]]) -> int:
-        """DFS"""
+        """Nov 13, 2021 10:23
+        DFS"""
         m, n = len(grid), len(grid[0])
 
         start = None
@@ -84,11 +86,38 @@ class Solution:
 
         return dfs(*start)
 
+    def uniquePathsIII(self, grid: List[List[int]]) -> int:
+        """Feb 19, 2023 22:45"""
+        m, n = len(grid), len(grid[0])
+
+        # @lru_cache(None)
+        def dfs(i, j, remains):
+            if grid[i][j] == 2:
+                return 1 if remains == 0 else 0
+            ret = 0
+            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                x, y = i+dx, j+dy
+                if 0<=x<m and 0<=y<n and (1<<(x*n+y)) & remains:
+                    ret += dfs(x, y, remains ^ (1<<(x*n+y)))
+            return ret
+
+        start = None
+        remains = (1<<(m*n)) - 1
+        for i in range(m):
+            for j in range(n):
+                v = grid[i][j]
+                if v == 1:
+                    start = (i, j)
+                if v == -1 or v == 1:
+                    remains ^= 1<<(i*n+j)
+
+        return dfs(*start, remains)
+
 
 @pytest.mark.parametrize('grid, expected', [
-    ([[1,0,0,0],[0,0,0,0],[0,0,2,-1]], 2),
-    ([[1,0,0,0],[0,0,0,0],[0,0,0,2]], 4),
-    ([[0,1],[2,0]], 0),
+    (([[1,0,0,0],[0,0,0,0],[0,0,2,-1]], 2)),
+    (([[1,0,0,0],[0,0,0,0],[0,0,0,2]], 4)),
+    (([[0,1],[2,0]], 0)),
 ])
 def test(grid, expected):
     assert expected == Solution().uniquePathsIII(grid)

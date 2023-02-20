@@ -22,21 +22,6 @@ Example 2:
 Input: graph = [[4,3,1],[3,2,4],[3],[4],[]]
 Output: [[0,4],[0,3,4],[0,1,3,4],[0,1,2,3,4],[0,1,4]]
 
-Example 3:
-
-Input: graph = [[1],[]]
-Output: [[0,1]]
-
-Example 4:
-
-Input: graph = [[1,2,3],[2],[3],[]]
-Output: [[0,1,2,3],[0,2,3],[0,3]]
-
-Example 5:
-
-Input: graph = [[1,3],[2],[3],[]]
-Output: [[0,1,2,3],[0,3]]
-
 Constraints:
 
 	n == graph.length
@@ -46,9 +31,10 @@ Constraints:
 	All the elements of graph[i] are unique.
 	The input graph is guaranteed to be a DAG.
 """
-import sys
+from functools import lru_cache
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -71,6 +57,7 @@ class Solution:
         return paths(0, len(graph)-1)
 
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        """Dec 09, 2021 10:57"""
         ret = []
         def dfs(i, backtrack):
             if i == len(graph)-1:
@@ -83,6 +70,21 @@ class Solution:
 
         dfs(0, [0])
         return ret
+
+    def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        """Feb 19, 2023 22:20"""
+        n = len(graph)-1
+
+        @lru_cache(None)
+        def dfs(i):
+            if i == n:
+                return [[i]]
+            ret = []
+            for j in graph[i]:
+                ret.extend([[i, *path] for path in dfs(j)])
+            return ret
+
+        return dfs(0)
 
 
 @pytest.mark.parametrize('graph, expected', [

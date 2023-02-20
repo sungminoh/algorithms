@@ -10,7 +10,7 @@ Return an array `` answer `` of length `` n `` where `` answer[i] `` is the sum 
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/07/23/lc-sumdist1.jpg" style="width: 304px; height: 224px;"/>
 
@@ -23,7 +23,7 @@ equals 1 + 1 + 2 + 2 + 2 = 8.
 Hence, answer[0] = 8, and so on.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/07/23/lc-sumdist2.jpg" style="width: 64px; height: 65px;"/>
 
@@ -32,7 +32,7 @@ Input: n = 1, edges = []
 Output: [0]
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/07/23/lc-sumdist3.jpg" style="width: 144px; height: 145px;"/>
 
@@ -54,4 +54,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 68,418 | 35,688 | 52.2% |
+| 134,703 | 79,920 | 59.3% |

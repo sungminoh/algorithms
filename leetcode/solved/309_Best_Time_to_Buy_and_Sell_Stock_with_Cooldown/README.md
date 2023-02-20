@@ -12,7 +12,7 @@ __Note:__ You may not engage in multiple transactions simultaneously (i.e., you 
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: prices = [1,2,3,0,2]
@@ -20,7 +20,7 @@ Output: 3
 Explanation: transactions = [buy, sell, cooldown, buy, sell]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: prices = [1]
@@ -36,4 +36,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 459,000 | 232,217 | 50.6% |
+| 693,303 | 388,982 | 56.1% |

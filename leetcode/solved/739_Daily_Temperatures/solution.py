@@ -24,9 +24,9 @@ Constraints:
 	1 <= temperatures.length <= 105
 	30 <= temperatures[i] <= 100
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -42,7 +42,7 @@ class Solution:
         return ret
 
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        """
+        """Nov 20, 2021 11:02
         Time complexity: O(n)
         Space complexity: O(n)
         """
@@ -50,8 +50,20 @@ class Solution:
         stack = []
         for i, temp in enumerate(temperatures):
             while stack and temperatures[stack[-1]] < temp:
-                _, j = stack.pop()
+                j = stack.pop()
                 ret[j] = i-j
+            stack.append(i)
+        return ret
+
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        """Feb 19, 2023 16:49"""
+        stack = []
+        ret = []
+        for i, t in enumerate(temperatures):
+            while stack and temperatures[stack[-1]] < t:
+                j = stack.pop()
+                ret[j] = i-j
+            ret.append(0)
             stack.append(i)
         return ret
 

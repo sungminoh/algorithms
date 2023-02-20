@@ -6,19 +6,19 @@ Given an array of integers `` temperatures `` represents the daily temperatures,
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```Input: temperatures = [73,74,75,71,69,72,76,73]
 Output: [1,1,4,2,1,1,0,0]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```Input: temperatures = [30,40,50,60]
 Output: [1,1,1,0]
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```Input: temperatures = [30,60,90]
 Output: [1,1,0]
@@ -33,4 +33,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 489,128 | 324,629 | 66.4% |
+| 871,379 | 577,960 | 66.3% |

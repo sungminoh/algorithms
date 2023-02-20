@@ -31,10 +31,10 @@ Constraints:
 	1 <= prices.length <= 5000
 	0 <= prices[i] <= 1000
 """
-import sys
 from functools import lru_cache
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -64,6 +64,7 @@ class Solution:
         return max(money)
 
     def maxProfit(self, prices: List[int]) -> int:
+        """Oct 20, 2021 22:24"""
         @lru_cache(None)
         def dp(i, position):
             """
@@ -81,6 +82,7 @@ class Solution:
         return dp(0, 0)
 
     def maxProfit(self, prices: List[int]) -> int:
+        """Oct 20, 2021 22:38"""
         if not prices:
             return 0
         dp = [0, -prices[0], 0]
@@ -91,6 +93,17 @@ class Solution:
                 dp[1]+p,
             ]
         return max(dp)
+
+    def maxProfit(self, prices: List[int]) -> int:
+        """Feb 19, 2023 19:31"""
+        can_purchase = cool = 0
+        possess = -float('inf')
+        for p in prices:
+            possess = max(possess, can_purchase - p)
+            can_purchase = max(can_purchase, cool)
+            cool = possess + p
+
+        return max(can_purchase, cool)
 
 
 @pytest.mark.parametrize('prices, expected', [

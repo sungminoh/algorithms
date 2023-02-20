@@ -28,9 +28,9 @@ Constraints:
 
 	1 <= n <= 1000
 """
-import sys
 from functools import lru_cache
 import pytest
+import sys
 
 
 class Solution:
@@ -67,6 +67,7 @@ class Solution:
         return int(ret)
 
     def numTilings(self, n: int) -> int:
+        """Dec 16, 2021 23:42"""
         dp = [1, 1, 2, 5]
         for i in range(4, n+1):
             ret = dp[-1] + dp[-2]
@@ -75,6 +76,22 @@ class Solution:
                 ret %= 1e9+7
             dp.append(int(ret))
         return dp[n]
+
+    @lru_cache(None)
+    def numTilings(self, n: int) -> int:
+        """Feb 19, 2023 19:44"""
+        if n == 0:
+            return 1
+        if n == 1:
+            return 1
+        if n == 2:
+            return 2
+
+        ret = self.numTilings(n-1) + self.numTilings(n-2)
+        for i in range(3, n+1):
+            ret += 2*self.numTilings(n-i)
+            ret %= int(1e9+7)
+        return ret
 
 
 @pytest.mark.parametrize('n, expected', [

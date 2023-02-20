@@ -12,7 +12,7 @@ In a tiling, every square must be covered by a tile. Two tilings are different i
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/07/15/lc-domino1.jpg" style="width: 500px; height: 226px;"/>
 
@@ -22,7 +22,7 @@ Output: 5
 Explanation: The five different ways are show above.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: n = 1
@@ -37,4 +37,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 83,948 | 39,651 | 47.2% |
+| 174,359 | 92,334 | 53.0% |

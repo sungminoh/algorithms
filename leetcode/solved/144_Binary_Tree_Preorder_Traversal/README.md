@@ -1,24 +1,45 @@
-### [144. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/description/)
+### [144. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)
 
-[Description](https://leetcode.com/problems/binary-tree-preorder-traversal/description/)[Hints](https://leetcode.com/problems/binary-tree-preorder-traversal/hints/)[Submissions](https://leetcode.com/problems/binary-tree-preorder-traversal/submissions/)[Discuss](https://leetcode.com/problems/binary-tree-preorder-traversal/discuss/)[Solution](https://leetcode.com/problems/binary-tree-preorder-traversal/solution/)
+Easy
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given the `` root `` of a binary tree, return _the preorder traversal of its nodes' values_.
 
-------
+ 
 
-Given a binary tree, return the *preorder* traversal of its nodes' values.
+<strong class="example">Example 1:</strong>
 
-**Example:**
+<img alt="" src="https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg" style="width: 125px; height: 200px;"/>
 
 ```
-Input: [1,null,2,3]
-   1
-    \
-     2
-    /
-   3
-
+Input: root = [1,null,2,3]
 Output: [1,2,3]
 ```
 
-**Follow up:** Recursive solution is trivial, could you do it iteratively?
+<strong class="example">Example 2:</strong>
+
+```
+Input: root = []
+Output: []
+```
+
+<strong class="example">Example 3:</strong>
+
+```
+Input: root = [1]
+Output: [1]
+```
+
+ 
+
+__Constraints:__
+
+*   The number of nodes in the tree is in the range `` [0, 100] ``.
+*   `` -100 <= Node.val <= 100 ``
+
+ 
+
+__Follow up:__ Recursive solution is trivial, could you do it iteratively?
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,909,819 | 1,272,806 | 66.6% |

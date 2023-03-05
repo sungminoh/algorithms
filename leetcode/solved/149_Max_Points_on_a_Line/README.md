@@ -1,42 +1,38 @@
-### [149. Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/description/)
+### [149. Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/)
 
-[Description](https://leetcode.com/problems/max-points-on-a-line/description/)[Hints](https://leetcode.com/problems/max-points-on-a-line/hints/)[Submissions](https://leetcode.com/problems/max-points-on-a-line/submissions/)[Discuss](https://leetcode.com/problems/max-points-on-a-line/discuss/)[Solution](https://leetcode.com/problems/max-points-on-a-line/solution/)
+Hard
 
+Given an array of `` points `` where <code>points[i] = [x<sub>i</sub>, y<sub>i</sub>]</code> represents a point on the __X-Y__ plane, return _the maximum number of points that lie on the same straight line_.
 
+ 
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+<strong class="example">Example 1:</strong>
 
-------
-
-Given *n* points on a 2D plane, find the maximum number of points that lie on the same straight line.
-
-**Example 1:**
+<img alt="" src="https://assets.leetcode.com/uploads/2021/02/25/plane1.jpg" style="width: 300px; height: 294px;"/>
 
 ```
-Input: [[1,1],[2,2],[3,3]]
+Input: points = [[1,1],[2,2],[3,3]]
 Output: 3
-Explanation:
-^
-|
-|        o
-|     o
-|  o  
-+------------->
-0  1  2  3  4
 ```
 
-**Example 2:**
+<strong class="example">Example 2:</strong>
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/02/25/plane2.jpg" style="width: 300px; height: 294px;"/>
 
 ```
-Input: [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
+Input: points = [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
 Output: 4
-Explanation:
-^
-|
-|  o
-|     o        o
-|        o
-|  o        o
-+------------------->
-0  1  2  3  4  5  6
 ```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= points.length <= 300 ``
+*   `` points[i].length == 2 ``
+*   <code>-10<sup>4</sup> <= x<sub>i</sub>, y<sub>i</sub> <= 10<sup>4</sup></code>
+*   All the `` points `` are __unique__.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,325,873 | 332,015 | 25.0% |

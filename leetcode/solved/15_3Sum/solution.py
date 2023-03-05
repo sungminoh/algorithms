@@ -12,25 +12,39 @@ Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
 Notice that the solution set must not contain duplicate triplets.
 
 Example 1:
+
 Input: nums = [-1,0,1,2,-1,-4]
 Output: [[-1,-1,2],[-1,0,1]]
+Explanation:
+nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
+nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
+nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
+The distinct triplets are [-1,0,1] and [-1,-1,2].
+Notice that the order of the output and the order of the triplets does not matter.
+
 Example 2:
-Input: nums = []
+
+Input: nums = [0,1,1]
 Output: []
+Explanation: The only possible triplet does not sum up to 0.
+
 Example 3:
-Input: nums = [0]
-Output: []
+
+Input: nums = [0,0,0]
+Output: [[0,0,0]]
+Explanation: The only possible triplet sums up to 0.
 
 Constraints:
 
-	0 <= nums.length <= 3000
+	3 <= nums.length <= 3000
 	-105 <= nums[i] <= 105
 """
-import sys
 from collections import defaultdict
-from collections import Counter
+from pathlib import Path
+import json
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -85,14 +99,58 @@ class Solution:
                         r -= 1
         return ret
 
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        """Mar 04, 2023 21:53
+        TLE
+        """
+        one = {}
+        two = {}
+        ret = []
+        for n in nums:
+            if -n in two:
+                ret.extend(l + [n] for l in two[-n])
+            for a, ll in one.items():
+                two.setdefault(a+n, []).extend(l + [n] for l in ll)
+            one.setdefault(n, []).append([n])
+        return [list(x) for x in set(tuple(sorted(x)) for x in ret)]
 
-@pytest.mark.parametrize('nums, expected', [
-    ([-1,0,1,2,-1,-4], [[-1,-1,2],[-1,0,1]]),
-    ([], []),
-    ([0], []),
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        """Mar 04, 2023 23:04"""
+        nums.sort()
+        ret = []
+        i = 0
+        for i in range(len(nums)):
+            if i+1 < len(nums) and nums[i] == nums[i+1]:
+                continue
+            l = 0
+            r = i-1
+            while l < r:
+                s = nums[l] + nums[r] + nums[i]
+                if s < 0:
+                    l += 1
+                elif s > 0:
+                    r -= 1
+                else:
+                    tp = [nums[l], nums[r], nums[i]]
+                    ret.append(tp)
+                    while l < r and nums[l] == tp[0]:
+                        l += 1
+                    while r > l and nums[r] == tp[1]:
+                        r -= 1
+        return ret
+
+
+@pytest.mark.parametrize('args', [
+    (([-1,0,1,2,-1,-4], [[-1,-1,2],[-1,0,1]])),
+    (([0,1,1], [])),
+    (([0,0,0], [[0,0,0]])),
+    (([0,0,0,0], [[0,0,0]])),
+    (json.load(open(Path(__file__).parent/'testcase.json'))),
 ])
-def test(nums, expected):
-    assert sorted([sorted(x) for x in expected]) == sorted([sorted(x) for x in Solution().threeSum(nums)])
+def test(args):
+    actual = Solution().threeSum(*args[:-1])
+    print(actual)
+    assert sorted(args[-1]) == sorted(actual)
 
 
 if __name__ == '__main__':

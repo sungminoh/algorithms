@@ -27,9 +27,9 @@ Constraints:
 	1 <= word1.length, word2.length <= 500
 	word1 and word2 consist of only lowercase English letters.
 """
-import sys
 from functools import lru_cache
 import pytest
+import sys
 
 
 class Solution:
@@ -92,7 +92,6 @@ class Solution:
                     dp[i%2][j] = min(dp[i%2][j], 1 + dp[(i-1)%2][j], 1 + dp[i%2][j-1])
         return dp[(n-1)%2][-1]
 
-
     def minDistance(self, word1: str, word2: str) -> int:
         """06/19/2022 16:02"""
         @lru_cache(None)
@@ -107,13 +106,26 @@ class Solution:
 
         return dfs(0, 0)
 
+    def minDistance(self, word1: str, word2: str) -> int:
+        """Mar 05, 2023 12:08"""
+        @lru_cache()
+        def dfs(i, j):
+            if i == len(word1):
+                return len(word2)-j
+            if j == len(word2):
+                return len(word1)-i
+            if word1[i] == word2[j]:
+                return dfs(i+1, j+1)
+            return min(dfs(i+1, j), dfs(i, j+1)) + 1
+        return dfs(0, 0)
 
-@pytest.mark.parametrize('word1, word2, expected', [
-    ("sea", "eat", 2),
-    ("leetcode", "etco", 4),
+
+@pytest.mark.parametrize('args', [
+    (("sea", "eat", 2)),
+    (("leetcode", "etco", 4)),
 ])
-def test(word1, word2, expected):
-    assert expected == Solution().minDistance(word1, word2)
+def test(args):
+    assert args[-1] == Solution().minDistance(*args[:-1])
 
 
 if __name__ == '__main__':

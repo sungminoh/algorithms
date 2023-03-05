@@ -8,7 +8,7 @@ In one __step__, you can delete exactly one character in either string.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: word1 = "sea", word2 = "eat"
@@ -16,7 +16,7 @@ Output: 2
 Explanation: You need one step to make "sea" to "ea" and another step to make "eat" to "ea".
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: word1 = "leetcode", word2 = "etco"
@@ -32,4 +32,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 289,514 | 168,713 | 58.3% |
+| 333,162 | 198,884 | 59.7% |

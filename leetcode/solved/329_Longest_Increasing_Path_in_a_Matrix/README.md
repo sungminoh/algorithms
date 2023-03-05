@@ -8,7 +8,7 @@ From each cell, you can either move in four directions: left, right, up, or down
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/01/05/grid1.jpg" style="width: 242px; height: 242px;"/>
 
@@ -16,7 +16,7 @@ __Example 1:__
     <strong>Output:</strong> 4
     <strong>Explanation:</strong> The longest increasing path is [1, 2, 6, 9].
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/01/27/tmp-grid.jpg" style="width: 253px; height: 253px;"/>
 
@@ -24,7 +24,7 @@ __Example 2:__
     <strong>Output:</strong> 4
     <strong>Explanation: </strong>The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: matrix = [[1]]
@@ -42,4 +42,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 708,663 | 363,046 | 51.2% |
+| 828,854 | 434,356 | 52.4% |

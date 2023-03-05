@@ -112,7 +112,6 @@ class _MyHashMap:
      [None, None, None, 1, -1, None, 1, None, -1]),
     json.load(open(Path(__file__).parent/'testcase.json')),
     json.load(open(Path(__file__).parent/'testcase2.json')),
-    json.load(open(Path(__file__).parent/'testcase3.json')),
 ])
 def test(commands, arguments, expecteds):
     obj = globals()[commands.pop(0)](*arguments.pop(0))

@@ -1,4 +1,4 @@
-### [452. Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/submissions/)
+### [452. Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/)
 
 Medium
 
@@ -10,7 +10,7 @@ Given the array `` points ``, return _the __minimum__ number of arrows that must
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: points = [[10,16],[2,8],[1,6],[7,12]]
@@ -20,7 +20,7 @@ Explanation: The balloons can be burst by 2 arrows:
 - Shoot an arrow at x = 11, bursting the balloons [10,16] and [7,12].
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: points = [[1,2],[3,4],[5,6],[7,8]]
@@ -28,7 +28,7 @@ Output: 4
 Explanation: One arrow needs to be shot for each balloon for a total of 4 arrows.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: points = [[1,2],[2,3],[3,4],[4,5]]
@@ -48,4 +48,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 333,675 | 175,706 | 52.7% |
+| 536,074 | 296,328 | 55.3% |

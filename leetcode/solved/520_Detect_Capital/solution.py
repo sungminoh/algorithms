@@ -27,12 +27,13 @@ Constraints:
 	1 <= word.length <= 100
 	word consists of lowercase and uppercase English letters.
 """
-import sys
 import pytest
+import sys
 
 
 class Solution:
     def detectCapitalUse(self, word: str) -> bool:
+        """Feb 08, 2022 12:57"""
         if len(word) <= 1:
             return True
         start_with_cap = word[0] == word[0].upper()
@@ -47,13 +48,28 @@ class Solution:
             i += 1
         return True
 
+    def detectCapitalUse(self, word: str) -> bool:
+        """Mar 04, 2023 20:17"""
+        if len(word) <= 1:
+            return True
+        cap1 = word[0].isupper()
+        cap2 = word[1].isupper()
+        if not cap1 and cap2:
+            return False
+        cap = cap1 and cap2
+        for i in range(2, len(word)):
+            if word[i].isupper() != cap:
+                return False
+        return True
 
-@pytest.mark.parametrize('word, expected', [
-    ("USA", True),
-    ("FlaG", False),
+
+@pytest.mark.parametrize('args', [
+    (("USA", True)),
+    (("FlaG", False)),
+    (("mL", False)),
 ])
-def test(word, expected):
-    assert expected == Solution().detectCapitalUse(word)
+def test(args):
+    assert args[-1] == Solution().detectCapitalUse(*args[:-1])
 
 
 if __name__ == '__main__':

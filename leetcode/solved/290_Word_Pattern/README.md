@@ -8,21 +8,21 @@ Here __follow__ means a full match, such that there is a bijection between a let
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: pattern = "abba", s = "dog cat cat dog"
 Output: true
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: pattern = "abba", s = "dog cat cat fish"
 Output: false
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: pattern = "aaaa", s = "dog cat cat dog"
@@ -42,4 +42,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 844,565 | 338,270 | 40.1% |
+| 1,217,842 | 507,470 | 41.7% |

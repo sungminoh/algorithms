@@ -104,10 +104,10 @@ import sys
         pass
 
 
-@pytest.mark.parametrize('', [
+@pytest.mark.parametrize('args', [
 ])
-def test():
-    pass
+def test(args):
+    assert args[-1] == Solution()(*args[:-1])
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ Given two integer arrays `` gas `` and `` cost ``, return _the starting gas stat
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: gas = [1,2,3,4,5], cost = [3,4,5,1,2]
@@ -25,7 +25,7 @@ Travel to station 3. The cost is 5. Your gas is just enough to travel back to st
 Therefore, return 3 as the starting index.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: gas = [2,3,4], cost = [3,4,3]
@@ -43,11 +43,10 @@ Therefore, you can't travel around the circuit once no matter where you start.
 
 __Constraints:__
 
-*   `` gas.length == n ``
-*   `` cost.length == n ``
+*   `` n == gas.length == cost.length ``
 *   <code>1 <= n <= 10<sup>5</sup></code>
 *   <code>0 <= gas[i], cost[i] <= 10<sup>4</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 855,195 | 378,239 | 44.2% |
+| 1,238,551 | 570,482 | 46.1% |

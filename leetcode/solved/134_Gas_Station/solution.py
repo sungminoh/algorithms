@@ -40,17 +40,16 @@ Therefore, you can't travel around the circuit once no matter where you start.
 
 Constraints:
 
-	gas.length == n
-	cost.length == n
+	n == gas.length == cost.length
 	1 <= n <= 105
 	0 <= gas[i], cost[i] <= 104
 """
 from pathlib import Path
 import json
-import sys
 import itertools
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -77,6 +76,7 @@ class Solution:
         return -1
 
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        """Feb 01, 2022 10:30"""
         n = len(gas)
 
         min_val = float('inf')
@@ -97,16 +97,28 @@ class Solution:
 
         return min_idx+1
 
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        """Mar 05, 2023 12:03"""
+        acc = 0
+        min_acc = float('inf')
+        min_i = -1
+        for i, (g, c) in enumerate(zip(gas, cost)):
+            acc += g-c
+            if acc < min_acc:
+                min_acc = acc
+                min_i = i
+        return (min_i+1) % len(gas) if acc >= 0 else -1
 
-@pytest.mark.parametrize('gas, cost, expected', [
-    ([1,2,3,4,5], [3,4,5,1,2], 3),
-    ([2,3,4], [3,4,3], -1),
-    ([3,3,4], [3,4,4], -1),
-    ([1000, 1002, 1000, 999], [1000, 1001, 1000, 999], 0),
-    (*json.load(open(Path(__file__).parent/'testcase.json')), 0),
+
+@pytest.mark.parametrize('args', [
+    (([1,2,3,4,5], [3,4,5,1,2], 3)),
+    (([2,3,4], [3,4,3], -1)),
+    (([3,3,4], [3,4,4], -1)),
+    (([1000, 1002, 1000, 999], [1000, 1001, 1000, 999], 0)),
+    ((*json.load(open(Path(__file__).parent/'testcase.json')), 0)),
 ])
-def test(gas, cost, expected):
-    assert expected == Solution().canCompleteCircuit(gas, cost)
+def test(args):
+    assert args[-1] == Solution().canCompleteCircuit(*args[:-1])
 
 
 if __name__ == '__main__':

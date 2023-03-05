@@ -41,13 +41,14 @@ Constraints:
 	points[i].length == 2
 	-231 <= xstart < xend <= 231 - 1
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
+        """May 03, 2020 18:48"""
         points = sorted(points, key=lambda x: x[0])
 
         def count_shoot(idx=0):
@@ -65,6 +66,7 @@ class Solution:
         return count_shoot(0)
 
     def findMinArrowShots(self, points: List[List[int]]) -> int:
+        """Jan 29, 2022 19:10"""
         points.sort()
 
         ret = 0
@@ -78,14 +80,27 @@ class Solution:
 
         return ret
 
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        """Mar 04, 2023 21:13"""
+        ret = 0
+        min_e = -float('inf')
+        for s, e in sorted(points):
+            if s > min_e:
+                min_e = float('inf')
+                ret += 1
+            min_e = min(min_e, e)
+        return ret
 
-@pytest.mark.parametrize('points, expected', [
-    ([[10,16],[2,8],[1,6],[7,12]], 2),
-    ([[1,2],[3,4],[5,6],[7,8]], 4),
-    ([[1,2],[2,3],[3,4],[4,5]], 2),
+
+@pytest.mark.parametrize('args', [
+    (([[10,16],[2,8],[1,6],[7,12]], 2)),
+    (([[1,2],[3,4],[5,6],[7,8]], 4)),
+    (([[1,2],[2,3],[3,4],[4,5]], 2)),
+    (([[10,16],[2,8],[1,6],[7,12]], 2)),
+    (([[-2147483648,2147483647]], 1)),
 ])
-def test(points, expected):
-    assert expected == Solution().findMinArrowShots(points)
+def test(args):
+    assert args[-1] == Solution().findMinArrowShots(*args[:-1])
 
 
 if __name__ == '__main__':

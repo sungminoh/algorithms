@@ -12,13 +12,13 @@ Given a string `` word ``, return `` true `` if the usage of capitals in it is r
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```Input: word = "USA"
 Output: true
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```Input: word = "FlaG"
 Output: false
@@ -33,4 +33,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 459,691 | 256,135 | 55.7% |
+| 672,375 | 383,524 | 57.0% |

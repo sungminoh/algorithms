@@ -36,12 +36,13 @@ Constraints:
 	All the words in s are separated by a single space.
 """
 import itertools
-import sys
 import pytest
+import sys
 
 
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
+        """Jan 31, 2022 13:02"""
         cm = {}
         wm = {}
         for c, w in itertools.zip_longest(pattern, s.split()):
@@ -53,17 +54,31 @@ class Solution:
             wm[w] = c
         return True
 
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        """Mar 04, 2023 20:08"""
+        pw = {}
+        wp = {}
+        for p, w in itertools.zip_longest(pattern, s.split()):
+            if p is None or w is None:
+                return False
+            pw.setdefault(p, w)
+            wp.setdefault(w, p)
+            if pw.get(p) != w or wp.get(w) != p:
+                return False
+        return True
 
-@pytest.mark.parametrize('pattern, s, expected', [
-    ("abba", "dog cat cat dog", True),
-    ("abba", "dog cat cat fish", False),
-    ("aaaa", "dog cat cat dog", False),
+
+@pytest.mark.parametrize('args', [
+    (("abba", "dog cat cat dog", True)),
+    (("abba", "dog cat cat fish", False)),
+    (("aaaa", "dog cat cat dog", False)),
     ("abcd", "dog cat cat dog", False),
-    ("aaa", "aa aa aa aa", False),
-    ("he", "unit", False)
+    (("abba", "dog dog dog dog", False)),
+    (("aaa", "aa aa aa aa", False)),
+    (("he", "unit", False)),
 ])
-def test(pattern, s, expected):
-    assert expected == Solution().wordPattern(pattern, s)
+def test(args):
+    assert args[-1] == Solution().wordPattern(*args[:-1])
 
 
 if __name__ == '__main__':

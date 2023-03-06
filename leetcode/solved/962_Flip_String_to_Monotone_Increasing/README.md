@@ -10,7 +10,7 @@ Return _the minimum number of flips to make _`` s ``_ monotone increasing_.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: s = "00110"
@@ -18,7 +18,7 @@ Output: 1
 Explanation: We flip the last digit to get 00111.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: s = "010110"
@@ -26,7 +26,7 @@ Output: 2
 Explanation: We flip to get 011111, or alternatively 000111.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: s = "00011000"
@@ -43,4 +43,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 102,369 | 57,902 | 56.6% |
+| 281,874 | 173,311 | 61.5% |

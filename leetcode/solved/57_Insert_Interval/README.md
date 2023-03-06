@@ -1,26 +1,41 @@
 ### [57. Insert Interval](https://leetcode.com/problems/insert-interval/)
 
-Hard
+Medium
 
-Given a set of _non-overlapping_ intervals, insert a new interval into the intervals (merge if necessary).
+You are given an array of non-overlapping intervals `` intervals `` where <code>intervals[i] = [start<sub>i</sub>, end<sub>i</sub>]</code> represent the start and the end of the <code>i<sup>th</sup></code> interval and `` intervals `` is sorted in ascending order by <code>start<sub>i</sub></code>. You are also given an interval `` newInterval = [start, end] `` that represents the start and end of another interval.
 
-You may assume that the intervals were initially sorted according to their start times.
+Insert `` newInterval `` into `` intervals `` such that `` intervals `` is still sorted in ascending order by <code>start<sub>i</sub></code> and `` intervals `` still does not have any overlapping intervals (merge overlapping intervals if necessary).
 
-__Example 1:__
+Return `` intervals ``_ after the insertion_.
+
+ 
+
+<strong class="example">Example 1:</strong>
 
 ```
 Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
 Output: [[1,5],[6,9]]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
-<strong>Input:</strong> intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = <code>[4,8]</code>
-<strong>Output:</strong> [[1,2],[3,10],[12,16]]
-    <strong>Explanation:</strong> Because the new interval <code>[4,8]</code> overlaps with <code>[3,5],[6,7],[8,10]</code>.
+```
+Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+Output: [[1,2],[3,10],[12,16]]
+Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
+```
 
-__NOTE:__ input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
+ 
+
+__Constraints:__
+
+*   <code>0 <= intervals.length <= 10<sup>4</sup></code>
+*   `` intervals[i].length == 2 ``
+*   <code>0 <= start<sub>i</sub> <= end<sub>i</sub> <= 10<sup>5</sup></code>
+*   `` intervals `` is sorted by <code>start<sub>i</sub></code> in __ascending__ order.
+*   `` newInterval.length == 2 ``
+*   <code>0 <= start <= end <= 10<sup>5</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 773,481 | 259,889 | 33.6% |
+| 1,881,926 | 733,872 | 39.0% |

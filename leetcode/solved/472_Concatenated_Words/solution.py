@@ -7,32 +7,38 @@
 # Distributed under terms of the MIT license.
 
 """
-Given a list of words (without duplicates), please write a program that returns all concatenated words in the given list of words.
-A concatenated word is defined as a string that is comprised entirely of at least two shorter words in the given array.
+Given an array of strings words (without duplicates), return all the concatenated words in the given list of words.
 
-Example:
+A concatenated word is defined as a string that is comprised entirely of at least two shorter words (not necesssarily distinct) in the given array.
 
-Input: ["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"]
+Example 1:
 
+Input: words = ["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"]
 Output: ["catsdogcats","dogcatsdog","ratcatdogcat"]
+Explanation: "catsdogcats" can be concatenated by "cats", "dog" and "cats";
+"dogcatsdog" can be concatenated by "dog", "cats" and "dog";
+"ratcatdogcat" can be concatenated by "rat", "cat", "dog" and "cat".
 
-Explanation: "catsdogcats" can be concatenated by "cats", "dog" and "cats";  "dogcatsdog" can be concatenated by "dog", "cats" and "dog"; "ratcatdogcat" can be concatenated by "rat", "cat", "dog" and "cat".
+Example 2:
 
-Note:
+Input: words = ["cat","dog","catdog"]
+Output: ["catdog"]
 
-The number of elements of the given array will not exceed 10,000
-The length sum of elements in the given array will not exceed 600,000.
-All the input string will only include lower case letters.
-The returned elements order does not matter.
+Constraints:
+
+	1 <= words.length <= 104
+	1 <= words[i].length <= 30
+	words[i] consists of only lowercase English letters.
+	All the strings of words are unique.
+	1 <= sum(words[i].length) <= 105
 """
-from functools import lru_cache
 from pathlib import Path
 import json
-import sys
 from collections import defaultdict
+from functools import lru_cache
 from typing import List
 import pytest
-
+import sys
 
 
 def infdict():
@@ -99,13 +105,43 @@ class Solution:
         return [word for word in words if dfs(word)]
 
 
+    def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
+        """Mar 12, 2023 17:51 TLE"""
+        @lru_cache(None)
+        def dfs(word, init=True):
+            if not word and not init:
+                return True
+            for w in words:
+                if word.startswith(w) and (not init or word!=w):
+                    if dfs(word[len(w):], init=False):
+                        return True
+            return False
 
-@pytest.mark.parametrize('words, expected', [
-    (["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"], ["catsdogcats","dogcatsdog","ratcatdogcat"]),
-    (json.load(open(Path(__file__).parent/'testcase.json')), json.load(open(Path(__file__).parent/'testcase.json'))[1:])
+        return [word for word in words if dfs(word)]
+
+    def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
+        """Mar 12, 2023 17:59"""
+        dic = set(words)
+
+        @lru_cache(None)
+        def dfs(word):
+            for i in range(1, len(word)):
+                prefix, suffix = word[:i], word[i:]
+                if prefix in dic and (suffix in dic or dfs(suffix)):
+                    return True
+            return False
+
+        return [word for word in words if dfs(word)]
+
+
+@pytest.mark.parametrize('args', [
+    ((["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"], ["catsdogcats","dogcatsdog","ratcatdogcat"])),
+    ((["cat","dog","catdog"], ["catdog"])),
+    (json.load(open(Path(__file__).parent/'testcase.json'))),
+    (json.load(open(Path(__file__).parent/'testcase2.json'))),
 ])
-def test(words, expected):
-    assert sorted(expected) == sorted(Solution().findAllConcatenatedWordsInADict(words))
+def test(args):
+    assert sorted(args[-1]) == sorted(Solution().findAllConcatenatedWordsInADict(*args[:-1]))
 
 
 if __name__ == '__main__':

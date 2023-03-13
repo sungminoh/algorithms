@@ -2,24 +2,51 @@
 
 Hard
 
-Given a data stream input of non-negative integers a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n</sub>, ..., summarize the numbers seen so far as a list of disjoint intervals.
+Given a data stream input of non-negative integers <code>a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n</sub></code>, summarize the numbers seen so far as a list of disjoint intervals.
 
-For example, suppose the integers from the data stream are 1, 3, 7, 2, 6, ..., then the summary will be:
+Implement the `` SummaryRanges `` class:
+
+*   `` SummaryRanges() `` Initializes the object with an empty stream.
+*   `` void addNum(int value) `` Adds the integer `` value `` to the stream.
+*   `` int[][] getIntervals() `` Returns a summary of the integers in the stream currently as a list of disjoint intervals <code>[start<sub>i</sub>, end<sub>i</sub>]</code>. The answer should be sorted by <code>start<sub>i</sub></code>.
+
+ 
+
+<strong class="example">Example 1:</strong>
 
 ```
-[1, 1]
-[1, 1], [3, 3]
-[1, 1], [3, 3], [7, 7]
-[1, 3], [7, 7]
-[1, 3], [6, 7]
+Input
+["SummaryRanges", "addNum", "getIntervals", "addNum", "getIntervals", "addNum", "getIntervals", "addNum", "getIntervals", "addNum", "getIntervals"]
+[[], [1], [], [3], [], [7], [], [2], [], [6], []]
+Output
+[null, null, [[1, 1]], null, [[1, 1], [3, 3]], null, [[1, 1], [3, 3], [7, 7]], null, [[1, 3], [7, 7]], null, [[1, 3], [6, 7]]]
+
+Explanation
+SummaryRanges summaryRanges = new SummaryRanges();
+summaryRanges.addNum(1);      // arr = [1]
+summaryRanges.getIntervals(); // return [[1, 1]]
+summaryRanges.addNum(3);      // arr = [1, 3]
+summaryRanges.getIntervals(); // return [[1, 1], [3, 3]]
+summaryRanges.addNum(7);      // arr = [1, 3, 7]
+summaryRanges.getIntervals(); // return [[1, 1], [3, 3], [7, 7]]
+summaryRanges.addNum(2);      // arr = [1, 2, 3, 7]
+summaryRanges.getIntervals(); // return [[1, 3], [7, 7]]
+summaryRanges.addNum(6);      // arr = [1, 2, 3, 6, 7]
+summaryRanges.getIntervals(); // return [[1, 3], [6, 7]]
 ```
 
  
 
-__Follow up:__
+__Constraints:__
 
-What if there are lots of merges and the number of disjoint intervals are small compared to the data stream's size?
+*   <code>0 <= value <= 10<sup>4</sup></code>
+*   At most <code>3 * 10<sup>4</sup></code> calls will be made to `` addNum `` and `` getIntervals ``.
+*   At most <code>10<sup>2</sup></code> calls will be made to `` getIntervals ``.
+
+ 
+
+__Follow up:__ What if there are lots of merges and the number of disjoint intervals is small compared to the size of the data stream?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 80,360 | 38,439 | 47.8% |
+| 163,510 | 97,689 | 59.7% |

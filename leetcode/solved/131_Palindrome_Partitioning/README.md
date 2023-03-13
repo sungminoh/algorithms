@@ -2,19 +2,17 @@
 
 Medium
 
-Given a string `` s ``, partition `` s `` such that every substring of the partition is a __palindrome__. Return all possible palindrome partitioning of `` s ``.
-
-A __palindrome__ string is a string that reads the same backward as forward.
+Given a string `` s ``, partition `` s `` such that every <span data-keyword="substring-nonempty">substring</span> of the partition is a <span data-keyword="palindrome-string">__palindrome__</span>. Return _all possible palindrome partitioning of _`` s ``.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```Input: s = "aab"
 Output: [["a","a","b"],["aa","b"]]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```Input: s = "a"
 Output: [["a"]]
@@ -29,4 +27,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 661,898 | 371,775 | 56.2% |
+| 963,131 | 623,469 | 64.7% |

@@ -10,27 +10,27 @@ If the town judge exists, then:
 2.   Everybody (except for the town judge) trusts the town judge.
 3.   There is exactly one person that satisfies properties __1__ and __2__.
 
-You are given an array `` trust `` where <code>trust[i] = [a<sub>i</sub>, b<sub>i</sub>]</code> representing that the person labeled <code>a<sub>i</sub></code> trusts the person labeled <code>b<sub>i</sub></code>.
+You are given an array `` trust `` where <code>trust[i] = [a<sub>i</sub>, b<sub>i</sub>]</code> representing that the person labeled <code>a<sub>i</sub></code> trusts the person labeled <code>b<sub>i</sub></code>. If a trust relationship does not exist in `` trust `` array, then such a trust relationship does not exist.
 
 Return _the label of the town judge if the town judge exists and can be identified, or return _`` -1 ``_ otherwise_.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: n = 2, trust = [[1,2]]
 Output: 2
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: n = 3, trust = [[1,3],[2,3]]
 Output: 3
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: n = 3, trust = [[1,3],[2,3],[3,1]]
@@ -50,4 +50,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 505,148 | 252,879 | 50.1% |
+| 808,376 | 400,856 | 49.6% |

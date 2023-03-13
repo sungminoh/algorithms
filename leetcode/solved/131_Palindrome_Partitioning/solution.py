@@ -9,8 +9,6 @@
 """
 Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.
 
-A palindrome string is a string that reads the same backward as forward.
-
 Example 1:
 Input: s = "aab"
 Output: [["a","a","b"],["aa","b"]]
@@ -23,11 +21,10 @@ Constraints:
 	1 <= s.length <= 16
 	s contains only lowercase English letters.
 """
-from collections import defaultdict
 from functools import lru_cache
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -86,6 +83,7 @@ class Solution:
 
     @lru_cache(None)
     def partition(self, s: str) -> List[List[str]]:
+        """Jan 28, 2022 23:57"""
         @lru_cache(None)
         def is_palindrome(s):
             return s == s[::-1]
@@ -99,14 +97,36 @@ class Solution:
             ret.append([s])
         return ret
 
+    def partition(self, s: str) -> List[List[str]]:
+        """Mar 11, 2023 12:52"""
+        @lru_cache(None)
+        def is_palindrom(i, j):
+            if i >= j :
+                return True
+            return s[i] == s[j] and is_palindrom(i+1, j-1)
+
+        ret = []
+        def dfs(i, backtrack):
+            if i == len(s):
+                ret.append(backtrack[:])
+            for k in range(i, len(s)):
+                if is_palindrom(i, k):
+                    backtrack.append(s[i:k+1])
+                    dfs(k+1, backtrack)
+                    backtrack.pop()
+
+        dfs(0, [])
+        return ret
 
 
-@pytest.mark.parametrize('s, expected', [
-    ("aab", [["a","a","b"],["aa","b"]]),
-    ("a", [["a"]]),
+
+@pytest.mark.parametrize('args', [
+    (("aab", [["a","a","b"],["aa","b"]])),
+    (("a", [["a"]])),
+    (("aa", [["a", "a"], ["aa"]])),
 ])
-def test(s, expected):
-    assert sorted(expected) == sorted(Solution().partition(s))
+def test(args):
+    assert sorted(args[-1]) == sorted(Solution().partition(*args[:-1]))
 
 
 if __name__ == '__main__':

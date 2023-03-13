@@ -2,24 +2,39 @@
 
 Hard
 
-Given a list of words (__without duplicates__), please write a program that returns all concatenated words in the given list of words.
+Given an array of strings `` words `` (__without duplicates__), return _all the __concatenated words__ in the given list of_ `` words ``.
 
-A concatenated word is defined as a string that is comprised entirely of at least two shorter words in the given array.
+A __concatenated word__ is defined as a string that is comprised entirely of at least two shorter words (not necesssarily distinct) in the given array.
 
-__Example:__  
+ 
+
+<strong class="example">Example 1:</strong>
 
 ```
-<b>Input:</b> ["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"]
-
-<b>Output:</b> ["catsdogcats","dogcatsdog","ratcatdogcat"]
-
-<b>Explanation:</b> "catsdogcats" can be concatenated by "cats", "dog" and "cats"; <br/> "dogcatsdog" can be concatenated by "dog", "cats" and "dog"; <br/>"ratcatdogcat" can be concatenated by "rat", "cat", "dog" and "cat".
+Input: words = ["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"]
+Output: ["catsdogcats","dogcatsdog","ratcatdogcat"]
+Explanation: "catsdogcats" can be concatenated by "cats", "dog" and "cats"; 
+"dogcatsdog" can be concatenated by "dog", "cats" and "dog"; 
+"ratcatdogcat" can be concatenated by "rat", "cat", "dog" and "cat".
 ```
 
-__Note:__  
+<strong class="example">Example 2:</strong>
 
-1.   The number of elements of the given array will not exceed `` 10,000  ``<li>The length sum of elements in the given array will not exceed <code>600,000</code>. </li><li>All the input string will only include lower case letters.</li><li>The returned elements order does not matter. </li>
+```
+Input: words = ["cat","dog","catdog"]
+Output: ["catdog"]
+```
+
+ 
+
+__Constraints:__
+
+*   <code>1 <= words.length <= 10<sup>4</sup></code>
+*   `` 1 <= words[i].length <= 30 ``
+*   `` words[i] `` consists of only lowercase English letters.
+*   All the strings of `` words `` are __unique__.
+*   <code>1 <= sum(words[i].length) <= 10<sup>5</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 169,170 | 75,583 | 44.7% |
+| 411,205 | 205,969 | 50.1% |

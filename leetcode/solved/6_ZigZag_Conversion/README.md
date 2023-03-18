@@ -1,36 +1,59 @@
-### [6. ZigZag Conversion](https://leetcode.com/problems/zigzag-conversion/description/)
+### [6. Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion/)
 
-[**Description](https://leetcode.com/problems/zigzag-conversion/description/)[**Hints](https://leetcode.com/problems/zigzag-conversion/hints/)[**Submissions](https://leetcode.com/problems/zigzag-conversion/submissions/)[**Discuss](https://leetcode.com/problems/zigzag-conversion/discuss/)[**Solution](https://leetcode.com/problems/zigzag-conversion/solution/)
+Medium
 
-[**Discuss](https://discuss.leetcode.com/category/14)[**Pick One](https://leetcode.com/problems/random-one-question/)
-
-------
-
-The string `"PAYPALISHIRING"` is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+The string `` "PAYPALISHIRING" `` is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
 
 ```
 P   A   H   N
 A P L S I I G
 Y   I   R
-
 ```
 
- 
-
-```
-"PAHNAPLSIIGYIR"
-```
+And then read line by line: `` "PAHNAPLSIIGYIR" ``
 
 Write the code that will take a string and make this conversion given a number of rows:
 
 ```
-string convert(string text, int nRows);
+string convert(string s, int numRows);
 ```
 
-```
-convert("PAYPALISHIRING", 3) 
-```
+ 
+
+<strong class="example">Example 1:</strong>
 
 ```
-"PAHNAPLSIIGYIR"
+Input: s = "PAYPALISHIRING", numRows = 3
+Output: "PAHNAPLSIIGYIR"
 ```
+
+<strong class="example">Example 2:</strong>
+
+```
+Input: s = "PAYPALISHIRING", numRows = 4
+Output: "PINALSIGYAHRPI"
+Explanation:
+P     I    N
+A   L S  I G
+Y A   H R
+P     I
+```
+
+<strong class="example">Example 3:</strong>
+
+```
+Input: s = "A", numRows = 1
+Output: "A"
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= s.length <= 1000 ``
+*   `` s `` consists of English letters (lower-case and upper-case), `` ',' `` and `` '.' ``.
+*   `` 1 <= numRows <= 1000 ``
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 2,225,086 | 996,757 | 44.8% |

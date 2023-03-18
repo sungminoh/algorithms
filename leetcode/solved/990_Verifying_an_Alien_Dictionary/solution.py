@@ -7,9 +7,9 @@
 # Distributed under terms of the MIT license.
 
 """
-In an alien language, surprisingly they also use english lowercase letters, but possibly in a different order. The order of the alphabet is some permutation of lowercase letters.
+In an alien language, surprisingly, they also use English lowercase letters, but possibly in a different order. The order of the alphabet is some permutation of lowercase letters.
 
-Given a sequence of words written in the alien language, and the order of the alphabet, return true if and only if the given words are sorted lexicographicaly in this alien language.
+Given a sequence of words written in the alien language, and the order of the alphabet, return true if and only if the given words are sorted lexicographically in this alien language.
 
 Example 1:
 
@@ -36,13 +36,14 @@ Constraints:
 	order.length == 26
 	All characters in words[i] and order are English lowercase letters.
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
+        """Apr 28, 2021 00:02"""
         m = {c: i for i, c in enumerate(order)}
         def ordered(a, b):
             for x, y in zip(a, b):
@@ -59,14 +60,29 @@ class Solution:
 
         return True
 
+    def isAlienSorted(self, words: List[str], order: str) -> bool:
+        """Mar 18, 2023 14:34"""
+        d = {c: i for i, c in enumerate(order)}
 
-@pytest.mark.parametrize('words, order, expected', [
-    (["hello","leetcode"], "hlabcdefgijkmnopqrstuvwxyz", True),
-    (["word","world","row"], "worldabcefghijkmnpqstuvxyz", False),
-    (["apple","app"], "abcdefghijklmnopqrstuvwxyz", False),
+        def convert(w):
+            return tuple(d[c] for c in w)
+
+        c = (-float('inf'), )
+        for w in words:
+            wc = convert(w)
+            if c > wc:
+                return False
+            c = wc
+        return True
+
+
+@pytest.mark.parametrize('args', [
+    ((["hello","leetcode"], "hlabcdefgijkmnopqrstuvwxyz", True)),
+    ((["word","world","row"], "worldabcefghijkmnpqstuvxyz", False)),
+    ((["apple","app"], "abcdefghijklmnopqrstuvwxyz", False)),
 ])
-def test(words, order, expected):
-    assert expected == Solution().isAlienSorted(words, order)
+def test(args):
+    assert args[-1] == Solution().isAlienSorted(*args[:-1])
 
 
 if __name__ == '__main__':

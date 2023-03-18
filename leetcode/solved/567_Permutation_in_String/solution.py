@@ -27,9 +27,9 @@ Constraints:
 	1 <= s1.length, s2.length <= 104
 	s1 and s2 consist of lowercase English letters.
 """
-import sys
 from collections import Counter
 import pytest
+import sys
 
 
 class Solution:
@@ -93,13 +93,35 @@ class Solution:
                 return True
         return False
 
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        """Mar 18, 2023 15:03"""
+        chars = set(s1)
+        cnt = Counter(s1)
+        i = j = 0
+        while i < len(s2):
+            if s2[i] in chars:
+                cnt[s2[i]] -= 1
+                if cnt[s2[i]] == 0:
+                    cnt.pop(s2[i])
+            if j <= i-len(s1):
+                if s2[j] in chars:
+                    cnt[s2[j]] += 1
+                    if cnt[s2[j]] == 0:
+                        cnt.pop(s2[j])
+                j += 1
+            if not cnt:
+                return True
+            i += 1
+        return False
 
-@pytest.mark.parametrize('s1, s2, expected', [
-    ("ab", "eidbaooo", True),
-    ("ab", "eidboaoo", False),
+
+@pytest.mark.parametrize('args', [
+    (("ab", "eidbaooo", True)),
+    (("ab", "eidboaoo", False)),
+    (("adc", "dcda", True)),
 ])
-def test(s1, s2, expected):
-    assert expected == Solution().checkInclusion(s1, s2)
+def test(args):
+    assert args[-1] == Solution().checkInclusion(*args[:-1])
 
 
 if __name__ == '__main__':

@@ -2,22 +2,23 @@
 
 Hard
 
-Design and implement a data structure for <a href="https://en.wikipedia.org/wiki/Least_frequently_used" target="_blank">Least Frequently Used (LFU)</a> cache.
+Design and implement a data structure for a <a href="https://en.wikipedia.org/wiki/Least_frequently_used" target="_blank">Least Frequently Used (LFU)</a> cache.
 
-Implement the `` LFUCache `` class:
+Implement the `` LFUCache `` class:
 
 *   `` LFUCache(int capacity) `` Initializes the object with the `` capacity `` of the data structure.
-*   `` int get(int key) `` Gets the value of the `` key `` if the `` key `` exists in the cache. Otherwise, returns `` -1 ``.
-*   `` void put(int key, int value) `` Sets or inserts the value if the `` key `` is not already present. When the cache reaches its `` capacity ``, it should invalidate the least frequently used item before inserting a new item. For this problem, when there is a tie (i.e., two or more keys with the same frequency), __the least recently__ used `` key `` would be evicted.
+*   `` int get(int key) `` Gets the value of the `` key `` if the `` key `` exists in the cache. Otherwise, returns `` -1 ``.
+*   `` void put(int key, int value) `` Update the value of the `` key `` if present, or inserts the `` key `` if not already present. When the cache reaches its `` capacity ``, it should invalidate and remove the __least frequently used__ key before inserting a new item. For this problem, when there is a __tie__ (i.e., two or more keys with the same frequency), the __least recently used__ `` key `` would be invalidated.
 
-__Notice that__ the number of times an item is used is the number of calls to the `` get `` and `` put `` functions for that item since it was inserted. This number is set to zero when the item is removed.
+To determine the least frequently used key, a __use counter__ is maintained for each key in the cache. The key with the smallest __use counter__ is the least frequently used key.
 
-__Follow up:__  
-Could you do both operations in __O(1)__ time complexity?
+When a key is first inserted into the cache, its __use counter__ is set to `` 1 `` (due to the `` put `` operation). The __use counter__ for a key in the cache is incremented either a `` get `` or `` put `` operation is called on it.
+
+The functions <code data-stringify-type="code">get</code> and <code data-stringify-type="code">put</code> must each run in `` O(1) `` average time complexity.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input
@@ -27,27 +28,39 @@ Output
 [null, null, null, 1, null, -1, 3, null, -1, 3, 4]
 
 Explanation
-LFUCache lFUCache = new LFUCache(2);
-lFUCache.put(1, 1);
-lFUCache.put(2, 2);
-lFUCache.get(1);      // return 1
-lFUCache.put(3, 3);   // evicts key 2
-lFUCache.get(2);      // return -1 (not found)
-lFUCache.get(3);      // return 3
-lFUCache.put(4, 4);   // evicts key 1.
-lFUCache.get(1);      // return -1 (not found)
-lFUCache.get(3);      // return 3
-lFUCache.get(4);      // return 4
-
+// cnt(x) = the use counter for key x
+// cache=[] will show the last used order for tiebreakers (leftmost element is  most recent)
+LFUCache lfu = new LFUCache(2);
+lfu.put(1, 1);   // cache=[1,_], cnt(1)=1
+lfu.put(2, 2);   // cache=[2,1], cnt(2)=1, cnt(1)=1
+lfu.get(1);      // return 1
+                 // cache=[1,2], cnt(2)=1, cnt(1)=2
+lfu.put(3, 3);   // 2 is the LFU key because cnt(2)=1 is the smallest, invalidate 2.
+                 // cache=[3,1], cnt(3)=1, cnt(1)=2
+lfu.get(2);      // return -1 (not found)
+lfu.get(3);      // return 3
+                 // cache=[3,1], cnt(3)=2, cnt(1)=2
+lfu.put(4, 4);   // Both 1 and 3 have the same cnt, but 1 is LRU, invalidate 1.
+                 // cache=[4,3], cnt(4)=1, cnt(3)=2
+lfu.get(1);      // return -1 (not found)
+lfu.get(3);      // return 3
+                 // cache=[3,4], cnt(4)=1, cnt(3)=3
+lfu.get(4);      // return 4
+                 // cache=[4,3], cnt(4)=2, cnt(3)=3
 ```
 
  
 
 __Constraints:__
 
-*   <code>0 <= capacity, key, value <= 10<sup>4</sup></code>
-*   At most <code>10<sup>5</sup></code> calls will be made to `` get `` and `` put ``.
+*   <code>1 <= capacity <= 10<sup>4</sup></code>
+*   <code>0 <= key <= 10<sup>5</sup></code>
+*   <code>0 <= value <= 10<sup>9</sup></code>
+*   At most <code>2 * 10<sup>5</sup></code> calls will be made to `` get `` and `` put ``.
+
+ 
+<span style="display: none;"> </span>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 240,824 | 84,097 | 34.9% |
+| 496,748 | 213,456 | 43.0% |

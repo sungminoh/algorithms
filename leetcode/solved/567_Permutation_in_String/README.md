@@ -8,7 +8,7 @@ In other words, return `` true `` if one of `` s1 ``'s permutations is the subst
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: s1 = "ab", s2 = "eidbaooo"
@@ -16,7 +16,7 @@ Output: true
 Explanation: s2 contains one permutation of s1 ("ba").
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: s1 = "ab", s2 = "eidboaoo"
@@ -32,4 +32,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 754,598 | 340,109 | 45.1% |
+| 1,411,465 | 626,025 | 44.4% |

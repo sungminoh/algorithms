@@ -2,13 +2,13 @@
 
 Easy
 
-In an alien language, surprisingly they also use english lowercase letters, but possibly in a different `` order ``. The `` order `` of the alphabet is some permutation of lowercase letters.
+In an alien language, surprisingly, they also use English lowercase letters, but possibly in a different `` order ``. The `` order `` of the alphabet is some permutation of lowercase letters.
 
-Given a sequence of `` words `` written in the alien language, and the `` order `` of the alphabet, return `` true `` if and only if the given `` words `` are sorted lexicographicaly in this alien language.
+Given a sequence of `` words `` written in the alien language, and the `` order `` of the alphabet, return `` true `` if and only if the given `` words `` are sorted lexicographically in this alien language.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: words = ["hello","leetcode"], order = "hlabcdefgijkmnopqrstuvwxyz"
@@ -16,7 +16,7 @@ Output: true
 Explanation: As 'h' comes before 'l' in this language, then the sequence is sorted.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: words = ["word","world","row"], order = "worldabcefghijkmnpqstuvxyz"
@@ -24,7 +24,7 @@ Output: false
 Explanation: As 'd' comes after 'l' in this language, then words[0] > words[1], hence the sequence is unsorted.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: words = ["apple","app"], order = "abcdefghijklmnopqrstuvwxyz"
@@ -43,4 +43,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 441,918 | 231,810 | 52.5% |
+| 833,734 | 454,058 | 54.5% |

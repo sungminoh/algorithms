@@ -7,13 +7,14 @@
 # Distributed under terms of the MIT license.
 
 """
-Given an array of non-negative integers nums, you are initially positioned at the first index of the array.
+You are given a 0-indexed array of integers nums of length n. You are initially positioned at nums[0].
 
-Each element in the array represents your maximum jump length at that position.
+Each element nums[i] represents the maximum length of a forward jump from index i. In other words, if you are at nums[i], you can jump to any nums[i + j] where:
 
-Your goal is to reach the last index in the minimum number of jumps.
+	0 <= j <= nums[i] and
+	i + j < n
 
-You can assume that you can always reach the last index.
+Return the minimum number of jumps to reach nums[n - 1]. The test cases are generated such that you can reach nums[n - 1].
 
 Example 1:
 
@@ -28,12 +29,14 @@ Output: 2
 
 Constraints:
 
-	1 <= nums.length <= 1000
-	0 <= nums[i] <= 105
+	1 <= nums.length <= 104
+	0 <= nums[i] <= 1000
+	It's guaranteed that you can reach nums[n - 1].
 """
-import sys
+from heapq import heappop, heappush
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -103,17 +106,46 @@ class Solution:
                 return cnt
         return cnt
 
+    def jump(self, nums: List[int]) -> int:
+        """Mar 19, 2023 12:31
+        TLE
+        """
+        visited = [False]*len(nums)
+        visited[0] = True
+        q = [(0, 0)]
+        while q:
+            j, ni = heappop(q)
+            if -ni >= len(nums)-1:
+                return j
+            for i in range(-ni+1, -ni + nums[-ni]+1):
+                heappush(q, (j+1, -i))
+        return -1
 
-@pytest.mark.parametrize('nums, expected', [
-    ([2,3,1,1,4], 2),
-    ([2,3,0,1,4], 2),
-    ([2,1], 1),
-    ([1,2,3], 2),
+    def jump(self, nums: List[int]) -> int:
+        """Mar 19, 2023 12:37"""
+        m = 0
+        e = 0
+        j = 0
+        for i, n in enumerate(nums):
+            if e >= len(nums)-1:
+                return j
+            m = max(m, i+n)
+            if i == e:
+                j += 1
+                e = m
+        return -1
+
+
+@pytest.mark.parametrize('args', [
+    (([2,3,1,1,4], 2)),
+    (([2,3,0,1,4], 2)),
+    (([0], 0)),
+    (([1,2,0,1], 2)),
+    (([8,2,4,4,4,9,5,2,5,8,8,0,8,6,9,1,1,6,3,5,1,2,6,6,0,4,8,6,0,3,2,8,7,6,5,1,7,0,3,4,8,3,5,9,0,4,0,1,0,5,9,2,0,7,0,2,1,0,8,2,5,1,2,3,9,7,4,7,0,0,1,8,5,6,7,5,1,9,9,3,5,0,7,5], 13)),
 ])
-def test(nums, expected):
-    assert expected == Solution().jump(nums)
+def test(args):
+    assert args[-1] == Solution().jump(*args[:-1])
 
 
 if __name__ == '__main__':
     sys.exit(pytest.main(["-s", "-v"] + sys.argv))
-

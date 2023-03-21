@@ -33,10 +33,10 @@ Constraints:
 	1 <= s.length, p.length <= 3 * 104
 	s and p consist of lowercase English letters.
 """
-import sys
 from collections import Counter
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -102,15 +102,37 @@ class Solution:
             if not required:
                 ret.append(i)
 
+        return re
+
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        """Mar 19, 2023 12:12"""
+        chars = set(p)
+        cnt = Counter(p)
+        ret = []
+        i = j = 0
+        while i < len(s):
+            if s[i] in chars:
+                cnt[s[i]] -= 1
+                if cnt[s[i]] == 0:
+                    cnt.pop(s[i])
+            if i-j >= len(p):
+                if s[j] in chars:
+                    cnt[s[j]] += 1
+                    if cnt[s[j]] == 0:
+                        cnt.pop(s[j])
+                j += 1
+            if not cnt:
+                ret.append(j)
+            i += 1
         return ret
 
 
-@pytest.mark.parametrize('s, p, expected', [
-    ("cbaebabacd", "abc", [0,6]),
-    ("abab", "ab", [0,1,2]),
+@pytest.mark.parametrize('args', [
+    (("cbaebabacd", "abc", [0,6])),
+    (("abab", "ab", [0,1,2])),
 ])
-def test(s, p, expected):
-    assert expected == Solution().findAnagrams(s, p)
+def test(args):
+    assert args[-1] == Solution().findAnagrams(*args[:-1])
 
 
 if __name__ == '__main__':

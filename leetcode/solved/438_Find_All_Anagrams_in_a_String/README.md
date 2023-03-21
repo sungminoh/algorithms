@@ -8,7 +8,7 @@ An __Anagram__ is a word or phrase formed by rearranging the letters of a differ
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: s = "cbaebabacd", p = "abc"
@@ -18,7 +18,7 @@ The substring with start index = 0 is "cba", which is an anagram of "abc".
 The substring with start index = 6 is "bac", which is an anagram of "abc".
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: s = "abab", p = "ab"
@@ -38,4 +38,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,031,734 | 493,890 | 47.9% |
+| 1,482,510 | 743,602 | 50.2% |

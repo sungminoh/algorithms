@@ -30,7 +30,7 @@ from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
-from exercise.tree import build_tree, TreeNode
+from exercise.tree import TreeNode, build_tree
 
 
 # Definition for a binary tree node.
@@ -41,17 +41,24 @@ from exercise.tree import build_tree, TreeNode
 #         self.right = right
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
+        """Feb 28, 2022 12:02"""
         if not root:
             return 0
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        """Mar 20, 2023 23:27"""
+        if not root:
+            return 0
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
 
-@pytest.mark.parametrize('values, expected', [
-    ([3,9,20,None,None,15,7], 3),
-    ([1,None,2], 2),
+
+@pytest.mark.parametrize('args', [
+    (([3,9,20,None,None,15,7], 3)),
+    (([1,None,2], 2)),
 ])
-def test(values, expected):
-    assert expected == Solution().maxDepth(build_tree(values))
+def test(args):
+    assert args[-1] == Solution().maxDepth(build_tree(*args[:-1]))
 
 
 if __name__ == '__main__':

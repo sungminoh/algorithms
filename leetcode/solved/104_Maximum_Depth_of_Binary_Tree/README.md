@@ -8,7 +8,7 @@ A binary tree's __maximum depth__ is the number of nodes along the longest path
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/11/26/tmp-tree.jpg" style="width: 400px; height: 277px;"/>
 
@@ -17,7 +17,7 @@ Input: root = [3,9,20,null,null,15,7]
 Output: 3
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: root = [1,null,2]
@@ -33,4 +33,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,165,618 | 1,547,029 | 71.4% |
+| 3,059,864 | 2,260,224 | 73.9% |

@@ -22,9 +22,9 @@ Constraints:
 	a and b consist only of '0' or '1' characters.
 	Each string does not contain leading zeros except for the zero itself.
 """
-import sys
 import itertools
 import pytest
+import sys
 
 
 class Solution:
@@ -33,6 +33,7 @@ class Solution:
         return '{0:b}'.format(int(a, 2)+int(b, 2))
 
     def addBinary(self, a: str, b: str) -> str:
+        """Jan 29, 2022 10:51"""
         ret = ''
         c = '0'
         for x, y in itertools.zip_longest(reversed(a), reversed(b)):
@@ -50,14 +51,26 @@ class Solution:
 
         return ret[::-1]
 
+    def addBinary(self, a: str, b: str) -> str:
+        """Mar 20, 2023 23:16"""
+        ret = []
+        c = 0
+        for x, y in itertools.zip_longest(reversed(a), reversed(b)):
+            x = x or '0'
+            y = y or '0'
+            c, v = divmod(int(x) + int(y) + c, 2)
+            ret.append(v)
+        if c:
+            ret.append(c)
+        return ''.join(map(str, reversed(ret)))
 
 
-@pytest.mark.parametrize('a, b, expected', [
-    ("11", "1", "100"),
-    ("1010", "1011", "10101"),
+@pytest.mark.parametrize('args', [
+    (("11", "1", "100")),
+    (("1010", "1011", "10101")),
 ])
-def test(a, b, expected):
-    assert expected == Solution().addBinary(a, b)
+def test(args):
+    assert args[-1] == Solution().addBinary(*args[:-1])
 
 
 if __name__ == '__main__':

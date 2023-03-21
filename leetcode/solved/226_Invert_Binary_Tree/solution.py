@@ -30,10 +30,11 @@ Constraints:
 	-100 <= Node.val <= 100
 """
 from typing import Optional
-import sys
 import pytest
+import sys
 sys.path.append('../')
-from exercise.tree import TreeNode, build_tree, print_tree
+from exercise.tree import TreeNode, build_tree
+
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -41,9 +42,9 @@ from exercise.tree import TreeNode, build_tree, print_tree
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        """Nov 05, 2021 13:16"""
         if not root:
             return
         l = self.invertTree(root.left)
@@ -52,20 +53,22 @@ class Solution:
         root.right = l
         return root
 
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        """Mar 20, 2023 23:41"""
+        if root:
+            self.invertTree(root.left)
+            self.invertTree(root.right)
+            root.left, root.right = root.right, root.left
+        return root
 
-@pytest.mark.parametrize('nodes, expected', [
-    ([4,2,7,1,3,6,9], [4,7,2,9,6,3,1]),
-    ([2,1,3], [2,3,1]),
-    ([], []),
+
+@pytest.mark.parametrize('args', [
+    (([4,2,7,1,3,6,9], [4,7,2,9,6,3,1])),
+    (([2,1,3], [2,3,1])),
+    (([], [])),
 ])
-def test(nodes, expected):
-    tree = build_tree(nodes)
-    print('\n----------------------')
-    print(tree)
-    actual = Solution().invertTree(tree)
-    print()
-    print(actual)
-    assert build_tree(expected) == actual
+def test(args):
+    assert build_tree(args[-1]) == Solution().invertTree(build_tree(*args[:-1]))
 
 
 if __name__ == '__main__':

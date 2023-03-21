@@ -6,13 +6,13 @@ Given two binary strings `` a `` and `` b ``, return _their sum as a binary stri
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```Input: a = "11", b = "1"
 Output: "100"
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```Input: a = "1010", b = "1011"
 Output: "10101"
@@ -28,4 +28,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,550,216 | 774,691 | 50.0% |
+| 2,127,962 | 1,114,662 | 52.4% |

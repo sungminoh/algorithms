@@ -31,13 +31,23 @@ Constraints:
 	1 <= prices.length <= 105
 	0 <= prices[i] <= 104
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
+        """Feb 17, 2022 16:10"""
+        ret = 0
+        mn = float('inf')
+        for p in prices:
+            ret = max(ret, p-mn)
+            mn = min(mn, p)
+        return ret
+
+    def maxProfit(self, prices: List[int]) -> int:
+        """Apr 02, 2023 00:28"""
         ret = 0
         mn = float('inf')
         for p in prices:
@@ -46,12 +56,12 @@ class Solution:
         return ret
 
 
-@pytest.mark.parametrize('prices, expected', [
-    ([7,1,5,3,6,4], 5),
-    ([7,6,4,3,1], 0),
+@pytest.mark.parametrize('args', [
+    (([7,1,5,3,6,4], 5)),
+    (([7,6,4,3,1], 0)),
 ])
-def test(prices, expected):
-    assert expected == Solution().maxProfit(prices)
+def test(args):
+    assert args[-1] == Solution().maxProfit(*args[:-1])
 
 
 if __name__ == '__main__':

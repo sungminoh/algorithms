@@ -10,13 +10,13 @@ Your solution must run in `` O(log n) `` time and `` O(1) `` space.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```Input: nums = [1,1,2,3,3,4,4,8,8]
 Output: 2
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```Input: nums = [3,3,7,7,10,11,11]
 Output: 10
@@ -31,4 +31,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 430,564 | 252,716 | 58.7% |
+| 776,926 | 459,352 | 59.1% |

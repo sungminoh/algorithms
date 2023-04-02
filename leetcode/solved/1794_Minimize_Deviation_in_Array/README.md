@@ -25,7 +25,7 @@ Return _the __minimum deviation__ the array can have after performing some numbe
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: nums = [1,2,3,4]
@@ -33,7 +33,7 @@ Output: 1
 Explanation: You can transform the array to [1,2,3,<u>2</u>], then to [<u>2</u>,2,3,2], then the deviation will be 3 - 2 = 1.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: nums = [4,1,5,20,3]
@@ -41,7 +41,7 @@ Output: 3
 Explanation: You can transform the array after two operations to [4,<u>2</u>,5,<u>5</u>,3], then the deviation will be 5 - 2 = 3.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: nums = [2,10,8]
@@ -53,9 +53,9 @@ Output: 3
 __Constraints:__
 
 *   `` n == nums.length ``
-*   <code>2 <= n <= 10<sup><span style="font-size: 10.8333px;">5</span></sup></code>
+*   <code>2 <= n <= 5 * 10<sup><span style="font-size: 10.8333px;">4</span></sup></code>
 *   <code>1 <= nums[i] <= 10<sup>9</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 79,731 | 41,857 | 52.5% |
+| 160,785 | 87,735 | 54.6% |

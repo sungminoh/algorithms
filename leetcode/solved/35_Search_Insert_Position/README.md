@@ -8,34 +8,25 @@ You must write an algorithm with `` O(log n) `` runtime complexity.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
-```Input: nums = [1,3,5,6], target = 5
+```
+Input: nums = [1,3,5,6], target = 5
 Output: 2
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
-```Input: nums = [1,3,5,6], target = 2
+```
+Input: nums = [1,3,5,6], target = 2
 Output: 1
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
-```Input: nums = [1,3,5,6], target = 7
+```
+Input: nums = [1,3,5,6], target = 7
 Output: 4
-```
-
-__Example 4:__
-
-```Input: nums = [1,3,5,6], target = 0
-Output: 0
-```
-
-__Example 5:__
-
-```Input: nums = [1], target = 0
-Output: 0
 ```
 
  
@@ -49,4 +40,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,603,887 | 1,112,272 | 42.7% |
+| 4,857,900 | 2,104,672 | 43.3% |

@@ -10,7 +10,7 @@ Return _the maximum profit you can achieve from this transaction_. If you cannot
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: prices = [7,1,5,3,6,4]
@@ -19,7 +19,7 @@ Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-
 Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: prices = [7,6,4,3,1]
@@ -36,4 +36,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 3,602,488 | 1,938,454 | 53.8% |
+| 5,920,450 | 3,215,970 | 54.3% |

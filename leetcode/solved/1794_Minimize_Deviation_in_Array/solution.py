@@ -43,21 +43,18 @@ Output: 3
 Constraints:
 
 	n == nums.length
-	2 <= n <= 105
+	2 <= n <= 5 * 104
 	1 <= nums[i] <= 109
 """
-from heapq import heappush
-from heapq import heappop
-from heapq import heapify
-from pathlib import Path
-import json
-import sys
+from heapq import heapify, heappop, heappush
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def minimumDeviation(self, nums: List[int]) -> int:
+        """Feb 28, 2022 13:09"""
         def possibles(n):
             yield n
             if n%2 == 1:
@@ -97,6 +94,7 @@ class Solution:
         return min(mx-mn for mn, mx in queue)
 
     def minimumDeviation(self, nums: List[int]) -> int:
+        """Feb 28, 2022 13:44"""
         nums = set(n if n%2==0 else (n*2) for n in nums)
         mn = min(nums)
         mx = max(nums)
@@ -113,15 +111,33 @@ class Solution:
             ret = min(ret, mx-mn)
         return ret
 
+    def minimumDeviation(self, nums: List[int]) -> int:
+        """Apr 02, 2023 00:22"""
+        nums = list(set(-n if n%2 == 0 else -2*n for n in nums))
+        heapify(nums)
+        ret = float('inf')
+        mn = -max(nums)
+        while True:
+            ret = min(ret, -nums[0] - mn)
+            n = -heappop(nums)
+            if n%2 == 0:
+                n //= 2
+                mn = min(mn, n)
+                heappush(nums, -n)
+            else:
+                break
+        return ret
 
-@pytest.mark.parametrize('nums, expected', [
-    ([1,2,3,4], 1),
-    ([4,1,5,20,3], 3),
-    ([2,10,8], 3),
-    (json.load(open(Path(__file__).parent/'testcase.json')), 891887),
+
+@pytest.mark.parametrize('args', [
+    (([1,2,3,4], 1)),
+    (([4,1,5,20,3], 3)),
+    (([2,10,8], 3)),
+    (([5, 8], 1)),
+    (([7, 11, 12], 3)),
 ])
-def test(nums, expected):
-    assert expected == Solution().minimumDeviation(nums)
+def test(args):
+    assert args[-1] == Solution().minimumDeviation(*args[:-1])
 
 
 if __name__ == '__main__':

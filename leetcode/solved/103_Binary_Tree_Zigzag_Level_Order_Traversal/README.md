@@ -1,32 +1,41 @@
-### [103. Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/)
+### [103. Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
 
-[Description](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/)[Hints](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/hints/)[Submissions](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/submissions/)[Discuss](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/discuss/)[Solution](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given the `` root `` of a binary tree, return _the zigzag level order traversal of its nodes' values_. (i.e., from left to right, then right to left for the next level and alternate between).
 
-------
+ 
 
-Given a binary tree, return the *zigzag level order* traversal of its nodes' values. (ie, from left to right, then right to left for the next level and alternate between).
+<strong class="example">Example 1:</strong>
 
-For example:
-Given binary tree `[3,9,20,null,null,15,7]`,
-
-```
-    3
-   / \
-  9  20
-    /  \
-   15   7
-```
-
-return its zigzag level order traversal as:
+<img alt="" src="https://assets.leetcode.com/uploads/2021/02/19/tree1.jpg" style="width: 277px; height: 302px;"/>
 
 ```
-[
-  [3],
-  [20,9],
-  [15,7]
-]
+Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[20,9],[15,7]]
 ```
 
-------
+<strong class="example">Example 2:</strong>
+
+```
+Input: root = [1]
+Output: [[1]]
+```
+
+<strong class="example">Example 3:</strong>
+
+```
+Input: root = []
+Output: []
+```
+
+ 
+
+__Constraints:__
+
+*   The number of nodes in the tree is in the range `` [0, 2000] ``.
+*   `` -100 <= Node.val <= 100 ``
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,648,367 | 936,798 | 56.8% |

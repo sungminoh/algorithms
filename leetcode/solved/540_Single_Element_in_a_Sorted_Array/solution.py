@@ -26,9 +26,10 @@ Constraints:
 	0 <= nums[i] <= 105
 """
 import random
-import sys
+import math
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -46,6 +47,7 @@ class Solution:
         return nums[i]
 
     def singleNonDuplicate(self, nums: List[int]) -> int:
+        """Nov 30, 2021 21:40"""
         if len(nums) == 1:
             return nums[0]
         s, e = 0, (len(nums)+1)//2 - 1
@@ -62,6 +64,7 @@ class Solution:
         return nums[s]
 
     def singleNonDuplicate(self, nums: List[int]) -> int:
+        """Nov 30, 2021 21:48"""
         s, e = 0, (len(nums)+1)//2 - 1
         while s < e:
             m = s + (e-s)//2
@@ -71,6 +74,23 @@ class Solution:
                 e = m
         return nums[2*s]
 
+    def singleNonDuplicate(self, nums: List[int]) -> int:
+        """Mar 22, 2023 00:23"""
+        xor = 0
+        for n in nums:
+            xor ^= 1<<n
+        return int(math.log2(xor&~(xor-1)))
+
+    def singleNonDuplicate(self, nums: List[int]) -> int:
+        """Apr 01, 2023 23:09"""
+        l, r = 0, (len(nums)-1)//2
+        while l <= r:
+            m = l + (r-l)//2
+            if 2*m+1<len(nums) and nums[2*m] == nums[2*m+1]:
+                l = m+1
+            else:
+                r = m-1
+        return nums[2*l]
 
 
 def gen_case():
@@ -84,21 +104,21 @@ def gen_case():
     return ret, m
 
 
-@pytest.mark.parametrize('nums, expected', [
-    ([1,1,2,3,3,4,4,8,8], 2),
-    ([3,3,7,7,10,11,11], 10),
-    ([0, 0, 1], 1),
-    ([0, 0, 1, 2, 2], 1),
-    gen_case(),
-    gen_case(),
-    gen_case(),
-    gen_case(),
-    gen_case(),
-    gen_case(),
+@pytest.mark.parametrize('args', [
+    (([1,1,2,3,3,4,4,8,8], 2)),
+    (([3,3,7,7,10,11,11], 10)),
+    (([1], 1)),
+    (([0, 0, 1], 1)),
+    (([0, 0, 1, 2, 2], 1)),
+    (gen_case()),
+    (gen_case()),
+    (gen_case()),
+    (gen_case()),
+    (gen_case()),
+    (gen_case()),
 ])
-def test(nums, expected):
-    print(nums, expected)
-    assert expected == Solution().singleNonDuplicate(nums)
+def test(args):
+    assert args[-1] == Solution().singleNonDuplicate(*args[:-1])
 
 
 if __name__ == '__main__':

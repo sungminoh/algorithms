@@ -47,8 +47,8 @@ def kmp(p, s):
         ret = [0]
         i = 0
         for c in s[1:]:
-            while c != s[i] and i != ret[i]:
-                i = ret[i]
+            while c != s[i] and i>0:
+                i = ret[i-1]
             if c == s[i]:
                 i += 1
                 ret.append(i)

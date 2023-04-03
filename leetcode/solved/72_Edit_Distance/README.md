@@ -1,20 +1,18 @@
-### [72. Edit Distance](https://leetcode.com/problems/edit-distance/description/)
+### [72. Edit Distance](https://leetcode.com/problems/edit-distance/)
 
-[Description](https://leetcode.com/problems/edit-distance/description/)[Hints](https://leetcode.com/problems/edit-distance/hints/)[Submissions](https://leetcode.com/problems/edit-distance/submissions/)[Discuss](https://leetcode.com/problems/edit-distance/discuss/)[Solution](https://leetcode.com/problems/edit-distance/solution/)
+Hard
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given two strings `` word1 `` and `` word2 ``, return _the minimum number of operations required to convert `` word1 `` to `` word2 ``_.
 
-------
+You have the following three operations permitted on a word:
 
-Given two words *word1* and *word2*, find the minimum number of operations required to convert *word1* to *word2*.
+*   Insert a character
+*   Delete a character
+*   Replace a character
 
-You have the following 3 operations permitted on a word:
+ 
 
-1. Insert a character
-2. Delete a character
-3. Replace a character
-
-**Example 1:**
+<strong class="example">Example 1:</strong>
 
 ```
 Input: word1 = "horse", word2 = "ros"
@@ -25,7 +23,7 @@ rorse -> rose (remove 'r')
 rose -> ros (remove 'e')
 ```
 
-**Example 2:**
+<strong class="example">Example 2:</strong>
 
 ```
 Input: word1 = "intention", word2 = "execution"
@@ -38,4 +36,13 @@ exention -> exection (replace 'n' with 'c')
 exection -> execution (insert 'u')
 ```
 
- 
+ 
+
+__Constraints:__
+
+*   `` 0 <= word1.length, word2.length <= 500 ``
+*   `` word1 `` and `` word2 `` consist of lowercase English letters.
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 1,165,587 | 634,244 | 54.4% |

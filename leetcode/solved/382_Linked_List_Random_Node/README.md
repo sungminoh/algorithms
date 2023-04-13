@@ -11,7 +11,7 @@ Implement the `` Solution `` class:
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/03/16/getrand-linked-list.jpg" style="width: 302px; height: 62px;"/>
 
@@ -49,4 +49,4 @@ __Follow up:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 249,632 | 146,394 | 58.6% |
+| 356,299 | 223,651 | 62.8% |

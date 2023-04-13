@@ -43,7 +43,7 @@ from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
-from exercise.list import ListNode
+from exercise.list import ListNode, build_list
 
 
 # Definition for singly-linked list.
@@ -54,7 +54,7 @@ from exercise.list import ListNode
 
 class Solution:
     def detectCycle(self, head):
-        """
+        """Jul 26, 2018 05:00
         :type head: ListNode
         :rtype: ListNode
         """
@@ -73,6 +73,7 @@ class Solution:
                 return head
 
     def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """Feb 01, 2022 10:19"""
         s = f = head
         while f and f.next and f.next.next:
             s = s.next
@@ -85,26 +86,48 @@ class Solution:
 
         return None
 
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """Apr 11, 2023 23:01"""
+        s = f = head
+        while f and f.next:
+            s = s.next
+            f = f.next.next
+            if id(s) == id(f):
+                break
 
-def build_cyclic_list(values):
+        if not f or not f.next:
+            return
+
+        s = head
+        while id(s) != id(f):
+            s = s.next
+            f = f.next
+        return s
+
+
+def build_cyclic_list(values, idx):
     m = {}
     arr = []
     for v in values:
-        node = m.get(v, ListNode(v))
-        m[v] = node
+        m.setdefault(v, ListNode(v))
+        node = m[v]
         arr.append(node)
     for i in range(len(arr)-1):
         arr[i].next = arr[i+1]
+    if idx >= 0:
+        arr[-1].next = arr[idx]
     return arr[0]
 
 
-@pytest.mark.parametrize('values, expected', [
-    ([3,2,0,-4, 2], 2),
-    ([1,2, 1], 1),
-    ([1], -1),
+@pytest.mark.parametrize('args', [
+    (([3,2,0,-4], 1)),
+    (([1,2], 0)),
+    (([1], -1)),
 ])
-def test(values, expected):
-    actual = Solution().detectCycle(build_cyclic_list(values))
+def test(args):
+    actual = Solution().detectCycle(build_cyclic_list(*args))
+    expected = args[0][args[-1]] if args[-1] >= 0 else -1
+    print(expected, actual.val if actual else -1)
     assert expected == (actual.val if actual is not None else -1)
 
 

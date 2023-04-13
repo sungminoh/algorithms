@@ -29,7 +29,7 @@ Example 2:
 
 Input: arr = [7]
 Output: 0
-Explanation: Start index is the last index. You don't need to jump.
+Explanation: Start index is the last index. You do not need to jump.
 
 Example 3:
 
@@ -37,34 +37,25 @@ Input: arr = [7,6,9,6,9,6,9,7]
 Output: 1
 Explanation: You can jump directly from index 0 to index 7 which is last index of the array.
 
-Example 4:
-
-Input: arr = [6,1,9]
-Output: 2
-
-Example 5:
-
-Input: arr = [11,22,7,7,7,7,7,7,7,22,13]
-Output: 3
-
 Constraints:
 
 	1 <= arr.length <= 5 * 104
 	-108 <= arr[i] <= 108
 """
-from pathlib import Path
-import json
 from collections import defaultdict
 from collections import deque
-import sys
 from functools import lru_cache
+from pathlib import Path
+import json
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def minJumps(self, arr: List[int]) -> int:
-        """DFS"""
+        """Aug 08, 2021 15:17 TLE
+        DFS"""
         m = {}
         for i, v in enumerate(arr):
             m.setdefault(v, [])
@@ -87,7 +78,8 @@ class Solution:
         return dfs(0, (1<<len(arr))-1)
 
     def minJumps(self, arr: List[int]) -> int:
-        """BFS"""
+        """Aug 08, 2021 15:55
+        BFS"""
         def compress(arr):
             """Remove repeating element except the first and the last"""
             ret = []
@@ -125,6 +117,7 @@ class Solution:
         return -1
 
     def minJumps(self, arr: List[int]) -> int:
+        """Jan 30, 2022 19:38"""
         warp = defaultdict(set)
         for i, x in enumerate(arr):
             warp[x].add(i)
@@ -154,19 +147,50 @@ class Solution:
 
         return -1
 
+    def minJumps(self, arr: List[int]) -> int:
+        """Apr 04, 2023 23:24"""
+        N = len(arr)
+        groups = {}
+        for i in range(N):
+            groups.setdefault(arr[i], set()).add(i)
 
-@pytest.mark.parametrize('arr, expected', [
-    ([100,-23,-23,404,100,23,23,23,3,404], 3),
-    ([7], 0),
-    ([7,6,9,6,9,6,9,7], 1),
-    ([6,1,9], 2),
-    ([11,22,7,7,7,7,7,7,7,22,13], 3),
-    ([-53,97,65,-78,-84,-56,-96,-19,-84,67,-47,-53,-78,65,-62,-81,11,67,-53], 1),
-    *json.load(open(Path(__file__).parent/'testcase.json')),
-    (json.load(open(Path(__file__).parent/'testcase2.json')), 4),
+        q = [0]
+        visited = set()
+        ret = 0
+        while q:
+            _q = []
+            for i in q:
+                if i == N-1:
+                    return ret
+                if i+1 < N and i+1 not in visited:
+                    visited.add(i+1)
+                    _q.append(i+1)
+                if i-1 >= 0 and i-1 not in visited:
+                    visited.add(-1)
+                    _q.append(i-1)
+                for j in groups[arr[i]]:
+                    if j not in visited:
+                        visited.add(j)
+                        _q.append(j)
+                    groups[arr[i]] = set()
+            ret += 1
+            q = _q
+        return -1
+
+
+@pytest.mark.parametrize('args', [
+    (([100,-23,-23,404,100,23,23,23,3,404], 3)),
+    (([7], 0)),
+    (([7,6,9,6,9,6,9,7], 1)),
+    (([68,-94,-44,-18,-1,18,-87,29,-6,-87,-27,37,-57,7,18,68,-59,29,7,53,-27,-59,18,-1,18,-18,-59,-1,-18,-84,-20,7,7,-87,-18,-84,-20,-27], 5)),
+    (([6,1,9], 2)),
+    (([11,22,7,7,7,7,7,7,7,22,13], 3)),
+    ((json.load(open(Path(__file__).parent/'testcase.json')), 4)),
+    ((json.load(open(Path(__file__).parent/'testcase2.json')), 4)),
+    ((json.load(open(Path(__file__).parent/'testcase3.json')), 30)),
 ])
-def test(arr, expected):
-    assert expected == Solution().minJumps(arr)
+def test(args):
+    assert args[-1] == Solution().minJumps(*args[:-1])
 
 
 if __name__ == '__main__':

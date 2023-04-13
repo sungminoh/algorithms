@@ -2,100 +2,102 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+Given the head of a singly linked list where elements are sorted in ascending order, convert it to a height-balanced binary search tree.
 
-For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+Example 1:
 
-Example:
+Input: head = [-10,-3,0,5,9]
+Output: [0,-3,9,-10,null,5]
+Explanation: One possible answer is [0,-3,9,-10,null,5], which represents the shown height balanced BST.
 
-Given the sorted linked list: [-10,-3,0,5,9],
+Example 2:
 
-One possible answer is: [0,-3,9,-10,null,5], which represents the following height balanced BST:
+Input: head = []
+Output: []
 
-      0
-     / \
-   -3   9
-   /   /
- -10  5
+Constraints:
+
+	The number of nodes in head is in the range [0, 2 * 104].
+	-105 <= Node.val <= 105
 """
+from typing import Optional
+import pytest
+import sys
+sys.path.append('../')
+from exercise.list import build_list, ListNode
+from exercise.tree import TreeNode
 
 
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
-
-
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 # Definition for a binary tree node.
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
-
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def sortedArrayToBST(self, arr):
-        if not arr:
-            return None
-        mid = len(arr)//2
-        root = TreeNode(arr[mid])
-        root.left = self.sortedArrayToBST(arr[:mid])
-        root.right = self.sortedArrayToBST(arr[mid+1:])
-        return root
-
     def sortedListToBST(self, head):
-        """
-        :type head: ListNode
-        :rtype: TreeNode
-        """
+        """May 06, 2018 19:50"""
+        def sortedArrayToBST(arr):
+            if not arr:
+                return None
+            mid = len(arr)//2
+            root = TreeNode(arr[mid])
+            root.left = sortedArrayToBST(arr[:mid])
+            root.right = sortedArrayToBST(arr[mid+1:])
+            return root
+
         arr = []
         while head:
             arr.append(head.val)
             head = head.next
-        return self.sortedArrayToBST(arr)
+        return sortedArrayToBST(arr)
+
+    def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
+        """Apr 13, 2023 00:08"""
+        vals = []
+        while head:
+            vals.append(head.val)
+            head = head.next
+
+        def build(i, j):
+            if i > j:
+                return None
+            if i == j:
+                return TreeNode(vals[i])
+            m = i + (j-i)//2
+            return TreeNode(vals[m], build(i, m-1), build(m+1, j))
+
+        return build(0, len(vals)-1)
 
 
-from collections import defaultdict
-for_print = defaultdict(list)
-def tree2list(root, depth=0):
-    if depth == 0:
-        for_print.clear()
-    if not root:
-        return for_print[depth].append(None)
-    for_print[depth].append(root.val)
-    tree2list(root.left, depth+1)
-    tree2list(root.right, depth+1)
-    ret = []
-    for d in sorted(for_print.keys()):
-        l = for_print[d]
-        for i, v in enumerate(l):
-            if v is not None:
-                ret.extend(l[max(0, i-1):])
-                break
-    while ret and not ret[-1]:
-        ret.pop()
-    return ret
+@pytest.mark.parametrize('args', [
+    (([-10,-3,0,5,9], [0,-3,9,-10,None,5])),
+    (([], [])),
+])
+def test(args):
+    def check(root):
+        if not root:
+            return 0, True
+        ld, lr = check(root.left)
+        rd, rr = check(root.right)
+        return max(ld, rd)+1, lr and rr and ld <= rd+1 and ld+1 >= rd
 
-
-def get_list():
-    nodes = [ListNode(x) for x in sorted(int(x) for x in input().split())]
-    for i in range(len(nodes)-1):
-        nodes[i].next = nodes[i+1]
-    head = nodes[0]
-    return head
-
-
-def main():
-    head = get_list()
-    print(tree2list(Solution().sortedListToBST(head)))
+    root = Solution().sortedListToBST(build_list(*args[:-1]))
+    print()
+    print(root)
+    depth, balanced = check(root)
+    assert balanced
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

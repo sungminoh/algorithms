@@ -10,7 +10,7 @@ __Do not modify__ the linked list.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png" style="height: 145px; width: 450px;"/>
 
@@ -20,7 +20,7 @@ Output: tail connects to node index 1
 Explanation: There is a cycle in the linked list, where tail connects to the second node.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test2.png" style="height: 105px; width: 201px;"/>
 
@@ -30,7 +30,7 @@ Output: tail connects to node index 0
 Explanation: There is a cycle in the linked list, where tail connects to the first node.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test3.png" style="height: 65px; width: 65px;"/>
 
@@ -54,4 +54,4 @@ __Follow up:__ Can you solve it using `` O(1) `` (i.e. constant) memory?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,404,095 | 611,060 | 43.5% |
+| 2,128,618 | 1,038,464 | 48.8% |

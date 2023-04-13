@@ -44,12 +44,11 @@ Follow up:
 """
 from collections import defaultdict
 import random
-import itertools
 from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
-from exercise.list import ListNode, build_list
+from exercise.list import build_list, ListNode
 
 
 # Definition for singly-linked list.
@@ -57,7 +56,6 @@ from exercise.list import ListNode, build_list
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-
 class Solution:
     """04/17/2020 21:37	"""
     def __init__(self, head: ListNode):
@@ -88,6 +86,7 @@ class Solution:
 
 
 class Solution:
+    """Jan 29, 2022 00:19"""
     def __init__(self, head: Optional[ListNode]):
         self.h = head
         self.c = self.h
@@ -104,17 +103,34 @@ class Solution:
         return self.c
 
 
-@pytest.mark.parametrize('values', [
+class Solution:
+    """Apr 11, 2023 23:19"""
+    def __init__(self, head: Optional[ListNode]):
+        self.head = head
+        self.cur = self.head
+        self.cnt = 0
+        while head:
+            self.cnt += 1
+            head = head.next
+
+    def getRandom(self) -> int:
+        n = self.cnt
+        while random.randrange(0, self.cnt) > 0:
+            n -= 1
+            self.cur = self.cur.next if self.cur.next else self.head
+        return self.cur.val
+
+
+@pytest.mark.parametrize('args', [
      ([1, 2, 3])
 ])
-def test(values):
-    o = Solution(build_list(values))
+def test(args):
+    o = Solution(build_list(args))
     cnt = defaultdict(int)
     for i in range(10000):
-        cnt[o.getRandom().val] += 1
+        cnt[o.getRandom()] += 1
     print(cnt)
 
 
 if __name__ == '__main__':
     sys.exit(pytest.main(["-s", "-v"] + sys.argv))
-

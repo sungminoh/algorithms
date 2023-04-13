@@ -1,25 +1,35 @@
-### [109. Convert Sorted List to Binary Search Tree](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/description/)
+### [109. Convert Sorted List to Binary Search Tree](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/)
 
-[Description](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/description/)[Hints](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/hints/)[Submissions](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/submissions/)[Discuss](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/discuss/)[Solution](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/solution/)
+Medium
 
-[Pick One](https://leetcode.com/problems/random-one-question/)
+Given the `` head `` of a singly linked list where elements are sorted in __ascending order__, convert _it to a _<span data-keyword="height-balanced">___height-balanced___</span> _binary search tree_.
 
-------
+ 
 
-Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+<strong class="example">Example 1:</strong>
 
-For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of *every* node never differ by more than 1.
-
-**Example:**
+<img alt="" src="https://assets.leetcode.com/uploads/2020/08/17/linked.jpg" style="width: 500px; height: 388px;"/>
 
 ```
-Given the sorted linked list: [-10,-3,0,5,9],
-
-One possible answer is: [0,-3,9,-10,null,5], which represents the following height balanced BST:
-
-      0
-     / \
-   -3   9
-   /   /
- -10  5
+Input: head = [-10,-3,0,5,9]
+Output: [0,-3,9,-10,null,5]
+Explanation: One possible answer is [0,-3,9,-10,null,5], which represents the shown height balanced BST.
 ```
+
+<strong class="example">Example 2:</strong>
+
+```
+Input: head = []
+Output: []
+```
+
+ 
+
+__Constraints:__
+
+*   The number of nodes in `` head `` is in the range <code>[0, 2 * 10<sup>4</sup>]</code>.
+*   <code>-10<sup>5</sup> <= Node.val <= 10<sup>5</sup></code>
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 784,139 | 472,387 | 60.2% |

@@ -39,9 +39,7 @@ Constraints:
 	1 <= time.length <= 105
 	1 <= time[i], totalTrips <= 107
 """
-import math
 from pathlib import Path
-from heapq import heapify, heappop, heappush
 import json
 from typing import List
 import pytest
@@ -79,10 +77,24 @@ class Solution:
 
         return bisearch(mn, mx)
 
+    def minimumTime(self, time: List[int], totalTrips: int) -> int:
+        """Apr 07, 2023 20:03"""
+        l = min(time)
+        r = max(l, totalTrips*min(time))
+        while l <= r:
+            m = l + (r-l)//2
+            s = sum(m//t for t in time)
+            if s < totalTrips:
+                l = m+1
+            else:
+                r = m-1
+        return r+1
+
 
 @pytest.mark.parametrize('args', [
     (([1,2,3], 5, 3)),
     (([2], 1, 2)),
+    (([9,3,10,5], 2, 5)),
     ((json.load(open(Path(__file__).parent/'testcase.json')), 5613096, 9310878)),
 ])
 def test(args):

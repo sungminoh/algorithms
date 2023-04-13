@@ -12,21 +12,21 @@ Return _the minimum integer_ `` k `` _such that she can eat all the bananas with
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: piles = [3,6,7,11], h = 8
 Output: 4
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: piles = [30,11,23,4,20], h = 5
 Output: 30
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: piles = [30,11,23,4,20], h = 6
@@ -43,4 +43,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 281,542 | 153,691 | 54.6% |
+| 669,398 | 349,007 | 52.1% |

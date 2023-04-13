@@ -36,14 +36,14 @@ Constraints:
 	piles.length <= h <= 109
 	1 <= piles[i] <= 109
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
-
+        """Feb 04, 2022 15:24"""
         def can_eat_all(n):
             return sum((pile + n - 1) // n for pile in piles) <= h
 
@@ -58,14 +58,26 @@ class Solution:
 
         return bisearch(1, max(piles))
 
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        """Apr 07, 2023 20:12"""
+        l = 1
+        r = max(piles)
+        while l <= r:
+            m = l + (r-l)//2
+            if sum((p-1)//m + 1 for p in piles) <= h:
+                r = m-1
+            else:
+                l = m+1
+        return r+1
 
-@pytest.mark.parametrize('piles, h, expected', [
-    ([3,6,7,11], 8, 4),
-    ([30,11,23,4,20], 5, 30),
-    ([30,11,23,4,20], 6, 23),
+
+@pytest.mark.parametrize('args', [
+    (([3,6,7,11], 8, 4)),
+    (([30,11,23,4,20], 5, 30)),
+    (([30,11,23,4,20], 6, 23)),
 ])
-def test(piles, h, expected):
-    assert expected == Solution().minEatingSpeed(piles, h)
+def test(args):
+    assert args[-1] == Solution().minEatingSpeed(*args[:-1])
 
 
 if __name__ == '__main__':

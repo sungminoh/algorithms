@@ -8,7 +8,7 @@ _Merge all the linked-lists into one sorted linked-list and return it._
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: lists = [[1,4,5],[1,3,4],[2,6]]
@@ -23,14 +23,14 @@ merging them into one sorted list:
 1->1->2->3->4->4->5->6
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: lists = []
 Output: []
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: lists = [[]]
@@ -50,4 +50,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,519,272 | 1,170,337 | 46.5% |
+| 3,234,914 | 1,612,682 | 49.9% |

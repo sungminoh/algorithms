@@ -42,11 +42,11 @@ Constraints:
 	0 <= Node.val <= 9
 	The depth of the tree will not exceed 10.
 """
-import sys
 from typing import Optional
 import pytest
+import sys
 sys.path.append('../')
-from exercise.tree import TreeNode, build_tree
+from exercise.tree import build_tree, TreeNode
 
 
 # Definition for a binary tree node.
@@ -55,8 +55,6 @@ from exercise.tree import TreeNode, build_tree
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
-
 class Solution:
     def sumNumbers(self, root):
         """05/12/2018 04:56"""
@@ -103,13 +101,31 @@ class Solution:
 
         return dfs(root, 0)
 
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        """Apr 23, 2023 17:37"""
+        def dfs(node, val=0):
+            if not node:
+                return 0
+            val *= 10
+            val += node.val
+            if not node.left and not node.right:
+                return val
+            ret = 0
+            if node.left:
+                ret += dfs(node.left, val)
+            if node.right:
+                ret += dfs(node.right, val)
+            return ret
 
-@pytest.mark.parametrize('nodes, expected', [
-    ([1,2,3], 25),
-    ([4,9,0,5,1], 1026),
+        return dfs(root)
+
+
+@pytest.mark.parametrize('args', [
+    (([1,2,3], 25)),
+    (([4,9,0,5,1], 1026)),
 ])
-def test(nodes, expected):
-    assert expected == Solution().sumNumbers(build_tree(nodes))
+def test(args):
+    assert args[-1] == Solution().sumNumbers(build_tree(*args[:-1]))
 
 
 if __name__ == '__main__':

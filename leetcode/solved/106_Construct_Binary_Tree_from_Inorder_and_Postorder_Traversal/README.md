@@ -6,7 +6,7 @@ Given two integer arrays `` inorder `` and `` postorder `` where `` inorder `` i
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/02/19/tree.jpg" style="width: 277px; height: 302px;"/>
 
@@ -15,7 +15,7 @@ Input: inorder = [9,3,15,20,7], postorder = [9,15,7,20,3]
 Output: [3,9,20,null,null,15,7]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: inorder = [-1], postorder = [-1]
@@ -36,4 +36,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 666,753 | 358,590 | 53.8% |
+| 869,468 | 522,252 | 60.1% |

@@ -35,7 +35,7 @@ from typing import List
 import pytest
 import sys
 sys.path.append('../')
-from exercise.tree import TreeNode, build_tree, serialize_tree
+from exercise.tree import TreeNode, build_tree
 
 
 # Definition for a binary tree node.
@@ -89,16 +89,32 @@ class Solution:
 
         return reconstruct(0, len(inorder)-1, 0, len(postorder)-1)
 
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        """Apr 23, 2023 18:05"""
+        m = {v: i for i, v in enumerate(inorder)}
 
-@pytest.mark.parametrize('inorder, postorder, expected', [
-    ([9,3,15,20,7], [9,15,7,20,3], [3,9,20,None,None,15,7]),
-    ([-1], [-1], [-1]),
+        def build(i, j, x, y):
+            if j < i or y < x:
+                return None
+            n = TreeNode(postorder[y])
+            if i == j or x == y:
+                return n
+            k = m[n.val]
+            n.left = build(i, k-1, x, x+k-i-1)
+            n.right = build(k+1, j, x+k-i, y-1)
+            return n
+
+        N = len(inorder)
+        return build(0, N-1, 0, N-1)
+
+
+@pytest.mark.parametrize('args', [
+    (([9,3,15,20,7], [9,15,7,20,3], [3,9,20,None,None,15,7])),
+    (([-1], [-1], [-1])),
+    (([2,1], [2,1], [1,2])),
 ])
-def test(inorder, postorder, expected):
-    tree = Solution().buildTree(inorder, postorder)
-    print()
-    print(tree)
-    assert expected == serialize_tree(tree)
+def test(args):
+    assert build_tree(args[-1]) == Solution().buildTree(*args[:-1])
 
 
 if __name__ == '__main__':

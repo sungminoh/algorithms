@@ -13,7 +13,7 @@ Implement the Trie class:
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input
@@ -42,4 +42,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 875,397 | 486,499 | 55.6% |
+| 1,286,294 | 808,428 | 62.8% |

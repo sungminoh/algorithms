@@ -14,7 +14,7 @@ A __leaf__ node is a node with no children.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/02/19/num1tree.jpg" style="width: 212px; height: 182px;"/>
 
@@ -25,7 +25,7 @@ __Example 1:__
     The root-to-leaf path <code>1->3</code> represents the number <code>13</code>.
     Therefore, sum = 12 + 13 = <code>25</code>.
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/02/19/num2tree.jpg" style="width: 292px; height: 302px;"/>
 
@@ -47,4 +47,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 731,772 | 402,184 | 55.0% |
+| 992,557 | 606,385 | 61.1% |

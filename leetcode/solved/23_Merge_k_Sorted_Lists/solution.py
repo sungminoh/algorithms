@@ -43,8 +43,7 @@ Constraints:
 	lists[i] is sorted in ascending order.
 	The sum of lists[i].length will not exceed 104.
 """
-from heapq import heappop
-from heapq import heappush
+from heapq import heapify, heappop, heappush
 from typing import Optional
 from typing import List
 import pytest
@@ -105,7 +104,7 @@ class Solution:
         return dummy.next
 
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        """
+        """Feb 18, 2022 11:46
         Time complexity: O(n*m*logn)
         Space complexity: O(n)
         """
@@ -125,15 +124,29 @@ class Solution:
                 i += 1
         return dummy.next
 
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        """Apr 13, 2023 00:24"""
+        h = [(l.val, i, l) for i, l in enumerate(lists) if l]
+        heapify(h)
+        dummy = ListNode()
+        cur = dummy
+        while h:
+            _, i, n = heappop(h)
+            if n.next:
+                heappush(h, (n.next.val, i, n.next))
+            cur.next = n
+            cur = cur.next
+            cur.next = None
+        return dummy.next
 
-@pytest.mark.parametrize('lists, expected', [
-    ([[1,4,5],[1,3,4],[2,6]], [1,1,2,3,4,4,5,6]),
-    ([], []),
-    ([[]], []),
+
+@pytest.mark.parametrize('args', [
+    (([[1,4,5],[1,3,4],[2,6]], [1,1,2,3,4,4,5,6])),
+    (([], [])),
+    (([[]], [])),
 ])
-def test(lists, expected):
-    lists = [build_list(x) for x in lists]
-    assert build_list(expected) == Solution().mergeKLists(lists)
+def test(args):
+    assert build_list(args[-1]) == Solution().mergeKLists([build_list(x) for x in args[0]])
 
 
 if __name__ == '__main__':

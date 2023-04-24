@@ -39,9 +39,9 @@ Constraints:
 	word and prefix consist only of lowercase English letters.
 	At most 3 * 104 calls in total will be made to insert, search, and startsWith.
 """
-import sys
 from collections import defaultdict
 import pytest
+import sys
 
 
 infdict = lambda: defaultdict(infdict)
@@ -97,8 +97,8 @@ class Trie:
         return repr(self.dic)
 
 
-
 class Trie:
+    """Oct 14, 2021 21:35"""
     def __init__(self):
         self.d = {}
 
@@ -127,15 +127,51 @@ class Trie:
         return True
 
 
-@pytest.mark.parametrize('commands, arguments, expecteds', [
-    (["Trie", "insert", "search", "search", "startsWith", "insert", "search"],
-     [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]],
-     [None, None, True, False, True, None, True]),
+class Trie:
+    """Apr 23, 2023 18:12"""
+    def __init__(self):
+        self.d = {}
+
+    def insert(self, word: str) -> None:
+        d = self.d
+        for c in word:
+            d = d.setdefault(c, {})
+        else:
+            d[None] = None
+
+    def search(self, word: str) -> bool:
+        d = self.d
+        for c in word:
+            if c not in d:
+                return False
+            d = d[c]
+        return None in d
+
+    def startsWith(self, prefix: str) -> bool:
+        d = self.d
+        for c in prefix:
+            if c not in d:
+                return False
+            d = d[c]
+        return True
+
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
+@pytest.mark.parametrize('args', [
+    ((["Trie", "insert", "search", "search", "startsWith", "insert", "search"],
+      [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]],
+      [None, None, True, False, True, None, True])),
 ])
-def test(commands, arguments, expecteds):
-    obj = Trie()
-    for cmd, args, exp in zip(commands[1:], arguments[1:], expecteds[1:]):
-        assert exp == getattr(obj, cmd)(*args)
+def test(args):
+    commands, arguments, expecteds = args
+    obj = globals()[commands.pop(0)](*arguments.pop(0))
+    actual = []
+    for cmd, arg in zip(commands, arguments):
+        actual.append(getattr(obj, cmd)(*arg))
+    assert expecteds[1:] == actual
 
 
 if __name__ == '__main__':

@@ -8,7 +8,7 @@ You must write an algorithm with `` O(log n) `` runtime complexity.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: nums = [-1,0,3,5,9,12], target = 9
@@ -16,7 +16,7 @@ Output: 4
 Explanation: 9 exists in nums and its index is 4
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: nums = [-1,0,3,5,9,12], target = 2
@@ -35,4 +35,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,429,665 | 790,636 | 55.3% |
+| 3,117,620 | 1,751,413 | 56.2% |

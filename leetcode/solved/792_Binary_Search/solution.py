@@ -30,13 +30,14 @@ Constraints:
 	All the integers in nums are unique.
 	nums is sorted in ascending order.
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
+        """Apr 05, 2022 21:09"""
         def binsearch(arr, x):
             s, e = 0, len(arr)-1
             while s <= e:
@@ -50,13 +51,28 @@ class Solution:
             return -1
         return binsearch(nums, target)
 
+    def search(self, nums: List[int], target: int) -> int:
+        """Apr 23, 2023 22:43"""
+        def bisearch(arr, x):
+            s, e = 0, len(arr)-1
+            while s <= e:
+                m = s + (e-s)//2
+                if arr[m] < x:
+                    s = m+1
+                else:
+                    e = m-1
+            return e+1
 
-@pytest.mark.parametrize('nums, target, expected', [
-    ([-1,0,3,5,9,12], 9, 4),
-    ([-1,0,3,5,9,12], 2, -1),
+        i = bisearch(nums, target)
+        return i if i < len(nums) and nums[i] == target else -1
+
+
+@pytest.mark.parametrize('args', [
+    (([-1,0,3,5,9,12], 9, 4)),
+    (([-1,0,3,5,9,12], 2, -1)),
 ])
-def test(nums, target, expected):
-    assert expected == Solution().search(nums, target)
+def test(args):
+    assert args[-1] == Solution().search(*args[:-1])
 
 
 if __name__ == '__main__':

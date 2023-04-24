@@ -12,7 +12,7 @@ Implement the `` WordDictionary `` class:
 
  
 
-__Example:__
+<strong class="example">Example:</strong>
 
 ```
 Input
@@ -39,9 +39,9 @@ __Constraints:__
 *   `` 1 <= word.length <= 25 ``
 *   `` word `` in `` addWord `` consists of lowercase English letters.
 *   `` word `` in `` search `` consist of `` '.' `` or lowercase English letters.
-*   There will be at most `` 3 `` dots in `` word `` for `` search `` queries.
+*   There will be at most `` 2 `` dots in `` word `` for `` search `` queries.
 *   At most <code>10<sup>4</sup></code> calls will be made to `` addWord `` and `` search ``.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 856,453 | 376,874 | 44.0% |
+| 1,186,699 | 522,125 | 44.0% |

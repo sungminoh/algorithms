@@ -38,12 +38,12 @@ Constraints:
 	1 <= word.length <= 25
 	word in addWord consists of lowercase English letters.
 	word in search consist of '.' or lowercase English letters.
-	There will be at most 3 dots in word for search queries.
+	There will be at most 2 dots in word for search queries.
 	At most 104 calls will be made to addWord and search.
 """
 from collections import defaultdict
-import sys
 import pytest
+import sys
 
 
 def infdict():
@@ -79,6 +79,7 @@ class WordDictionary:
 
 
 class WordDictionary:
+    """Feb 12, 2022 21:29"""
     def __init__(self):
         self.trie = infdict()
 
@@ -109,18 +110,46 @@ class WordDictionary:
         return False
 
 
-@pytest.mark.parametrize('commands, arguments, expecteds', [
-    (["WordDictionary","addWord","addWord","addWord","search","search","search","search"],
-     [[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]],
-     [None,None,None,None,False,True,True,True]),
-    (["WordDictionary","addWord","addWord","search","search","search","search","search","search"],
-     [[],["a"],["a"],["."],["a"],["aa"],["a"],[".a"],["a."]],
-     [[],None,None,True,True,False,True,False,False]),
+class WordDictionary:
+    """Apr 23, 2023 18:33"""
+    def __init__(self):
+        self.d = {}
+
+    def addWord(self, word: str) -> None:
+        d = self.d
+        for c in word:
+            d = d.setdefault(c, {})
+        d[None] = {}
+
+    def search(self, word: str) -> bool:
+        tries = [self.d]
+        for c in word:
+            _tries = []
+            for d in tries:
+                if c == '.':
+                    _tries.extend(d.values())
+                elif c in d:
+                    _tries.append(d[c])
+            tries = _tries
+        return any(None in d for d in tries)
+
+
+@pytest.mark.parametrize('args', [
+    ((["WordDictionary","addWord","addWord","addWord","search","search","search","search"],
+      [[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]],
+      [None,None,None,None,False,True,True,True])),
+    ((["WordDictionary","addWord","addWord","search","search","search","search","search","search"],
+      [[],["a"],["a"],["."],["a"],["aa"],["a"],[".a"],["a."]],
+      [None, None, None, True, True, False, True, False, False])),
 ])
-def test(commands, arguments, expecteds):
-    obj = WordDictionary(*arguments[0])
-    for cmd, arg, exp in zip(commands[1:], arguments[1:], expecteds[1:]):
-        assert exp == getattr(obj, cmd)(*arg)
+def test(args):
+    commands, arguments, expecteds = args
+    obj = globals()[commands.pop(0)](*arguments.pop(0))
+    actual = []
+    for cmd, arg in zip(commands, arguments):
+        actual.append(getattr(obj, cmd)(*arg))
+    print(actual)
+    assert expecteds[1:] == actual
 
 
 if __name__ == '__main__':

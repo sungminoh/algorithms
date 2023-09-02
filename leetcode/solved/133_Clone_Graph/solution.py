@@ -56,10 +56,8 @@ Constraints:
 	There are no repeated edges and no self-loops in the graph.
 	The Graph is connected and all nodes can be visited starting from the given node.
 """
-import sys
-from collections import defaultdict
-from itertools import chain
 import pytest
+import sys
 
 
 # Definition for a Node.
@@ -67,6 +65,9 @@ class Node:
     def __init__(self, val = 0, neighbors = None):
         self.val = val
         self.neighbors = neighbors if neighbors is not None else []
+
+    def __eq__(self, other):
+        return self.val == other.val and all([a.val == b.val for a, b in zip(self.neighbors, other.neighbors)])
 
     def __hash__(self):
         return id(self)
@@ -161,6 +162,7 @@ def deserialize(s, val):
     return nodes[val]
 
 
+
 class Solution:
     def cloneGraph(self, node):
         """07/08/2018 05:23"""
@@ -209,20 +211,41 @@ class Solution:
         return deepcopy(node)
 
 
-@pytest.mark.parametrize('edges, expected', [
-    ([[2,4],[1,3],[2,4],[1,3]], [[2,4],[1,3],[2,4],[1,3]]),
-    ([[]], [[]]),
-    ([], []),
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        """Sep 02, 2023 15:19"""
+        if not node:
+            return
+
+        cache = {}
+
+        def dfs(n):
+            if id(n) not in cache:
+                m = cache.setdefault(id(n), Node(n.val))
+                if not m.neighbors and n.neighbors:
+                    m.neighbors = [dfs(c) for c in n.neighbors]
+            return cache[id(n)]
+
+        return dfs(node)
+
+
+def tograph(pairs) -> 'Node':
+    cache = {i+1: Node(i+1) for i in range(len(pairs))}
+    print(cache)
+    for a, bs in enumerate(pairs, 1):
+        cache[a].neighbors = [cache[b] for b in bs]
+    return cache.get(1)
+
+
+@pytest.mark.parametrize('args', [
+    (([[2,4],[1,3],[2,4],[1,3]], [[2,4],[1,3],[2,4],[1,3]])),
+    (([[]], [[]])),
+    (([], [])),
+
 ])
-def test(edges, expected):
-    a = build_graph(edges)
-    b = Solution().cloneGraph(a)
-    assert serialize(a) == serialize(b)
-    assert is_same(a, b)
+def test(args):
+    exp = tograph(args[-1])
+    assert exp == Solution().cloneGraph(tograph(*args[:-1]))
 
 
 if __name__ == '__main__':
     sys.exit(pytest.main(["-s", "-v"] + sys.argv))
-
-
-

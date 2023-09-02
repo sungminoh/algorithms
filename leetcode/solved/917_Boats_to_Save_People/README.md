@@ -8,7 +8,7 @@ Return _the minimum number of boats to carry every given person_.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: people = [1,2], limit = 3
@@ -16,7 +16,7 @@ Output: 1
 Explanation: 1 boat (1, 2)
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: people = [3,2,2,1], limit = 3
@@ -24,7 +24,7 @@ Output: 3
 Explanation: 3 boats (1, 2), (2) and (3)
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: people = [3,5,3,4], limit = 5
@@ -41,4 +41,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 268,620 | 140,828 | 52.4% |
+| 451,799 | 252,249 | 55.8% |

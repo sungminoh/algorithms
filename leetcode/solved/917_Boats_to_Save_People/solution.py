@@ -1,3 +1,5 @@
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -34,13 +36,13 @@ Constraints:
 	1 <= people.length <= 5 * 104
 	1 <= people[i] <= limit <= 3 * 104
 """
-import sys
-from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def numRescueBoats(self, people: List[int], limit: int) -> int:
+        """Apr 05, 2022 21:51"""
         people.sort(reverse=True)
         l, r = 0, len(people)-1
         ret = 0
@@ -53,14 +55,31 @@ class Solution:
             ret += 1
         return ret
 
+    def numRescueBoats(self, people: List[int], limit: int) -> int:
+        """Aug 26, 2023 12:32"""
+        people.sort()
+        i = 0
+        j = len(people)-1
+        ret = 0
+        while i < j:
+            if people[j] > limit:
+                return -1
+            elif people[i] + people[j] <= limit:
+                i += 1
+            j -=1
+            ret += 1
+        if i == j:
+            ret += 1
+        return ret
 
-@pytest.mark.parametrize('people, limit, expected', [
-    ([1,2], 3, 1),
-    ([3,2,2,1], 3, 3),
-    ([3,5,3,4], 5, 4),
+
+@pytest.mark.parametrize('args', [
+    (([1,2], 3, 1)),
+    (([3,2,2,1], 3, 3)),
+    (([3,5,3,4], 5, 4)),
 ])
-def test(people, limit, expected):
-    assert expected == Solution().numRescueBoats(people, limit)
+def test(args):
+    assert args[-1] == Solution().numRescueBoats(*args[:-1])
 
 
 if __name__ == '__main__':

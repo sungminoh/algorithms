@@ -13,6 +13,7 @@ An input string is valid if:
 
 	Open brackets must be closed by the same type of brackets.
 	Open brackets must be closed in the correct order.
+	Every close bracket has a corresponding open bracket of the same type.
 
 Example 1:
 
@@ -34,12 +35,13 @@ Constraints:
 	1 <= s.length <= 104
 	s consists of parentheses only '()[]{}'.
 """
-import sys
 import pytest
+import sys
 
 
 class Solution:
     def isValid(self, s: str) -> bool:
+        """Mar 27, 2022 15:00"""
         counter = dict(zip(')}]', '({['))
         stack = []
         for c in s:
@@ -51,14 +53,32 @@ class Solution:
                 stack.pop()
         return len(stack) == 0
 
+    def isValid(self, s: str) -> bool:
+        """Sep 02, 2023 17:20"""
+        def match(a, b):
+            return (a == '{' and b == '}')\
+                or (a == '(' and b == ')')\
+                or (a == '[' and b == ']')
 
-@pytest.mark.parametrize('s, expected', [
-    ("()", True),
-    ("()[]{}", True),
-    ("(]", False),
+        stack = []
+        for c in s:
+            if c in '})]':
+                if stack and match(stack[-1], c):
+                    stack.pop()
+                else:
+                    return False
+            else:
+                stack.append(c)
+        return not stack
+
+
+@pytest.mark.parametrize('args', [
+    (("()", True)),
+    (("()[]{}", True)),
+    (("(]", False)),
 ])
-def test(s, expected):
-    assert expected == Solution().isValid(s)
+def test(args):
+    assert args[-1] == Solution().isValid(*args[:-1])
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-### [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+### [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/?envType=daily-question&envId=2023-04-10)
 
 Easy
 
@@ -8,24 +8,25 @@ An input string is valid if:
 
 1.   Open brackets must be closed by the same type of brackets.
 2.   Open brackets must be closed in the correct order.
+3.   Every close bracket has a corresponding open bracket of the same type.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: s = "()"
 Output: true
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: s = "()[]{}"
 Output: true
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: s = "(]"
@@ -41,4 +42,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 5,151,421 | 2,105,189 | 40.9% |
+| 9,220,453 | 3,706,709 | 40.2% |

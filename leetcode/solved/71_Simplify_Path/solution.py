@@ -44,8 +44,8 @@ Constraints:
 	path consists of English letters, digits, period '.', slash '/' or '_'.
 	path is a valid absolute Unix path.
 """
-import sys
 import pytest
+import sys
 
 
 class Solution:
@@ -61,6 +61,7 @@ class Solution:
         return '/' + '/'.join(valid)
 
     def simplifyPath(self, path: str) -> str:
+        """Mar 27, 2022 15:18"""
         stack = []
         for d in path.split('/'):
             if d == '..':
@@ -70,14 +71,31 @@ class Solution:
                 stack.append(d)
         return '/' + '/'.join(stack)
 
+    def simplifyPath(self, path: str) -> str:
+        """"Sep 02, 2023 17:29"""
+        stack = []
+        for p in path.split('/'):
+            if not p:
+                continue
+            if p == '..':
+                if stack:
+                    stack.pop()
+            elif p == '.':
+                pass  # no-op
+            else:
+                stack.append(p)
+        while stack and not stack[-1]:
+            stack.pop()
+        return '/' + '/'.join(stack)
 
-@pytest.mark.parametrize('path, expected', [
-    ("/home/", "/home"),
-    ("/../", "/"),
-    ("/home//foo/", "/home/foo"),
+
+@pytest.mark.parametrize('args', [
+    (("/home/", "/home")),
+    (("/../", "/")),
+    (("/home//foo/", "/home/foo")),
 ])
-def test(path, expected):
-    assert expected == Solution().simplifyPath(path)
+def test(args):
+    assert args[-1] == Solution().simplifyPath(*args[:-1])
 
 
 if __name__ == '__main__':

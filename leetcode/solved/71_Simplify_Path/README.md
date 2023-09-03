@@ -1,4 +1,4 @@
-### [71. Simplify Path](https://leetcode.com/problems/simplify-path/)
+### [71. Simplify Path](https://leetcode.com/problems/simplify-path/?envType=daily-question&envId=2023-04-12)
 
 Medium
 
@@ -17,7 +17,7 @@ Return _the simplified __canonical path___.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: path = "/home/"
@@ -25,7 +25,7 @@ Output: "/home"
 Explanation: Note that there is no trailing slash after the last directory name.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: path = "/../"
@@ -33,7 +33,7 @@ Output: "/"
 Explanation: Going one level up from the root directory is a no-op, as the root level is the highest level you can go.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: path = "/home//foo/"
@@ -51,4 +51,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,063,874 | 411,253 | 38.7% |
+| 1,470,841 | 601,118 | 40.9% |

@@ -1,39 +1,36 @@
-### [516. Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/)
+### [516. Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/?envType=daily-question&envId=2023-04-14)
 
 Medium
 
-Given a string s, find the longest palindromic subsequence's length in s. You may assume that the maximum length of s is 1000.
+Given a string `` s ``, find _the longest palindromic __subsequence__'s length in_ `` s ``.
 
-__Example 1:__  
-Input: 
+A __subsequence__ is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
 
-```
-"bbbab"
-```
+ 
 
-Output: 
+<strong class="example">Example 1:</strong>
 
 ```
-4
+Input: s = "bbbab"
+Output: 4
+Explanation: One possible longest palindromic subsequence is "bbbb".
 ```
 
-One possible longest palindromic subsequence is "bbbb".
-
-__Example 2:__  
-Input:
+<strong class="example">Example 2:</strong>
 
 ```
-"cbbd"
+Input: s = "cbbd"
+Output: 2
+Explanation: One possible longest palindromic subsequence is "bb".
 ```
 
-Output:
+ 
 
-```
-2
-```
+__Constraints:__
 
-One possible longest palindromic subsequence is "bb".
+*   `` 1 <= s.length <= 1000 ``
+*   `` s `` consists only of lowercase English letters.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 210,508 | 109,394 | 52.0% |
+| 678,629 | 421,668 | 62.1% |

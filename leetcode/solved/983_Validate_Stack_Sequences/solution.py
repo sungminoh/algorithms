@@ -1,3 +1,5 @@
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -33,9 +35,8 @@ Constraints:
 	popped.length == pushed.length
 	popped is a permutation of pushed.
 """
-import sys
-from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -79,16 +80,31 @@ class Solution:
                     i += 1
         return True
 
+    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+        """Sep 02, 2023 17:35"""
+        stack = []
+        i = j = 0
+        while j < len(popped):
+            if stack and stack[-1] == popped[j]:
+                stack.pop()
+                j += 1
+            else:
+                if i == len(pushed):
+                    return False
+                stack.append(pushed[i])
+                i += 1
+        return True
 
-@pytest.mark.parametrize('pushed, popped, expected', [
-    ([], [], True),
-    ([], [1], False),
-    ([1,2,3,4,5], [4,5,3,2,1], True),
-    ([1,2,3,4,5], [4,3,5,2,1], True),
-    ([1,2,3,4,5], [4,3,5,1,2], False),
+
+@pytest.mark.parametrize('args', [
+    (([], [], True)),
+    (([], [1], False)),
+    (([1,2,3,4,5], [4,5,3,2,1], True)),
+    (([1,2,3,4,5], [4,3,5,2,1], True)),
+    (([1,2,3,4,5], [4,3,5,1,2], False)),
 ])
-def test(pushed, popped, expected):
-    assert expected == Solution().validateStackSequences(pushed, popped)
+def test(args):
+    assert args[-1] == Solution().validateStackSequences(*args[:-1])
 
 
 if __name__ == '__main__':

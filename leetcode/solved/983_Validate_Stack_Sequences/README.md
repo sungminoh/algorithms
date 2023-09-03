@@ -1,4 +1,4 @@
-### [983. Validate Stack Sequences](https://leetcode.com/problems/validate-stack-sequences/)
+### [983. Validate Stack Sequences](https://leetcode.com/problems/validate-stack-sequences/?envType=daily-question&envId=2023-04-13)
 
 Medium
 
@@ -6,7 +6,7 @@ Given two integer arrays `` pushed `` and `` popped `` each with distinct values
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: pushed = [1,2,3,4,5], popped = [4,5,3,2,1]
@@ -18,7 +18,7 @@ push(5),
 pop() -> 5, pop() -> 3, pop() -> 2, pop() -> 1
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: pushed = [1,2,3,4,5], popped = [4,3,5,1,2]
@@ -38,4 +38,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 256,807 | 173,439 | 67.5% |
+| 405,020 | 281,111 | 69.4% |

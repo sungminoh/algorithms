@@ -1,3 +1,7 @@
+from collections import defaultdict
+from collections import deque
+from typing import Optional
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -11,36 +15,33 @@ Given the root of a binary tree, return the maximum width of the given tree.
 
 The maximum width of a tree is the maximum width among all levels.
 
-The width of one level is defined as the length between the end-nodes (the leftmost and rightmost non-null nodes), where the null nodes between the end-nodes are also counted into the length calculation.
+The width of one level is defined as the length between the end-nodes (the leftmost and rightmost non-null nodes), where the null nodes between the end-nodes that would be present in a complete binary tree extending down to that level are also counted into the length calculation.
 
-It is guaranteed that the answer will in the range of 32-bit signed integer.
+It is guaranteed that the answer will in the range of a 32-bit signed integer.
 
 Example 1:
 
 Input: root = [1,3,2,5,3,null,9]
 Output: 4
-Explanation: The maximum width existing in the third level with the length 4 (5,3,null,9).
+Explanation: The maximum width exists in the third level with length 4 (5,3,null,9).
 
 Example 2:
 
-Input: root = [1,3,null,5,3]
-Output: 2
-Explanation: The maximum width existing in the third level with the length 2 (5,3).
+Input: root = [1,3,2,5,null,null,9,6,null,7]
+Output: 7
+Explanation: The maximum width exists in the fourth level with length 7 (6,null,null,null,null,null,7).
 
 Example 3:
 
 Input: root = [1,3,2,5]
 Output: 2
-Explanation: The maximum width existing in the second level with the length 2 (3,2).
+Explanation: The maximum width exists in the second level with length 2 (3,2).
 
 Constraints:
 
 	The number of nodes in the tree is in the range [1, 3000].
 	-100 <= Node.val <= 100
 """
-from collections import defaultdict
-from collections import deque
-from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
@@ -112,15 +113,34 @@ class Solution:
             ret = max(ret, mx-mn+1)
         return ret
 
+    def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        """Sep 03, 2023 21:33"""
+        depth_lr = {}
 
-@pytest.mark.parametrize('values, expected', [
-    ([1,3,2,5,3,None,9], 4),
-    ([1,3,None,5,3], 2),
-    ([1,3,2,5], 2),
-    ([1,3,2,5,None,None,9,6,None,None,7], 8),
+        def dfs(node, d, i):
+            if not node:
+                return
+            mn, mx = depth_lr.setdefault(d, [float('inf'), -float('inf')])
+            depth_lr[d] = [min(mn, i), max(mx, i)]
+            dfs(node.left, d+1, 2*i)
+            dfs(node.right, d+1, 2*i+1)
+
+        dfs(root, 0, 0)
+        ret = 0
+        for l, r in depth_lr.values():
+            ret = max(ret, r-l+1)
+        return ret
+
+
+@pytest.mark.parametrize('args', [
+    (([1,3,2,5,3,None,9], 4)),
+    (([1,3,2,5,None,None,9,6,None,7], 7)),
+    (([1,3,2,5], 2)),
+    (([1,3,None,5,3], 2)),
+    (([1,3,2,5,None,None,9,6,None,None,7], 8)),
 ])
-def test(values, expected):
-    assert expected == Solution().widthOfBinaryTree(build_tree(values))
+def test(args):
+    assert args[-1] == Solution().widthOfBinaryTree(build_tree(*args[:-1]))
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-### [258. Add Digits](https://leetcode.com/problems/add-digits/)
+### [258. Add Digits](https://leetcode.com/problems/add-digits/?envType=daily-question&envId=2023-04-26)
 
 Easy
 
@@ -6,7 +6,7 @@ Given an integer `` num ``, repeatedly add all its digits until the result has o
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: num = 38
@@ -17,7 +17,7 @@ Explanation: The process is
 Since 2 has only one digit, return it.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: num = 0
@@ -36,4 +36,4 @@ __Follow up:__ Could you do it without any loop/recursion in `` O(1) `` runtime?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 729,469 | 453,447 | 62.2% |
+| 1,039,215 | 684,974 | 65.9% |

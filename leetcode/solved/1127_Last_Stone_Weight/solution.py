@@ -16,7 +16,7 @@ We are playing a game with the stones. On each turn, we choose the heaviest two 
 
 At the end of the game, there is at most one stone left.
 
-Return the smallest possible weight of the left stone. If there are no stones left, return 0.
+Return the weight of the last remaining stone. If there are no stones left, return 0.
 
 Example 1:
 
@@ -38,15 +38,15 @@ Constraints:
 	1 <= stones.length <= 30
 	1 <= stones[i] <= 1000
 """
-import sys
-from heapq import heappop
-from heapq import heappush
+from heapq import heapify, heappop, heappush
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
+        """Apr 19, 2022 14:44"""
         heap = []
         for stone in stones:
             heappush(heap, -stone)
@@ -57,12 +57,23 @@ class Solution:
                 heappush(heap, -abs(a-b))
         return 0 if not heap else -heap[0]
 
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        """Sep 04, 2023 12:00"""
+        stones = [-x for x in stones]
+        heapify(stones)
+        while len(stones)>=2:
+            d = heappop(stones) - heappop(stones)
+            if d:
+                heappush(stones, d)
+        return -stones[0] if stones else 0
 
-@pytest.mark.parametrize('stones, expected', [
-    ([2,7,4,1,8,1], 1),
+
+@pytest.mark.parametrize('args', [
+    (([2,7,4,1,8,1], 1)),
+    (([1], 1)),
 ])
-def test(stones, expected):
-    assert expected == Solution().lastStoneWeight(stones)
+def test(args):
+    assert args[-1] == Solution().lastStoneWeight(*args[:-1])
 
 
 if __name__ == '__main__':

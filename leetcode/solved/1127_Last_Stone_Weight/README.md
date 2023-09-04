@@ -1,4 +1,4 @@
-### [1127. Last Stone Weight](https://leetcode.com/problems/last-stone-weight/)
+### [1127. Last Stone Weight](https://leetcode.com/problems/last-stone-weight/?envType=daily-question&envId=2023-04-24)
 
 Easy
 
@@ -11,11 +11,11 @@ We are playing a game with the stones. On each turn, we choose the __heaviest tw
 
 At the end of the game, there is __at most one__ stone left.
 
-Return _the smallest possible weight of the left stone_. If there are no stones left, return `` 0 ``.
+Return _the weight of the last remaining stone_. If there are no stones left, return `` 0 ``.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: stones = [2,7,4,1,8,1]
@@ -27,7 +27,7 @@ we combine 2 and 1 to get 1 so the array converts to [1,1,1] then,
 we combine 1 and 1 to get 0 so the array converts to [1] then that's the value of the last stone.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: stones = [1]
@@ -43,4 +43,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 431,371 | 277,624 | 64.4% |
+| 791,592 | 516,358 | 65.2% |

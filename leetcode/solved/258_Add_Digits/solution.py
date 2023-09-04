@@ -29,12 +29,13 @@ Constraints:
 
 Follow up: Could you do it without any loop/recursion in O(1) runtime?
 """
-import sys
 import pytest
+import sys
 
 
 class Solution:
     def addDigits(self, num: int) -> int:
+        """Feb 21, 2022 11:47"""
         def reduce(num):
             ret = 0
             while num:
@@ -48,13 +49,22 @@ class Solution:
 
         return ret
 
+    def addDigits(self, num: int) -> int:
+        """Sep 04, 2023 12:20"""
+        ret = 0
+        while num:
+            ret += num%10
+            ret = sum(divmod(ret, 10))
+            num //= 10
+        return ret
 
-@pytest.mark.parametrize('num, expected', [
-    (38, 2),
-    (0, 0),
+
+@pytest.mark.parametrize('args', [
+    ((38, 2)),
+    ((0, 0)),
 ])
-def test(num, expected):
-    assert expected == Solution().addDigits(num)
+def test(args):
+    assert args[-1] == Solution().addDigits(*args[:-1])
 
 
 if __name__ == '__main__':

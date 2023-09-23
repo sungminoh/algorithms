@@ -1,3 +1,5 @@
+from typing import Optional
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -29,11 +31,10 @@ Constraints:
 	The number of nodes in the list is in the range [0, 100].
 	0 <= Node.val <= 100
 """
-from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
-from exercise.list import build_list, ListNode
+from exercise.list import ListNode, build_list
 
 
 # Definition for singly-linked list.
@@ -43,6 +44,7 @@ from exercise.list import build_list, ListNode
 #         self.next = next
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """Feb 28, 2022 12:18"""
         if not head:
             return
         if not head.next:
@@ -52,14 +54,31 @@ class Solution:
         nodes[1].next = nodes[0]
         return nodes[1]
 
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """Sep 22, 2023 15:48"""
+        if not head:
+            return head
 
-@pytest.mark.parametrize('values, expected', [
-    ([1,2,3,4], [2,1,4,3]),
-    ([], []),
-    ([1], [1]),
+        def swap(p, n, nn):
+            p.next, n.next, nn.next = nn, nn.next, n
+
+        dummy = ListNode()
+        dummy.next = head
+        p = dummy
+        n = head
+        while n and n.next:
+            swap(p, n, n.next)
+            p, n = n, n.next
+        return dummy.next
+
+
+@pytest.mark.parametrize('args', [
+    (([1,2,3,4], [2,1,4,3])),
+    (([], [])),
+    (([1], [1])),
 ])
-def test(values, expected):
-    assert build_list(expected) == Solution().swapPairs(build_list(values))
+def test(args):
+    assert build_list(args[-1]) == Solution().swapPairs(build_list(args[0]))
 
 
 if __name__ == '__main__':

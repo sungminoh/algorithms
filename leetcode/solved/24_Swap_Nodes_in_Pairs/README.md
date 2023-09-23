@@ -1,4 +1,4 @@
-### [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/)
+### [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/?envType=daily-question&envId=2023-05-16)
 
 Medium
 
@@ -6,7 +6,7 @@ Given a linked list, swap every two adjacent nodes and return its head. You mus
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/10/03/swap_ex1.jpg" style="width: 422px; height: 222px;"/>
 
@@ -15,14 +15,14 @@ Input: head = [1,2,3,4]
 Output: [2,1,4,3]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: head = []
 Output: []
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: head = [1]
@@ -38,4 +38,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,410,700 | 820,338 | 58.2% |
+| 1,934,242 | 1,220,348 | 63.1% |

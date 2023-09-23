@@ -1,4 +1,4 @@
-### [399. Evaluate Division](https://leetcode.com/problems/evaluate-division/)
+### [399. Evaluate Division](https://leetcode.com/problems/evaluate-division/?envType=daily-question&envId=2023-05-20)
 
 Medium
 
@@ -10,27 +10,30 @@ Return _the answers to all queries_. If a single answer cannot be determined, re
 
 __Note:__ The input is always valid. You may assume that evaluating the queries will not result in division by zero and that there is no contradiction.
 
+__Note: __The variables that do not occur in the list of equations are undefined, so the answer cannot be determined for them.
+
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: equations = [["a","b"],["b","c"]], values = [2.0,3.0], queries = [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]
 Output: [6.00000,0.50000,-1.00000,1.00000,-1.00000]
 Explanation: 
 Given: <em>a / b = 2.0</em>, <em>b / c = 3.0</em>
-queries are: <em>a / c = ?</em>, <em>b / a = ?</em>, <em>a / e = ?</em>, <em>a / a = ?</em>, <em>x / x = ?</em>
+queries are: <em>a / c = ?</em>, <em>b / a = ?</em>, <em>a / e = ?</em>, <em>a / a = ?</em>, <em>x / x = ? </em>
 return: [6.0, 0.5, -1.0, 1.0, -1.0 ]
+note: x is undefined => -1.0
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: equations = [["a","b"],["b","c"],["bc","cd"]], values = [1.5,2.5,5.0], queries = [["a","c"],["c","b"],["bc","cd"],["cd","bc"]]
 Output: [3.75000,0.40000,5.00000,0.20000]
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: equations = [["a","b"]], values = [0.5], queries = [["a","b"],["b","a"],["a","c"],["x","y"]]
@@ -53,4 +56,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 473,247 | 277,652 | 58.7% |
+| 658,907 | 404,486 | 61.4% |

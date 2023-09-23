@@ -1,4 +1,4 @@
-### [528. Swapping Nodes in a Linked List](https://leetcode.com/problems/swapping-nodes-in-a-linked-list/)
+### [528. Swapping Nodes in a Linked List](https://leetcode.com/problems/swapping-nodes-in-a-linked-list/?envType=daily-question&envId=2023-05-15)
 
 Medium
 
@@ -8,7 +8,7 @@ Return _the head of the linked list after __swapping__ the values of the _<code>
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/09/21/linked1.jpg" style="width: 400px; height: 112px;"/>
 
@@ -17,7 +17,7 @@ Input: head = [1,2,3,4,5], k = 2
 Output: [1,4,3,2,5]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: head = [7,9,6,6,7,8,3,0,9,5], k = 5
@@ -34,4 +34,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 230,307 | 157,575 | 68.4% |
+| 431,385 | 295,108 | 68.4% |

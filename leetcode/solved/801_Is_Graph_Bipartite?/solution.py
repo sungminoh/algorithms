@@ -41,9 +41,9 @@ Constraints:
 	If graph[u] contains v, then graph[v] contains u.
 """
 from collections import defaultdict
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -110,13 +110,31 @@ class Solution:
                 ret &= dfs(i, 1)
         return ret
 
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        """Sep 22, 2023 17:41"""
+        groups = {}
 
-@pytest.mark.parametrize('graph, expected', [
-    ([[1,2,3],[0,2],[0,1,3],[0,2]], False),
-    ([[1,3],[0,2],[1,3],[0,2]], True),
+        def traverse(u, group=1):
+            if u in groups:
+                return groups[u] == group
+            groups[u] = group
+            return all(traverse(v, -group) for v in graph[u])
+
+        for i in range(len(graph)):
+            if i not in groups:
+                if not traverse(i):
+                    return False
+
+        return True
+
+
+@pytest.mark.parametrize('args', [
+    (([[1,2,3],[0,2],[0,1,3],[0,2]], False)),
+    (([[1,3],[0,2],[1,3],[0,2]], True)),
+    (([[2,3,5,6,7,8,9],[2,3,4,5,6,7,8,9],[0,1,3,4,5,6,7,8,9],[0,1,2,4,5,6,7,8,9],[1,2,3,6,9],[0,1,2,3,7,8,9],[0,1,2,3,4,7,8,9],[0,1,2,3,5,6,8,9],[0,1,2,3,5,6,7],[0,1,2,3,4,5,6,7]], False)),
 ])
-def test(graph, expected):
-    assert expected == Solution().isBipartite(graph)
+def test(args):
+    assert args[-1] == Solution().isBipartite(*args[:-1])
 
 
 if __name__ == '__main__':

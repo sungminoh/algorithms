@@ -1,3 +1,6 @@
+from typing import List
+from typing import Optional
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -27,13 +30,10 @@ Constraints:
 	1 <= k <= n <= 105
 	0 <= Node.val <= 100
 """
-from typing import Tuple
-from typing import List
-from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
-from exercise.list import build_list, ListNode
+from exercise.list import ListNode, build_list
 
 
 # Definition for singly-linked list.
@@ -43,6 +43,7 @@ from exercise.list import build_list, ListNode
 #         self.next = next
 class Solution:
     def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        """Apr 20, 2022 11:55"""
         def length(head):
             cnt = 0
             while head:
@@ -84,12 +85,53 @@ class Solution:
         return dummy.next
 
 
-@pytest.mark.parametrize('values, k, expected', [
-    ([1,2,3,4,5], 2, [1,4,3,2,5]),
-    ([7,9,6,6,7,8,3,0,9,5], 5, [7,9,6,6,8,7,3,0,9,5]),
+    def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        """Sep 22, 2023 14:05"""
+        def length(head):
+            ret = 0
+            while head:
+                ret += 1
+                head = head.next
+            return ret
+
+        def swap(p1, n1, p2, n2):
+            if n1 == n2:
+                return
+            elif n1.next == n2:
+                p1.next = n2
+                n1.next = n2.next
+                n2.next = n1
+            else:
+                n1.next, n2.next = n2.next, n1.next
+                p1.next = n2
+                p2.next = n1
+
+        l = length(head)
+        i, j = sorted([k-1, l-k])  # zero-index
+        iparent, inode = None, None
+
+        dummy = ListNode()
+        dummy.next = head
+        parent, node = dummy, dummy.next
+
+        cur = 0
+        while node:
+            if cur == i:
+                iparent, inode = parent, node
+            if cur == j:
+                swap(iparent, inode, parent, node)
+            cur += 1
+            parent, node = node, node.next
+
+        return dummy.next
+
+
+@pytest.mark.parametrize('args', [
+    (([1,2,3,4,5], 2, [1,4,3,2,5])),
+    (([7,9,6,6,7,8,3,0,9,5], 5, [7,9,6,6,8,7,3,0,9,5])),
 ])
-def test(values, k, expected):
-    assert build_list(expected) == Solution().swapNodes(build_list(values), k)
+def test(args):
+    assert build_list(args[-1]) == Solution().swapNodes(build_list(args[0]), args[1])
 
 
 if __name__ == '__main__':

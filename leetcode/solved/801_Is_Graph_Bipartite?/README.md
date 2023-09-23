@@ -1,4 +1,4 @@
-### [801. Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite/)
+### [801. Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite/?envType=daily-question&envId=2023-05-19)
 
 Medium
 
@@ -15,7 +15,7 @@ Return `` true ``_ if and only if it is __bipartite___.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/10/21/bi2.jpg" style="width: 222px; height: 222px;"/>
 
@@ -25,7 +25,7 @@ Output: false
 Explanation: There is no way to partition the nodes into two independent sets such that every edge connects a node in one and a node in the other.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/10/21/bi1.jpg" style="width: 222px; height: 222px;"/>
 
@@ -49,4 +49,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 605,927 | 313,284 | 51.7% |
+| 892,862 | 491,032 | 55.0% |

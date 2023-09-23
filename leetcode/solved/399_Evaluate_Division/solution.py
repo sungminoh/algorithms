@@ -1,3 +1,6 @@
+from collections import defaultdict
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -15,6 +18,8 @@ Return the answers to all queries. If a single answer cannot be determined, retu
 
 Note: The input is always valid. You may assume that evaluating the queries will not result in division by zero and that there is no contradiction.
 
+Note: The variables that do not occur in the list of equations are undefined, so the answer cannot be determined for them.
+
 Example 1:
 
 Input: equations = [["a","b"],["b","c"]], values = [2.0,3.0], queries = [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]
@@ -23,6 +28,7 @@ Explanation:
 Given: a / b = 2.0, b / c = 3.0
 queries are: a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ?
 return: [6.0, 0.5, -1.0, 1.0, -1.0 ]
+note: x is undefined => -1.0
 
 Example 2:
 
@@ -46,10 +52,8 @@ Constraints:
 	1 <= Cj.length, Dj.length <= 5
 	Ai, Bi, Cj, Dj consist of lower case English letters and digits.
 """
-from collections import defaultdict
-import sys
-from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -184,14 +188,44 @@ class Solution:
 
         return [dfs(a, b, set([a])) for a, b in queries]
 
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        """Sep 22, 2023 17:58"""
+        g = defaultdict(list)
+        for (a, b), v in zip(equations, values):
+            g[a].append((v, b))
+            g[b].append((1/v, a))
 
-@pytest.mark.parametrize('equations, values, queries, expecteds', [
-    ([["a","b"],["b","c"]], [2.0,3.0], [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]], [6.00000,0.50000,-1.00000,1.00000,-1.00000]),
-    ([["a","b"],["b","c"],["bc","cd"]], [1.5,2.5,5.0], [["a","c"],["c","b"],["bc","cd"],["cd","bc"]], [3.75000,0.40000,5.00000,0.20000]),
-    ([["a","b"]], [0.5], [["a","b"],["b","a"],["a","c"],["x","y"]], [0.50000,2.00000,-1.00000,-1.00000]),
+        visited = set()
+        def dfs(s, t):
+            if s not in g or t not in g:
+                return -1
+            if s == t:
+                return 1
+
+            ret = -1
+            for coefficient, variable in g[s]:
+                if variable not in visited:
+                    visited.add(variable)
+                    ret = max(ret, coefficient * dfs(variable, t))
+                    visited.remove(variable)
+            return ret
+
+        ret = []
+        for a, b in queries:
+            answer = dfs(a, b)
+            ret.append(-1 if answer < 0 else answer)
+        return ret
+
+
+@pytest.mark.parametrize('args', [
+    (([["a","b"],["b","c"]], [2.0,3.0], [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]], [6.00000,0.50000,-1.00000,1.00000,-1.00000])),
+    (([["a","b"],["b","c"],["bc","cd"]], [1.5,2.5,5.0], [["a","c"],["c","b"],["bc","cd"],["cd","bc"]], [3.75000,0.40000,5.00000,0.20000])),
+    (([["a","b"]], [0.5], [["a","b"],["b","a"],["a","c"],["x","y"]], [0.50000,2.00000,-1.00000,-1.00000])),
+    (([["a","b"],["c","d"],["e","f"],["g","h"]], [4.5,2.3,8.9,0.44], [["a","c"],["d","f"],["h","e"],["b","e"],["d","h"],["g","f"],["c","g"]], [-1.00000,-1.00000,-1.00000,-1.00000,-1.00000,-1.00000,-1.00000])),
+    (([["a","b"],["b","c"]], [2.0,3.0], [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]], [6.00000,0.50000,-1.00000,1.00000,-1.00000])),
 ])
-def test(equations, values, queries, expecteds):
-    assert expecteds == Solution().calcEquation(equations, values, queries)
+def test(args):
+    assert args[-1] == Solution().calcEquation(*args[:-1])
 
 
 if __name__ == '__main__':

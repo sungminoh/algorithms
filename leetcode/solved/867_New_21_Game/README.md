@@ -1,44 +1,50 @@
-### [867. New 21 Game](https://leetcode.com/problems/new-21-game/)
+### [867. New 21 Game](https://leetcode.com/problems/new-21-game/?envType=daily-question&envId=2023-05-25)
 
 Medium
 
-Alice plays the following game, loosely based on the card game "21".
+Alice plays the following game, loosely based on the card game __"21"__.
 
-Alice starts with `` 0 `` points, and draws numbers while she has less than `` K `` points.  During each draw, she gains an integer number of points randomly from the range `` [1, W] ``, where `` W `` is an integer.  Each draw is independent and the outcomes have equal probabilities.
+Alice starts with `` 0 `` points and draws numbers while she has less than `` k `` points. During each draw, she gains an integer number of points randomly from the range `` [1, maxPts] ``, where `` maxPts `` is an integer. Each draw is independent and the outcomes have equal probabilities.
 
-Alice stops drawing numbers when she gets `` K `` or more points.  What is the probability that she has `` N `` or less points?
+Alice stops drawing numbers when she gets `` k `` __or more points__.
 
-__Example 1:__
+Return the probability that Alice has `` n `` or fewer points.
+
+Answers within <code>10<sup>-5</sup></code> of the actual answer are considered accepted.
+
+ 
+
+<strong class="example">Example 1:</strong>
 
 ```
-Input: N = 10, K = 1, W = 10
+Input: n = 10, k = 1, maxPts = 10
 Output: 1.00000
-Explanation:  Alice gets a single card, then stops.
+Explanation: Alice gets a single card, then stops.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
-Input: N = 6, K = 1, W = 10
+Input: n = 6, k = 1, maxPts = 10
 Output: 0.60000
-Explanation:  Alice gets a single card, then stops.
-In 6 out of W = 10 possibilities, she is at or below N = 6 points.
+Explanation: Alice gets a single card, then stops.
+In 6 out of 10 possibilities, she is at or below 6 points.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
-Input: N = 21, K = 17, W = 10
+Input: n = 21, k = 17, maxPts = 10
 Output: 0.73278
 ```
 
-__Note:__
+ 
 
-1.   `` 0 <= K <= N <= 10000 ``
-2.   `` 1 <= W <= 10000 ``
-3.   Answers will be accepted as correct if they are within `` 10^-5 `` of the correct answer.
-4.   The judging time limit has been reduced for this question.
+__Constraints:__
+
+*   <code>0 <= k <= n <= 10<sup>4</sup></code>
+*   <code>1 <= maxPts <= 10<sup>4</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 54,373 | 19,030 | 35.0% |
+| 160,138 | 72,401 | 45.2% |

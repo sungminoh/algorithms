@@ -1,4 +1,4 @@
-### [789. Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
+### [789. Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/?envType=daily-question&envId=2023-05-23)
 
 Easy
 
@@ -11,7 +11,7 @@ Implement `` KthLargest `` class:
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input
@@ -42,4 +42,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 443,723 | 242,863 | 54.7% |
+| 804,573 | 455,610 | 56.6% |

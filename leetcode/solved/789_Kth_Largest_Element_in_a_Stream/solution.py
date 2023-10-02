@@ -39,14 +39,14 @@ Constraints:
 	At most 104 calls will be made to add.
 	It is guaranteed that there will be at least k elements in the array when you search for the kth element.
 """
-import sys
-from heapq import heappop
-from heapq import heappush
+from heapq import heappop, heappush, heappushpop
 from typing import List
 import pytest
+import sys
 
 
 class KthLargest:
+    """Apr 19, 2022 12:13"""
     def __init__(self, k: int, nums: List[int]):
         self.heap = []
         self.capacity = k
@@ -60,15 +60,35 @@ class KthLargest:
         return self.heap[0]
 
 
-@pytest.mark.parametrize('commands, arguments, expecteds', [
-    (["KthLargest", "add", "add", "add", "add", "add"],
-     [[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]],
-     [None, 4, 5, 5, 8, 8]),
+class KthLargest:
+    """Sep 22, 2023 18:35"""
+    def __init__(self, k: int, nums: List[int]):
+        self.k = k
+        self.h = []
+        for n in nums:
+            self.add(n)
+
+    def add(self, val: int) -> int:
+        if len(self.h) < self.k:
+            heappush(self.h, val)
+        else:
+            if self.h[0] < val:
+                heappushpop(self.h, val)
+        return self.h[0]
+
+
+@pytest.mark.parametrize('args', [
+    ((["KthLargest", "add", "add", "add", "add", "add"],
+      [[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]],
+      [None, 4, 5, 5, 8, 8])),
 ])
-def test(commands, arguments, expecteds):
-    obj = globals()[commands[0]](*arguments[0])
-    for cmd, arg, exp in zip(commands[1:], arguments[1:], expecteds[1:]):
-        assert exp == getattr(obj, cmd)(*arg)
+def test(args):
+    commands, arguments, expecteds = args
+    obj = globals()[commands.pop(0)](*arguments.pop(0))
+    actual = []
+    for cmd, arg in zip(commands, arguments):
+        actual.append(getattr(obj, cmd)(*arg))
+    assert expecteds[1:] == actual
 
 
 if __name__ == '__main__':

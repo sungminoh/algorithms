@@ -1,4 +1,4 @@
-### [975. Range Sum of BST](https://leetcode.com/problems/range-sum-of-bst/)
+### [975. Range Sum of BST](https://leetcode.com/problems/range-sum-of-bst/description/?envType=daily-question&envId=2024-01-08)
 
 Easy
 
@@ -37,4 +37,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 890,835 | 765,004 | 85.9% |
+| 1,130,986 | 980,674 | 86.7% |

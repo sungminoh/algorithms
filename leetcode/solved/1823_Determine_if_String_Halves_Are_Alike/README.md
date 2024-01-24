@@ -1,4 +1,4 @@
-### [1823. Determine if String Halves Are Alike](https://leetcode.com/problems/determine-if-string-halves-are-alike/)
+### [1823. Determine if String Halves Are Alike](https://leetcode.com/problems/determine-if-string-halves-are-alike/description/?envType=daily-question&envId=2024-01-12)
 
 Easy
 
@@ -37,4 +37,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 218,518 | 170,721 | 78.1% |
+| 426,878 | 336,214 | 78.8% |

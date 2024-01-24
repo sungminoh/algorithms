@@ -1,4 +1,4 @@
-### [1092. Maximum Difference Between Node and Ancestor](https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/description/)
+### [1092. Maximum Difference Between Node and Ancestor](https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/description/?envType=daily-question&envId=2024-01-11)
 
 Medium
 
@@ -41,4 +41,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 262,844 | 199,168 | 75.8% |
+| 399,378 | 312,311 | 78.2% |

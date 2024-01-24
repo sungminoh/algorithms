@@ -1,4 +1,4 @@
-### [904. Leaf-Similar Trees](https://leetcode.com/problems/leaf-similar-trees/)
+### [904. Leaf-Similar Trees](https://leetcode.com/problems/leaf-similar-trees/description/?envType=daily-question&envId=2024-01-09)
 
 Easy
 
@@ -41,4 +41,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 367,559 | 248,551 | 67.6% |
+| 607,847 | 428,254 | 70.5% |

@@ -32,7 +32,7 @@ from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
-from exercise.tree import build_tree, TreeNode
+from exercise.tree import TreeNode, build_tree
 
 
 # Definition for a binary tree node.
@@ -90,13 +90,21 @@ class Solution:
             stack.append(n.right)
         return ret
 
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        """Jan 22, 2024 22:02"""
+        if root is None:
+            return 0
+        return self.rangeSumBST(root.left, low, high) \
+            + self.rangeSumBST(root.right, low, high) \
+            + (root.val if low <= root.val <= high else 0)
 
-@pytest.mark.parametrize('values, low, high, expected', [
-    ([10,5,15,3,7,None,18], 7, 15, 32),
-    ([10,5,15,3,7,13,18,1,None,6], 6, 10, 23),
+
+@pytest.mark.parametrize('args', [
+    (([10,5,15,3,7,None,18], 7, 15, 32)),
+    (([10,5,15,3,7,13,18,1,None,6], 6, 10, 23)),
 ])
-def test(values, low, high, expected):
-    assert expected == Solution().rangeSumBST(build_tree(values), low, high)
+def test(args):
+    assert args[-1] == Solution().rangeSumBST(build_tree(args[0]), args[1], args[2])
 
 
 if __name__ == '__main__':

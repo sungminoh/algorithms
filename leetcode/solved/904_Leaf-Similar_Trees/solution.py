@@ -1,3 +1,6 @@
+import itertools
+from typing import Optional
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -30,8 +33,6 @@ Constraints:
 	The number of nodes in each tree will be in the range [1, 200].
 	Both of the given trees will have values in the range [0, 200].
 """
-import itertools
-from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
@@ -71,12 +72,25 @@ class Solution:
         return all(x == y for x, y in itertools.zip_longest(leaf_seq(root1), leaf_seq(root2)))
 
 
-@pytest.mark.parametrize('values1, values2, expected', [
-    ([3,5,1,6,2,9,8,None,None,7,4], [3,5,1,6,7,4,2,None,None,None,None,None,None,9,8], True),
-    ([1,2,3], [1,3,2], False),
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        """Jan 22, 2024 22:15"""
+        def traverse(node):
+            if not node.left and not node.right:
+                yield node.val
+            if node.left:
+                yield from traverse(node.left)
+            if node.right:
+                yield from traverse(node.right)
+
+        return all(a == b for a, b in itertools.zip_longest(traverse(root1), traverse(root2)))
+
+
+@pytest.mark.parametrize('args', [
+    (([3,5,1,6,2,9,8,None,None,7,4], [3,5,1,6,7,4,2,None,None,None,None,None,None,9,8], True)),
+    (([1,2,3], [1,3,2], False)),
 ])
-def test(values1, values2, expected):
-    assert expected == Solution().leafSimilar(build_tree(values1), build_tree(values2))
+def test(args):
+    assert args[-1] == Solution().leafSimilar(*[build_tree(x) for x in args[:-1]])
 
 
 if __name__ == '__main__':

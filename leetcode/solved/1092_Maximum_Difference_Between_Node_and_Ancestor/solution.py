@@ -32,7 +32,7 @@ Constraints:
 	The number of nodes in the tree is in the range [2, 5000].
 	0 <= Node.val <= 105
 """
-import bisect
+from typing import Tuple
 from typing import Optional
 import pytest
 import sys
@@ -97,12 +97,29 @@ class Solution:
         return dfs(root, root.val, root.val)
 
 
-@pytest.mark.parametrize('values, expected', [
-    ([8,3,10,1,6,None,14,None,None,4,7,13], 7),
-    ([1,None,2,None,0,3], 3),
+    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
+        """Jan 23, 2024 20:26"""
+        def traverse(node, mn, mx):
+            if not node:
+                return -1
+            return max(
+                abs(node.val - mn),
+                abs(node.val - mx),
+                traverse(node.left, min(mn, node.val), max(mx, node.val)),
+                traverse(node.right, min(mn, node.val), max(mx, node.val)),
+            )
+
+        return max(
+            traverse(root.left, root.val, root.val),
+            traverse(root.right, root.val, root.val))
+
+
+@pytest.mark.parametrize('args', [
+    (([8,3,10,1,6,None,14,None,None,4,7,13], 7)),
+    (([1,None,2,None,0,3], 3)),
 ])
-def test(values, expected):
-    assert expected == Solution().maxAncestorDiff(build_tree(values))
+def test(args):
+    assert args[-1] == Solution().maxAncestorDiff(build_tree(*args[:-1]))
 
 
 if __name__ == '__main__':

@@ -49,13 +49,26 @@ class Solution:
             s = _s
         return min(s)
 
+    def minFallingPathSum(self, matrix: List[List[int]]) -> int:
+        """Jan 24, 2024 20:26"""
+        acc = [0] * len(matrix[0])
+        for row in matrix:
+            _acc = []
+            for i, n in enumerate(row):
+                _acc.append(min(
+                    acc[i],
+                    acc[i-1] if i > 0 else acc[i],
+                    acc[i+1] if i < len(row)-1 else acc[i]) + n)
+            acc = _acc
+        return min(acc)
 
-@pytest.mark.parametrize('matrix, expected', [
-    ([[2,1,3],[6,5,4],[7,8,9]], 13),
-    ([[-19,57],[-40,-5]], -59),
+
+@pytest.mark.parametrize('args', [
+    (([[2,1,3],[6,5,4],[7,8,9]], 13)),
+    (([[-19,57],[-40,-5]], -59)),
 ])
-def test(matrix, expected):
-    assert expected == Solution().minFallingPathSum(matrix)
+def test(args):
+    assert args[-1] == Solution().minFallingPathSum(*args[:-1])
 
 
 if __name__ == '__main__':

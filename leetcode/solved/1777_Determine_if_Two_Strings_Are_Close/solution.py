@@ -1,3 +1,5 @@
+from collections import Counter
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -47,31 +49,36 @@ Apply Operation 2: "baaccc" -> "abbccc"
 Constraints:
 
 	1 <= word1.length, word2.length <= 105
-	word1 and word2 contain only lowercase English letters.
+	word1 and word2 contain only lowercase English letters.
 """
-from collections import defaultdict
-from collections import Counter
 import pytest
 import sys
 
 
 class Solution:
     def closeStrings(self, word1: str, word2: str) -> bool:
+        """Dec 04, 2022 20:47"""
         cnt1 = Counter(word1)
         cnt2 = Counter(word2)
         return set(cnt1.keys()) == set(cnt2.keys()) \
             and Counter(cnt1.values()) == Counter(cnt2.values())
 
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        """Jan 24, 2024 19:49"""
+        a = Counter(word1)
+        b = Counter(word2)
+        return set(a.keys()) == set(b.keys()) and Counter(a.values()) == Counter(b.values())
 
-@pytest.mark.parametrize('word1, word2, expected', [
-    ("abc", "bca", True),
-    ("a", "aa", False),
-    ("cabbba", "abbccc", True),
-    ("uau", "ssx", False),
-    ("aaabbbbccddeeeeefffff", "aaaaabbcccdddeeeeffff", False),
+
+@pytest.mark.parametrize('args', [
+    (("abc", "bca", True)),
+    (("a", "aa", False)),
+    (("cabbba", "abbccc", True)),
+    (("uau", "ssx", False)),
+    (("aaabbbbccddeeeeefffff", "aaaaabbcccdddeeeeffff", False)),
 ])
-def test(word1, word2, expected):
-    assert expected == Solution().closeStrings(word1, word2)
+def test(args):
+    assert args[-1] == Solution().closeStrings(*args[:-1])
 
 
 if __name__ == '__main__':

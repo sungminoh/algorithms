@@ -1,3 +1,8 @@
+import itertools
+from collections import defaultdict
+from collections import Counter
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -48,14 +53,13 @@ Constraints:
 	winneri != loseri
 	All matches[i] are unique.
 """
-from collections import defaultdict
-from typing import List
 import pytest
 import sys
 
 
 class Solution:
     def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
+        """Dec 04, 2022 20:14"""
         lost = defaultdict(int)
         for w, l in matches:
             lost[w] += 0
@@ -67,13 +71,26 @@ class Solution:
             answer[lost[i]].append(i)
         return answer
 
+    def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
+        """Jan 24, 2024 19:57"""
+        players = set(itertools.chain(*matches))
+        lose_cnt = Counter(x[1] for x in matches)
+        ret = [
+            sorted(list(players - set(lose_cnt.keys()))),
+            []
+        ]
+        for loser in sorted(lose_cnt.keys()):
+            if lose_cnt[loser] == 1:
+                ret[1].append(loser)
+        return ret
 
-@pytest.mark.parametrize('matches, expected', [
-    ([[1,3],[2,3],[3,6],[5,6],[5,7],[4,5],[4,8],[4,9],[10,4],[10,9]], [[1,2,10],[4,5,7,8]]),
-    ([[2,3],[1,3],[5,4],[6,4]], [[1,2,5,6],[]]),
+
+@pytest.mark.parametrize('args', [
+    (([[1,3],[2,3],[3,6],[5,6],[5,7],[4,5],[4,8],[4,9],[10,4],[10,9]], [[1,2,10],[4,5,7,8]])),
+    (([[2,3],[1,3],[5,4],[6,4]], [[1,2,5,6],[]])),
 ])
-def test(matches, expected):
-    assert expected == Solution().findWinners(matches)
+def test(args):
+    assert args[-1] == Solution().findWinners(*args[:-1])
 
 
 if __name__ == '__main__':

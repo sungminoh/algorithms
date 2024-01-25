@@ -1,4 +1,4 @@
-### [967. Minimum Falling Path Sum](https://leetcode.com/problems/minimum-falling-path-sum/)
+### [967. Minimum Falling Path Sum](https://leetcode.com/problems/minimum-falling-path-sum/description/?envType=daily-question&envId=2024-01-19)
 
 Medium
 
@@ -38,4 +38,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 335,119 | 231,592 | 69.1% |
+| 614,296 | 398,988 | 65.0% |

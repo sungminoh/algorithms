@@ -1,4 +1,4 @@
-### [1319. Unique Number of Occurrences](https://leetcode.com/problems/unique-number-of-occurrences/)
+### [1319. Unique Number of Occurrences](https://leetcode.com/problems/unique-number-of-occurrences/description/?envType=daily-question&envId=2024-01-17)
 
 Easy
 
@@ -37,4 +37,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 318,753 | 234,902 | 73.7% |
+| 700,862 | 539,181 | 76.9% |

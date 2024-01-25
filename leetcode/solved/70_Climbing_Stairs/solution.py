@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -32,7 +34,6 @@ Constraints:
 
 	1 <= n <= 45
 """
-from functools import lru_cache
 import pytest
 import sys
 
@@ -62,12 +63,21 @@ class Solution:
             return 1
         return self.climbStairs(n-1) + self.climbStairs(n-2)
 
+    @lru_cache(None)
+    def climbStairs(self, n: int) -> int:
+        """Jan 24, 2024 20:17"""
+        if n <=1:
+            return 1
+        return self.climbStairs(n-1) + self.climbStairs(n-2)
+    def climbStairs(self, n: int) -> int:
 
-@pytest.mark.parametrize('n, expected', [
-    (2,2),(3,3),
+
+@pytest.mark.parametrize('args', [
+    ((2, 2)),
+    ((3, 3)),
 ])
-def test(n, expected):
-    assert expected == Solution().climbStairs(n)
+def test(args):
+    assert args[-1] == Solution().climbStairs(*args[:-1])
 
 
 if __name__ == '__main__':

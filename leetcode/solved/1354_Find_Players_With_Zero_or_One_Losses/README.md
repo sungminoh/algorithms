@@ -1,4 +1,4 @@
-### [1354. Find Players With Zero or One Losses](https://leetcode.com/problems/find-players-with-zero-or-one-losses/)
+### [1354. Find Players With Zero or One Losses](https://leetcode.com/problems/find-players-with-zero-or-one-losses/description/?envType=daily-question&envId=2024-01-15)
 
 Medium
 
@@ -53,4 +53,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 109,316 | 80,427 | 73.6% |
+| 308,783 | 228,118 | 73.9% |

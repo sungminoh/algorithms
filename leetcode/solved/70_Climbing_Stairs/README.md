@@ -1,4 +1,4 @@
-### [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
+### [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/description/?envType=daily-question&envId=2024-01-18)
 
 Easy
 
@@ -37,4 +37,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 4,242,701 | 2,212,909 | 52.2% |
+| 5,672,018 | 2,993,832 | 52.8% |

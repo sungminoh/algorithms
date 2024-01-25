@@ -1,3 +1,6 @@
+from collections import Counter
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -30,25 +33,23 @@ Constraints:
 	1 <= arr.length <= 1000
 	-1000 <= arr[i] <= 1000
 """
-from collections import Counter
-from typing import List
 import pytest
 import sys
 
 
 class Solution:
     def uniqueOccurrences(self, arr: List[int]) -> bool:
-        cnt = Counter(arr)
-        return len(set(cnt.values())) == len(cnt.keys())
+        counter = Counter(arr)
+        return len(set(counter.values())) == len(counter)
 
 
-@pytest.mark.parametrize('arr, expected', [
-    ([1,2,2,1,1,3], True),
-    ([1,2], False),
-    ([-3,0,1,-3,1,1,1,-3,10,0], True),
+@pytest.mark.parametrize('args', [
+    (([1,2,2,1,1,3], True)),
+    (([1,2], False)),
+    (([-3,0,1,-3,1,1,1,-3,10,0], True)),
 ])
-def test(arr, expected):
-    assert expected == Solution().uniqueOccurrences(arr)
+def test(args):
+    assert args[-1] == Solution().uniqueOccurrences(*args[:-1])
 
 
 if __name__ == '__main__':

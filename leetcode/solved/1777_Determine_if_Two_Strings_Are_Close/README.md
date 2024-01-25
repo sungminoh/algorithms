@@ -1,4 +1,4 @@
-### [1777. Determine if Two Strings Are Close](https://leetcode.com/problems/determine-if-two-strings-are-close/)
+### [1777. Determine if Two Strings Are Close](https://leetcode.com/problems/determine-if-two-strings-are-close/description/?envType=daily-question&envId=2024-01-14)
 
 Medium
 
@@ -43,20 +43,22 @@ Explanation: It is impossible to attain word2 from word1, or vice versa, in any 
 
 <strong class="example">Example 3:</strong>
 
-<strong>Input:</strong> word1 = "cabbba", word2 = "abbccc"
-    <strong>Output:</strong> true
-    <strong>Explanation:</strong> You can attain word2 from word1 in 3 operations.
-    Apply Operation 1: "ca<u>b</u>bb<u>a</u>" -> "ca<u>a</u>bb<u>b</u>"
-    Apply Operation 2: "<u>c</u>aa<u>bbb</u>" -> "<u>b</u>aa<u>ccc</u>"
-    Apply Operation 2: "<u>baa</u>ccc" -> "<u>abb</u>ccc"
+```
+Input: word1 = "cabbba", word2 = "abbccc"
+Output: true
+Explanation: You can attain word2 from word1 in 3 operations.
+Apply Operation 1: "ca<u>b</u>bb<u>a</u>" -> "ca<u>a</u>bb<u>b</u>"
+Apply Operation 2: "<u>c</u>aa<u>bbb</u>" -> "<u>b</u>aa<u>ccc</u>"
+Apply Operation 2: "<u>baa</u>ccc" -> "<u>abb</u>ccc"
+```
 
  
 
 __Constraints:__
 
 *   <code>1 <= word1.length, word2.length <= 10<sup>5</sup></code>
-*   `` word1 `` and `` word2 `` contain only lowercase English letters.
+*   `` word1 `` and `` word2 `` contain only lowercase English letters.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 174,040 | 98,418 | 56.5% |
+| 508,621 | 282,690 | 55.6% |

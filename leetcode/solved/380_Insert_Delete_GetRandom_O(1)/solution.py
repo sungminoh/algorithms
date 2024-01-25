@@ -1,3 +1,6 @@
+from collections import Counter
+import random
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -40,7 +43,6 @@ Constraints:
 	At most 2 * 105 calls will be made to insert, remove, and getRandom.
 	There will be at least one element in the data structure when getRandom is called.
 """
-import random
 import pytest
 import sys
 
@@ -135,28 +137,57 @@ class RandomizedSet:
     def getRandom(self) -> int:
         return self.l[random.randrange(0, len(self.l))]
 
+class RandomizedSet:
+    """Jan 24, 2024 20:12"""
+    def __init__(self):
+        self.d = {}
+        self.l = []
 
-@pytest.mark.parametrize('commands, arguments, expecteds', [
-    (["RandomizedSet", "insert", "remove", "insert", "getRandom", "remove", "insert", "getRandom"],
-     [[], [1], [2], [2], [], [1], [2], []],
-     [None, True, False, True, 2, True, False, 2]),
-    (["RandomizedSet","insert","remove","insert","getRandom","remove","insert","getRandom"],
-     [[],[1],[2],[2],[],[1],[2],[]],
-     [None, True, False, True, 1, True, False, 2]),
-    (["RandomizedSet","remove","remove","insert","getRandom","remove","insert"],
+    def insert(self, val: int) -> bool:
+        if val in self.d:
+            return False
+        self.d[val] = len(self.l)
+        self.l.append(val)
+        return True
+
+    def remove(self, val: int) -> bool:
+        if val not in self.d:
+            return False
+        i = self.d[val]
+        self.l[i] = self.l[-1]
+        self.d[self.l[-1]] = i
+        self.l.pop()
+        self.d.pop(val)
+        return True
+
+    def getRandom(self) -> int:
+        return self.l[random.randrange(0, len(self.l))]
+
+
+@pytest.mark.parametrize('args', [
+    ((["RandomizedSet", "insert", "remove", "insert", "getRandom", "remove", "insert", "getRandom"],
+      [[], [1], [2], [2], [], [1], [2], []],
+      [None, True, False, True, 2, True, False, 2])),
+    ((["RandomizedSet","insert","remove","insert","getRandom","remove","insert","getRandom"],
+      [[],[1],[2],[2],[],[1],[2],[]],
+      [None,True,False,True,2,True,False,2])),
+    ((["RandomizedSet","remove","remove","insert","getRandom","remove","insert"],
      [[],[0],[0],[0],[],[0],[0]],
-     [None,False,False,True,0,True,True]),
+     [None,False,False,True,0,True,True])),
 ])
-def test(commands, arguments, expecteds):
+def test(args):
+    commands, arguments, expecteds = args
     obj = globals()[commands.pop(0)](*arguments.pop(0))
-    expecteds.pop(0)
     actual = []
-    for i, (cmd, arg) in enumerate(zip(commands, arguments)):
-        if cmd == 'getRandom':
-            actual.append(expecteds[i])
-        else:
+    for cmd, arg in zip(commands, arguments):
+        if cmd != 'getRandom':
             actual.append(getattr(obj, cmd)(*arg))
-    assert expecteds == actual
+
+    assert [x for x in expecteds[1:] if isinstance(x, bool)] == actual
+
+    cnts = Counter(obj.getRandom() for _ in range(1000)).values()
+    assert max(cnts)/min(cnts) - 1 < 0.01
+
 
 
 if __name__ == '__main__':

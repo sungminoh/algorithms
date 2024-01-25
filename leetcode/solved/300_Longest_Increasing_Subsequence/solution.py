@@ -1,3 +1,6 @@
+import bisect
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -8,8 +11,6 @@
 
 """
 Given an integer array nums, return the length of the longest strictly increasing subsequence.
-
-A subsequence is a sequence that can be derived from an array by deleting some or no elements without changing the order of the remaining elements. For example, [3,6,2,7] is a subsequence of the array [0,3,1,6,2,2,7].
 
 Example 1:
 
@@ -34,10 +35,8 @@ Constraints:
 
 Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?
 """
-import sys
-import bisect
-from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -121,14 +120,25 @@ class Solution:
                 lis[i] = n
         return len(lis)
 
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        """Jan 24, 2024 19:12"""
+        dp = [-float('inf')]
+        for n in nums:
+            i = bisect.bisect_left(dp, n)
+            if i == len(dp):
+                dp.append(n)
+            else:
+                dp[i] = n
+        return len(dp)-1
 
-@pytest.mark.parametrize('nums, expected', [
-    ([10,9,2,5,3,7,101,18], 4),
-    ([0,1,0,3,2,3], 4),
-    ([7,7,7,7,7,7,7], 1),
+
+@pytest.mark.parametrize('args', [
+    (([10,9,2,5,3,7,101,18], 4)),
+    (([0,1,0,3,2,3], 4)),
+    (([7,7,7,7,7,7,7], 1)),
 ])
-def test(nums, expected):
-    assert expected == Solution().lengthOfLIS(nums)
+def test(args):
+    assert args[-1] == Solution().lengthOfLIS(*args[:-1])
 
 
 if __name__ == '__main__':

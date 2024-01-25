@@ -1,3 +1,9 @@
+from pathlib import Path
+import json
+import bisect
+from functools import lru_cache
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -38,13 +44,8 @@ Constraints:
 	1 <= startTime[i] < endTime[i] <= 109
 	1 <= profit[i] <= 104
 """
-from pathlib import Path
-import json
-import bisect
-import sys
-from functools import lru_cache
-from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -121,17 +122,40 @@ class Solution:
         return dp[-1]
 
 
-@pytest.mark.parametrize('startTime, endTime, profit, expected', [
-    ([1,2,3,3], [3,4,5,6], [50,10,40,70], 120),
-    ([1,2,3,4,6], [3,5,10,6,9], [20,20,100,70,60], 150),
-    ([1,1,1], [2,3,4], [5,6,4], 6),
+    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
+        """Jan 24, 2024 19:04"""
+        def bisearch(arr, target, *, key=lambda x: x, lo=0, hi=-1):
+            hi = (len(arr) + hi) % len(arr)
+            while lo <= hi:
+                m = lo + ((hi-lo)//2)
+                if key(arr[m]) <= target:
+                    lo = m+1
+                else:
+                    hi = m-1
+            return lo-1
+
+        sep = list(sorted(zip(startTime, endTime, profit), key=lambda x: x[1]))
+        dp = []
+        for i, (s, e, p) in enumerate(sep):
+            j = bisearch(sep, s, key=lambda x: x[1], hi=i)
+            dp.append(max(
+                (dp[j]+p) if 0<=j<len(dp) else 0,
+                dp[-1] if dp else 0,
+                p))
+        return dp[-1]
+
+
+@pytest.mark.parametrize('args', [
+    (([1,2,3,3], [3,4,5,6], [50,10,40,70], 120)),
+    (([1,2,3,4,6], [3,5,10,6,9], [20,20,100,70,60], 150)),
+    (([1,1,1], [2,3,4], [5,6,4], 6)),
     ([6,15,7,11,1,3,16,2],
      [19,18,19,16,10,8,19,8],
      [2,9,1,19,5,7,3,19], 41),
     (*json.load(open(Path(__file__).parent/'testcase.json')), 1539718),
 ])
-def test(startTime, endTime, profit, expected):
-    assert expected == Solution().jobScheduling(startTime, endTime, profit)
+def test(args):
+    assert args[-1] == Solution().jobScheduling(*args[:-1])
 
 
 if __name__ == '__main__':

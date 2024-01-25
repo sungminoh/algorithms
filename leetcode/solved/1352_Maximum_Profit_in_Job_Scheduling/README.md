@@ -1,4 +1,4 @@
-### [1352. Maximum Profit in Job Scheduling](https://leetcode.com/problems/maximum-profit-in-job-scheduling/)
+### [1352. Maximum Profit in Job Scheduling](https://leetcode.com/problems/maximum-profit-in-job-scheduling/?envType=daily-question&envId=2024-01-06)
 
 Hard
 
@@ -10,7 +10,7 @@ If you choose a job that ends at time `` X `` you will be able to start another 
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <strong><img alt="" src="https://assets.leetcode.com/uploads/2019/10/10/sample1_1584.png" style="width: 380px; height: 154px;"/></strong>
 
@@ -21,7 +21,7 @@ Explanation: The subset chosen is the first and fourth job.
 Time range [1-3]+[3-6] , we get profit of 120 = 50 + 70.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <strong><img alt="" src="https://assets.leetcode.com/uploads/2019/10/10/sample22_1584.png" style="width: 600px; height: 112px;"/> </strong>
 
@@ -32,7 +32,7 @@ Explanation: The subset chosen is the first, fourth and fifth job.
 Profit obtained 150 = 20 + 70 + 60.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 <strong><img alt="" src="https://assets.leetcode.com/uploads/2019/10/10/sample3_1584.png" style="width: 400px; height: 112px;"/></strong>
 
@@ -51,4 +51,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 142,857 | 71,263 | 49.9% |
+| 521,358 | 285,781 | 54.8% |

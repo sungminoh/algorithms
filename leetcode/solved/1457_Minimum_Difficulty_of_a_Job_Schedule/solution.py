@@ -71,15 +71,33 @@ class Solution:
         ret = rec(0, d)
         return ret if ret != float('inf') else -1
 
+    def minDifficulty(self, jobDifficulty: List[int], d: int) -> int:
+        """Jan 27, 2024 18:06"""
+        @lru_cache(None)
+        def rec(i, d):
+            if i == len(jobDifficulty):
+                return 0 if d == 0 else float('inf')
+            if d == 0:
+                return float('inf')
+            ret = float('inf')
+            cur = -float('inf')
+            for j in range(i, len(jobDifficulty)):
+                cur = max(cur, jobDifficulty[j])
+                ret = min(ret, cur + rec(j+1, d-1))
+            return ret
 
-@pytest.mark.parametrize('jobDifficulty, d, expected', [
-    ([6,5,4,3,2,1], 2, 7),
-    ([9,9,9], 4, -1),
-    ([1,1,1], 3, 3),
-    ([11,111,22,222,33,333,44,444], 6, 843),
+        ret = rec(0, d)
+        return ret if ret != float('inf') else -1
+
+
+@pytest.mark.parametrize('args', [
+    (([6,5,4,3,2,1], 2, 7)),
+    (([9,9,9], 4, -1)),
+    (([1,1,1], 3, 3)),
+    (([11,111,22,222,33,333,44,444], 6, 843)),
 ])
-def test(jobDifficulty, d, expected):
-    assert expected == Solution().minDifficulty(jobDifficulty, d)
+def test(args):
+    assert args[-1] == Solution().minDifficulty(*args[:-1])
 
 
 if __name__ == '__main__':

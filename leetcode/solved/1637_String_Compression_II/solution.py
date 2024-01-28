@@ -1,3 +1,8 @@
+import math
+from functools import lru_cache
+from typing import Tuple
+from typing import Optional
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -39,9 +44,6 @@ Constraints:
 	0 <= k <= s.length
 	s contains only lowercase English letters.
 """
-from functools import lru_cache
-import math
-import itertools
 import pytest
 import sys
 
@@ -111,20 +113,84 @@ class Solution:
         return dfs(0, None, 0, k)
 
 
-@pytest.mark.parametrize('s, k, expected', [
-    ("aaabcccd", 2, 4),
-    ("aabbaa", 2, 2),
-    ("aaaaaaaaaaa", 0, 3),
-    ("bbabbbabbbbcbb", 4, 3),
-    ("bbabbabbbcbbb", 4, 2),
-    ("bbabbbbbbbb", 2, 2),
-    ("abcdefghijklmnopqrstuvwxyz", 16, 10),
-    ("caacdcadc", 7, 2),
-    ("abbbbbbbbbba", 2, 3),
-    ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 99, 1),
+    def getLengthOfOptimalCompression(self, s: str, k: int) -> int:
+        """Jan 27, 2024 17:50"""
+        def encode(s):
+            ret = []
+            i = 0
+            while i < len(s):
+                cnt = 0
+                j = i
+                while j < len(s) and s[j] == s[i]:
+                    cnt += 1
+                    j += 1
+                ret.append((s[i], cnt))
+                i = j
+            return ret
+
+        def len_compressed(n):
+            if n == 1:
+                return 1
+            return 1 + len(str(n))
+
+        char_cnt = encode(s)
+        length = 0
+        for _, cnt in char_cnt:
+            length += len_compressed(cnt)
+
+        @lru_cache(None)
+        def max_shorten(i, k, last_char=None, last_cnt=0):
+            if i == len(char_cnt):
+                return 0
+            ret = 0
+            cur_char, cur_cnt = char_cnt[i]
+            # compress when the current char is the same as the last
+            if last_char == cur_char:
+                total_cnt = cur_cnt + last_cnt
+                new_length = len_compressed(total_cnt)
+                cur_length = len_compressed(cur_cnt)
+                last_length = len_compressed(last_cnt)
+                ret += (cur_length + last_length) - new_length
+                cur_cnt = total_cnt
+            # no deletion
+            ret += max_shorten(i+1, k, cur_char, cur_cnt)
+            # delete all the current chars
+            if last_char != cur_char:
+                if k >= cur_cnt:
+                    ret = max(ret, len_compressed(cur_cnt) + max_shorten(i+1, k-cur_cnt, last_char, last_cnt))
+                # delete except 1
+                if cur_cnt > 1 and k >= cur_cnt-1:
+                    ret = max(ret, len_compressed(cur_cnt)-1 + max_shorten(i+1, k-(cur_cnt-1), cur_char, 1))
+            # delete to reduce the number of digits
+            if cur_cnt >= 10:
+                num_digits = len(str(cur_cnt))
+                for m in range(num_digits-1, 0, -1):
+                    to_delete = cur_cnt - (10**m - 1)
+                    if k >= to_delete:
+                        ret = max(ret, num_digits-m + max_shorten(i+1, k-to_delete, cur_char, cur_cnt-to_delete))
+
+            return ret
+
+        return length - max_shorten(0, k)
+
+
+@pytest.mark.parametrize('args', [
+    (("aaabcccd", 2, 4)),
+    (("aabbaa", 2, 2)),
+    (("aaaaaaaaaaa", 0, 3)),
+    (("aabaabbcbbbaccc", 6, 4)),
+    (("abbbbbbbbbba", 2, 3)),
+    (("bbabbbabbbbcbb", 4, 3)),
+    (("caacdcadc", 7, 2)),
+    (("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 10, 3)),
+    (("bbabbbabbbbcbb", 4, 3)),
+    (("bbabbabbbcbbb", 4, 2)),
+    (("bbabbbbbbbb", 2, 2)),
+    (("abcdefghijklmnopqrstuvwxyz", 16, 10)),
+    (("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 99, 1)),
 ])
-def test(s, k, expected):
-    assert expected == Solution().getLengthOfOptimalCompression(s, k)
+def test(args):
+    assert args[-1] == Solution().getLengthOfOptimalCompression(*args[:-1])
 
 
 if __name__ == '__main__':

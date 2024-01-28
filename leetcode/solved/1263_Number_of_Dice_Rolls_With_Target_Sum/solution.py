@@ -1,3 +1,6 @@
+from collections import defaultdict
+from functools import lru_cache
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -7,7 +10,7 @@
 # Distributed under terms of the MIT license.
 
 """
-You have n dice, and each die has k faces numbered from 1 to k.
+You have n dice, and each dice has k faces numbered from 1 to k.
 
 Given three integers n, k, and target, return the number of possible ways (out of the kn total ways) to roll the dice, so the sum of the face-up numbers equals target. Since the answer may be too large, return it modulo 109 + 7.
 
@@ -36,8 +39,6 @@ Constraints:
 	1 <= n, k <= 30
 	1 <= target <= 1000
 """
-from collections import defaultdict
-from functools import lru_cache
 import pytest
 import sys
 
@@ -80,15 +81,28 @@ class Solution:
             dp = _dp
         return dp.get(target, 0)
 
+    def numRollsToTarget(self, n: int, k: int, target: int) -> int:
+        """Jan 27, 2024 14:47"""
+        @lru_cache(None)
+        def rec(n, remain):
+            if n == 0:
+                return 1 if remain == 0 else 0
+            if remain <= 0:
+                return 0
+            return sum(rec(n-1, remain-i) for i in range(1, min(k, remain)+1)) % int(1e9+7)
 
-@pytest.mark.parametrize('n, k, target, expected', [
-    (1, 6, 3, 1),
-    (2, 6, 7, 6),
-    (30, 30, 500, 222616187),
-    (1, 2, 3, 0),
+        return rec(n, target)
+
+
+
+@pytest.mark.parametrize('args', [
+    ((1, 6, 3, 1)),
+    ((2, 6, 7, 6)),
+    ((30, 30, 500, 222616187)),
+    ((1, 2, 3, 0)),
 ])
-def test(n, k, target, expected):
-    assert expected == Solution().numRollsToTarget(n, k, target)
+def test(args):
+    assert args[-1] == Solution().numRollsToTarget(*args[:-1])
 
 
 if __name__ == '__main__':

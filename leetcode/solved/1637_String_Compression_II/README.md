@@ -1,4 +1,4 @@
-### [1637. String Compression II](https://leetcode.com/problems/string-compression-ii/)
+### [1637. String Compression II](https://leetcode.com/problems/string-compression-ii/description/?envType=daily-question&envId=2023-12-28)
 
 Hard
 
@@ -64,4 +64,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 82,769 | 41,348 | 50.0% |
+| 181,054 | 95,717 | 52.9% |

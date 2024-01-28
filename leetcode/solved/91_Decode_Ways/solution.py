@@ -109,17 +109,31 @@ class Solution:
 
         return decode(0)
 
+    def numDecodings(self, s: str) -> int:
+        @lru_cache(None)
+        def rec(i):
+            if i == len(s):
+                return 1
+            if s[i] == '0':
+                return 0
+            ret = rec(i+1)
+            if i+1 < len(s) and 10 <= int(s[i:i+2]) <= 26:
+                ret += rec(i+2)
+            return ret
 
-@pytest.mark.parametrize('s, expected', [
-    ("12", 2),
-    ("226", 3),
-    ("0", 0),
-    ("06", 0),
-    ("27", 1),
-    ("2611055971756562", 4),
+        return rec(0)
+
+
+@pytest.mark.parametrize('args', [
+    (("12", 2)),
+    (("226", 3)),
+    (("0", 0)),
+    (("06", 0)),
+    (("27", 1)),
+    (("2611055971756562", 4)),
 ])
-def test(s, expected):
-    assert expected == Solution().numDecodings(s)
+def test(args):
+    assert args[-1] == Solution().numDecodings(*args[:-1])
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-### [91. Decode Ways](https://leetcode.com/problems/decode-ways/)
+### [91. Decode Ways](https://leetcode.com/problems/decode-ways/description/?envType=daily-question&envId=2023-12-25)
 
 Medium
 
@@ -57,4 +57,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,888,461 | 929,055 | 32.2% |
+| 3,469,799 | 1,198,804 | 34.5% |

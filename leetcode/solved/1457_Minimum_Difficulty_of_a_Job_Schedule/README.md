@@ -1,4 +1,4 @@
-### [1457. Minimum Difficulty of a Job Schedule](https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/)
+### [1457. Minimum Difficulty of a Job Schedule](https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/description/?envType=daily-question&envId=2023-12-29)
 
 Hard
 
@@ -50,4 +50,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 194,649 | 114,312 | 58.7% |
+| 315,671 | 188,391 | 59.7% |

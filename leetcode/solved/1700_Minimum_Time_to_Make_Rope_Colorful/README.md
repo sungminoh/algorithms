@@ -1,4 +1,4 @@
-### [1700. Minimum Time to Make Rope Colorful](https://leetcode.com/problems/minimum-time-to-make-rope-colorful/)
+### [1700. Minimum Time to Make Rope Colorful](https://leetcode.com/problems/minimum-time-to-make-rope-colorful/description/?envType=daily-question&envId=2023-12-27)
 
 Medium
 
@@ -39,7 +39,7 @@ Explanation: The rope is already colorful. Bob does not need to remove any ballo
 ```
 Input: colors = "aabaa", neededTime = [1,2,3,4,1]
 Output: 2
-Explanation: Bob will remove the ballons at indices 0 and 4. Each ballon takes 1 second to remove.
+Explanation: Bob will remove the balloons at indices 0 and 4. Each balloons takes 1 second to remove.
 There are no longer two consecutive balloons of the same color. Total time = 1 + 1 = 2.
 ```
 
@@ -54,4 +54,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 213,662 | 136,178 | 63.7% |
+| 389,286 | 249,047 | 64.0% |

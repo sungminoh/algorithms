@@ -1,8 +1,8 @@
-### [1263. Number of Dice Rolls With Target Sum](https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/)
+### [1263. Number of Dice Rolls With Target Sum](https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/description/?envType=daily-question&envId=2023-12-26)
 
 Medium
 
-You have `` n `` dice, and each die has `` k `` faces numbered from `` 1 `` to `` k ``.
+You have `` n `` dice, and each dice has `` k `` faces numbered from `` 1 `` to `` k ``.
 
 Given three integers `` n ``, `` k ``, and `` target ``, return _the number of possible ways (out of the _<code>k<sup>n</sup></code>_ total ways) __to roll the dice, so the sum of the face-up numbers equals _`` target ``. Since the answer may be too large, return it __modulo__ <code>10<sup>9</sup> + 7</code>.
 
@@ -43,4 +43,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 312,677 | 167,423 | 53.5% |
+| 455,169 | 276,174 | 60.7% |

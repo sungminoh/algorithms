@@ -31,7 +31,7 @@ Example 3:
 
 Input: colors = "aabaa", neededTime = [1,2,3,4,1]
 Output: 2
-Explanation: Bob will remove the ballons at indices 0 and 4. Each ballon takes 1 second to remove.
+Explanation: Bob will remove the balloons at indices 0 and 4. Each balloons takes 1 second to remove.
 There are no longer two consecutive balloons of the same color. Total time = 1 + 1 = 2.
 
 Constraints:
@@ -41,13 +41,14 @@ Constraints:
 	1 <= neededTime[i] <= 104
 	colors contains only lowercase English letters.
 """
+from functools import lru_cache
 from typing import List
 import pytest
 import sys
 
 
 class Solution:
-    def minCost(self, colors: str, neededTime: List[int]) -> int:
+     def minCost(self, colors: str, neededTime: List[int]) -> int:
         """10/21/2022 21:42"""
         if not colors:
             return 0
@@ -68,15 +69,30 @@ class Solution:
             ret += timesum-maxtime
         return ret
 
+   def minCost(self, colors: str, neededTime: List[int]) -> int:
+       """Jan 27, 2024 15:00"""
+        ret = 0
+        i = 0
+        while i < len(colors):
+            max_cost = 0
+            j = i
+            while j < len(colors) and colors[j] == colors[i]:
+                ret += neededTime[j]
+                max_cost = max(max_cost, neededTime[j])
+                j += 1
+            ret -= max_cost
+            i = j
+        return ret
 
-@pytest.mark.parametrize('colors, neededTime, expected', [
-    ("abaac", [1,2,3,4,5], 3),
-    ("abc", [1,2,3], 0),
-    ("aabaa", [1,2,3,4,1], 2),
-    ("bbbaaa", [4,9,3,8,8,9], 23)
+
+@pytest.mark.parametrize('args', [
+    (("abaac", [1,2,3,4,5], 3)),
+    (("abc", [1,2,3], 0)),
+    (("aabaa", [1,2,3,4,1], 2)),
+    (("bbbaaa", [4,9,3,8,8,9], 23)),
 ])
-def test(colors, neededTime, expected):
-    assert expected == Solution().minCost(colors, neededTime)
+def test(args):
+    assert args[-1] == Solution().minCost(*args[:-1])
 
 
 if __name__ == '__main__':

@@ -1,3 +1,5 @@
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -30,7 +32,6 @@ Constraints:
 	1 <= nums.length <= 100
 	0 <= nums[i] <= 400
 """
-from typing import List
 import pytest
 import sys
 
@@ -63,13 +64,23 @@ class Solution:
             y, n = n+x, max(y, n)
         return max(y, n)
 
+    def rob(self, nums: List[int]) -> int:
+        """Feb 01, 2024 18:55"""
+        if not nums:
+            return 0
+        dp = [0, nums[0]]
+        for i in range(1, len(nums)):
+            n = nums[i]
+            dp = [max(dp[0], dp[1]), dp[0]+n]
+        return max(dp)
 
-@pytest.mark.parametrize('nums, expected', [
-    ([1,2,3,1], 4),
-    ([2,7,9,3,1], 12),
+
+@pytest.mark.parametrize('args', [
+    (([1,2,3,1], 4)),
+    (([2,7,9,3,1], 12)),
 ])
-def test(nums, expected):
-    assert expected == Solution().rob(nums)
+def test(args):
+    assert args[-1] == Solution().rob(*args[:-1])
 
 
 if __name__ == '__main__':

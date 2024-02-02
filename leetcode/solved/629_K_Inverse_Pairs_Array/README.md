@@ -1,4 +1,4 @@
-### [629. K Inverse Pairs Array](https://leetcode.com/problems/k-inverse-pairs-array/)
+### [629. K Inverse Pairs Array](https://leetcode.com/problems/k-inverse-pairs-array/description/?envType=daily-question&envId=2024-01-27)
 
 Hard
 
@@ -8,7 +8,7 @@ Given two integers n and k, return the number of different arrays consist of num
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: n = 3, k = 0
@@ -16,7 +16,7 @@ Output: 1
 Explanation: Only the array [1,2,3] which consists of numbers from 1 to 3 has exactly 0 inverse pairs.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: n = 3, k = 1
@@ -33,4 +33,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 127,998 | 55,263 | 43.2% |
+| 246,025 | 123,707 | 50.3% |

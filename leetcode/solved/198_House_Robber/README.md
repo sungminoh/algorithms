@@ -1,4 +1,4 @@
-### [198. House Robber](https://leetcode.com/problems/house-robber/)
+### [198. House Robber](https://leetcode.com/problems/house-robber/description/?envType=daily-question&envId=2024-01-21)
 
 Medium
 
@@ -35,4 +35,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 3,110,076 | 1,534,127 | 49.3% |
+| 4,038,732 | 2,050,477 | 50.8% |

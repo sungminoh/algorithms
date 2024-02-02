@@ -1,4 +1,4 @@
-### [645. Set Mismatch](https://leetcode.com/problems/set-mismatch/)
+### [645. Set Mismatch](https://leetcode.com/problems/set-mismatch/description/?envType=daily-question&envId=2024-01-22)
 
 Easy
 
@@ -31,4 +31,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 580,319 | 249,475 | 43.0% |
+| 954,545 | 425,764 | 44.6% |

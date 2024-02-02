@@ -25,6 +25,7 @@ Constraints:
 	2 <= nums.length <= 104
 	1 <= nums[i] <= 104
 """
+import math
 from typing import List
 import pytest
 import sys
@@ -46,14 +47,27 @@ class Solution:
             i += 1
         return ret
 
+    def findErrorNums(self, nums: List[int]) -> List[int]:
+        """Feb 01, 2024 19:04"""
+        bit = 0
+        ret = []
+        for n in nums:
+            if 1<<(n-1) & bit:
+                ret.append(n)
+            bit |= 1<<(n-1)
+        # not get the index of zero
+        bit += 1
+        ret.append(int(math.log2(~(bit-1) & bit))+1)
+        return sorted(ret)
 
-@pytest.mark.parametrize('nums, expected', [
-    ([1,2,2,4], [2,3]),
-    ([1,1], [1,2]),
-    ([2,2], [2,1]),
+
+@pytest.mark.parametrize('args', [
+    (([1,2,2,4], [2,3])),
+    (([1,1], [1,2])),
+    (([2,2], [2,1])),
 ])
-def test(nums, expected):
-    assert expected == Solution().findErrorNums(nums)
+def test(args):
+    assert args[-1] == Solution().findErrorNums(*args[:-1])
 
 
 if __name__ == '__main__':

@@ -1,3 +1,5 @@
+from typing import Optional
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -33,7 +35,6 @@ Constraints:
 	The number of nodes in the tree is in the range [1, 105].
 	1 <= Node.val <= 9
 """
-from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
@@ -93,15 +94,27 @@ class Solution:
 
         return dfs(root, 0) if root else 0
 
+    def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:
+        """Feb 01, 2024 19:27"""
+        def traverse(node, counter):
+            if not node:
+                return 0
+            counter ^= (1<<node.val)
+            if not node.left and not node.right:
+                counter -= ~(counter-1) & counter
+                return 0 if counter else 1
+            return traverse(node.left, counter) + traverse(node.right, counter)
 
-@pytest.mark.parametrize('values, expected', [
-    ([2,3,1,3,1,None,1], 2),
-    ([2,1,1,1,3,None,None,None,None,None,1], 1),
-    ([9], 1),
+        return traverse(root, 0)
+
+
+@pytest.mark.parametrize('args', [
+    (([2,3,1,3,1,None,1], 2)),
+    (([2,1,1,1,3,None,None,None,None,None,1], 1)),
+    (([9], 1)),
 ])
-def test(values, expected):
-    assert expected == Solution().pseudoPalindromicPaths(build_tree(values))
-
+def test(args):
+    assert args[-1] == Solution().pseudoPalindromicPaths(build_tree(*args[:-1]))
 
 
 if __name__ == '__main__':

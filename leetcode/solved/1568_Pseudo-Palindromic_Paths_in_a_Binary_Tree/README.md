@@ -1,4 +1,4 @@
-### [1568. Pseudo-Palindromic Paths in a Binary Tree](https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/)
+### [1568. Pseudo-Palindromic Paths in a Binary Tree](https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/description/?envType=daily-question&envId=2024-01-24)
 
 Medium
 
@@ -8,7 +8,7 @@ _Return the number of __pseudo-palindromic__ paths going from the root node to l
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/05/06/palindromic_paths_1.png" style="width: 300px; height: 201px;"/>
 
@@ -18,7 +18,7 @@ Output: 2
 Explanation: The figure above represents the given binary tree. There are three paths going from the root node to leaf nodes: the red path [2,3,3], the green path [2,1,1], and the path [2,3,1]. Among these paths only red path and green path are pseudo-palindromic paths since the red path [2,3,3] can be rearranged in [3,2,3] (palindrome) and the green path [2,1,1] can be rearranged in [1,2,1] (palindrome).
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <strong><img alt="" src="https://assets.leetcode.com/uploads/2020/05/07/palindromic_paths_2.png" style="width: 300px; height: 314px;"/></strong>
 
@@ -28,7 +28,7 @@ Output: 1
 Explanation: The figure above represents the given binary tree. There are three paths going from the root node to leaf nodes: the green path [2,1,1], the path [2,1,3,1], and the path [2,1]. Among these paths only the green path is pseudo-palindromic since [2,1,1] can be rearranged in [1,2,1] (palindrome).
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: root = [9]
@@ -44,4 +44,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 161,893 | 110,315 | 68.1% |
+| 307,639 | 210,778 | 68.5% |

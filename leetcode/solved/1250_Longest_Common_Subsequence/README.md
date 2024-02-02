@@ -1,4 +1,4 @@
-### [1250. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
+### [1250. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/description/?envType=daily-question&envId=2024-01-25)
 
 Medium
 
@@ -45,4 +45,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,112,126 | 650,446 | 58.5% |
+| 1,700,872 | 983,959 | 57.9% |

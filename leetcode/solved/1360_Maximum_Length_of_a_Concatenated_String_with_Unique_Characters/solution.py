@@ -1,3 +1,7 @@
+from functools import lru_cache
+from typing import Tuple
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -44,8 +48,6 @@ Constraints:
 	1 <= arr[i].length <= 26
 	arr[i] contains only lowercase English letters.
 """
-from functools import lru_cache
-from typing import List
 import pytest
 import sys
 
@@ -78,15 +80,45 @@ class Solution:
                 ret = max(ret, dfs(i, 1<<i, encoded[i]) )
         return ret
 
+    def maxLength(self, arr: List[str]) -> int:
+        """ Feb 01, 2024 19:17"""
+        def encode(s):
+            ret = 0
+            for c in s:
+                shift = ord(c)-ord('a')
+                if ret & (1 << shift):
+                    return 0
+                ret |= (1 << shift)
+            return ret
 
-@pytest.mark.parametrize('arr, expected', [
-    (["un","iq","ue"], 4),
-    (["cha","r","act","ers"], 6),
-    (["abcdefghijklmnopqrstuvwxyz"], 26),
-    (["aa","bb"], 0),
+        code_length = {}
+        for word in arr:
+            c = encode(word)
+            if c > 0:
+                code_length[c] = len(word)
+
+        codes = list(code_length.keys())
+
+        @lru_cache(None)
+        def dp(i, seen):
+            if i == len(codes):
+                return 0
+            ret = dp(i+1, seen)
+            if not codes[i] & seen:
+                ret = max(ret, code_length[codes[i]] + dp(i+1, seen | codes[i]))
+            return ret
+
+        return dp(0, 0)
+
+
+@pytest.mark.parametrize('args', [
+    ((["un","iq","ue"], 4)),
+    ((["cha","r","act","ers"], 6)),
+    ((["abcdefghijklmnopqrstuvwxyz"], 26)),
+    ((["aa","bb"], 0)),
 ])
-def test(arr, expected):
-    assert expected == Solution().maxLength(arr)
+def test(args):
+    assert args[-1] == Solution().maxLength(*args[:-1])
 
 
 if __name__ == '__main__':

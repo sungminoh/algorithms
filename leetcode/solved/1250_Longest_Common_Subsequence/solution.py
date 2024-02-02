@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -38,7 +40,6 @@ Constraints:
 	1 <= text1.length, text2.length <= 1000
 	text1 and text2 consist of only lowercase English characters.
 """
-from functools import lru_cache
 import pytest
 import sys
 
@@ -80,14 +81,26 @@ class Solution:
 
         return lcs(0, 0)
 
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        """Feb 01, 2024 19:33"""
+        @lru_cache(None)
+        def lcs(i, j):
+            if i == len(text1) or j == len(text2):
+                return 0
+            if text1[i] == text2[j]:
+                return 1 + lcs(i+1, j+1)
+            return max(lcs(i+1, j), lcs(i, j+1))
 
-@pytest.mark.parametrize('text1, text2, expected', [
-    ("abcde", "ace", 3),
-    ("abc", "abc", 3),
-    ("abc", "def", 0),
+        return lcs(0, 0)
+
+
+@pytest.mark.parametrize('args', [
+    (("abcde", "ace", 3)),
+    (("abc", "abc", 3)),
+    (("abc", "def", 0)),
 ])
-def test(text1, text2, expected):
-    assert expected == Solution().longestCommonSubsequence(text1, text2)
+def test(args):
+    assert args[-1] == Solution().longestCommonSubsequence(*args[:-1])
 
 
 if __name__ == '__main__':

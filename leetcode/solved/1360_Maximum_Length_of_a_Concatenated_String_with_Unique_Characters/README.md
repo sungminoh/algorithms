@@ -1,4 +1,4 @@
-### [1360. Maximum Length of a Concatenated String with Unique Characters](https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/)
+### [1360. Maximum Length of a Concatenated String with Unique Characters](https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/description/?envType=daily-question&envId=2024-01-23)
 
 Medium
 
@@ -51,4 +51,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 314,231 | 164,119 | 52.2% |
+| 513,260 | 277,735 | 54.1% |

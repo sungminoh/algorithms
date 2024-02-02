@@ -1,3 +1,6 @@
+import itertools
+from functools import lru_cache
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -28,9 +31,8 @@ Constraints:
 	1 <= n <= 1000
 	0 <= k <= 1000
 """
-import sys
-from functools import lru_cache
 import pytest
+import sys
 
 
 class Solution:
@@ -120,10 +122,47 @@ class Solution:
             dp = _dp
         return dp[-1]
 
+    @lru_cache(None)
+    def kInversePairs(self, n: int, k: int) -> int:
+        """Feb 01, 2024 19:49 TLE"""
+        if k == 0:
+            return 1
+        if n == 0:
+            return 0
 
-@pytest.mark.parametrize('n, k, expected', [
-    (3, 0, 1),
-    (3, 1, 2),
+        return sum(self.kInversePairs(n-1, k-i) for i in range(min(n, k+1))) % int(1e9+7)
+
+    def kInversePairs(self, n: int, k: int) -> int:
+        """Feb 01, 2024 20:21 TLE (bottom up)"""
+        cnt = [0]*(k+1)
+        cnt[0] = 1
+        for i in range(1, n+1):
+            _cnt = [0]*(k+1)
+            for j in range(min(i, k+1)):
+                for l in range(j, k+1):
+                    _cnt[l] += cnt[l-j]
+                    _cnt[l] %= int(1e9+7)
+            cnt = _cnt
+        return cnt[-1]
+
+    def kInversePairs(self, n: int, k: int) -> int:
+        """Feb 01, 2024 20:40"""
+        cnt = [0]*(k+1)
+        cnt[0] = 1
+        acc = list(itertools.accumulate(cnt))
+        for i in range(1, n+1):
+            _cnt = [0]*(k+1)
+            for j in range(k+1):
+                # sum from cnt[j] to cnt[j-(i-1)]
+                _cnt[j] = acc[j] - (acc[j-(i-1)-1] if j-(i-1)-1>=0 else 0)
+            cnt = [x%int(1e9+7) for x in _cnt]
+            acc = list(itertools.accumulate(cnt))
+        return cnt[-1]
+
+
+@pytest.mark.parametrize('args', [
+    ((3, 0, 1)),
+    ((3, 1, 2)),
     (3, 2, 2),
     (2, 2, 0),
     (4, 0, 1),
@@ -136,10 +175,10 @@ class Solution:
     (10, 3, 155),
     (10, 4, 440),
     (10, 5, 1068),
-    (1000, 1000, 663677020),
+    ((1000, 1000, 663677020)),
 ])
-def test(n, k, expected):
-    assert expected == Solution().kInversePairs(n, k)
+def test(args):
+    assert args[-1] == Solution().kInversePairs(*args[:-1])
 
 
 if __name__ == '__main__':

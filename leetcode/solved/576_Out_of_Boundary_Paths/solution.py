@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -28,9 +30,8 @@ Constraints:
 	0 <= startRow < m
 	0 <= startColumn < n
 """
-import sys
-from functools import lru_cache
 import pytest
+import sys
 
 
 class Solution:
@@ -127,14 +128,26 @@ class Solution:
 
         return dfs(startRow, startColumn, maxMove)
 
+    @lru_cache(None)
+    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
+        """Feb 01, 2024 19:38"""
+        if not 0<=startRow<m or not 0<=startColumn<n:
+            return 1
+        if maxMove == 0:
+            return 0
+        return (self.findPaths(m, n, maxMove-1, startRow+1, startColumn) \
+            + self.findPaths(m, n, maxMove-1, startRow-1, startColumn) \
+            + self.findPaths(m, n, maxMove-1, startRow, startColumn+1) \
+            + self.findPaths(m, n, maxMove-1, startRow, startColumn-1)) % int(1e9+7)
 
-@pytest.mark.parametrize('m, n, maxMove, startRow, startColumn, expected', [
-    (2, 2, 2, 0, 0, 6),
-    (1, 3, 3, 0, 1, 12),
-    (8, 50, 23, 5, 26, 914783380),
+
+@pytest.mark.parametrize('args', [
+    ((2, 2, 2, 0, 0, 6)),
+    ((1, 3, 3, 0, 1, 12)),
+    ((8, 50, 23, 5, 26, 914783380)),
 ])
-def test(m, n, maxMove, startRow, startColumn, expected):
-    assert expected == Solution().findPaths(m, n, maxMove, startRow, startColumn)
+def test(args):
+    assert args[-1] == Solution().findPaths(*args[:-1])
 
 
 if __name__ == '__main__':

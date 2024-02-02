@@ -1,4 +1,4 @@
-### [576. Out of Boundary Paths](https://leetcode.com/problems/out-of-boundary-paths/)
+### [576. Out of Boundary Paths](https://leetcode.com/problems/out-of-boundary-paths/description/?envType=daily-question&envId=2024-01-26)
 
 Medium
 
@@ -8,7 +8,7 @@ Given the five integers `` m ``, `` n ``, `` maxMove ``, `` startRow ``, `` star
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/04/28/out_of_boundary_paths_1.png" style="width: 500px; height: 296px;"/>
 
@@ -17,7 +17,7 @@ Input: m = 2, n = 2, maxMove = 2, startRow = 0, startColumn = 0
 Output: 6
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2021/04/28/out_of_boundary_paths_2.png" style="width: 500px; height: 293px;"/>
 
@@ -37,4 +37,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 245,759 | 108,819 | 44.3% |
+| 420,809 | 202,309 | 48.1% |

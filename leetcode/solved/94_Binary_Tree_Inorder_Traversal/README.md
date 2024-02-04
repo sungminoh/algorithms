@@ -1,4 +1,4 @@
-### [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+### [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/description/?envType=daily-question&envId=2023-12-09)
 
 Easy
 
@@ -6,7 +6,7 @@ Given the `` root `` of a binary tree, return _the inorder traversal of its node
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg" style="width: 125px; height: 200px;"/>
 
@@ -15,14 +15,14 @@ Input: root = [1,null,2,3]
 Output: [1,3,2]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: root = []
 Output: []
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: root = [1]
@@ -41,4 +41,4 @@ __Follow up:__ Recursive solution is trivial, could you do it iteratively?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,380,971 | 1,730,981 | 72.7% |
+| 3,156,064 | 2,389,729 | 75.7% |

@@ -1,3 +1,6 @@
+from typing import List
+from typing import Optional
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -31,8 +34,6 @@ Constraints:
 
 Follow up: Recursive solution is trivial, could you do it iteratively?
 """
-from typing import List
-from typing import Optional
 import pytest
 import sys
 sys.path.append('../')
@@ -80,14 +81,20 @@ class Solution:
 
         return list(inorder(root))
 
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        """Feb 04, 2024 10:30"""
+        if not root:
+            return []
+        return [*self.inorderTraversal(root.left), root.val, *self.inorderTraversal(root.right)]
 
-@pytest.mark.parametrize('values, expected', [
-    ([1,None,2,3], [1,3,2]),
-    ([], []),
-    ([1], [1]),
+
+@pytest.mark.parametrize('args', [
+    (([1,None,2,3], [1,3,2])),
+    (([], [])),
+    (([1], [1])),
 ])
-def test(values, expected):
-    assert expected == Solution().inorderTraversal(build_tree(values))
+def test(args):
+    assert args[-1] == Solution().inorderTraversal(build_tree(*args[:-1]))
 
 
 if __name__ == '__main__':

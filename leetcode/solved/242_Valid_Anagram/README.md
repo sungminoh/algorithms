@@ -1,4 +1,4 @@
-### [242. Valid Anagram](https://leetcode.com/problems/valid-anagram/)
+### [242. Valid Anagram](https://leetcode.com/problems/valid-anagram/description/?envType=daily-question&envId=2023-12-16)
 
 Easy
 
@@ -8,13 +8,13 @@ An __Anagram__ is a word or phrase formed by rearranging the letters of a differ
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```Input: s = "anagram", t = "nagaram"
 Output: true
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```Input: s = "rat", t = "car"
 Output: false
@@ -33,4 +33,4 @@ __Follow up:__ What if the inputs contain Unicode characters? How would you adap
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,483,101 | 1,551,423 | 62.5% |
+| 4,907,190 | 3,148,455 | 64.2% |

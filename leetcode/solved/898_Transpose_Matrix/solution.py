@@ -29,13 +29,14 @@ Constraints:
 	1 <= m * n <= 105
 	-109 <= matrix[i][j] <= 109
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        """Jun 16, 2022 10:32"""
         if not matrix:
             return []
         if not matrix[0]:
@@ -47,13 +48,22 @@ class Solution:
                 ret[j][i] = matrix[i][j]
         return ret
 
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        """Feb 03, 2024 18:03"""
+        M, N = len(matrix), len(matrix[0])
+        ret = [[0]*M for _ in range(N)]
+        for i in range(M):
+            for j in range(N):
+                ret[j][i] = matrix[i][j]
+        return ret
 
-@pytest.mark.parametrize('matrix, expected', [
-    ([[1,2,3],[4,5,6],[7,8,9]], [[1,4,7],[2,5,8],[3,6,9]]),
-    ([[1,2,3],[4,5,6]], [[1,4],[2,5],[3,6]]),
+
+@pytest.mark.parametrize('args', [
+    (([[1,2,3],[4,5,6],[7,8,9]], [[1,4,7],[2,5,8],[3,6,9]])),
+    (([[1,2,3],[4,5,6]], [[1,4],[2,5],[3,6]])),
 ])
-def test(matrix, expected):
-    assert expected == Solution().transpose(matrix)
+def test(args):
+    assert args[-1] == Solution().transpose(*args[:-1])
 
 
 if __name__ == '__main__':

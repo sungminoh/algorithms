@@ -1,3 +1,5 @@
+from collections import Counter
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -25,13 +27,13 @@ Constraints:
 
 Follow up: What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
 """
-import sys
-from collections import Counter
 import pytest
+import sys
 
 
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
+        """Aug 06, 2022 22:47"""
         if len(s) != len(t):
             return False
         cnt = Counter(s)
@@ -41,13 +43,17 @@ class Solution:
             cnt[c] -= 1
         return True
 
+    def isAnagram(self, s: str, t: str) -> bool:
+        """Feb 03, 2024 18:43"""
+        return Counter(s) == Counter(t)
 
-@pytest.mark.parametrize('s, t, expected', [
-    ("anagram", "nagaram", True),
-    ("rat", "car", False),
+
+@pytest.mark.parametrize('args', [
+    (("anagram", "nagaram", True)),
+    (("rat", "car", False)),
 ])
-def test(s, t, expected):
-    assert expected == Solution().isAnagram(s, t)
+def test(args):
+    assert args[-1] == Solution().isAnagram(*args[:-1])
 
 
 if __name__ == '__main__':

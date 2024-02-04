@@ -1,4 +1,4 @@
-### [898. Transpose Matrix](https://leetcode.com/problems/transpose-matrix/)
+### [898. Transpose Matrix](https://leetcode.com/problems/transpose-matrix/description/?envType=daily-question&envId=2023-12-10)
 
 Easy
 
@@ -10,14 +10,14 @@ The __transpose__ of a matrix is the matrix flipped over its main diagonal, swit
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
 Output: [[1,4,7],[2,5,8],[3,6,9]]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: matrix = [[1,2,3],[4,5,6]]
@@ -36,4 +36,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 313,540 | 200,616 | 64.0% |
+| 526,663 | 373,275 | 70.9% |

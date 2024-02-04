@@ -7,7 +7,7 @@
 # Distributed under terms of the MIT license.
 
 """
-Write a function that takes an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
+Write a function that takes the binary representation of an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
 
 Note:
 
@@ -38,26 +38,35 @@ Constraints:
 
 Follow up: If this function is called many times, how would you optimize it?
 """
-import sys
 import pytest
+import sys
 
 
 class Solution:
     def hammingWeight(self, n: int) -> int:
+        """Jun 12, 2022 12:14"""
         ret = 0
         for _ in range(32):
             ret += n&1
             n >>= 1
         return ret
 
+    def hammingWeight(self, n: int) -> int:
+        """Feb 04, 2024 11:31"""
+        ret = 0
+        while n:
+            ret += n%2
+            n//=2
+        return ret
 
-@pytest.mark.parametrize('n, expected', [
-    (0b00000000000000000000000000001011, 3),
-    (0b00000000000000000000000010000000, 1),
-    (0b11111111111111111111111111111101, 31),
+
+@pytest.mark.parametrize('args', [
+    (('00000000000000000000000000001011', 3)),
+    (('00000000000000000000000010000000', 1)),
+    (('11111111111111111111111111111101', 31)),
 ])
-def test(n, expected):
-    assert expected == Solution().hammingWeight(n)
+def test(args):
+    assert args[-1] == Solution().hammingWeight(int(*args[:-1], 2))
 
 
 if __name__ == '__main__':

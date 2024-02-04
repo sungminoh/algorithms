@@ -1,3 +1,6 @@
+import itertools
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -37,8 +40,6 @@ Constraints:
 	1 <= sum(word1[i].length), sum(word2[i].length) <= 103
 	word1[i] and word2[i] consist of lowercase letters.
 """
-import itertools
-from typing import List
 import pytest
 import sys
 
@@ -51,15 +52,19 @@ class Solution:
                 return False
         return True
 
+    def arrayStringsAreEqual(self, word1: List[str], word2: List[str]) -> bool:
+        """Feb 04, 2024 12:35"""
+        return all(x == y for x, y in itertools.zip_longest(itertools.chain(*word1), itertools.chain(*word2)))
 
-@pytest.mark.parametrize('word1, word2, expected', [
-    (["ab", "c"], ["a", "bc"], True),
-    (["a", "cb"], ["ab", "c"], False),
-    (["abc", "d", "defg"], ["abcddefg"], True),
-    (["abc","d","defg"], ["abcddef"], False)
+
+@pytest.mark.parametrize('args', [
+    ((["ab", "c"], ["a", "bc"], True)),
+    ((["a", "cb"], ["ab", "c"], False)),
+    ((["abc", "d", "defg"], ["abcddefg"], True)),
+    ((["abc", "d", "defg"], ["abcddef"], False)),
 ])
-def test(word1, word2, expected):
-    assert expected == Solution().arrayStringsAreEqual(word1, word2)
+def test(args):
+    assert args[-1] == Solution().arrayStringsAreEqual(*args[:-1])
 
 
 if __name__ == '__main__':

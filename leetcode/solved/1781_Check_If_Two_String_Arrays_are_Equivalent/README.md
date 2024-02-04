@@ -1,4 +1,4 @@
-### [1781. Check If Two String Arrays are Equivalent](https://leetcode.com/problems/check-if-two-string-arrays-are-equivalent/)
+### [1781. Check If Two String Arrays are Equivalent](https://leetcode.com/problems/check-if-two-string-arrays-are-equivalent/description/?envType=daily-question&envId=2023-12-01)
 
 Easy
 
@@ -44,4 +44,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 293,691 | 244,493 | 83.2% |
+| 518,632 | 441,891 | 85.2% |

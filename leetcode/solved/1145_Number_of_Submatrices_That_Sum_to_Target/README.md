@@ -1,4 +1,4 @@
-### [1145. Number of Submatrices That Sum to Target](https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/)
+### [1145. Number of Submatrices That Sum to Target](https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/description/?envType=daily-question&envId=2024-01-28)
 
 Hard
 
@@ -14,7 +14,7 @@ Two submatrices `` (x1, y1, x2, y2) `` and `` (x1', y1', x2', y2') `` are differ
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/09/02/mate1.jpg" style="width: 242px; height: 242px;"/>
 
@@ -24,7 +24,7 @@ Output: 4
 Explanation: The four 1x1 submatrices that only contain 0.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: matrix = [[1,-1],[-1,1]], target = 0
@@ -32,7 +32,7 @@ Output: 5
 Explanation: The two 1x2 submatrices, plus the two 2x1 submatrices, plus the 2x2 submatrix.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: matrix = [[904]], target = 0
@@ -45,9 +45,9 @@ __Constraints:__
 
 *   `` 1 <= matrix.length <= 100 ``
 *   `` 1 <= matrix[0].length <= 100 ``
-*   `` -1000 <= matrix[i] <= 1000 ``
+*   `` -1000 <= matrix[i][j] <= 1000 ``
 *   `` -10^8 <= target <= 10^8 ``
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 116,876 | 81,583 | 69.8% |
+| 200,668 | 149,357 | 74.4% |

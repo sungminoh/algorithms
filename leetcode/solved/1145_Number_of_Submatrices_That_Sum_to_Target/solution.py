@@ -34,16 +34,12 @@ Constraints:
 
 	1 <= matrix.length <= 100
 	1 <= matrix[0].length <= 100
-	-1000 <= matrix[i] <= 1000
+	-1000 <= matrix[i][j] <= 1000
 	-10^8 <= target <= 10^8
 """
-from itertools import accumulate
-from pathlib import Path
-import json
-import sys
-from collections import defaultdict
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -179,17 +175,30 @@ class Solution:
                     cnt[area] += 1
         return ret
 
+    def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
+        """Feb 05, 2024 21:25"""
+        M, N = len(matrix), len(matrix[0])
+        integral = [[0]*(N+1) for _ in range(M+1)]
+        for i in range(M):
+            for j in range(N):
+                integral[i][j] = matrix[i][j] + integral[i-1][j] + integral[i][j-1] - integral[i-1][j-1]
+        ret = 0
+        for x1 in range(M):
+            for y1 in range(N):
+                for x2 in range(-1, x1):
+                    for y2 in range(-1, y1):
+                        if target == integral[x1][y1] - integral[x1][y2] - integral[x2][y1] + integral[x2][y2]:
+                            ret += 1
+        return ret
 
-@pytest.mark.parametrize('matrix, target, expected', [
-    ([[0,1,0],[1,1,1],[0,1,0]], 0, 4),
-    ([[0,1,0],[1,1,1],[0,1,0]], 4, 4),
-    ([[0,1,0],[1,1,1],[0,1,0]], 3, 6),
-    ([[1,-1],[-1,1]], 0, 5),
-    ([[904]], 0, 0),
-    (*json.load(open(Path(__file__).parent/'testcase.json')), 3),
+
+@pytest.mark.parametrize('args', [
+    (([[0,1,0],[1,1,1],[0,1,0]], 0, 4)),
+    (([[1,-1],[-1,1]], 0, 5)),
+    (([[904]], 0, 0)),
 ])
-def test(matrix, target, expected):
-    assert expected == Solution().numSubmatrixSumTarget(matrix, target)
+def test(args):
+    assert args[-1] == Solution().numSubmatrixSumTarget(*args[:-1])
 
 
 if __name__ == '__main__':

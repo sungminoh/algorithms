@@ -1,3 +1,5 @@
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -24,7 +26,6 @@ Constraints:
 	1 <= temperatures.length <= 105
 	30 <= temperatures[i] <= 100
 """
-from typing import List
 import pytest
 import sys
 
@@ -67,14 +68,24 @@ class Solution:
             stack.append(i)
         return ret
 
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        ret = [0] * len(temperatures)
+        waitings = []
+        for i, t in enumerate(temperatures):
+            while waitings and waitings[-1][1] < t:
+                j = waitings.pop()[0]
+                ret[j] = i-j
+            waitings.append((i, t))
+        return ret
 
-@pytest.mark.parametrize('temperatures, expected', [
-    ([73,74,75,71,69,72,76,73], [1,1,4,2,1,1,0,0]),
-    ([30,40,50,60], [1,1,1,0]),
-    ([30,60,90], [1,1,0]),
+
+@pytest.mark.parametrize('args', [
+    (([73,74,75,71,69,72,76,73], [1,1,4,2,1,1,0,0])),
+    (([30,40,50,60], [1,1,1,0])),
+    (([30,60,90], [1,1,0])),
 ])
-def test(temperatures, expected):
-    assert expected == Solution().dailyTemperatures(temperatures)
+def test(args):
+    assert args[-1] == Solution().dailyTemperatures(*args[:-1])
 
 
 if __name__ == '__main__':

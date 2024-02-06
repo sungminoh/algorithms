@@ -22,10 +22,10 @@ Constraints:
 
 	10 <= low <= high <= 10^9
 """
-import sys
 import math
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -55,13 +55,32 @@ class Solution:
                 ret.append(n)
         return ret
 
+    def sequentialDigits(self, low: int, high: int) -> List[int]:
+        """Feb 05, 2024 22:02"""
+        N = len(str(low))
+        base = int(''.join(map(str, range(1, N+1))))
+        delta = int('1'*N)
+        i = 0
+        ret = []
+        while base <= high:
+            i += 1
+            if base >= low:
+                ret.append(base)
+            base += delta
+            if i == 10-N:
+                N += 1
+                base = int(''.join(map(str, range(1, N+1))))
+                delta = int('1'*N)
+                i = 0
+        return ret
 
-@pytest.mark.parametrize('low, high, expected', [
-    (100, 300, [123,234]),
-    (1000, 13000, [1234,2345,3456,4567,5678,6789,12345]),
+
+@pytest.mark.parametrize('args', [
+    ((100, 300, [123,234])),
+    ((1000, 13000, [1234,2345,3456,4567,5678,6789,12345])),
 ])
-def test(low, high, expected):
-    assert expected == Solution().sequentialDigits(low, high)
+def test(args):
+    assert args[-1] == Solution().sequentialDigits(*args[:-1])
 
 
 if __name__ == '__main__':

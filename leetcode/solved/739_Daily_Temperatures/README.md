@@ -1,4 +1,4 @@
-### [739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)
+### [739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/description/?envType=daily-question&envId=2024-01-31)
 
 Medium
 
@@ -33,4 +33,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 871,379 | 577,960 | 66.3% |
+| 1,347,596 | 889,141 | 66.0% |

@@ -1,4 +1,4 @@
-### [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/)
+### [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/?envType=daily-question&envId=2024-01-30)
 
 Medium
 
@@ -56,4 +56,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,369,682 | 622,614 | 45.5% |
+| 1,887,241 | 956,979 | 50.7% |

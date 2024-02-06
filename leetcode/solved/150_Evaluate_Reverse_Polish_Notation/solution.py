@@ -1,3 +1,5 @@
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -49,8 +51,6 @@ Constraints:
 	1 <= tokens.length <= 104
 	tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the range [-200, 200].
 """
-import operator
-from typing import List
 import pytest
 import sys
 
@@ -112,15 +112,33 @@ class Solution:
                 s.append(sign * int(abs(a / b)))
         return s[0]
 
+    def evalRPN(self, tokens: List[str]) -> int:
+        """Feb 05, 2024 21:40"""
+        stack = []
+        for t in tokens:
+            if t in '+-*/':
+                b, a = stack.pop(), stack.pop()
+                if t == '+':
+                    stack.append(a + b)
+                if t == '-':
+                    stack.append(a - b)
+                if t == '*':
+                    stack.append(a * b)
+                if t == '/':
+                    stack.append((1 if a*b>0 else -1) * (abs(a) // abs(b)))
+            else:
+                stack.append(int(t))
+        return stack.pop()
 
-@pytest.mark.parametrize('tokens, expected', [
-    (["2","1","+","3","*"], 9),
-    (["4","13","5","/","+"], 6),
-    (["10","6","9","3","+","-11","*","/","*","17","+","5","+"], 22),
-    (["18"], 18)
+
+@pytest.mark.parametrize('args', [
+    ((["2","1","+","3","*"], 9)),
+    ((["4","13","5","/","+"], 6)),
+    ((["10","6","9","3","+","-11","*","/","*","17","+","5","+"], 22)),
+    ((["18"], 18)),
 ])
-def test(tokens, expected):
-    assert expected == Solution().evalRPN(tokens)
+def test(args):
+    assert args[-1] == Solution().evalRPN(*args[:-1])
 
 
 if __name__ == '__main__':

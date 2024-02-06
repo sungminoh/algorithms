@@ -1,4 +1,4 @@
-### [232. Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/)
+### [232. Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/description/?envType=daily-question&envId=2024-01-29)
 
 Easy
 
@@ -50,4 +50,4 @@ __Follow-up:__ Can you implement the queue such that each operation is __<a href
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 986,061 | 620,879 | 63.0% |
+| 1,327,912 | 875,558 | 65.9% |

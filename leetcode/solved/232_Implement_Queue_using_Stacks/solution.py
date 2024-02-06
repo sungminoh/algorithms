@@ -75,19 +75,41 @@ class MyQueue:
         return len(self.instack) + len(self.outstack) == 0
 
 
-@pytest.mark.parametrize('commands, arguments, expecteds', [
-    (["MyQueue", "push", "push", "peek", "pop", "empty"],
-     [[], [1], [2], [], [], []],
-     [None, None, None, 1, 1, False])
-])
-def test(commands, arguments, expecteds):
-    obj = globals()[commands.pop(0)](*arguments.pop(0))
-    expecteds.pop(0)
-    actuals = []
-    for cmd, arg in zip(commands, arguments):
-        actuals.append(getattr(obj, cmd)(*arg))
-    assert expecteds == actuals
+class MyQueue:
+    """Feb 05, 2024 21:33"""
+    def __init__(self):
+        self.stacks = [[], []]
 
+    def push(self, x: int) -> None:
+        self.stacks[0].append(x)
+
+    def pop(self) -> int:
+        if not self.stacks[1]:
+            while self.stacks[0]:
+                self.stacks[1].append(self.stacks[0].pop())
+        return self.stacks[1].pop()
+
+    def peek(self) -> int:
+        if not self.stacks[1]:
+            while self.stacks[0]:
+                self.stacks[1].append(self.stacks[0].pop())
+        return self.stacks[1][-1]
+
+    def empty(self) -> bool:
+        return not self.stacks[0] and not self.stacks[1]
+
+
+@pytest.mark.parametrize('args', [
+    ((["MyQueue", "push", "push", "peek", "pop", "empty"], [[], [1], [2], [], [], []], [None, None, None, 1, 1, False]))
+])
+def test(args):
+    commands, arguments, expecteds = args
+    obj = globals()[commands.pop(0)](*arguments.pop(0))
+    actual = []
+    for cmd, arg in zip(commands, arguments):
+        actual.append(getattr(obj, cmd)(*arg))
+
+    assert expecteds[1:] == actual
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-### [169. Majority Element](https://leetcode.com/problems/majority-element/)
+### [169. Majority Element](https://leetcode.com/problems/majority-element/description/?envType=daily-question&envId=2024-02-12)
 
 Easy
 
@@ -8,13 +8,13 @@ The majority element is the element that appears more than `` ⌊n / 2⌋ `` tim
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```Input: nums = [3,2,3]
 Output: 3
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```Input: nums = [2,2,1,1,1,2,2]
 Output: 2
@@ -33,4 +33,4 @@ __Follow-up:__ Could you solve the problem in linear time and in `` O(1) `` spac
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,845,435 | 1,155,883 | 62.6% |
+| 3,989,086 | 2,577,713 | 64.6% |

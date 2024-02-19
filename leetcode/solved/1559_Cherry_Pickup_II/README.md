@@ -1,4 +1,4 @@
-### [1559. Cherry Pickup II](https://leetcode.com/problems/cherry-pickup-ii/)
+### [1559. Cherry Pickup II](https://leetcode.com/problems/cherry-pickup-ii/description/?envType=daily-question&envId=2024-02-11)
 
 Hard
 
@@ -19,7 +19,7 @@ Return _the maximum number of cherries collection using both robots by following
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/04/29/sample_1_1802.png" style="width: 374px; height: 501px;"/>
 
@@ -32,7 +32,7 @@ Cherries taken by Robot #2, (1 + 5 + 5 + 1) = 12.
 Total of cherries: 12 + 12 = 24.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/04/23/sample_2_1802.png" style="width: 500px; height: 452px;"/>
 
@@ -56,4 +56,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 75,783 | 53,673 | 70.8% |
+| 228,051 | 164,158 | 72.0% |

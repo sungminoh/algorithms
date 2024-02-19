@@ -1,3 +1,6 @@
+from functools import lru_cache
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -47,15 +50,13 @@ Constraints:
 	2 <= rows, cols <= 70
 	0 <= grid[i][j] <= 100
 """
-import sys
-from functools import lru_cache
-from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def cherryPickup(self, grid: List[List[int]]) -> int:
-        """
+        """Jan 29, 2022 10:30
         Top down recursion
         Time complexity: O(m*n^2)
         Space complexity: O(m*n^2)
@@ -78,7 +79,7 @@ class Solution:
         return dp(0, 0, n-1)
 
     def cherryPickup(self, grid: List[List[int]]) -> int:
-        """
+        """Jan 29, 2022 10:39
         Bottom up dp
         Time complexity: O(m*n^2)
         Space complexity: O(n^2)
@@ -100,12 +101,34 @@ class Solution:
         return max(memo.values())
 
 
-@pytest.mark.parametrize('grid, expected', [
-    ([[3,1,1],[2,5,1],[1,5,5],[2,1,1]], 24),
-    ([[1,0,0,0,0,0,1],[2,0,0,0,0,3,0],[2,0,9,0,0,0,0],[0,3,0,5,4,0,0],[1,0,2,3,0,0,6]], 28),
+    def cherryPickup(self, grid: List[List[int]]) -> int:
+        """Feb 19, 2024 14:40"""
+        rows, cols = len(grid), len(grid[0])
+        dp = {(0, cols-1): grid[0][0] + grid[0][-1]}
+        for i in range(1, rows):
+            row = grid[i]
+            _dp = {}
+            for (l, r), s in dp.items():
+                for dl in (-1, 0, 1):
+                    for dr in (-1, 0, 1):
+                        x, y = l+dl, r+dr
+                        if 0<=x<y<cols:
+                            _dp[(x, y)] = max(
+                                _dp.get((x, y), 0),
+                                s + row[x] + row[y])
+            dp = _dp
+        return max(dp.values())
+
+
+@pytest.mark.parametrize('args', [
+    (([[3,1,1],[2,5,1],[1,5,5],[2,1,1]], 24)),
+    (([[1,0,0,0,0,0,1],[2,0,0,0,0,3,0],[2,0,9,0,0,0,0],[0,3,0,5,4,0,0],[1,0,2,3,0,0,6]], 28)),
+    (([[4,1,5,7,1],
+       [6,0,4,6,4],
+       [0,9,6,3,5]], 32)),
 ])
-def test(grid, expected):
-    assert expected == Solution().cherryPickup(grid)
+def test(args):
+    assert args[-1] == Solution().cherryPickup(*args[:-1])
 
 
 if __name__ == '__main__':

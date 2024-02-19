@@ -1,4 +1,4 @@
-### [1762. Furthest Building You Can Reach](https://leetcode.com/problems/furthest-building-you-can-reach/)
+### [1762. Furthest Building You Can Reach](https://leetcode.com/problems/furthest-building-you-can-reach/description/?envType=daily-question&envId=2024-02-17)
 
 Medium
 
@@ -15,7 +15,7 @@ _Return the furthest building index (0-indexed) you can reach if you use the giv
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/10/27/q4.gif" style="width: 562px; height: 561px;"/>
 
@@ -30,14 +30,14 @@ Explanation: Starting at building 0, you can follow these steps:
 It is impossible to go beyond building 4 because you do not have any more bricks or ladders.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: heights = [4,12,2,7,3,18,20,3,19], bricks = 10, ladders = 2
 Output: 7
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: heights = [14,3,19,3], bricks = 17, ladders = 0
@@ -55,4 +55,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 193,158 | 93,169 | 48.2% |
+| 422,579 | 210,498 | 49.8% |

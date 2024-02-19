@@ -26,14 +26,14 @@ Constraints:
 
 Follow-up: Could you solve the problem in linear time and in O(1) space?
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        """
+        """Mar 03, 2022 16:13
         Time complexity: O(nlogn)
         Space complexity: O(1)
         """
@@ -41,7 +41,7 @@ class Solution:
         return nums[(len(nums)-1)//2]
 
     def majorityElement(self, nums: List[int]) -> int:
-        """
+        """Mar 03, 2022 16:17
         Time complexity: O(n)
         Space complexity: O(1)
         """
@@ -57,13 +57,23 @@ class Solution:
                     cnt = 1
         return major
 
+    def majorityElement(self, nums: List[int]) -> int:
+        """Feb 19, 2024 14:52"""
+        ret = None
+        cnt = 0
+        for n in nums:
+            if cnt == 0:
+                ret = n
+            cnt += 1 if ret == n else -1
+        return ret
 
-@pytest.mark.parametrize('nums, expected', [
-    ([3,2,3], 3),
-    ([2,2,1,1,1,2,2], 2),
+
+@pytest.mark.parametrize('args', [
+    (([3,2,3], 3)),
+    (([2,2,1,1,1,2,2], 2)),
 ])
-def test(nums, expected):
-    assert expected == Solution().majorityElement(nums)
+def test(args):
+    assert args[-1] == Solution().majorityElement(*args[:-1])
 
 
 if __name__ == '__main__':

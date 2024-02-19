@@ -1,3 +1,5 @@
+from collections import Counter
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -37,7 +39,6 @@ Constraints:
 	1 <= s.length <= 5 * 105
 	s consists of uppercase and lowercase English letters and digits.
 """
-from collections import Counter
 import pytest
 import sys
 
@@ -52,25 +53,32 @@ class Solution:
         return ret
 
     def frequencySort(self, s: str) -> str:
+        """Oct 30, 2021 00:30"""
         ret = ''
         for c, cnt in Counter(s).most_common():
             ret += c*cnt
         return ret
 
     def frequencySort(self, s: str) -> str:
+        """Dec 04, 2022 22:33"""
         cnt = Counter(s)
         ret = ''
         for c, t in sorted(cnt.most_common(), key=lambda x: (-x[1], x[0])):
             ret += c*t
         return ret
 
-@pytest.mark.parametrize('s, expected', [
-    ("tree", "eert"),
-    ("cccaaa", "aaaccc"),
-    ("Aabb", "bbAa"),
+    def frequencySort(self, s: str) -> str:
+        """Feb 19, 2024 12:51"""
+        return ''.join(c*cnt for c, cnt in Counter(s).most_common())
+
+
+@pytest.mark.parametrize('args', [
+    (("tree", "eert")),
+    (("cccaaa", "aaaccc")),
+    (("Aabb", "bbAa")),
 ])
-def test(s, expected):
-    assert expected == Solution().frequencySort(s)
+def test(args):
+    assert args[-1] == Solution().frequencySort(*args[:-1])
 
 
 if __name__ == '__main__':

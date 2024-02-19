@@ -27,9 +27,11 @@ Constraints:
 
 	1 <= n <= 104
 """
-import sys
 from functools import lru_cache
+from heapq import heappop
+from math import ceil
 import pytest
+import sys
 
 
 class Solution:
@@ -132,30 +134,56 @@ class Solution:
         rec(n, 0)
         return ret
 
+    @lru_cache(None)
+    def numSquares(self, n: int) -> int:
+        """Feb 19, 2024 13:01"""
+        if n == 0:
+            return 0
+        if int(n**.5)**2 == n:
+            return 1
+        return 1 + min(self.numSquares(n-i**2) for i in range(1, ceil(n**.5)))
 
-@pytest.mark.parametrize('n, expected', [
-    (12, 3),
-    (13, 2),
-    (8935, 4),
-    (25, 1),
-    (144, 1),
-    (31, 4),
-    (0, 0),
-    (1, 1),
-    (16, 1),
-    (88, 3),  # 36 36 16
-    (7168, 4),
-    (5156, 2),
-    (192, 3),
-    (240, 4),  # 100 100 36 4
-    (6616, 3),  # 60^2, 54^2, 10^2
-    (956, 4),
-    (6024, 3),
-    (2820, 3),
+    def numSquares(self, n: int) -> int:
+        """Feb 19, 2024 13:25 BFS"""
+        cnt = 0
+        acc = set([0])
+        while acc:
+            _acc = set()
+            if n in acc:
+                return cnt
+            for x in acc:
+                for i in range(1, int(n**.5)+1):
+                    y = x + i**2
+                    if y <= n:
+                        _acc.add(y)
+            cnt += 1
+            acc = _acc
+        return cnt
 
+
+@pytest.mark.parametrize('args', [
+    ((12, 3)),
+    ((13, 2)),
+    ((4703, 4)),
+    ((8935, 4)),
+    ((25, 1)),
+    ((144, 1)),
+    ((31, 4)),
+    ((0, 0)),
+    ((1, 1)),
+    ((16, 1)),
+    ((88, 3)),  # 36 36 16
+    ((7168, 4)),
+    ((5156, 2)),
+    ((192, 3)),
+    ((240, 4)),  # 100 100 36 4
+    ((6616, 3)),  # 60^2, 54^2, 10^2
+    ((956, 4)),
+    ((6024, 3)),
+    ((2820, 3)),
 ])
-def test(n, expected):
-    assert expected == Solution().numSquares(n)
+def test(args):
+    assert args[-1] == Solution().numSquares(*args[:-1])
 
 
 if __name__ == '__main__':

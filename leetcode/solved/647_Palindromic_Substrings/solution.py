@@ -31,8 +31,8 @@ Constraints:
 	s consists of lowercase English letters.
 """
 from functools import lru_cache
-import sys
 import pytest
+import sys
 
 
 class Solution:
@@ -68,7 +68,6 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
-
         def manacher(s: str) -> int:
             """
             s = abcdefg
@@ -116,13 +115,29 @@ class Solution:
         # 2k-1 -> 2k-1, 2k-3, ... 1 -> k*(2k-1+1)//2 = k*k
         return sum((x+1)//2 for x in lps)
 
+    def countSubstrings(self, s: str) -> int:
+        """Feb 19, 2024 14:04"""
+        @lru_cache(None)
+        def is_palindrom(i, j):
+            if i >= j:
+                return True
+            return s[i] == s[j] and is_palindrom(i+1, j-1)
 
-@pytest.mark.parametrize('s, expected', [
-    ("abc", 3),
-    ("aaa", 6),
+        ret = 0
+        for j in range(len(s)):
+            for i in range(j+1):
+                if is_palindrom(i, j):
+                    ret += 1
+        return ret
+
+
+@pytest.mark.parametrize('args', [
+    (("abc", 3)),
+    (("aaa", 6)),
+    (("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 500500)),
 ])
-def test(s, expected):
-    assert expected == Solution().countSubstrings(s)
+def test(args):
+    assert args[-1] == Solution().countSubstrings(*args[:-1])
 
 
 if __name__ == '__main__':

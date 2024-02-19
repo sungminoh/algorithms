@@ -1,4 +1,4 @@
-### [647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
+### [647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/description/?envType=daily-question&envId=2024-02-10)
 
 Medium
 
@@ -10,7 +10,7 @@ A __substring__ is a contiguous sequence of characters within the string.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: s = "abc"
@@ -18,7 +18,7 @@ Output: 3
 Explanation: Three palindromic strings: "a", "b", "c".
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: s = "aaa"
@@ -35,4 +35,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 692,503 | 455,097 | 65.7% |
+| 1,101,613 | 769,643 | 69.9% |

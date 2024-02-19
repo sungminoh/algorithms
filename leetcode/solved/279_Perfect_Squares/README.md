@@ -1,4 +1,4 @@
-### [279. Perfect Squares](https://leetcode.com/problems/perfect-squares/)
+### [279. Perfect Squares](https://leetcode.com/problems/perfect-squares/description/?envType=daily-question&envId=2024-02-08)
 
 Medium
 
@@ -8,7 +8,7 @@ A __perfect square__ is an integer that is the square of an integer; in other wo
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: n = 12
@@ -16,7 +16,7 @@ Output: 3
 Explanation: 12 = 4 + 4 + 4.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: n = 13
@@ -32,4 +32,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 913,195 | 465,716 | 51.0% |
+| 1,515,042 | 827,956 | 54.6% |

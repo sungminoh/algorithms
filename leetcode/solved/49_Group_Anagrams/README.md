@@ -1,4 +1,4 @@
-### [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/)
+### [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/description/?envType=daily-question&envId=2024-02-06)
 
 Medium
 
@@ -36,4 +36,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,591,751 | 1,721,617 | 66.4% |
+| 3,911,867 | 2,667,265 | 68.2% |

@@ -1,4 +1,4 @@
-### [368. Largest Divisible Subset](https://leetcode.com/problems/largest-divisible-subset/)
+### [368. Largest Divisible Subset](https://leetcode.com/problems/largest-divisible-subset/description/?envType=daily-question&envId=2024-02-09)
 
 Medium
 
@@ -11,7 +11,7 @@ If there are multiple solutions, return any of them.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: nums = [1,2,3]
@@ -19,7 +19,7 @@ Output: [1,2]
 Explanation: [1,3] is also accepted.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: nums = [1,2,4,8]
@@ -36,4 +36,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 349,928 | 140,425 | 40.1% |
+| 624,027 | 282,026 | 45.2% |

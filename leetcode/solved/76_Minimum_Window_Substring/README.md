@@ -1,4 +1,4 @@
-### [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
+### [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/description/?envType=daily-question&envId=2024-02-04)
 
 Hard
 
@@ -48,4 +48,4 @@ __Follow up:__ Could you find an algorithm that runs in `` O(m + n) `` time?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 2,270,180 | 923,839 | 40.7% |
+| 2,995,438 | 1,279,017 | 42.7% |

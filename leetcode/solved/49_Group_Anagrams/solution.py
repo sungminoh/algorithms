@@ -1,3 +1,8 @@
+import string
+from collections import defaultdict
+from collections import Counter
+from typing import List
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -27,8 +32,6 @@ Constraints:
 	0 <= strs[i].length <= 100
 	strs[i] consists of lowercase English letters.
 """
-from collections import defaultdict
-from typing import List
 import pytest
 import sys
 
@@ -61,15 +64,25 @@ class Solution:
             grouped[encode(w)].append(w)
         return list(grouped.values())
 
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        """Feb 19, 2024 12:32"""
+        def encode(s):
+            cnt = Counter(s)
+            return tuple(cnt[c] for c in string.ascii_lowercase)
+
+        ret = defaultdict(list)
+        for s in strs:
+            ret[encode(s)].append(s)
+        return list(ret.values())
 
 
-@pytest.mark.parametrize('strs, expected', [
-    (["eat","tea","tan","ate","nat","bat"], [["bat"],["nat","tan"],["ate","eat","tea"]]),
-    ([""], [[""]]),
-    (["a"], [["a"]]),
+@pytest.mark.parametrize('args', [
+    ((["eat","tea","tan","ate","nat","bat"], [["bat"],["nat","tan"],["ate","eat","tea"]])),
+    (([""], [[""]])),
+    ((["a"], [["a"]])),
 ])
-def test(strs, expected):
-    assert sorted([sorted(x) for x in expected]) == sorted([sorted(x) for x in Solution().groupAnagrams(strs)])
+def test(args):
+    assert sorted([sorted(x) for x in args[-1]]) == sorted([sorted(x) for x in Solution().groupAnagrams(*args[:-1])])
 
 
 if __name__ == '__main__':

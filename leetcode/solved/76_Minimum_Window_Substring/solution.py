@@ -1,3 +1,6 @@
+from collections import defaultdict
+from collections import Counter
+
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -39,7 +42,6 @@ Constraints:
 
 Follow up: Could you find an algorithm that runs in O(m + n) time?
 """
-from collections import Counter
 import pytest
 import sys
 
@@ -200,15 +202,40 @@ class Solution:
                 j += 1
         return ret
 
+    def minWindow(self, s: str, t: str) -> str:
+        """Feb 19, 2024 12:19"""
+        m, n = len(s), len(t)
 
-@pytest.mark.parametrize('s, t, expected', [
-    ("ADOBECODEBANC", "ABC", "BANC"),
-    ("a", "a", "a"),
-    ("a", "aa", ""),
-    ("bba", "ab", "ba")
+        def does_cover(cnt1, cnt2):
+            return all(cnt1.get(k, 0) >= v for k, v in cnt2.items())
+
+        cnt = Counter(t)
+        acc = defaultdict(int)
+        i = j = 0
+        window_bound = [0, 0]
+        window_size = float('inf')
+        while i < m:
+            acc[s[i]] += 1
+            i += 1
+            while j < m and acc.get(s[j], 0) > cnt.get(s[j], 0):
+                acc[s[j]] -= 1
+                j += 1
+            if does_cover(acc, cnt):
+                if i-j < window_size:
+                    window_size = i-j
+                    window_bound = [j, i]
+
+        return s[window_bound[0]:window_bound[1]]
+
+
+@pytest.mark.parametrize('args', [
+    (("ADOBECODEBANC", "ABC", "BANC")),
+    (("a", "a", "a")),
+    (("a", "aa", "")),
+    (("bba", "ab", "ba")),
 ])
-def test(s, t, expected):
-    assert expected == Solution().minWindow(s, t)
+def test(args):
+    assert args[-1] == Solution().minWindow(*args[:-1])
 
 
 if __name__ == '__main__':

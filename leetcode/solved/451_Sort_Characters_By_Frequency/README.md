@@ -1,4 +1,4 @@
-### [451. Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/)
+### [451. Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/description/?envType=daily-question&envId=2024-02-07)
 
 Medium
 
@@ -44,4 +44,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 674,231 | 470,992 | 69.9% |
+| 972,156 | 703,838 | 72.4% |

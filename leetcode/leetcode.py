@@ -9,79 +9,27 @@
 """
 
 """
+from collections import ChainMap
 from pathlib import Path
 import html
 import json
 import os
 import re
 import sys
+import functools
+import itertools
+from concurrent.futures import ThreadPoolExecutor
 
 import requests
 import html2markdown
 
 
-DATA = {
-    "operationName":"questionData",
-    "variables":{"titleSlug":"binary-tree-level-order-traversal"},
-    "query":'''
-    query questionData($titleSlug: String!) {
-        question(titleSlug: $titleSlug) {
-            questionId
-            boundTopicId
-            title
-            titleSlug
-            content
-            translatedTitle
-            translatedContent
-            isPaidOnly
-            difficulty
-            likes
-            dislikes
-            isLiked
-            similarQuestions
-            contributors {
-                username
-                profileUrl
-                avatarUrl
-                __typename
-            }
-            langToValidPlayground
-            topicTags {
-                name
-                slug
-                translatedName
-                __typename
-            }
-            companyTagStats
-            codeSnippets {
-                lang
-                langSlug
-                code
-                __typename
-            }
-            stats
-            hints
-            solution {
-                id
-                canSeeDetail
-                paidOnly
-                __typename
-            }
-            status
-            sampleTestCase
-            metaData
-            judgerAvailable
-            judgeType
-            mysqlSchemas
-            enableRunCode
-            enableTestMode
-            enableDebugger
-            envInfo
-            libraryUrl
-            adminUrl
-            __typename
-        }
-    }'''}
+DATUM = [
+    {"query":"\n    query questionContent($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {\n    content\n    mysqlSchemas\n    dataSchemas\n  }\n}\n    ","operationName":"questionContent"},
+    {"query":"\n    query questionTitle($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {\n    questionId\n    questionFrontendId\n    title\n    titleSlug\n    isPaidOnly\n    difficulty\n    likes\n    dislikes\n    categoryTitle\n  }\n}\n    ","operationName":"questionTitle"},
+    {"query":"\n    query questionStats($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {\n    stats\n  }\n}\n    ","operationName":"questionStats"},
+    {"query":"\n    query questionEditorData($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {\n    questionId\n    questionFrontendId\n    codeSnippets {\n      lang\n      langSlug\n      code\n    }\n    envInfo\n    enableRunCode\n    hasFrontendPreview\n    frontendPreviews\n  }\n}\n    ","operationName":"questionEditorData"}
+]
 
 
 TEMPLATE = '''
@@ -116,12 +64,11 @@ if __name__ == '__main__':
 
 
 def construct_header(url):
-    r = requests.get(url)
     header = {
         'authority': 'leetcode.com',
         'accept': '*/*',
         'sec-fetch-dest': 'empty',
-        'x-csrftoken': r.cookies['csrftoken'],
+        # 'x-csrftoken': resp.cookies['csrftoken'],
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/80.0.3987.122 Safari/537.36',
         'content-type': 'application/json',
         'origin': 'https://leetcode.com',
@@ -137,9 +84,12 @@ def fetch(url):
     parts = url.split('/')
     title = parts[parts.index('problems') + 1]
     headers = construct_header(url)
-    data = {**DATA, 'variables': {'titleSlug': title}}
-    r = requests.post('https://leetcode.com/graphql', headers=headers, data=json.dumps(data))
-    return r.json()['data']['question']
+    futs = []
+    pool = ThreadPoolExecutor()
+    for d in DATUM:
+        data = {**d, 'variables': {'titleSlug': title}}
+        futs.append(pool.submit(requests.post, url='https://leetcode.com/graphql', headers=headers, data=json.dumps(data)))
+    return ChainMap(*[fut.result().json()['data']['question'] for fut in futs])
 
 
 def convert_stat_table(stat):

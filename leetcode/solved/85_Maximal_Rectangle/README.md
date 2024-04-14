@@ -1,4 +1,4 @@
-### [85. Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/)
+### [85. Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/description/?envType=daily-question&envId=2024-04-13)
 
 Hard
 
@@ -6,7 +6,7 @@ Given a `` rows x cols `` binary `` matrix `` filled with `` 0 ``'s and `` 1 ``
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2020/09/14/maximal.jpg" style="width: 402px; height: 322px;"/>
 
@@ -16,14 +16,14 @@ Output: 6
 Explanation: The maximal rectangle is shown in the above picture.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: matrix = [["0"]]
 Output: 0
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: matrix = [["1"]]
@@ -41,4 +41,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 652,261 | 272,389 | 41.8% |
+| 851,283 | 401,705 | 47.2% |

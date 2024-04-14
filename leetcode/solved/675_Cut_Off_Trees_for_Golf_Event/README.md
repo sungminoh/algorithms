@@ -1,4 +1,4 @@
-### [675. Cut Off Trees for Golf Event](https://leetcode.com/problems/cut-off-trees-for-golf-event/)
+### [675. Cut Off Trees for Golf Event](https://leetcode.com/problems/cut-off-trees-for-golf-event/description/)
 
 Hard
 
@@ -59,4 +59,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 176,788 | 60,441 | 34.2% |
+| 197,419 | 67,714 | 34.3% |

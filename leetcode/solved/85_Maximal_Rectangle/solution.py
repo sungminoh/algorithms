@@ -32,9 +32,9 @@ Constraints:
 	1 <= row, cols <= 200
 	matrix[i][j] is '0' or '1'.
 """
+import pytest
 import sys
 from typing import List
-import pytest
 
 
 class Solution:
@@ -94,21 +94,51 @@ class Solution:
 
         return ret
 
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        """Apr 12, 2024 22:07"""
+        def largest(arr):
+            m = 0
+            arr += [0]
+            stack = []
+            for i in range(len(arr)):
+                while stack and arr[stack[-1]] >= arr[i]:
+                    j = stack.pop()
+                    k = stack[-1] if stack else -1
+                    m = max(m, (i-1 - k) * arr[j])
+                stack.append(i)
+            return m
 
-@pytest.mark.parametrize('matrix, expected', [
-    ([["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]], 6),
-    ([["0"]], 0),
+        m = 0
+        N = len(matrix[0])
+        acc = [[0]*N, [0]*N]
+        for i, row in enumerate(matrix):
+            for j, v in enumerate(row):
+                if v == '0':
+                    acc[i%2][j] = 0
+                else:
+                    acc[i%2][j] = acc[(i-1)%2][j] + 1
+            m = max(m, largest(acc[i%2]))
+        return m
+
+
+@pytest.mark.parametrize('args', [
+    (([["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]], 6)),
+    (([["0"]], 0)),
+    (([["0","1"],
+       ["1","0"]], 1)),
+    (([["0","0","1"],
+       ["1","1","1"]], 3)),
     ([["1"]], 1),
-    ([["0","0","1"],["1","1","1"]], 3),
     ([["0","1","1","0","1"],
       ["1","1","0","1","0"],
       ["0","1","1","1","0"],
       ["1","1","1","1","0"],
       ["1","1","1","1","1"],
       ["0","0","0","0","0"]], 9),
+
 ])
-def test(matrix, expected):
-    assert expected == Solution().maximalRectangle(matrix)
+def test(args):
+    assert args[-1] == Solution().maximalRectangle(*args[:-1])
 
 
 if __name__ == '__main__':

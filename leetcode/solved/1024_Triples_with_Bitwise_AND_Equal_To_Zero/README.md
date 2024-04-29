@@ -1,0 +1,52 @@
+### [1024. Triples with Bitwise AND Equal To Zero](https://leetcode.com/problems/triples-with-bitwise-and-equal-to-zero/description/)
+
+Hard
+
+Given an integer array nums, return _the number of __AND triples___.
+
+An __AND triple__ is a triple of indices `` (i, j, k) `` such that:
+
+*   `` 0 <= i < nums.length ``
+*   `` 0 <= j < nums.length ``
+*   `` 0 <= k < nums.length ``
+*   `` nums[i] & nums[j] & nums[k] == 0 ``, where `` & `` represents the bitwise-AND operator.
+
+ 
+
+<strong class="example">Example 1:</strong>
+
+```
+Input: nums = [2,1,3]
+Output: 12
+Explanation: We could choose the following i, j, k triples:
+(i=0, j=0, k=1) : 2 & 2 & 1
+(i=0, j=1, k=0) : 2 & 1 & 2
+(i=0, j=1, k=1) : 2 & 1 & 1
+(i=0, j=1, k=2) : 2 & 1 & 3
+(i=0, j=2, k=1) : 2 & 3 & 1
+(i=1, j=0, k=0) : 1 & 2 & 2
+(i=1, j=0, k=1) : 1 & 2 & 1
+(i=1, j=0, k=2) : 1 & 2 & 3
+(i=1, j=1, k=0) : 1 & 1 & 2
+(i=1, j=2, k=0) : 1 & 3 & 2
+(i=2, j=0, k=1) : 3 & 2 & 1
+(i=2, j=1, k=0) : 3 & 1 & 2
+```
+
+<strong class="example">Example 2:</strong>
+
+```
+Input: nums = [0,0,0]
+Output: 27
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= nums.length <= 1000 ``
+*   <code>0 <= nums[i] < 2<sup>16</sup></code>
+
+| Submissions    | Accepted     | Rate   |
+| -------------- | ------------ | ------ |
+| 29,955 | 17,381 | 58.0% |

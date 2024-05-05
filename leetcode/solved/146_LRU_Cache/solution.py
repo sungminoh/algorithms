@@ -2,33 +2,53 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.
+Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
 
-get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
-put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
+Implement the LRUCache class:
 
-Follow up:
-Could you do both operations in O(1) time complexity?
+	LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
+	int get(int key) Return the value of the key if the key exists, otherwise return -1.
+	void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
 
-Example:
+The functions get and put must each run in O(1) average time complexity.
 
-LRUCache cache = new LRUCache( 2 /* capacity */ );
+Example 1:
 
-cache.put(1, 1);
-cache.put(2, 2);
-cache.get(1);       // returns 1
-cache.put(3, 3);    // evicts key 2
-cache.get(2);       // returns -1 (not found)
-cache.put(4, 4);    // evicts key 1
-cache.get(1);       // returns -1 (not found)
-cache.get(3);       // returns 3
-cache.get(4);       // returns 4
+Input
+["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+Output
+[null, null, null, 1, null, -1, null, -1, 3, 4]
+
+Explanation
+LRUCache lRUCache = new LRUCache(2);
+lRUCache.put(1, 1); // cache is {1=1}
+lRUCache.put(2, 2); // cache is {1=1, 2=2}
+lRUCache.get(1);    // return 1
+lRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+lRUCache.get(2);    // returns -1 (not found)
+lRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}
+lRUCache.get(1);    // return -1 (not found)
+lRUCache.get(3);    // return 3
+lRUCache.get(4);    // return 4
+
+Constraints:
+
+	1 <= capacity <= 3000
+	0 <= key <= 104
+	0 <= value <= 105
+	At most 2 * 105 calls will be made to get and put.
 """
+from collections import deque
+import pytest
+import sys
+
+
 class Node(object):
     def __init__(self, k, v, p=None, n=None):
         self.k = k
@@ -127,37 +147,60 @@ class LRUCache:
         self.add_node(node)
 
 
-# Your LRUCache object will be instantiated and called as such:
-# obj = LRUCache(capacity)
-# param_1 = obj.get(key)
-# obj.put(key,value)
+class LRUCache:
+    """Apr 29, 2024 18:34"""
+    class Value:
+        def __init__(self, v):
+            self.v = v
+            self.valid = True
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.queue = deque([])
+        self.d = {}
+
+    def get(self, key: int) -> int:
+        if key not in self.d:
+            return -1
+        v = self.d[key]
+        v.valid = False
+        self.d[key] = self.Value(v.v)
+        self.queue.append((key, self.d[key]))
+        return v.v
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.d:
+            self.d.pop(key).valid = False
+        self.d[key] = self.Value(value)
+        self.queue.append((key, self.d[key]))
+        while len(self.d) > self.capacity:
+            k, v = self.queue.popleft()
+            if v.valid:
+                self.d.pop(k)
 
 
-def main():
-    cache = None
-    # commands = input().split()
-    # args = []
-    # for c in commands:
-        # args.append([int(x) for x in input().split()])
+@pytest.mark.parametrize('args', [
+    ((["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"],
+      [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]],
+      [None, None, None, 1, None, -1, None, -1, 3, 4])),
+    ((["LRUCache","put","get"],
+      [[1],[2,1],[2]],
+      [None, None, 1],
+      )),
+    ((["LRUCache","put","get","put","get","get"],
+      [[1],[2,1],[2],[3,2],[2],[3]],
+      [None, None, 1, None, -1, 2]
+      )),
 
-    commands = ['LRUCache', 'put', 'put', 'get', 'put', 'get', 'put', 'get', 'get', 'get']
-    args = [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
-    commands = ["LRUCache","put","get"]
-    args = [[1],[2,1],[2]]
-    commands = ["LRUCache","put","get","put","get","get"]
-    args = [[1],[2,1],[2],[3,2],[2],[3]]
-    for i, c in enumerate(commands):
-        arg = args[i]
-        print(f'{c}({arg})', end=' ')
-        if c == 'LRUCache':
-            cache = LRUCache(*arg)
-            print()
-        elif c == 'put':
-            cache.put(*arg)
-            print()
-        elif c == 'get':
-            print(cache.get(*arg))
+])
+def test(args):
+    commands, arguments, expecteds = args
+    obj = globals()[commands.pop(0)](*arguments.pop(0))
+    actual = []
+    for cmd, arg in zip(commands, arguments):
+        actual.append(getattr(obj, cmd)(*arg))
+    assert expecteds[1:] == actual
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

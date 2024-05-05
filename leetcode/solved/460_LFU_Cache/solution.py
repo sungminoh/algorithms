@@ -6,6 +6,8 @@
 #
 # Distributed under terms of the MIT license.
 
+from pathlib import Path
+
 """
 Design and implement a data structure for a Least Frequently Used (LFU) cache.
 
@@ -57,6 +59,11 @@ Constraints:
 	0 <= value <= 109
 	At most 2 * 105 calls will be made to get and put.
 """
+import json
+from collections import defaultdict
+from typing import Any
+from typing import List
+from typing import Dict
 import pytest
 import sys
 
@@ -302,6 +309,152 @@ class LFUCache:
         return '\n'.join(reversed(lines))
 
 
+class LFUCache:
+    """TLE"""
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.stack: List[Any] = []
+        self.freq: Dict[Any, int] = defaultdict(int)
+        self.keyidx: Dict[Any, int] = {}
+        self.idxkey: Dict[int, Any] = {}
+
+    def __swap(self, i, j):
+        ki, kj = self.idxkey[i], self.idxkey[j]
+        vi, vj = self.stack[i], self.stack[j]
+        self.keyidx[ki], self.keyidx[kj] = j, i
+        self.idxkey[i], self.idxkey[j] = kj, ki
+        self.stack[i], self.stack[j] = vj, vi
+
+    def get(self, key: int) -> int:
+        if key not in self.keyidx:
+            return -1
+        self.freq[key] += 1
+        i = self.keyidx[key]
+        v = self.stack[i]
+        while i > 0 and self.freq[self.idxkey[i]] >= self.freq[self.idxkey[i-1]]:
+            self.__swap(i, i-1)
+            i = i-1
+        return v
+
+    def put(self, key: int, value: int) -> None:
+        if key not in self.keyidx:
+            if len(self.stack) == self.capacity:
+                self.stack.pop()
+                k = self.idxkey.pop(len(self.stack))
+                self.keyidx.pop(k)
+                self.freq.pop(k)
+            idx = len(self.stack)
+            self.keyidx[key] = idx
+            self.idxkey[idx] = key
+            self.stack.append(None)
+        self.freq[key] += 1
+        i = self.keyidx[key]
+        self.stack[i] = value
+        while i > 0 and self.freq[self.idxkey[i]] >= self.freq[self.idxkey[i-1]]:
+            self.__swap(i, i-1)
+            i = i-1
+
+
+class LFUCache:
+    """Apr 29, 2024 22:04"""
+    class Node:
+        def __init__(self, k, v):
+            self.k = k
+            self.v = v
+            self.freq = 1
+            self.prv = self.nxt = None
+            self.left = self.right = None
+
+        def __repr__(self):
+            return f'({self.k}:{self.v}, {self.freq})'
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cnt = 0
+        self.lists = self.Node(None, None)
+        self.key_node = {}
+        self.freq_head = {}
+        self.freq_tail = {}
+
+    def show(self):
+        node = self.lists.nxt
+        while node:
+            nxt_node = node.nxt
+            print(node.freq, end=': ')
+            while node:
+                print(node, end=' ')
+                node = node.right
+            print()
+            node = nxt_node
+
+    def remove(self, key):
+        node = self.key_node.pop(key)
+        head = self.freq_head[node.freq]
+        tail = self.freq_tail[node.freq]
+        if head == tail:
+            ret = head.prv
+            if node.nxt:
+                node.nxt.prv = node.prv
+            node.prv.nxt = node.nxt
+            self.freq_head.pop(node.freq)
+            self.freq_tail.pop(node.freq)
+        elif head == node:
+            ret = head.right
+            head.right.prv, head.right.nxt = head.prv, head.nxt
+            if head.nxt:
+                head.nxt.prv = head.right
+            head.prv.nxt = head.right
+            head.right.left = None
+            self.freq_head[node.freq] = head.right
+        elif tail == node:
+            ret = head
+            tail.left.right = None
+            self.freq_tail[node.freq] = tail.left
+        else:
+            ret = head
+            node.left.right, node.right.left = node.right, node.left
+        node.left = node.right = node.prv = node.nxt = None
+        return ret
+
+    def insert(self, prv_head, node):
+        self.key_node[node.k] = node
+        if not prv_head.nxt:
+            prv_head.nxt = node
+            node.prv = prv_head
+            self.freq_tail[node.freq] = self.freq_head[node.freq] = node
+        else:
+            if prv_head.nxt.freq == node.freq:
+                tail = self.freq_tail[node.freq]
+                tail.right, node.left = node, tail
+                self.freq_tail[node.freq] = node
+            else:
+                node.prv, node.nxt = prv_head, prv_head.nxt
+                prv_head.nxt.prv = prv_head.nxt = node
+                self.freq_tail[node.freq] = self.freq_head[node.freq] = node
+
+    def update(self, key):
+        n = self.key_node[key]
+        h = self.remove(key)
+        n.freq += 1
+        self.insert(h, n)
+
+    def get(self, key: int) -> int:
+        if key not in self.key_node:
+            return -1
+        ret = self.key_node[key].v
+        self.update(key)
+        return ret
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.key_node:
+            self.key_node[key].v = value
+            self.update(key)
+        else:
+            if len(self.key_node) == self.capacity:
+                self.remove(self.lists.nxt.k)
+            self.insert(self.lists, self.Node(key, value))
+
+
 @pytest.mark.parametrize('args', [
     ((["LFUCache", "put", "put", "get", "put", "get", "get", "put", "get", "get", "get"],
       [[2], [1, 1], [2, 2], [1], [3, 3], [2], [3], [4, 4], [1], [3], [4]],
@@ -309,6 +462,16 @@ class LFUCache:
     ((["LFUCache","put","get","put","get","get"],
       [[1],[2,1],[2],[3,2],[2],[3]],
       [None,None,1,None,-1,2])),
+    ((["LFUCache","get","put","get","put","put","get","get"],
+      [[2],[2],[2,6],[1],[1,5],[1,2],[1],[2]],
+      [None,-1,None,-1,None,None,2,6])),
+    (json.load(open(Path(__file__).parent/'testcase.json'))),
+    ((["LFUCache","put","put","put","get","put","put","get","put","put","get","put","get","get","get","put","put","get","put","get"],
+      [[10],[7,28],[7,1],[8,15],[6],[10,27],[8,10],[8],[6,29],[1,9],[6],[10,7],[1],[2],[13],[8,30],[1,5],[1],[13,2],[12]],
+      [None, None, None, None, -1, None, None, 10, None, None, 29, None, 9, -1, -1, None, None, 5, None, -1])),
+    ((["LFUCache","put","put","put","put","put","get","put","get","get","put","get","put","put","put","get","put","get","get","get","get","put","put","get","get","get","put","put","get","put","get","put","get","get","get","put","put","put","get","put","get","get","put","put","get","put","put","put","put","get","put","put","get","put","put","get","put","put","put","put","put","get","put","put","get","put","get","get","get","put","get","get","put","put","put","put","get","put","put","put","put","get","get","get","put","put","put","get","put","put","put","get","put","put","put","get","get","get","put","put","put","put","get","put","put","put","put","put","put","put"],
+      [[10],[10,13],[3,17],[6,11],[10,5],[9,10],[13],[2,19],[2],[3],[5,25],[8],[9,22],[5,5],[1,30],[11],[9,12],[7],[5],[8],[9],[4,30],[9,3],[9],[10],[10],[6,14],[3,1],[3],[10,11],[8],[2,14],[1],[5],[4],[11,4],[12,24],[5,18],[13],[7,23],[8],[12],[3,27],[2,12],[5],[2,9],[13,4],[8,18],[1,7],[6],[9,29],[8,21],[5],[6,30],[1,12],[10],[4,15],[7,22],[11,26],[8,17],[9,29],[5],[3,4],[11,30],[12],[4,29],[3],[9],[6],[3,4],[1],[10],[3,29],[10,28],[1,20],[11,13],[3],[3,12],[3,8],[10,9],[3,26],[8],[7],[5],[13,17],[2,27],[11,15],[12],[9,19],[2,15],[3,16],[1],[12,17],[9,1],[6,19],[4],[5],[5],[8,1],[11,7],[5,2],[9,28],[1],[2,2],[7,4],[4,22],[7,24],[9,26],[13,28],[11,26]],
+      [None, None, None, None, None, None, -1, None, 19, 17, None, -1, None, None, None, -1, None, -1, 5, -1, 12, None, None, 3, 5, 5, None, None, 1, None, -1, None, 30, 5, 30, None, None, None, -1, None, -1, 24, None, None, 18, None, None, None, None, 14, None, None, 18, None, None, 11, None, None, None, None, None, 18, None, None, -1, None, 4, 29, 30, None, 12, 11, None, None, None, None, 29, None, None, None, None, 17, -1, 18, None, None, None, -1, None, None, None, 20, None, None, None, 29, 18, 18, None, None, None, None, 20, None, None, None, None, None, None, None])),
 ])
 def test(args):
     commands, arguments, expecteds = args
@@ -316,6 +479,7 @@ def test(args):
     actual = []
     for cmd, arg in zip(commands, arguments):
         actual.append(getattr(obj, cmd)(*arg))
+
     assert expecteds[1:] == actual
 
 

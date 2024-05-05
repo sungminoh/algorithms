@@ -1,4 +1,4 @@
-### [460. LFU Cache](https://leetcode.com/problems/lfu-cache/)
+### [460. LFU Cache](https://leetcode.com/problems/lfu-cache/description/)
 
 Hard
 
@@ -63,4 +63,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 496,748 | 213,456 | 43.0% |
+| 560,498 | 247,453 | 44.1% |

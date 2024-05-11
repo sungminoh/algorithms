@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -8,38 +7,62 @@
 # Distributed under terms of the MIT license.
 
 """
-Given an array w of positive integers, where w[i] describes the weight of index i, write a function pickIndex which randomly picks an index in proportion to its weight.
+You are given a 0-indexed array of positive integers w where w[i] describes the weight of the ith index.
 
-Note:
-    1. 1 <= w.length <= 10000
-    2. 1 <= w[i] <= 10^5
-    3. pickIndex will be called at most 10000 times.
+You need to implement the function pickIndex(), which randomly picks an index in the range [0, w.length - 1] (inclusive) and returns it. The probability of picking an index i is w[i] / sum(w).
+
+	For example, if w = [1, 3], the probability of picking index 0 is 1 / (1 + 3) = 0.25 (i.e., 25%), and the probability of picking index 1 is 3 / (1 + 3) = 0.75 (i.e., 75%).
 
 Example 1:
 
-Input:
+Input
 ["Solution","pickIndex"]
 [[[1]],[]]
-Output: [null,0]
+Output
+[null,0]
+
+Explanation
+Solution solution = new Solution([1]);
+solution.pickIndex(); // return 0. The only option is to return 0 since there is only one element in w.
 
 Example 2:
 
-Input:
+Input
 ["Solution","pickIndex","pickIndex","pickIndex","pickIndex","pickIndex"]
 [[[1,3]],[],[],[],[],[]]
-Output: [null,0,1,1,1,0]
+Output
+[null,1,1,1,1,0]
 
-Explanation of Input Syntax:
+Explanation
+Solution solution = new Solution([1, 3]);
+solution.pickIndex(); // return 1. It is returning the second element (index = 1) that has a probability of 3/4.
+solution.pickIndex(); // return 1
+solution.pickIndex(); // return 1
+solution.pickIndex(); // return 1
+solution.pickIndex(); // return 0. It is returning the first element (index = 0) that has a probability of 1/4.
 
-The input is two lists: the subroutines called and their arguments. Solution's constructor has one argument, the array w. pickIndex has no arguments. Arguments are always wrapped with a list, even if there aren't any.
+Since this is a randomization problem, multiple answers are allowed.
+All of the following outputs can be considered correct:
+[null,1,1,1,1,0]
+[null,1,1,1,1,1]
+[null,1,1,1,0,0]
+[null,1,1,1,0,1]
+[null,1,0,1,0,0]
+......
+and so on.
+
+Constraints:
+
+	1 <= w.length <= 104
+	1 <= w[i] <= 105
+	pickIndex will be called at most 104 times.
 """
-from pathlib import Path
-import json
-import sys
-from collections import Counter
+import bisect
 import random
+import itertools
 from typing import List
 import pytest
+import sys
 
 
 def binsearch(arr, v):
@@ -56,6 +79,7 @@ def binsearch(arr, v):
 
 
 class Solution:
+    """Jun 01, 2020 13:04"""
     def __init__(self, w: List[int]):
         self.cumsum = [0]
         for v in w:
@@ -65,23 +89,32 @@ class Solution:
         return binsearch(self.cumsum, random.randrange(0, self.cumsum[-1]))
 
 
+class Solution:
+    """May 11, 2024 17:43"""
+    def __init__(self, w: List[int]):
+        self.weights = list(itertools.accumulate(w))
 
-def read_testcase(fname):
-    with open(fname, 'r') as f:
-        return json.load(f)[1][0][0]
+    def pickIndex(self) -> int:
+        v = random.randint(1, self.weights[-1])
+        return bisect.bisect_left(self.weights, v)
 
 
-
-@pytest.mark.parametrize('w', [
-    ([1]),
-    ([1,3]),
-    (read_testcase(Path(__file__).parent/'testcase.json'))
+@pytest.mark.parametrize('args', [
+    ((["Solution","pickIndex"],
+      [[[1]],[]],
+      [None,0])),
+    ((["Solution","pickIndex","pickIndex","pickIndex","pickIndex","pickIndex"],
+      [[[1,3]],[],[],[],[],[]],
+      [None,1,1,1,1,0])),
 ])
-def test(w):
-    print()
-    s = Solution(w)
-    cnt = Counter(s.pickIndex() for _ in range(100000))
-    print(cnt)
+def test(args):
+    commands, arguments, expecteds = args
+    obj = globals()[commands.pop(0)](*arguments.pop(0))
+    actual = [None]
+    for cmd, arg in zip(commands, arguments):
+        actual.append(getattr(obj, cmd)(*arg))
+    assert expecteds == actual
+
 
 
 if __name__ == '__main__':

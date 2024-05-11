@@ -25,16 +25,6 @@ Example 2:
 Input: firstList = [[1,3],[5,9]], secondList = []
 Output: []
 
-Example 3:
-
-Input: firstList = [], secondList = [[4,8],[10,12]]
-Output: []
-
-Example 4:
-
-Input: firstList = [[1,7]], secondList = [[3,10]]
-Output: [[3,7]]
-
 Constraints:
 
 	0 <= firstList.length, secondList.length <= 1000
@@ -44,13 +34,16 @@ Constraints:
 	0 <= startj < endj <= 109
 	endj < startj+1
 """
-import sys
+import heapq
+from collections import deque
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
+        """Dec 03, 2021 22:31"""
         ret = []
         i, j = 0, 0
         is_open = [False, False]
@@ -92,6 +85,7 @@ class Solution:
         return ret
 
     def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
+        """Dec 03, 2021 22:36"""
         ret = []
         i, j = 0, 0
         while i < len(firstList) and j < len(secondList):
@@ -107,15 +101,56 @@ class Solution:
                     j += 1
         return ret
 
+    def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
+        """May 05, 2024 14:05"""
+        ret = []
+        start_max_heap = []
+        end_min_heap = []
 
-@pytest.mark.parametrize('firstList, secondList, expected', [
-    ([[0,2],[5,10],[13,23],[24,25]], [[1,5],[8,12],[15,24],[25,26]], [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]),
-    ([[1,3],[5,9]], [], []),
-    ([], [[4,8],[10,12]], []),
-    ([[1,7]], [[3,10]], [[3,7]]),
+        def insert(queue):
+            s, e = queue.popleft()
+            heapq.heappush(start_max_heap, (-s, len(queue), queue))
+            heapq.heappush(end_min_heap, (e, len(queue), queue))
+
+        queues = [deque(firstList), deque(secondList)]
+        for q in queues:
+            if q:
+                insert(q)
+            else:
+                return ret
+
+        while end_min_heap and start_max_heap:
+            # clean up
+            if start_max_heap and start_max_heap[0][1] != len(start_max_heap[0][2]):
+                heapq.heappop(start_max_heap)
+            # discard if no overlap
+            elif end_min_heap[0][0] < -start_max_heap[0][0]:
+                assert len(start_max_heap) > 0
+                _, l, q = heapq.heappop(end_min_heap)
+                if l == len(q):
+                    if len(q) > 0:
+                        insert(q)
+                    else:
+                        break
+            else:
+                e, l, q = heapq.heappop(end_min_heap)
+                if l == len(q):
+                    ret.append([-start_max_heap[0][0], e])
+                    if len(q) > 0:
+                        insert(q)
+                    else:
+                        break
+        return ret
+
+
+@pytest.mark.parametrize('args', [
+    (([[0,2],[5,10],[13,23],[24,25]], [[1,5],[8,12],[15,24],[25,26]], [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]])),
+    (([[1,3],[5,9]], [], [])),
+    (([], [[4,8],[10,12]], [])),
+    (([[1,7]], [[3,10]], [[3,7]])),
 ])
-def test(firstList, secondList, expected):
-    assert expected == Solution().intervalIntersection(firstList, secondList)
+def test(args):
+    assert args[-1] == Solution().intervalIntersection(*args[:-1])
 
 
 if __name__ == '__main__':

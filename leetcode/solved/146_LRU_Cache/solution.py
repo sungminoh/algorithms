@@ -179,6 +179,60 @@ class LRUCache:
                 self.d.pop(k)
 
 
+class LRUCache:
+    """May 11, 2024 18:10"""
+    class Node:
+        def __init__(self, k, v):
+            self.k = k
+            self.v = v
+            self.next = None
+            self.prev = None
+
+        def __repr__(self):
+            return f'Node({self.v})'
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cnt = 0
+        self.head = LRUCache.Node(None, None)
+        self.tail = LRUCache.Node(None, None)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.nodes = {}
+
+    def pop(self, key, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        node.prev = node.next = None
+        self.cnt -= 1
+        self.nodes.pop(key)
+        return node
+
+    def get(self, key: int) -> int:
+        if key not in self.nodes:
+            return -1
+        node = self.nodes[key]
+        self.pop(key, node)
+        self.put(key, node.v)
+        return node.v
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.nodes:
+            node = self.nodes[key]
+            node.v = value
+            self.get(key)
+        else:
+            node = LRUCache.Node(key, value)
+            self.nodes[key] = node
+            self.cnt += 1
+            a, b, c = self.head, node, self.head.next
+            a.next, b.prev = b, a
+            b.next, c.prev = c, b
+            if self.cnt > self.capacity:
+                self.pop(self.tail.prev.k, self.tail.prev)
+
+
+
 @pytest.mark.parametrize('args', [
     ((["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"],
       [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]],
@@ -191,15 +245,14 @@ class LRUCache:
       [[1],[2,1],[2],[3,2],[2],[3]],
       [None, None, 1, None, -1, 2]
       )),
-
 ])
 def test(args):
     commands, arguments, expecteds = args
     obj = globals()[commands.pop(0)](*arguments.pop(0))
-    actual = []
+    actual = [None]
     for cmd, arg in zip(commands, arguments):
         actual.append(getattr(obj, cmd)(*arg))
-    assert expecteds[1:] == actual
+    assert expecteds == actual
 
 
 if __name__ == '__main__':

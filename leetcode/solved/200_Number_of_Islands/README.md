@@ -1,4 +1,4 @@
-### [200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
+### [200. Number of Islands](https://leetcode.com/problems/number-of-islands/description/)
 
 Medium
 
@@ -8,7 +8,7 @@ An __island__ is surrounded by water and is formed by connecting adjacent lands 
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: grid = [
@@ -20,7 +20,7 @@ Input: grid = [
 Output: 1
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: grid = [
@@ -43,4 +43,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 3,314,494 | 1,851,458 | 55.9% |
+| 4,555,869 | 2,709,970 | 59.5% |

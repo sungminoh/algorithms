@@ -33,12 +33,14 @@ Constraints:
 	All the integers in the expression are non-negative integers in the range [0, 231 - 1].
 	The answer is guaranteed to fit in a 32-bit integer.
 """
-import sys
+from collections import deque
 import pytest
+import sys
 
 
 class Solution:
     def calculate(self, s: str) -> int:
+        """Aug 21, 2019 22:34"""
         class Cursor():
             def __init__(self, idx, s):
                 self.idx = idx
@@ -95,6 +97,7 @@ class Solution:
         return nums[0]
 
     def calculate(self, s: str) -> int:
+        """Dec 30, 2021 13:27"""
         stack = []
         i = 0
         while i < len(s):
@@ -134,18 +137,57 @@ class Solution:
                     assert Exception('Not reachable')
         return ret
 
+    def calculate(self, s: str) -> int:
+        """May 05, 2024 12:23"""
+        operators = []
+        operands = []
 
-@pytest.mark.parametrize('s, expected', [
-    ("3+2*2", 7),
-    (" 3/2 ", 1),
-    (" 3+5 / 2 ", 5),
-    ("42", 42),
-    ("0-2147483647", -2147483647),
-    ("1-1+1", 1),
-    ("1+1-1", 1),
+        def read_num(i):
+            j = i
+            while j < len(s) and s[j].isdigit():
+                j += 1
+            num = int(s[i:j])
+            return num, j-1
+
+        i = 0
+        calc = False
+        while i < len(s):
+            c = s[i]
+            if c in '+-*/':
+                operators.append(c)
+                if c in '*/':
+                    calc = True
+            elif c.isdigit():
+                num, i = read_num(i)
+                operands.append(num)
+                if calc:
+                    b = operands.pop()
+                    a = operands.pop()
+                    op = operators.pop()
+                    operands.append((a*b) if op == '*' else (a//b))
+                    calc = False
+            i += 1
+
+        ret = operands[0]
+        for i in range(1, len(operands)):
+            if operators[i-1] == '+':
+                ret += operands[i]
+            if operators[i-1] == '-':
+                ret -= operands[i]
+        return ret
+
+
+@pytest.mark.parametrize('args', [
+    (("3+2*2", 7)),
+    ((" 3/2 ", 1)),
+    ((" 3+5 / 2 ", 5)),
+    (("42", 42)),
+    (("0-2147483647", -2147483647)),
+    (("1-1+1", 1)),
+    (("1+1-1", 1)),
 ])
-def test(s, expected):
-    assert expected == Solution().calculate(s)
+def test(args):
+    assert args[-1] == Solution().calculate(*args[:-1])
 
 
 if __name__ == '__main__':

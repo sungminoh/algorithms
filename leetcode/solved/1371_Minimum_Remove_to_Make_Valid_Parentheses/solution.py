@@ -37,15 +37,16 @@ Explanation: An empty string is also valid.
 Constraints:
 
 	1 <= s.length <= 105
-	s[i] is either'(' , ')', or lowercase English letter.
+	s[i] is either '(' , ')', or lowercase English letter.
 """
 import itertools
-import sys
 import pytest
+import sys
 
 
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
+        """Mar 27, 2022 15:28"""
         ret = ''
         num_closes = reversed(list(itertools.accumulate(
             reversed([1 if c == ')' else 0 for c in s]))))
@@ -63,14 +64,31 @@ class Solution:
                 ret += c
         return ret
 
+    def minRemoveToMakeValid(self, s: str) -> str:
+        """May 05, 2024 12:31"""
+        stack = []
+        exclude = set()
+        cnt = 0
+        for i, c in enumerate(s):
+            if c == '(':
+                stack.append(i)
+            elif c == ')':
+                if len(stack) == 0:
+                    exclude.add(i)
+                else:
+                    stack.pop()
+                    cnt -= 1
+        exclude.update(stack)
+        return ''.join([c for i, c in enumerate(s) if i not in exclude])
 
-@pytest.mark.parametrize('s, expected', [
-    ("lee(t(c)o)de)", "lee(t(c)o)de"),
-    ("a)b(c)d", "ab(c)d"),
-    ("))((", ""),
+
+@pytest.mark.parametrize('args', [
+    (("lee(t(c)o)de)", "lee(t(c)o)de")),
+    (("a)b(c)d", "ab(c)d")),
+    (("))((", "")),
 ])
-def test(s, expected):
-    assert expected == Solution().minRemoveToMakeValid(s)
+def test(args):
+    assert args[-1] == Solution().minRemoveToMakeValid(*args[:-1])
 
 
 if __name__ == '__main__':

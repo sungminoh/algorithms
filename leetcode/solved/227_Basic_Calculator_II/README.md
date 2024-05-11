@@ -1,4 +1,4 @@
-### [227. Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/)
+### [227. Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/description/)
 
 Medium
 
@@ -12,19 +12,19 @@ __Note:__ You are not allowed to use any built-in function which evaluates strin
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```Input: s = "3+2*2"
 Output: 7
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```Input: s = " 3/2 "
 Output: 1
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```Input: s = " 3+5 / 2 "
 Output: 5
@@ -42,4 +42,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 897,346 | 365,978 | 40.8% |
+| 1,439,479 | 628,107 | 43.6% |

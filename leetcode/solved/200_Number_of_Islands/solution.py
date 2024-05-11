@@ -38,14 +38,14 @@ Constraints:
 	1 <= m, n <= 300
 	grid[i][j] is '0' or '1'.
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def numIslands(self, grid):
-        """
+        """Dec 21, 2018 19:07
         :type grid: List[List[str]]
         :rtype: int
         """
@@ -72,6 +72,7 @@ class Solution:
         return ret
 
     def numIslands(self, grid: List[List[str]]) -> int:
+        """Sep 13, 2022 06:14"""
         if not grid or not grid[0]:
             return 0
 
@@ -89,23 +90,44 @@ class Solution:
             return ret
         return sum(1 if dfs(i, j)>0 else 0 for i in range(n) for j in range(m))
 
+    def numIslands(self, grid: List[List[str]]) -> int:
+        """May 05, 2024 12:04"""
+        M, N = len(grid), len(grid[0])
 
-@pytest.mark.parametrize('grid, expected', [
-    ([
+        seen = set()
+        def dfs(i, j):
+            for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                x, y = i+dx, j+dy
+                if 0<=x<M and 0<=y<N and grid[x][y]=='1' and (x, y) not in seen:
+                    seen.add((x, y))
+                    dfs(x, y)
+
+        ret = 0
+        for i in range(M):
+            for j in range(N):
+                if grid[i][j]=='1' and (i, j) not in seen:
+                    dfs(i, j)
+                    ret += 1
+        return ret
+
+
+@pytest.mark.parametrize('args', [
+    (([
         ["1","1","1","1","0"],
         ["1","1","0","1","0"],
         ["1","1","0","0","0"],
         ["0","0","0","0","0"]
-    ], 1),
-    ([
+    ], 1)),
+    (([
         ["1","1","0","0","0"],
         ["1","1","0","0","0"],
         ["0","0","1","0","0"],
         ["0","0","0","1","1"]
-    ], 3),
+    ], 3)),
 ])
-def test(grid, expected):
-    assert expected == Solution().numIslands(grid)
+def test(args):
+    assert args[-1] == Solution().numIslands(*args[:-1])
+
 
 if __name__ == '__main__':
     sys.exit(pytest.main(["-s", "-v"] + sys.argv))

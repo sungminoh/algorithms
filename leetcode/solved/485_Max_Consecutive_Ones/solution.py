@@ -25,13 +25,14 @@ Constraints:
 	1 <= nums.length <= 105
 	nums[i] is either 0 or 1.
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
     def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        """Oct 04, 2021 11:27"""
         ret = 0
         cnt = 0
         for n in nums:
@@ -42,13 +43,26 @@ class Solution:
                 cnt = 0
         return ret
 
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        """May 05, 2024 12:37"""
+        ret = 0
+        i = 0
+        j = -1
+        while i < len(nums):
+            if nums[i] != 1:
+                ret = max(ret, i-1-j)
+                j = i
+            i += 1
+        ret = max(ret, i-1-j)
+        return ret
 
-@pytest.mark.parametrize('nums, expected', [
-    ([1,1,0,1,1,1], 3),
-    ([1,0,1,1,0,1], 2),
+
+@pytest.mark.parametrize('args', [
+    (([1,1,0,1,1,1], 3)),
+    (([1,0,1,1,0,1], 2)),
 ])
-def test(nums, expected):
-    assert expected == Solution().findMaxConsecutiveOnes(nums)
+def test(args):
+    assert args[-1] == Solution().findMaxConsecutiveOnes(*args[:-1])
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-### [485. Max Consecutive Ones](https://leetcode.com/problems/max-consecutive-ones/)
+### [485. Max Consecutive Ones](https://leetcode.com/problems/max-consecutive-ones/description/)
 
 Easy
 
@@ -6,7 +6,7 @@ Given a binary array `` nums ``, return _the maximum number of consecutive _`` 1
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: nums = [1,1,0,1,1,1]
@@ -14,7 +14,7 @@ Output: 3
 Explanation: The first two digits or the last three digits are consecutive 1s. The maximum number of consecutive 1s is 3.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: nums = [1,0,1,1,0,1]
@@ -30,4 +30,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 959,175 | 520,709 | 54.3% |
+| 1,938,359 | 1,144,045 | 59.0% |

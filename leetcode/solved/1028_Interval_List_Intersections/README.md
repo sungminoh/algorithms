@@ -1,4 +1,4 @@
-### [1028. Interval List Intersections](https://leetcode.com/problems/interval-list-intersections/)
+### [1028. Interval List Intersections](https://leetcode.com/problems/interval-list-intersections/description/)
 
 Medium
 
@@ -12,7 +12,7 @@ The __intersection__ of two closed intervals is a set of real numbers that are e
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2019/01/30/interval1.png" style="width: 700px; height: 194px;"/>
 
@@ -21,25 +21,11 @@ Input: firstList = [[0,2],[5,10],[13,23],[24,25]], secondList = [[1,5],[8,12],[1
 Output: [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: firstList = [[1,3],[5,9]], secondList = []
 Output: []
-```
-
-__Example 3:__
-
-```
-Input: firstList = [], secondList = [[4,8],[10,12]]
-Output: []
-```
-
-__Example 4:__
-
-```
-Input: firstList = [[1,7]], secondList = [[3,10]]
-Output: [[3,7]]
 ```
 
  
@@ -55,4 +41,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 359,568 | 253,314 | 70.4% |
+| 568,899 | 407,375 | 71.6% |

@@ -1,30 +1,49 @@
-### [330. Patching Array](https://leetcode.com/problems/patching-array/)
+### [330. Patching Array](https://leetcode.com/problems/patching-array/description/?envType=daily-question&envId=2024-06-16)
 
 Hard
 
-Given a sorted positive integer array _nums_ and an integer _n_, add/patch elements to the array such that any number in range `` [1, n] `` inclusive can be formed by the sum of some elements in the array. Return the minimum number of patches required.
+Given a sorted integer array `` nums `` and an integer `` n ``, add/patch elements to the array such that any number in the range `` [1, n] `` inclusive can be formed by the sum of some elements in the array.
 
-__Example 1:__
+Return _the minimum number of patches required_.
 
-<strong>Input: </strong><i>nums</i> = [1,3], <i>n</i> = <code>6</code>
-<strong>Output: </strong>1 
-    <strong>Explanation:</strong>
-    Combinations of <i>nums</i> are <code>[1], [3], [1,3]</code>, which form possible sums of: <code>1, 3, 4</code>.
-    Now if we add/patch <code>2</code> to <i>nums</i>, the combinations are: <code>[1], [2], [3], [1,3], [2,3], [1,2,3]</code>.
-    Possible sums are <code>1, 2, 3, 4, 5, 6</code>, which now covers the range <code>[1, 6]</code>.
-    So we only need <code>1</code> patch.
+ 
 
-__Example 2:__
+<strong class="example">Example 1:</strong>
 
-<strong>Input: </strong><i>nums</i> = [1,5,10], <i>n</i> = <code>20</code>
-<strong>Output:</strong> 2
-    <strong>Explanation: </strong>The two patches can be <code>[2, 4]</code>.
+```
+Input: nums = [1,3], n = 6
+Output: 1
+Explanation:
+Combinations of nums are [1], [3], [1,3], which form possible sums of: 1, 3, 4.
+Now if we add/patch 2 to nums, the combinations are: [1], [2], [3], [1,3], [2,3], [1,2,3].
+Possible sums are 1, 2, 3, 4, 5, 6, which now covers the range [1, 6].
+So we only need 1 patch.
+```
 
-__Example 3:__
+<strong class="example">Example 2:</strong>
 
-<strong>Input: </strong><i>nums</i> = [1,2,2], <i>n</i> = <code>5</code>
-<strong>Output:</strong> 0
+```
+Input: nums = [1,5,10], n = 20
+Output: 2
+Explanation: The two patches can be [2, 4].
+```
+
+<strong class="example">Example 3:</strong>
+
+```
+Input: nums = [1,2,2], n = 5
+Output: 0
+```
+
+ 
+
+__Constraints:__
+
+*   `` 1 <= nums.length <= 1000 ``
+*   <code>1 <= nums[i] <= 10<sup>4</sup></code>
+*   `` nums `` is sorted in __ascending order__.
+*   <code>1 <= n <= 2<sup>31</sup> - 1</code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 107,842 | 37,355 | 34.6% |
+| 293,828 | 155,875 | 53.0% |

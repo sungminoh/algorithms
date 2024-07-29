@@ -1,4 +1,4 @@
-### [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+### [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/)
 
 Medium
 
@@ -8,7 +8,7 @@ According to the <a href="https://en.wikipedia.org/wiki/Lowest_common_ancestor" 
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2018/12/14/binarytree.png" style="width: 200px; height: 190px;"/>
 
@@ -18,7 +18,7 @@ Output: 3
 Explanation: The LCA of nodes 5 and 1 is 3.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2018/12/14/binarytree.png" style="width: 200px; height: 190px;"/>
 
@@ -28,7 +28,7 @@ Output: 5
 Explanation: The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: root = [1,2], p = 1, q = 2
@@ -47,4 +47,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,966,186 | 1,125,332 | 57.2% |
+| 2,670,512 | 1,678,354 | 62.8% |

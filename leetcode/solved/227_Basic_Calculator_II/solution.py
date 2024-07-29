@@ -33,7 +33,6 @@ Constraints:
 	All the integers in the expression are non-negative integers in the range [0, 231 - 1].
 	The answer is guaranteed to fit in a 32-bit integer.
 """
-from collections import deque
 import pytest
 import sys
 
@@ -176,6 +175,29 @@ class Solution:
                 ret -= operands[i]
         return ret
 
+    def calculate(self, s: str) -> int:
+        """Jul 02, 2024 22:16"""
+        operand = []
+        operator = []
+        cur = ''
+        for i, c in enumerate(s + ' '):
+            if c.isdigit():
+                cur += c
+            else:
+                if cur:
+                    operand.append(int(cur))
+                    while operator and operator[-1] in '*/':
+                        b, a = operand.pop(), operand.pop()
+                        operand.append((a*b) if operator.pop() == '*' else (a//b))
+                    cur = ''
+                if c in '+-*/':
+                    operator.append(c)
+
+        ret = operand[0]
+        for x, op in zip(operand[1:], operator):
+            ret = (ret+x) if op == '+' else (ret-x)
+        return ret
+
 
 @pytest.mark.parametrize('args', [
     (("3+2*2", 7)),
@@ -185,6 +207,7 @@ class Solution:
     (("0-2147483647", -2147483647)),
     (("1-1+1", 1)),
     (("1+1-1", 1)),
+    (("2*3+4", 10)),
 ])
 def test(args):
     assert args[-1] == Solution().calculate(*args[:-1])

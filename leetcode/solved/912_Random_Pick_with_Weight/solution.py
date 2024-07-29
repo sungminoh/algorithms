@@ -99,6 +99,15 @@ class Solution:
         return bisect.bisect_left(self.weights, v)
 
 
+class Solution:
+    """Jul 02, 2024 22:01"""
+    def __init__(self, w: List[int]):
+        self.buckets = list(itertools.accumulate(w))
+
+    def pickIndex(self) -> int:
+        return bisect.bisect_right(self.buckets, random.randrange(0, self.buckets[-1]))
+
+
 @pytest.mark.parametrize('args', [
     ((["Solution","pickIndex"],
       [[[1]],[]],

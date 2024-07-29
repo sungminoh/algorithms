@@ -36,7 +36,6 @@ Constraints:
 	p != q
 	p and q will exist in the tree.
 """
-from typing import Tuple
 import pytest
 import sys
 sys.path.append('../')
@@ -131,24 +130,33 @@ class Solution:
         dfs(root, [p, q])
         return lca
 
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        """Jul 02, 2024 22:33"""
+        def traverse(root, a, b):
+            if root is None:
+                return 0, None
+            lcnt, lfound = traverse(root.left, a, b)
+            if lcnt == 2:
+                return 2, lfound
+            rcnt, rfound = traverse(root.right, a, b)
+            if rcnt == 2:
+                return 2, rfound
+            cnt = lcnt + rcnt
+            found = root
+            if root.val == a.val or root.val == b.val:
+                cnt += 1
+            return cnt, found
 
-@pytest.mark.parametrize('values, p, q, expected', [
-    ([3,5,1,6,2,0,8,None,None,7,4], 5, 1, 3),
-    ([3,5,1,6,2,0,8,None,None,7,4], 5, 4, 5),
-    ([1,2], 1, 2, 1),
+        return traverse(root, p, q)[1]
+
+
+@pytest.mark.parametrize('args', [
+    (([3,5,1,6,2,0,8,None,None,7,4], 5, 1, 3)),
+    (([3,5,1,6,2,0,8,None,None,7,4], 5, 4, 5)),
+    (([1,2], 1, 2, 1)),
 ])
-def test(values, p, q, expected):
-    def find(root, x):
-        if not root:
-            return None
-        if root.val == x:
-            return root
-        return find(root.left, x) or find(root.right, x)
-
-    root = build_tree(values)
-    p = find(root, p)
-    q = find(root, q)
-    assert expected == Solution().lowestCommonAncestor(root, p, q).val
+def test(args):
+    assert args[-1] == Solution().lowestCommonAncestor(build_tree(args[0]), *map(TreeNode, args[1:-1])).val
 
 
 if __name__ == '__main__':

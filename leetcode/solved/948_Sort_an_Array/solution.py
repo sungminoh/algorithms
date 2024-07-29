@@ -60,6 +60,29 @@ class Solution:
         return nums
 
     def sortArray(self, nums: List[int]) -> List[int]:
+        """TLE"""
+        def qsort(arr, i, j):
+            if i >= j:
+                return
+            k = random.randint(i, j)
+            arr[k], arr[j] = arr[j], arr[k]
+            p = arr[j]
+            s, e = i, j-1
+            while s <= e:
+                if arr[s] < p:
+                    s += 1
+                elif arr[e] >= p:
+                    e -= 1
+                else:
+                    arr[s], arr[e] = arr[e], arr[s]
+            arr[s], arr[j] = arr[j], arr[s]
+            qsort(arr, i, s-1)
+            qsort(arr, s+1, j)
+
+        qsort(nums, 0, len(nums)-1)
+        return nums
+
+    def sortArray(self, nums: List[int]) -> List[int]:
         """Apr 02, 2023 19:39"""
         heapify(nums)
         ret = []

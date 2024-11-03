@@ -98,14 +98,57 @@ class Solution:
             f'{atom}{counter[atom]}' if counter[atom] > 1 else atom
             for atom in sorted(counter.keys()))
 
+    def countOfAtoms(self, formula: str) -> str:
+        """Jul 29, 2024 23:08"""
+        stack = [{}]
+        N = len(formula)
+        i = 0
 
-@pytest.mark.parametrize('formula, expected', [
-    ("H2O", "H2O"),
-    ("Mg(OH)2", "H2MgO2"),
-    ("K4(ON(SO3)2)2", "K4N2O14S4"),
+        def get_cnt(i):
+            cnt = 0
+            while i < N and formula[i].isdigit():
+                cnt *= 10
+                cnt += int(formula[i])
+                i += 1
+            cnt = max(cnt, 1)
+            return i, cnt
+
+        def get_alpha(i):
+            k = formula[i]
+            i += 1
+            while i < N and formula[i] in string.ascii_lowercase:
+                k += formula[i]
+                i += 1
+            return i, k
+
+        while i < N:
+            if formula[i] == ')':
+                i += 1
+                i, cnt = get_cnt(i)
+                for k, v in stack.pop().items():
+                    stack[-1].setdefault(k, 0)
+                    stack[-1][k] += v * cnt
+            elif formula[i] == '(':
+                stack.append({})
+                i += 1
+            else:
+                assert formula[i] in string.ascii_uppercase
+                i, k = get_alpha(i)
+                i, cnt = get_cnt(i)
+                stack[-1].setdefault(k, 0)
+                stack[-1][k] += cnt
+
+        assert len(stack) == 1
+        return ''.join(f'{k}{v}' if v > 1 else k for k, v in sorted(stack[-1].items()))
+
+
+@pytest.mark.parametrize('args', [
+    (("H2O", "H2O")),
+    (("Mg(OH)2", "H2MgO2")),
+    (("K4(ON(SO3)2)2", "K4N2O14S4")),
 ])
-def test(formula, expected):
-    assert expected == Solution().countOfAtoms(formula)
+def test(args):
+    assert args[-1] == Solution().countOfAtoms(*args[:-1])
 
 
 if __name__ == '__main__':

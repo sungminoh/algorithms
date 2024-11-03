@@ -1,4 +1,4 @@
-### [1016. Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/)
+### [1016. Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/description/?envType=daily-question&envId=2024-06-09)
 
 Medium
 
@@ -34,4 +34,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 353,060 | 192,342 | 54.5% |
+| 628,105 | 348,836 | 55.5% |

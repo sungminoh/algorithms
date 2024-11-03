@@ -1,4 +1,4 @@
-### [726. Number of Atoms](https://leetcode.com/problems/number-of-atoms/)
+### [726. Number of Atoms](https://leetcode.com/problems/number-of-atoms/description/?envType=daily-question&envId=2024-07-14)
 
 Hard
 
@@ -58,4 +58,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 95,476 | 49,820 | 52.2% |
+| 225,013 | 146,669 | 65.2% |

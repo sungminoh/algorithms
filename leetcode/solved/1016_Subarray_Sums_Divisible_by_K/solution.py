@@ -66,6 +66,18 @@ class Solution:
             cnt[acc % k] += 1
         return ret
 
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        """Nov 02, 2024 21:06"""
+        ret = 0
+        modcnt = defaultdict(int)
+        modcnt[0] = 1
+        acc = 0
+        for n in nums:
+            acc += n
+            ret += modcnt[acc%k]
+            modcnt[acc%k] += 1
+        return ret
+
 
 @pytest.mark.parametrize('args', [
     (([4,5,0,-2,-3,1], 5, 7)),

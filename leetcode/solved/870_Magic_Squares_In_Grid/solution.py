@@ -9,7 +9,9 @@
 """
 A 3 x 3 magic square is a 3 x 3 grid filled with distinct numbers from 1 to 9 such that each row, column, and both diagonals all have the same sum.
 
-Given a row x col grid of integers, how many 3 x 3 "magic square" subgrids are there?  (Each subgrid is contiguous).
+Given a row x col grid of integers, how many 3 x 3 magic square subgrids are there?
+
+Note: while a magic square can only contain numbers from 1 to 9, grid may contain numbers up to 15.
 
 Example 1:
 
@@ -27,16 +29,6 @@ Example 2:
 Input: grid = [[8]]
 Output: 0
 
-Example 3:
-
-Input: grid = [[4,4],[3,3]]
-Output: 0
-
-Example 4:
-
-Input: grid = [[4,7,8],[9,5,1],[2,3,6]]
-Output: 0
-
 Constraints:
 
 	row == grid.length
@@ -44,9 +36,11 @@ Constraints:
 	1 <= row, col <= 10
 	0 <= grid[i][j] <= 15
 """
-import sys
+from collections import defaultdict
+from collections import Counter
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -106,40 +100,70 @@ class Solution:
 
         return cnt
 
+    def numMagicSquaresInside(self, grid: List[List[int]]) -> int:
+        """Nov 03, 2024 20:19"""
+        M, N = len(grid), len(grid[0])
+        if M < 3 or N < 3:
+            return 0
 
-@pytest.mark.parametrize('grid, expected', [
-    ([[4,3,8,4],
-      [9,5,1,9],
-      [2,7,6,2]], 1),
-    ([[8]], 0),
-    ([[4,4],
-      [3,3]], 0),
-    ([[4,7,8],
+        # horizontal sum, vertical sum, horizontal count, vertical count, distinct_nums
+        mat = [[[0, 0, 0, 0, 0] for _ in range(N)] for _ in range(M)]
+        for i in range(M):
+            counter = defaultdict(int)
+            h = 0
+            for j in range(N):
+                for i_ in range(i, max(-1, i-3), -1):
+                    counter[grid[i_][j]] += 1
+                h += grid[i][j]
+                if j >= 3:
+                    h -= grid[i][j-3]
+                    for i_ in range(i, max(-1, i-3), -1):
+                        counter[grid[i_][j-3]] -= 1
+                v = mat[i-1][j][1] + grid[i][j]
+                if i >= 3:
+                    v -= grid[i-3][j]
+                hc = mat[i-1][j][2] + (1 if j >= 2 and h == 15 else 0)
+                vc = mat[i][j-1][3] + (1 if i >= 2 and v == 15 else 0)
+                mat[i][j] = [h, v, hc, vc, len([x for x, y in counter.items() if y>0 and 1<=x<=9])]
+
+        ret = 0
+        for i in range(2, M):
+            for j in range(2, N):
+                if (
+                    (mat[i][j][2] >= 3 and mat[i][j][3] >= 3 and mat[i][j][4] == 9)
+                    and sum(grid[i-k][j-k] for k in range(3)) == 15
+                    and sum(grid[i-(2-k)][j-k] for k in range(3)) == 15
+                ):
+                    ret += 1
+        return ret
+
+
+@pytest.mark.parametrize('args', [
+    (([[4,3,8,4],[9,5,1,9],[2,7,6,2]], 1)),
+    (([[8]], 0)),
+    (([[5,5,5],[5,5,5],[5,5,5]], 0)),
+    (([[10,3,5],[1,6,11],[7,9,2]], 0)),
+    (([[4,4],
+      [3,3]], 0)),
+    (([[4,7,8],
       [9,5,1],
-      [2,3,6]], 0),
-    ([[5,5,5],
-      [5,5,5],
-      [5,5,5]], 0),
-    ([[10,3,5],
-      [1,6,11],
-      [7,9,2]], 0),
-    ([[2,6,7,8],
+      [2,3,6]], 0)),
+    (([[2,6,7,8],
       [10,5,0,1],
       [3,4,8,6],
-      [2,9,4,4]], 0),
-    ([[2,7,6,9],
+      [2,9,4,4]], 0)),
+    (([[2,7,6,9],
       [9,5,1,6],
       [4,3,8,8],
-      [1,4,10,1]], 1),
-    ([[3,2,9,2,7],
+      [1,4,10,1]], 1)),
+    (([[3,2,9,2,7],
       [6,1,8,4,2],
       [7,5,3,2,7],
       [2,9,4,9,6],
-      [4,3,8,2,5]], 1)
+      [4,3,8,2,5]], 1))
 ])
-def test(grid, expected):
-    print()
-    assert expected == Solution().numMagicSquaresInside(grid)
+def test(args):
+    assert args[-1] == Solution().numMagicSquaresInside(*args[:-1])
 
 
 if __name__ == '__main__':

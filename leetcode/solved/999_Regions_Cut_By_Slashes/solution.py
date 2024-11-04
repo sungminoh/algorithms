@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
@@ -8,71 +7,37 @@
 # Distributed under terms of the MIT license.
 
 """
-In a N x N grid composed of 1 x 1 squares, each 1 x 1 square consists of a /, \, or blank space.  These characters divide the square into contiguous regions.
+An n x n grid is composed of 1 x 1 squares where each 1 x 1 square consists of a '/', '\', or blank space ' '. These characters divide the square into contiguous regions.
 
-(Note that backslash characters are escaped, so a \ is represented as "\\".)
+Given the grid grid represented as a string array, return the number of regions.
 
-Return the number of regions.
+Note that backslash characters are escaped, so a '\' is represented as '\\'.
 
 Example 1:
 
-Input:
-[
-  " /",
-  "/ "
-]
+Input: grid = [" /","/ "]
 Output: 2
-Explanation: The 2x2 grid is as follows:
 
 Example 2:
 
-Input:
-[
-  " /",
-  "  "
-]
+Input: grid = [" /","  "]
 Output: 1
-Explanation: The 2x2 grid is as follows:
 
 Example 3:
 
-Input:
-[
-  "\\/",
-  "/\\"
-]
-Output: 4
-Explanation: (Recall that because \ characters are escaped, "\\/" refers to \/, and "/\\" refers to /\.)
-The 2x2 grid is as follows:
-
-Example 4:
-
-Input:
-[
-  "/\\",
-  "\\/"
-]
+Input: grid = ["/\\","\\/"]
 Output: 5
-Explanation: (Recall that because \ characters are escaped, "/\\" refers to /\, and "\\/" refers to \/.)
-The 2x2 grid is as follows:
+Explanation: Recall that because \ characters are escaped, "\\/" refers to \/, and "/\\" refers to /\.
 
-Example 5:
+Constraints:
 
-Input:
-[
-  "//",
-  "/ "
-]
-Output: 3
-Explanation: The 2x2 grid is as follows:
-
-Note:
-    1. 1 <= grid.length == grid[0].length <= 30
-    2. grid[i][j] is either '/', '\', or ' '.
+	n == grid.length == grid[i].length
+	1 <= n <= 30
+	grid[i][j] is either '/', '\', or ' '.
 """
-import sys
 from typing import List
 import pytest
+import sys
 
 
 def expand_grid(grid):
@@ -118,22 +83,50 @@ class Solution:
                         # print(l)
         return cnt
 
+    def regionsBySlashes(self, grid: List[str]) -> int:
+        """Nov 03, 2024 20:50"""
+        M, N = len(grid), len(grid[0])
+        def expand_grid(grid):
+            ret = [[0]*(3*N) for _ in range(3*M)]
+            for i in range(M):
+                for j in range(N):
+                    if grid[i][j] == "/":
+                        ret[3*i][3*j+2] = 1
+                        ret[3*i+1][3*j+1] = 1
+                        ret[3*i+2][3*j] = 1
+                    elif grid[i][j] == "\\":
+                        ret[3*i][3*j] = 1
+                        ret[3*i+1][3*j+1] = 1
+                        ret[3*i+2][3*j+2] = 1
+            return ret
 
-@pytest.mark.parametrize('grid, expected', [
-    ([" /",
-      "/ "], 2),
-    ([" /",
-      "  "], 1),
-    (["\\/",
-      "/\\"], 4),
-    (["/\\",
-      "\\/"], 5),
-    (["//",
-      "/ "], 3),
+        mat = expand_grid(grid)
+
+        def dfs(i, j):
+            mat[i][j] = 1
+            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                x, y = i+dx, j+dy
+                if 0<=x<3*M and 0<=y<3*N and mat[x][y]==0:
+                    dfs(x, y)
+
+        ret = 0
+        for i in range(3*M):
+            for j in range(3*N):
+                if mat[i][j] == 0:
+                    ret += 1
+                    dfs(i, j)
+        return ret
+
+
+@pytest.mark.parametrize('args', [
+    (([" /","/ "], 2)),
+    (([" /","  "], 1)),
+    ((["/\\","\\/"], 5)),
+    ((["\\/","/\\"], 4)),
+    ((["\\/\\ "," /\\/"," \\/ ","/ / "], 3)),
 ])
-def test(grid, expected):
-    print()
-    assert expected == Solution().regionsBySlashes(grid)
+def test(args):
+    assert args[-1] == Solution().regionsBySlashes(*args[:-1])
 
 
 if __name__ == '__main__':

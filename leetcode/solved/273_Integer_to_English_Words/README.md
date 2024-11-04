@@ -1,37 +1,38 @@
-### [273. Integer to English Words](https://leetcode.com/problems/integer-to-english-words/)
+### [273. Integer to English Words](https://leetcode.com/problems/integer-to-english-words/description/?envType=daily-question&envId=2024-08-07)
 
 Hard
 
-Convert a non-negative integer to its english words representation. Given input is guaranteed to be less than 2<sup>31</sup> - 1.
+Convert a non-negative integer `` num `` to its English words representation.
 
-__Example 1:__
+ 
 
-```
-<b>Input:</b> 123
-<b>Output:</b> "One Hundred Twenty Three"
-```
-
-__Example 2:__
+<strong class="example">Example 1:</strong>
 
 ```
-<b>Input:</b> 12345
-<b>Output:</b> "Twelve Thousand Three Hundred Forty Five"
+Input: num = 123
+Output: "One Hundred Twenty Three"
 ```
 
-__Example 3:__
+<strong class="example">Example 2:</strong>
 
 ```
-<b>Input:</b> 1234567
-<b>Output:</b> "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+Input: num = 12345
+Output: "Twelve Thousand Three Hundred Forty Five"
 ```
 
-__Example 4:__
+<strong class="example">Example 3:</strong>
 
 ```
-<b>Input:</b> 1234567891
-<b>Output:</b> "One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One"
+Input: num = 1234567
+Output: "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
 ```
+
+ 
+
+__Constraints:__
+
+*   <code>0 <= num <= 2<sup>31</sup> - 1</code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 630,075 | 167,935 | 26.7% |
+| 1,510,595 | 515,076 | 34.1% |

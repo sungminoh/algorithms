@@ -1,45 +1,58 @@
-### [789. Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/?envType=daily-question&envId=2023-05-23)
+### [789. Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/description/?envType=daily-question&envId=2024-08-12)
 
 Easy
 
-Design a class to find the <code>k<sup>th</sup></code> largest element in a stream. Note that it is the <code>k<sup>th</sup></code> largest element in the sorted order, not the <code>k<sup>th</sup></code> distinct element.
+You are part of a university admissions office and need to keep track of the `` kth `` highest test score from applicants in real-time. This helps to determine cut-off marks for interviews and admissions dynamically as new applicants submit their scores.
 
-Implement `` KthLargest `` class:
+You are tasked to implement a class which, for a given integer `` k ``, maintains a stream of test scores and continuously returns the `` k ``th highest test score __after__ a new score has been submitted. More specifically, we are looking for the `` k ``th highest score in the sorted list of all scores.
 
-*   `` KthLargest(int k, int[] nums) `` Initializes the object with the integer `` k `` and the stream of integers `` nums ``.
-*   `` int add(int val) `` Appends the integer `` val `` to the stream and returns the element representing the <code>k<sup>th</sup></code> largest element in the stream.
+Implement the `` KthLargest `` class:
+
+*   `` KthLargest(int k, int[] nums) `` Initializes the object with the integer `` k `` and the stream of test scores `` nums ``.
+*   `` int add(int val) `` Adds a new test score `` val `` to the stream and returns the element representing the <code>k<sup>th</sup></code> largest element in the pool of test scores so far.
 
  
 
 <strong class="example">Example 1:</strong>
 
-```
-Input
-["KthLargest", "add", "add", "add", "add", "add"]
-[[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]
-Output
-[null, 4, 5, 5, 8, 8]
+<div class="example-block">
+<p><strong>Input:</strong><br/>
+<span class="example-io">["KthLargest", "add", "add", "add", "add", "add"]<br/>
+[[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]</span></p>
+<p><strong>Output:</strong> <span class="example-io">[null, 4, 5, 5, 8, 8]</span></p>
+<p><strong>Explanation:</strong></p>
+<p>KthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);<br/>
+kthLargest.add(3); // return 4<br/>
+kthLargest.add(5); // return 5<br/>
+kthLargest.add(10); // return 5<br/>
+kthLargest.add(9); // return 8<br/>
+kthLargest.add(4); // return 8</p>
+</div>
 
-Explanation
-KthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);
-kthLargest.add(3);   // return 4
-kthLargest.add(5);   // return 5
-kthLargest.add(10);  // return 5
-kthLargest.add(9);   // return 8
-kthLargest.add(4);   // return 8
-```
+<strong class="example">Example 2:</strong>
+
+<div class="example-block">
+<p><strong>Input:</strong><br/>
+<span class="example-io">["KthLargest", "add", "add", "add", "add"]<br/>
+[[4, [7, 7, 7, 7, 8, 3]], [2], [10], [9], [9]]</span></p>
+<p><strong>Output:</strong> <span class="example-io">[null, 7, 7, 7, 8]</span></p>
+<p><strong>Explanation:</strong></p>
+KthLargest kthLargest = new KthLargest(4, [7, 7, 7, 7, 8, 3]);<br/>
+kthLargest.add(2); // return 7<br/>
+kthLargest.add(10); // return 7<br/>
+kthLargest.add(9); // return 7<br/>
+kthLargest.add(9); // return 8</div>
 
  
 
 __Constraints:__
 
-*   <code>1 <= k <= 10<sup>4</sup></code>
 *   <code>0 <= nums.length <= 10<sup>4</sup></code>
+*   `` 1 <= k <= nums.length + 1 ``
 *   <code>-10<sup>4</sup> <= nums[i] <= 10<sup>4</sup></code>
 *   <code>-10<sup>4</sup> <= val <= 10<sup>4</sup></code>
 *   At most <code>10<sup>4</sup></code> calls will be made to `` add ``.
-*   It is guaranteed that there will be at least `` k `` elements in the array when you search for the <code>k<sup>th</sup></code> element.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 804,573 | 455,610 | 56.6% |
+| 1,226,497 | 728,389 | 59.4% |

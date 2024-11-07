@@ -1,4 +1,4 @@
-### [40. Combination Sum II](https://leetcode.com/problems/combination-sum-ii/)
+### [40. Combination Sum II](https://leetcode.com/problems/combination-sum-ii/description/?envType=daily-question&envId=2024-08-13)
 
 Medium
 
@@ -10,7 +10,7 @@ __Note:__ The solution set must not contain duplicate combinations.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: candidates = [10,1,2,7,6,1,5], target = 8
@@ -23,7 +23,7 @@ Output:
 ]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: candidates = [2,5,2,1,2], target = 5
@@ -44,4 +44,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 804,645 | 407,019 | 50.6% |
+| 2,143,062 | 1,213,695 | 56.6% |

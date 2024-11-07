@@ -1,4 +1,4 @@
-### [719. Find K-th Smallest Pair Distance](https://leetcode.com/problems/find-k-th-smallest-pair-distance/)
+### [719. Find K-th Smallest Pair Distance](https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/?envType=daily-question&envId=2024-08-14)
 
 Hard
 
@@ -45,4 +45,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 194,661 | 70,933 | 36.4% |
+| 411,698 | 186,911 | 45.4% |

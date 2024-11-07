@@ -39,13 +39,10 @@ Constraints:
 	1 <= candidates[i] <= 50
 	1 <= target <= 30
 """
-from functools import lru_cache
-import sys
 from collections import Counter
-from typing import Tuple
-from typing import Set
 from typing import List
 import pytest
+import sys
 
 
 class Solution:
@@ -124,23 +121,40 @@ class Solution:
         dfs(0, target, [])
         return result
 
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        """Nov 05, 2024 17:54"""
+        candidates = list(Counter(candidates).items())
 
-@pytest.mark.parametrize('candidates, target, expected', [
-    ([10,1,2,7,6,1,5], 8, [
-        [1,1,6],
-        [1,2,5],
-        [1,7],
-        [2,6]
-    ]),
-    ([2,5,2,1,2], 5,
-     [
-         [1,2,2],
-         [5]
-     ]),
-    ([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], 27, []),
+        ret = []
+
+        def dp(i, remaining, track):
+            if remaining == 0:
+                ret.append(track)
+                return
+
+            if i == len(candidates) or remaining < 0:
+                return
+
+            dp(i+1, remaining, track)
+            for n in range(candidates[i][1]):
+                remaining -= candidates[i][0]
+                if remaining < 0:
+                    break
+                dp(i+1, remaining, track + ([candidates[i][0]] * (n+1)))
+
+
+        dp(0, target, [])
+        return ret
+
+
+@pytest.mark.parametrize('args', [
+    (([10,1,2,7,6,1,5], 8, [[1,1,6], [1,2,5], [1,7], [2,6]])),
+    (([2,5,2,1,2], 5, [[1,2,2], [5]])),
+    (([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], 27, [])),
 ])
-def test(candidates, target, expected):
-    assert sorted(expected) == sorted(Solution().combinationSum2(candidates, target))
+def test(args):
+    actual = Solution().combinationSum2(*args[:-1])
+    assert sorted(sorted(x) for x in args[-1]) == sorted(sorted(x) for x in actual)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-### [664. Strange Printer](https://leetcode.com/problems/strange-printer/)
+### [664. Strange Printer](https://leetcode.com/problems/strange-printer/description/?envType=daily-question&envId=2024-08-21)
 
 Hard
 
@@ -36,4 +36,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 65,428 | 30,626 | 46.8% |
+| 243,280 | 148,510 | 61.0% |

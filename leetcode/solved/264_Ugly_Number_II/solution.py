@@ -2,25 +2,34 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2019 Sungmin <smoh2044@gmail.com>
+# Copyright © 2020 sungminoh <smoh2044@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
 """
-Write a program to find the n-th ugly number.
+An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.
 
-Ugly numbers are positive numbers whose prime factors only include 2, 3, 5.
+Given an integer n, return the nth ugly number.
 
-Example:
+Example 1:
 
 Input: n = 10
 Output: 12
-Explanation: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 is the sequence of the first 10 ugly numbers.
-Note:
+Explanation: [1, 2, 3, 4, 5, 6, 8, 9, 10, 12] is the sequence of the first 10 ugly numbers.
 
-1 is typically treated as an ugly number.
-n does not exceed 1690.
+Example 2:
+
+Input: n = 1
+Output: 1
+Explanation: 1 has no prime factors, therefore all of its prime factors are limited to 2, 3, and 5.
+
+Constraints:
+
+	1 <= n <= 1690
 """
+import heapq
+import pytest
+import sys
 
 
 class Solution:
@@ -54,18 +63,27 @@ class Solution:
             offset = minIdx
         return nums[-1]
 
+    def nthUglyNumber(self, n: int) -> int:
+        """Nov 12, 2024 19:56"""
+        visited = set()
+        h = [1]
+        for _ in range(n-1):
+            a = heapq.heappop(h)
+            for x in [2,3,5]:
+                b = a*x
+                if b not in visited:
+                    visited.add(b)
+                    heapq.heappush(h, b)
+        return heapq.heappop(h)
 
-def main():
-    inputs = [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    ]
-    exptecteds = [
-        1, 2, 3, 4, 5, 6, 8, 9, 10, 12
-    ]
-    for n, expected in zip(inputs, exptecteds):
-        actual = Solution().nthUglyNumber(n)
-        print(f'{expected == actual}\texpected: {expected}\tactual: {actual}')
+
+@pytest.mark.parametrize('args', [
+    ((10, 12)),
+    ((1, 1)),
+])
+def test(args):
+    assert args[-1] == Solution().nthUglyNumber(*args[:-1])
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

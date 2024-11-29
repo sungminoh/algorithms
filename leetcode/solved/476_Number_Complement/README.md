@@ -1,4 +1,4 @@
-### [476. Number Complement](https://leetcode.com/problems/number-complement/#)
+### [476. Number Complement](https://leetcode.com/problems/number-complement/description/?envType=daily-question&envId=2024-08-22)
 
 Easy
 
@@ -10,7 +10,7 @@ Given an integer `` num ``, return _its complement_.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: num = 5
@@ -18,7 +18,7 @@ Output: 2
 Explanation: The binary representation of 5 is 101 (no leading zero bits), and its complement is 010. So you need to output 2.
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: num = 1
@@ -38,4 +38,4 @@ __Note:__ This question is the same as 1009: <a href="https://leetcode.com/probl
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 380,028 | 252,496 | 66.4% |
+| 685,660 | 481,967 | 70.3% |

@@ -99,27 +99,39 @@ class Solution:
     def strangePrinter(self, s: str) -> int:
         if not s:
             return 0
-        i = 0
-        ret = 1 + self.strangePrinter(s[i+1:])
-        j = i+1
+        ret = 1 + self.strangePrinter(s[1:])
+        j = 1
         while j < len(s):
-            if s[j] == s[i]:
-                ret = min(ret, self.strangePrinter(s[i:j]) + self.strangePrinter(s[j+1:]))
+            if s[j] == s[0]:
+                ret = min(ret, self.strangePrinter(s[:j]) + self.strangePrinter(s[j+1:]))
             j += 1
         return ret
 
+    @lru_cache(None)
+    def strangePrinter(self, s: str) -> int:
+        N = len(s)
+        ret = N
+        i = 0
+        while i < N:
+            j = i
+            while j < N and s[j] == s[i]:
+                j += 1
+            ret = min(ret, 1 + self.strangePrinter(s[:i] + s[j:]))
+            i = j
+        return ret
 
-@pytest.mark.parametrize('s, expected', [
-    ("aaabbb", 2),
-    ("aba", 2),
-    ("abcdefedcbabcdefedcba", 11),
-    ("abcdefafedcba", 7),
-    ("baacdddaaddaaaaccbddbcabdaabdbbcdcbbbacbddcabcaaa", 19),
-    ("ccdaccacbbdbacdccdbadacbbcbbaadacbadadbbcbdbaacdb", 25),
-    ("zuvckrvtmihlhnbbgycnxthqtskcjgakbypnrkhduqqcdsfksjzscjivbtzmbzxezosrabwurnywhdizmktqtcnuxmjyoidpwxg", 74),
+
+@pytest.mark.parametrize('args', [
+    (("aaabbb", 2)),
+    (("aba", 2)),
+    (("abcdefedcbabcdefedcba", 11)),
+    (("abcdefafedcba", 7)),
+    (("baacdddaaddaaaaccbddbcabdaabdbbcdcbbbacbddcabcaaa", 19)),
+    (("ccdaccacbbdbacdccdbadacbbcbbaadacbadadbbcbdbaacdb", 25)),
+    (("zuvckrvtmihlhnbbgycnxthqtskcjgakbypnrkhduqqcdsfksjzscjivbtzmbzxezosrabwurnywhdizmktqtcnuxmjyoidpwxg", 74)),
 ])
-def test(s, expected):
-    assert expected == Solution().strangePrinter(s)
+def test(args):
+    assert args[-1] == Solution().strangePrinter(*args[:-1])
 
 
 if __name__ == '__main__':

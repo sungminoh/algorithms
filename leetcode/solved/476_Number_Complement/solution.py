@@ -31,21 +31,26 @@ Constraints:
 
 Note: This question is the same as 1009: https://leetcode.com/problems/complement-of-base-10-integer/
 """
-import sys
+import math
 import pytest
+import sys
 
 
 class Solution:
     def findComplement(self, num: int) -> int:
         return pow(2, num.bit_length())-1 - num
 
+    def findComplement(self, num: int) -> int:
+        """Nov 13, 2024 07:45"""
+        return num^(pow(2, int(math.log(num, 2))+1)-1)
 
-@pytest.mark.parametrize('num, expected', [
-    (5, 2),
-    (1, 0),
+
+@pytest.mark.parametrize('args', [
+    ((5, 2)),
+    ((1, 0)),
 ])
-def test(num, expected):
-    assert expected == Solution().findComplement(num)
+def test(args):
+    assert args[-1] == Solution().findComplement(*args[:-1])
 
 
 if __name__ == '__main__':

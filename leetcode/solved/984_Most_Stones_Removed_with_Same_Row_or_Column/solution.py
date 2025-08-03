@@ -47,12 +47,19 @@ Constraints:
 	0 <= xi, yi <= 104
 	No two stones are at the same coordinate point.
 """
-from collections import deque
 from collections import defaultdict
-from heapq import heappop, heappush
 from typing import List
 import pytest
 import sys
+
+
+def to_grid(stones):
+    r = max([x[0] for x in stones])+1
+    c = max([x[1] for x in stones])+1
+    mat = [[0] * c for _ in range(r)]
+    for i, j in stones:
+        mat[i][j] = 1
+    return mat
 
 
 class Solution:
@@ -171,30 +178,42 @@ class Solution:
 
         return len(stones) - cnt
 
+    def removeStones(self, stones: List[List[int]]) -> int:
+        """Dec 05, 2024 13:21"""
+        rowcol = defaultdict(list)
+        colrow = defaultdict(list)
+        for i, j in stones:
+            rowcol[i].append(j)
+            colrow[j].append(i)
 
-def to_grid(stones):
-    r = max([x[0] for x in stones])+1
-    c = max([x[1] for x in stones])+1
-    mat = [[0] * c for _ in range(r)]
-    for i, j in stones:
-        mat[i][j] = 1
-    return mat
+        def dfs(i, j):
+            visited.add((i, j))
+            for y in rowcol[i]:
+                if (i, y) not in visited:
+                    dfs(i, y)
+            for x in colrow[j]:
+                if (x, j) not in visited:
+                    dfs(x, j)
+
+        visited = set()
+        ret = 0
+        for i, j in stones:
+            if (i, j) not in visited:
+                ret += 1
+                dfs(i, j)
+        return len(stones)-ret
 
 
-@pytest.mark.parametrize('stones, expected', [
-    ([[0,0],[0,1],[1,0],[1,2],[2,1],[2,2]], 5),
-    ([[0,0],[0,2],[1,1],[2,0],[2,2]], 3),
-    ([[0,0]], 0),
-    ([[0,1],[1,0],[1,1]], 2),
-    ([[0,0],[0,1],[1,0],[1,1],[2,1],[2,2],[3,2],[3,3],[3,4],[4,3],[4,4]], 10),
-    ([[5,9],[9,0],[0,0],[7,0],[4,3],[8,5],[5,8],[1,1],[0,6],[7,5],[1,6],[1,9],[9,4],[2,8],[1,3],[4,2],[2,5],[4,1],[0,2],[6,5]], 19),
+@pytest.mark.parametrize('args', [
+    (([[0,0],[0,1],[1,0],[1,2],[2,1],[2,2]], 5)),
+    (([[0,0],[0,2],[1,1],[2,0],[2,2]], 3)),
+    (([[0,0]], 0)),
+    (([[0,1],[1,0],[1,1]], 2)),
+    (([[0,0],[0,1],[1,0],[1,1],[2,1],[2,2],[3,2],[3,3],[3,4],[4,3],[4,4]], 10)),
+    (([[5,9],[9,0],[0,0],[7,0],[4,3],[8,5],[5,8],[1,1],[0,6],[7,5],[1,6],[1,9],[9,4],[2,8],[1,3],[4,2],[2,5],[4,1],[0,2],[6,5]], 19)),
 ])
-def test(stones, expected):
-    print()
-    grid = to_grid(stones)
-    for row in grid:
-        print(row)
-    assert expected == Solution().removeStones(stones)
+def test(args):
+    assert args[-1] == Solution().removeStones(*args[:-1])
 
 
 if __name__ == '__main__':

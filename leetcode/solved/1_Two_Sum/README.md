@@ -1,4 +1,4 @@
-### [1. Two Sum](https://leetcode.com/problems/two-sum/)
+### [1. Two Sum](https://leetcode.com/problems/two-sum/description/?envType=daily-question&envId=2024-08-27)
 
 Easy
 
@@ -10,22 +10,22 @@ You can return the answer in any order.
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 ```
 Input: nums = [2,7,11,15], target = 9
 Output: [0,1]
-Output: Because nums[0] + nums[1] == 9, we return [0, 1].
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: nums = [3,2,4], target = 6
 Output: [1,2]
 ```
 
-__Example 3:__
+<strong class="example">Example 3:</strong>
 
 ```
 Input: nums = [3,3], target = 6
@@ -42,8 +42,12 @@ __Constraints:__
 *   __Only one valid answer exists.__
 
  
-__Follow-up: __Can you come up with an algorithm that is less than <code>O(n<sup>2</sup>) </code>time complexity?
+__Follow-up: __Can you come up with an algorithm that is less than <code>O(n<sup>2</sup>)</code>
+
+<font face="monospace"> </font>
+
+time complexity?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 10,117,311 | 4,804,194 | 47.5% |
+| 28,282,610 | 15,367,077 | 54.3% |

@@ -44,6 +44,7 @@ TEMPLATE = '''
 """
 {content}
 """
+from typing import *
 import pytest
 import sys
 

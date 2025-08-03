@@ -1,4 +1,4 @@
-### [984. Most Stones Removed with Same Row or Column](https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/)
+### [984. Most Stones Removed with Same Row or Column](https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/description/?envType=daily-question&envId=2024-08-29)
 
 Medium
 
@@ -54,4 +54,4 @@ __Constraints:__
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 274,938 | 161,730 | 58.8% |
+| 510,821 | 317,188 | 62.1% |

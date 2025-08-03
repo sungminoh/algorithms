@@ -29,11 +29,19 @@ Constraints:
 
 Follow up: Recursive solution is trivial, could you do it iteratively?
 """
-import sys
-from collections import deque
 from typing import List
 import pytest
+import sys
+from collections import deque
 
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val: Optional[int] = None, children: Optional[List['Node']] = None):
+        self.val = val
+        self.children = children
+"""
 
 class Node:
     def __init__(self, val=None, children=None):
@@ -91,16 +99,21 @@ class Solution:
         ret.append(root.val)
         return ret
 
+    def postorder(self, root: 'Node') -> List[int]:
+        """Dec 05, 2024 12:44"""
+        def rec(node):
+            if not node:
+                return
+            for n in node.children:
+                yield from rec(n)
+            yield node.val
+        return list(rec(root))
 
-@pytest.mark.parametrize('values, expected', [
-([1,None,3,2,4,None,5,6], [5,6,3,2,4,1]),
-([1,None,2,3,4,5,None,None,6,7,None,8,None,9,10,None,None,11,None,12,None,13,None,None,14], [2,6,14,11,7,3,12,8,4,13,9,10,5,1]),
+
+@pytest.mark.parametrize('args', [
 ])
-def test(values, expected):
-    node = build_node(values)
-    print()
-    print(node)
-    assert expected == Solution().postorder(node)
+def test(args):
+    assert args[-1] == Solution().postorder(build_node(*args[:-1]))
 
 
 if __name__ == '__main__':

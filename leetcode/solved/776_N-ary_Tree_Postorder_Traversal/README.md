@@ -1,4 +1,4 @@
-### [776. N-ary Tree Postorder Traversal](https://leetcode.com/problems/n-ary-tree-postorder-traversal/)
+### [776. N-ary Tree Postorder Traversal](https://leetcode.com/problems/n-ary-tree-postorder-traversal/description/?envType=daily-question&envId=2024-08-26)
 
 Easy
 
@@ -8,7 +8,7 @@ Nary-Tree input serialization is represented in their level order traversal. Eac
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img src="https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png" style="width: 100%; max-width: 300px;"/>
 
@@ -17,7 +17,7 @@ Input: root = [1,null,3,2,4,null,5,6]
 Output: [5,6,3,2,4,1]
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 <img alt="" src="https://assets.leetcode.com/uploads/2019/11/08/sample_4_964.png" style="width: 296px; height: 241px;"/>
 
@@ -40,4 +40,4 @@ __Follow up:__ Recursive solution is trivial, could you do it iteratively?
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 177,646 | 131,137 | 73.8% |
+| 476,456 | 383,284 | 80.4% |

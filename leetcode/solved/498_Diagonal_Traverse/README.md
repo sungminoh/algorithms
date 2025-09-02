@@ -1,33 +1,37 @@
-### [498. Diagonal Traverse](https://leetcode.com/problems/diagonal-traverse/)
+### [498. Diagonal Traverse](https://leetcode.com/problems/diagonal-traverse/description/?envType=daily-question&envId=2025-08-25)
 
 Medium
 
-Given a matrix of M x N elements (M rows, N columns), return all elements of the matrix in diagonal order as shown in the below image.
+Given an `` m x n `` matrix `` mat ``, return _an array of all the elements of the array in a diagonal order_.
 
  
 
-__Example:__
+<strong class="example">Example 1:</strong>
+
+<img alt="" src="https://assets.leetcode.com/uploads/2021/04/10/diag1-grid.jpg" style="width: 334px; height: 334px;"/>
 
 ```
-<b>Input:</b>
-[
- [ 1, 2, 3 ],
- [ 4, 5, 6 ],
- [ 7, 8, 9 ]
-]
+Input: mat = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [1,2,4,7,5,3,6,8,9]
+```
 
-<b>Output:</b>  [1,2,4,7,5,3,6,8,9]
+<strong class="example">Example 2:</strong>
 
-<b>Explanation:</b>
-<img src="https://assets.leetcode.com/uploads/2018/10/12/diagonal_traverse.png" style="width: 220px;"/>
+```
+Input: mat = [[1,2],[3,4]]
+Output: [1,2,3,4]
 ```
 
  
 
-__Note:__
+__Constraints:__
 
-The total number of elements of the given matrix will not exceed 10,000.
+*   `` m == mat.length ``
+*   `` n == mat[i].length ``
+*   <code>1 <= m, n <= 10<sup>4</sup></code>
+*   <code>1 <= m * n <= 10<sup>4</sup></code>
+*   <code>-10<sup>5</sup> <= mat[i][j] <= 10<sup>5</sup></code>
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 163,048 | 77,432 | 47.5% |
+| 775,296 | 515,504 | 66.5% |

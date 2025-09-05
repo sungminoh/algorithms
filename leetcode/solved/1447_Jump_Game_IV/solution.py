@@ -172,9 +172,39 @@ class Solution:
                     if j not in visited:
                         visited.add(j)
                         _q.append(j)
-                    groups[arr[i]] = set()
+                groups[arr[i]] = set()
             ret += 1
             q = _q
+        return -1
+
+    def minJumps(self, arr: List[int]) -> int:
+        """practice 2025/08/06"""
+        groups = defaultdict(set)
+        for i in range(len(arr)):
+            groups[arr[i]].add(i)
+
+        step = 0
+        visited = set()
+        queue = [0]
+        while queue:
+            _queue = []
+            for i in queue:
+                if i == len(arr)-1:
+                    return step
+                if i-1>=0 and i-1 not in visited:
+                    visited.add(i-1)
+                    _queue.append(i-1)
+                if i+1<len(arr) and i+1 not in visited:
+                    visited.add(i+1)
+                    _queue.append(i+1)
+                for j in groups[arr[i]]:
+                    if j not in visited:
+                        visited.add(j)
+                        _queue.append(j)
+                groups[arr[i]] = set()  # all visited. no need to iterate again
+            queue = _queue
+            step += 1
+
         return -1
 
 

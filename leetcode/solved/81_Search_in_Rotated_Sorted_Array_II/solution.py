@@ -82,6 +82,30 @@ class Solution:
         i = bisearch(nums, target, pivot)
         return 0<=i<len(nums) and nums[i] == target
 
+    def search(self, nums: List[int], target: int) -> bool:
+        """practice 2025/08/07"""
+        pivot = 0
+        for i in range(1, len(nums)):
+            if nums[i-1] > nums[i]:
+                pivot = i
+                break
+
+        def idx(i):
+            return (i + pivot) % len(nums)
+
+        def bisearch(nums, target):
+            s, e = 0, len(nums)-1
+            while s <= e:
+                m = s + (e-s)//2
+                if nums[idx(m)] < target:
+                    s = m+1
+                else:
+                    e = m-1
+            return idx(s)
+
+        i = bisearch(nums, target)
+        return 0<=i<len(nums) and nums[i] == target
+
 
 @pytest.mark.parametrize('nums, target, expected', [
 ([2,5,6,0,0,1,2], 0, True),

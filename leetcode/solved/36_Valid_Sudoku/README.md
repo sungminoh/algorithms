@@ -1,4 +1,4 @@
-### [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)
+### [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/description/?envType=daily-question&envId=2025-08-30)
 
 Medium
 
@@ -15,7 +15,7 @@ __Note:__
 
  
 
-__Example 1:__
+<strong class="example">Example 1:</strong>
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png" style="height:250px; width:250px"/>
 
@@ -33,7 +33,7 @@ Input: board =
 Output: true
 ```
 
-__Example 2:__
+<strong class="example">Example 2:</strong>
 
 ```
 Input: board = 
@@ -56,8 +56,8 @@ __Constraints:__
 
 *   `` board.length == 9 ``
 *   `` board[i].length == 9 ``
-*   `` board[i][j] `` is a digit or `` '.' ``.
+*   `` board[i][j] `` is a digit `` 1-9 `` or `` '.' ``.
 
 | Submissions    | Accepted     | Rate   |
 | -------------- | ------------ | ------ |
-| 1,040,143 | 546,520 | 52.5% |
+| 3,485,038 | 2,209,539 | 63.4% |

@@ -103,6 +103,36 @@ class Solution:
 
         return [[name_map[k], *v] for k, v in ret.items()]
 
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        """practice 2025/08/06"""
+        parents = {}
+
+        def find(x):
+            if x not in parents:
+                parents[x] = x
+            if x != parents[x]:
+                parents[x] = find(parents[x])
+            return parents[x]
+
+        def union(a, b):
+            pa = find(a)
+            pb = find(b)
+            parents[pa] = parents[pb] = min(pa, pb)
+
+        email_name = {}
+        for name, *emails in accounts:
+            for email in emails:
+                email_name[email] = name
+                find(email)
+            for i in range(1, len(emails)):
+                union(emails[0], emails[i])
+
+        parent_children = defaultdict(list)
+        for c in parents:
+            parent_children[find(c)].append(c)
+
+
+        return [[email_name[p], *sorted(cs)] for p, cs in parent_children.items()]
 
 
 @pytest.mark.parametrize('accounts, expected', [
